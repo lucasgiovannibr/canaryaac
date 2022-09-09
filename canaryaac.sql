@@ -1265,7 +1265,7 @@ CREATE TABLE `server_config` (
 --
 
 INSERT INTO `server_config` (`config`, `value`, `timestamp`) VALUES
-('db_version', '18', '2022-05-03 02:47:18'),
+('db_version', '20', '2022-05-03 02:47:18'),
 ('motd_hash', '125ab277e842c29437dd25428f4ec3d6ddd2b21f', '2022-09-01 00:49:59'),
 ('motd_num', '1', '2022-09-01 00:49:59'),
 ('players_record', '1', '2022-09-01 00:33:01');
