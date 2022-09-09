@@ -1,0 +1,182 @@
+<div id="guilds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div>
+	<img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guilds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				{% if status is not empty %}
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:100%;text-align:left;"><b>{{ status }}</b></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+				{% endif %}
+                <p>Enter the name of a character you want to invite to your guild and click on "Submit".</p>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Invite Character</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table1" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+                                                <form action="{{URL}}/community/guilds/{{ guild.name }}/invitecharacter" method="post" style="padding:0px;margin:0px;">
+												<tr>
+													<td>Name: <input type="text" name="invite_name" size="30" maxlength="29"></td>
+                                                    <td>
+                                                        <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+                                                            <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" name="btn_invite" type="submit" value="Submit"></div>
+                                                        </div>
+                                                    </td>
+												</tr>
+                                                </form>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				{% if status_cancelinvite is not empty %}
+				<br>
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:100%;text-align:left;"><b>{{ status_cancelinvite }}</b></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+				{% endif %}
+                <p>If you want to cancel an invitation, select the according character and click on "Submit".</p>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Cancel Invitation</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table1" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+                                                <form action="{{URL}}/community/guilds/{{ guild.name }}/invitecharacter" method="post">
+												<tr>
+													{% if invites is not empty %}
+													<td>Name: <select name="cancel_name">
+                                                    {% for invite in invites %}
+                                                    <option value="{{ invite.player_name }}">{{ invite.player_name }}</option>
+                                                    {% endfor %}
+                                                    </select>
+													</td>
+                                                    <td>
+                                                        <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+                                                            <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" name="btn_cancel" type="submit" value="Submit"></div>
+                                                        </div>
+                                                    </td>
+													{% endif %}
+													{% if invites is empty %}
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#F1E0C6">
+																		<td>No invited characters found.</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+													{% endif %}
+												</tr>
+                                                </form>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				<center>
+					<a href="{{URL}}/community/guilds/{{ guild.name }}/view" style="padding:0px;margin:0px;">
+						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Back"></div>
+						</div>
+					</a>
+				</center>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

@@ -1,0 +1,157 @@
+<div id="guilds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guilds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				Please select the game world of your choice to see the list of all existing guilds on it. Click on any view button to get more information about a guild. See the manual for a detailed description about guilds and their benefits.
+                <br><br><br>
+				<form action="{{URL}}/community/guilds" method="get">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">World Selection</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer" style="max-width: unset;">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="ThreeColumnsForm">
+																<div class="LabelV120 ThreeColumnsFormCell">World Name:</div>
+																<div class="ThreeColumnsFormCell ThreeColumnsFormInputCell">
+																	<select size="1" name="world" style="width:165px;">
+																		<option value="" selected="">(choose world)</option>
+																		{% for world in worlds %}
+																			<option value="{{ world.name }}">{{ world.name }}</option>
+																		{% endfor %}
+																	</select>
+																</div>
+																<div class="ThreeColumnsFormButton ThreeColumnsFormCell">
+																	<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																		<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Submit"></div>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<br><br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Active Guilds on Canary</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td width="64">
+																			<b>Logo</b>
+																		</td>
+																		<td width="100%">
+																			<b>Description</b>
+																		</td>
+																		<td width="56">
+																			<b>&nbsp;</b>
+																		</td>
+																	</tr>
+                                                                    {% for guild in guilds %}
+																	<tr bgcolor="#F1E0C6">
+																		<td><img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" width="64" height="64"></td>
+																		<td>
+																			<b>{{ guild.name }}</b><br>{{ guild.description }}</td>
+																		<td>
+																			<a href="{{URL}}/community/guilds/{{ guild.name }}/view" style="padding:0px;margin:0px;">
+                                                                            <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="View"></div>
+																				</div>
+																			</a>
+																		</td>
+																	</tr>
+                                                                    {% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<table border="0" cellspacing="1" cellpadding="4" width="100%">
+					<tbody>
+						<tr>
+							<td>No guild found that suits your needs?</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="{{URL}}/community/guilds/found" style="padding:0px;margin:0px;">
+                                <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Found Guild"></div>
+									</div>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

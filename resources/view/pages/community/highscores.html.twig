@@ -1,0 +1,410 @@
+<div id="highscores" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-highscores.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<form action="{{URL}}/community/highscores" method="get">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Highscores Filter</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>Vocation:</td>
+														<td>
+															<select name="profession">
+																<option value="5" {% if players.profession == 5 %}selected{% endif %}>(all)</option>
+																<option value="0" {% if players.profession == 0 %}selected{% endif %}>None</option>
+																<option value="1" {% if players.profession == 1 %}selected{% endif %}>Sorcerers</option>
+																<option value="2" {% if players.profession == 2 %}selected{% endif %}>Druids</option>
+																<option value="3" {% if players.profession == 3 %}selected{% endif %}>Paladins</option>
+																<option value="4" {% if players.profession == 4 %}selected{% endif %}>Knights</option>
+															</select>
+														</td>
+														<td>Category:</td>
+														<td>
+															<select name="category">
+																<option value="0" {% if players.category == 'skill_axe' %}selected{% endif %}>Axe Fighting</option>
+																<option value="1" {% if players.category == 'skill_club' %}selected{% endif %}>Club Fighting</option>
+																<option value="2" {% if players.category == 'skill_dist' %}selected{% endif %}>Distance Fighting</option>
+																<option value="3" {% if players.category == 'level' %}selected{% endif %}>Experience Points</option>
+																<option value="4" {% if players.category == 'skill_fishing' %}selected{% endif %}>Fishing</option>
+																<option value="5" {% if players.category == 'skill_fist' %}selected{% endif %}>Fist Fighting</option>
+																<option value="6" {% if players.category == 'maglevel' %}selected{% endif %}>Magic Level</option>
+																<option value="7" {% if players.category == 'skill_shielding' %}selected{% endif %}>Shielding</option>
+																<option value="8" {% if players.category == 'skill_sword' %}selected{% endif %}>Sword Fighting</option>
+															</select>
+														</td>
+														<td>
+                                                            {% set button_name = 'Submit' %}
+                                                            {% include "blue_button.html.twig" %}
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<p>
+					<i>Skills displayed in the Highscores do not include any bonuses (loyalty, equipment etc.).</i>
+				</p>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Highscores</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															{% if players.category == 'level' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Points</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.experience|number_format(0, '.', '.') }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_axe' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_axe }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_sword' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_sword }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_club' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_club }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_dist' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_dist }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_fishing' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_fishing }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_fist' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_fist }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'maglevel' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.maglevel }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+															{% if players.category == 'skill_shielding' %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td style="width: 90%;">Name</td>
+																		<td>Vocation</td>
+																		<td style="text-align: right;">Level</td>
+																		<td style="text-align: right;">Skill Level</td>
+																	</tr>
+																	{% set count = 0 %}
+																	{% for player in players.allplayers %}
+																	{% set count = count + 1 %}
+																	{% set i = i + 1 %}
+																	<tr style="background-color:{{ getStyle(i) }};">
+																		<td>{{ count }}</td>
+																		<td class="DoNotBreak">
+																			<a href="{{URL}}/community/characters/{{ player.name }}">{{ player.name }}</a>
+																			{% if player.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																		</td>
+																		<td class="DoNotBreak">{{ player.vocation }}</td>
+																		<td style="text-align: right;">{{ player.level }}</td>
+																		<td style="text-align: right;">{{ player.skill_shielding }}</td>
+																	</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+															{% endif %}
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>{{ pagination|raw }}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

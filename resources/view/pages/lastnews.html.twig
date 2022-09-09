@@ -1,0 +1,117 @@
+<script type="text/javascript" src="{{URL}}/resources/javascripts/newsticker.js"></script>
+
+{# NewsTicker START #}
+<div id="NewsTicker" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-newsticker.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				{% set count = 1 %}
+				{% for news in newsticker %}
+				{% if news.type == 2 %}
+				{% set count = count + 1 %}
+				<div id="TickerEntry-{{ count }}" class="Row" onclick="TickerAction('TickerEntry-{{ count }}')">
+					<div class="{{ getStyleCss(count) }}">
+						<div class="NewsTickerIcon" style="background-image:url({{ news.category_img }})"></div>
+						<div id="TickerEntry-{{ count }}-Button" class="NewsTickerExtend" style="background-image:url({{IMAGE_PATH}}/global/general/plus.gif)"></div>
+						<div class="NewsTickerText">
+							<span class="NewsTickerDate">{{ news.date }} -</span>
+							<span id="TickerEntry-{{ count }}-Time" class="NewsTickerTime">{{ news.time }}</span>
+							<div class="NewsTickerTextContainer">
+								<div id="TickerEntry-{{ count }}-ShortText" class="NewsTickerShortText">
+									<p>{{ news.body|raw }}</p>
+								</div>
+								<div id="TickerEntry-{{ count }}-FullText" class="NewsTickerFullText">
+									<p>{{ news.body|raw }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>
+{# NewsTicker END #}
+
+<div id="NewsTicker" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-featuredarticle.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				{% set count = 1 %}
+				{% for news in featuredarticle %}
+					{% if news.type == 3 %}
+					{% set count = count + 1 %}
+						<b>{{ news.title }}</b><br>
+						<div>{{ news.body }}</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>
+
+{# News START #}
+<div id="News" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-news.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				{% for post in news %}
+				{% if post.type == 1 %}
+				<div class="NewsHeadline">
+					<div class="NewsHeadlineBackground" style="background-image:url({{IMAGE_PATH}}/global/content/newsheadline_background.gif)">
+						<img src="{{ post.category_img }}" class="NewsHeadlineIcon" alt="">
+						<div class="NewsHeadlineDate">{{ post.date }} -</div>
+						<div class="NewsHeadlineText">
+							<p>{{ post.title }}</p>
+						</div>
+					</div>
+				</div>
+				<table class="NewsTable" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td class="NewsTableContainer">{{ post.body|raw }}</td>
+						</tr>
+					</tbody>
+				</table><br>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>
+{# News END #}

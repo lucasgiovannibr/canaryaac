@@ -1,0 +1,183 @@
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Publications</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Publications</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="settings">
+				<div class="row match-height">
+                    <div class="">
+                    {{ status|raw }}
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+					<div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">News</h4>
+                            <a href="{{URL}}/admin/publications/news"><input type="button" class="btn btn-primary" value="Publish"></a>
+                        </div>
+						<div class="card-body">
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Category</th>
+                                            <th>Title</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for new in news %}
+											<tr class="odd">
+												<td><img class="NewsTypeIcon" src="{{ new.category_img }}" alt="Category"> {{ new.category_name}}</td>
+                                                <td>{{ new.title }}</td>
+												<td>
+													<button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#news_{{ new.id }}">View</button>
+                                                </td>
+											</tr>
+                                            <div class="modal fade" id="news_{{ new.id }}" tabindex="-1" aria-labelledby="news_{{ new.id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-transparent">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body px-sm-5 mx-50 pb-5">
+                                                            <h1 class="text-center mb-1" id="news_{{ new.id }}">{{ new.title }}</h1>
+                                                            <p id="news_{{ new.id }}"><i data-feather="calendar"></i> {{ new.date }} - by <b>{{ new.player_name }}</b></p>
+                                                            <form id="news_{{ new.id }}" class="row gy-1 gx-2 mt-75">
+                                                                <div class="col-12 col-md-12">
+                                                                    <p>{{ new.body|raw }}</p>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-6 col-lg-6">
+					<div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Newsticker</h4>
+                            <a href="{{URL}}/admin/publications/newsticker"><input type="button" class="btn btn-primary" value="Publish"></a>
+                        </div>
+						<div class="card-body">
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Category</th>
+                                            <th>Title</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for newsticker in newstickers %}
+											<tr class="odd">
+												<td><img class="NewsTypeIcon" src="{{ newsticker.category_img }}" alt="Category"> {{ newsticker.category_name}}</td>
+                                                <td>{{ newsticker.title }}</td>
+												<td>
+													<button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#newsticker_{{ newsticker.id }}">View</button>
+												</td>
+											</tr>
+                                            <div class="modal fade" id="newsticker_{{ newsticker.id }}" tabindex="-1" aria-labelledby="newsticker" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-transparent">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body px-sm-5 mx-50 pb-5">
+                                                            <h1 class="text-center mb-1" id="newsticker">{{ newsticker.title }}</h1>
+                                                            <p id="newsticker"><i data-feather="calendar"></i> {{ newsticker.date }} - by <b>{{ newsticker.player_name }}</b></p>
+                                                            <form id="newsticker" class="row gy-1 gx-2 mt-75">
+                                                                <div class="col-12 col-md-12">
+                                                                    <p>{{ newsticker.body|raw }}</p>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6">
+					<div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Featured Article</h4>
+                            <a href="{{URL}}/admin/publications/featuredarticle"><input type="button" class="btn btn-primary" value="Publish"></a>
+                        </div>
+						<div class="card-body">
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Category</th>
+                                            <th>Title</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for featuredarticle in featuredarticles %}
+											<tr class="odd">
+												<td><img class="NewsTypeIcon" src="{{ featuredarticle.category_img }}" alt="Category"> {{ featuredarticle.category_name}}</td>
+                                                <td>{{ featuredarticle.title }}</td>
+												<td>
+													<button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#featuredarticle_{{ featuredarticle.id }}">View</button>
+												</td>
+											</tr>
+                                            <div class="modal fade" id="featuredarticle_{{ featuredarticle.id }}" tabindex="-1" aria-labelledby="featuredarticle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-transparent">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body px-sm-5 mx-50 pb-5">
+                                                            <h1 class="text-center mb-1" id="featuredarticle">{{ featuredarticle.title }}</h1>
+                                                            <p id="featuredarticle"><i data-feather="calendar"></i> {{ featuredarticle.date }} - by <b>{{ featuredarticle.player_name }}</b></p>
+                                                            <form id="featuredarticle" class="row gy-1 gx-2 mt-75">
+                                                                <div class="col-12 col-md-12">
+                                                                    <p>{{ featuredarticle.body|raw }}</p>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

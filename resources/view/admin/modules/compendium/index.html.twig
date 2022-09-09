@@ -1,0 +1,65 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Compendium</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Compendium</li>
+                                <li class="breadcrumb-item active">View</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+		<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+		<div class="content-body">
+			<section class="app-user-list">
+				<div class="card">
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>Category</th>
+									<th>Title</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for new in news %}
+									<tr class="odd">
+										<td>{{ new.category }}</td>
+										<td>{{ new.headline|raw }}</td>
+                                        <td>{{ new.publishdate }}</td>
+                                        <td>{{ new.type }}</td>
+										<td>
+											<a href="{{URL}}/admin/compendium/{{ new.id }}/view">
+												<button type="button" class="btn btn-icon btn-primary waves-effect waves-float waves-light">View</button>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,173 @@
+<div class="app-content content">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Creatures</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{URL}}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Creatures</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section id="card-text-alignment">
+			<div class="row">
+				<div class="col-md-12 col-lg-6">
+					<div class="card mb-2">
+						<div class="card-body">
+							<h4 class="card-title">Add Creature</h4>
+							<form method="post" action="{{URL}}/admin/creatures">
+								<div class="row">
+									<div class="col-md-12 col-lg-6">
+										<label class="form-label" for="creature_name">Name</label>
+										<input type="text" name="creature_name" id="creature_name" class="form-control mb-1" placeholder="Acid Blob">
+									</div>
+									<div class="col-md-12 col-lg-3">
+										<label class="form-label" for="creature_tag">Tag</label>
+										<input type="text" name="creature_tag" id="creature_tag" class="form-control mb-1" placeholder="acidblob">
+									</div>
+									<div class="col-md-12 col-lg-3">
+										<label class="form-label" for="creature_type">Type</label>
+										<select name="creature_type" class="form-select" id="creature_type">
+											<option value="creature">Creature</option>
+											<option value="boss">Boss</option>
+										</select>
+									</div>
+									<div class="col-md-12 col-lg-12 mb-1">
+										<label class="form-label" for="creature_description">Description</label>
+										<textarea class="form-control" name="creature_description" id="creature_description"></textarea>
+									</div>
+									<div class="col-md-12 col-lg-12">
+										<button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Create</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6">
+					<div class="card">
+						<div class="card-body d-flex align-items-center justify-content-between">
+							<div>
+								<h3 class="fw-bolder mb-75">{{ total_creatures }}</h3>
+								<span data-i18n="Total Creatures">Total Creatures</span>
+							</div>
+							<div class="avatar bg-light-primary p-50">
+								<span class="avatar-content">
+                                    <i data-feather="zap" class="feather feather-home font-medium-4"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="col-lg-3 col-sm-6">
+					<div class="card">
+						<div class="card-body d-flex align-items-center justify-content-between">
+							<div>
+								<h3 class="fw-bolder mb-75">{{ total_bosses }}</h3>
+								<span data-i18n="Total Bosses">Total Bosses</span>
+							</div>
+							<div class="avatar bg-light-primary p-50">
+								<span class="avatar-content">
+									<i data-feather="zap" class="feather feather-home font-medium-4"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+        {{ status|raw }}
+		<section id="card-text-alignment">
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<div class="card mb-3">
+						<div class="card-body">
+							<h4 class="card-title">Creatures</h4>
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Image</th>
+                                            <th>Name</th>
+											<th>Tag</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for creature in creatures %}
+											<tr class="odd">
+												<td>
+													<div class="avatar-wrapper">
+														<img src="{{IMAGE_PATH}}/library/{{ creature.image }}.gif" alt="Creature" height="55" width="55">
+													</div>
+												</td>
+                                                <td>{{ creature.name }}</td>
+												<td>{{ creature.tag }}</td>
+												<td>
+													<form action="{{URL}}/admin/creatures/delete" method="post" class="form form-vertical">
+														<input type="hidden" name="creature_id" value="{{ creature.id }}">
+                                                        <input type="hidden" name="creature_type" value="creature">
+														<button type="submit" class="btn btn-icon btn-primary waves-effect waves-float waves-light">Delete</button>
+													</form>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6">
+					<div class="card mb-3">
+						<div class="card-body">
+							<h4 class="card-title">Bosses</h4>
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Image</th>
+                                            <th>Name</th>
+											<th>Tag</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for boss in bosses %}
+											<tr class="odd">
+												<td>
+													<div class="avatar-wrapper">
+														<img src="{{IMAGE_PATH}}/library/{{ boss.image }}.gif" alt="Boss" height="55" width="55">
+													</div>
+												</td>
+                                                <td>{{ boss.name }}</td>
+												<td>{{ boss.tag }}</td>
+												<td>
+													<form action="{{URL}}/admin/creatures/delete" method="post" class="form form-vertical">
+														<input type="hidden" name="creature_id" value="{{ boss.id }}">
+                                                        <input type="hidden" name="creature_type" value="boss">
+														<button type="submit" class="btn btn-icon btn-primary waves-effect waves-float waves-light">Delete</button>
+													</form>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,95 @@
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Account Registered</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer" style="max-width: unset;">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+                                                        Thank you for registering your account! You can now recover your account if you have lost access to the assigned email address by using the following.
+                                                        <br>
+                                                        </td>
+													</tr>
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+													<tr>
+														<td style="font-size: 24px; font-weight: 900;">Recovery Key:</td>
+													</tr>
+													<tr>
+														<td style="font-size: 32px; font-weight: 900;">{{ recoverykey }}</td>
+													</tr>
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+													<tr>
+														<td><b>Important:</b></td>
+													</tr>
+													<tr>
+														<td>
+                                                        <ul>
+                                                            <li>Write down this recovery key carefully.</li>
+                                                            <li>Store it at a safe place! Do not save it on your computer!</li>
+                                                            <li>You will not receive an email containing this recovery key.</li>
+                                                            <li>If you lose your recovery key, you can request a new one for a small fee at the Lost Account Interface.</li>
+                                                        </ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+                    <br>
+                    <table width="100%">
+						<tbody>
+							<tr align="center">
+								<td>
+                                    <a href="{{URL}}/account/manage">
+                                    {% set button_name = 'Back' %}
+                                    {% include "blue_button.html.twig" %}
+                                    </a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

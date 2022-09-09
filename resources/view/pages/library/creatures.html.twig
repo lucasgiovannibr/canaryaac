@@ -1,0 +1,58 @@
+<div id="creatures" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-creatures.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Boosted Creature</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table1" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<p><img src="{{ boostedcreature.image_url }}" alt="Creature" title="{{ boostedcreature.boostname }}" style="float:right">Today's boosted creature: <b>{{ boostedcreature.boostname }}</b></p>
+										<p>To avoid that always the same creature types are hunted and so eventually exterminated, the Tibian gods came up with the idea of the boosted creature. Every day one creature is chosen which is particularly rewarding for this day. This way adventurers from all over Tibia should be attracted to hunt a larger variety of monsters.</p>
+										<p>Hunting a boosted creature is extra lucrative. Boosted creatures contain more loot and yield more experience points. Moreover, they spawn at a faster rate.</p>
+										<p>Good hunting!</p>
+										<table style="width:100%;"></table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><br><div style="display: table; width: 100%; ">
+					<div class="Creatures">
+                        {% for creature in creatures %}
+						<div style="width: 100px; height: 110px; margin: 0px; float: left;">
+							<img src="{{IMAGE_PATH}}/library/{{ creature.tag }}.gif" alt="Creature" title="{{ creature.name }}" border="0">
+							<div>{{ creature.name }}</div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

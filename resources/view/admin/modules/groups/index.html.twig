@@ -1,0 +1,88 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Groups</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Groups</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+			<div class="col-12 col-md-12 col-lg-3 col-sm-6">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">Import XML Groups</h4>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<form action="{{URL}}/admin/groups/import" method="post" class="form form-vertical">
+									<input type="text" name="localxml" class="form-control mb-1" placeholder="canary/data/XML/groups.xml">
+									<button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Import</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="col-12 col-md-12 col-lg-6 col-sm-6">
+		<div class="content-body">
+			<section class="app-user-list">
+				<div class="card">
+					<div class="card-body border-bottom">
+						<h4 class="card-title">Groups</h4>
+						<div class="row">
+							<div class="col-md-4 user_role"></div>
+							<div class="col-md-4 user_plan"></div>
+							<div class="col-md-4 user_status"></div>
+						</div>
+					</div>
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>Group ID</th>
+									<th>Name</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for group in groups %}
+									<tr class="odd">
+										<td>{{ group.group_id }}</td>
+										<td>{{ group.name }}</td>
+										<td>
+											<form action="{{URL}}/admin/groups/delete" method="post" class="form form-vertical">
+												<input type="hidden" name="groupid" value="{{ group.id }}">
+												<button type="submit" class="btn btn-icon btn-primary waves-effect waves-float waves-light">
+													Delete
+												</button>
+											</form>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>

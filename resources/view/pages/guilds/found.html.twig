@@ -1,0 +1,123 @@
+<div id="guilds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div>
+	<img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guilds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+            <p>Do you wnat to found a new guild? In order to do that, you need a premium account and none of your characters may hold one of the two highest ranks in any other guild. Note that you need four other players with premium accounts that also meet these requirements, before the guild is active in the game.<br><br>
+Now enter the name of the new guild, select the world it should exist on, specify the name of your character that should become the first leader and confirm with your account password. Then click on "Submit". Note that the first two data cannot be changed later.</p>
+				<br>
+                {% if status is not empty %}
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:100%;text-align:left;"><b>{{ status }}</b></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+                <br>
+				{% endif %}
+
+                <form action="{{URL}}/community/guilds/found" method="post">
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Found Guild</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table1" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>Guild Name:</td>
+                                                    <td style="width: 80%"><input type="text" size="30" name="guild_name"></td>
+												</tr>
+                                                <tr>
+													<td>World:</td>
+                                                    <td>
+                                                    <select name="guild_world">
+                                                        {% for world in worlds %}
+                                                        <option value="{{ world.id }}">{{ world.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    </td>
+												</tr>
+                                                <tr>
+													<td>Leader:</td>
+                                                    <td>
+                                                    <select name="guild_leader">
+                                                        {% for player in players %}
+                                                        <option value="{{ player.name }}">{{ player.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    </td>
+												</tr>
+                                                <tr>
+													<td>Password:</td>
+                                                    <td><input type="password" size="30" name="password"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+                <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+                    <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+                        <input class="BigButtonText" type="submit" value="Submit"></div>
+                </div>
+                </form>
+				<center>
+					<a href="{{URL}}/community/guilds" style="padding:0px;margin:0px;">
+						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+								<input class="BigButtonText" type="button" value="Back"></div>
+						</div>
+					</a>
+				</center>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

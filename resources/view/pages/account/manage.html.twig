@@ -1,0 +1,402 @@
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:100%;text-align:center;">
+											<nobr>[<a href="#General+Information">General Information</a>]</nobr>
+											<nobr>[<a href="#Registration">Registration</a>]</nobr>
+											<nobr>[<a href="#Products+Ready+To+Use">Products Ready To Use</a>]</nobr>
+											<nobr>[<a href="#Authenticator">Authenticator</a>]</nobr>
+										</td>
+										<td>
+											<a href="{{URL}}/payment" style="padding:0px;margin:0px;">
+												{% set button_name = 'Get Coins' %}
+												{% include "green_button.html.twig" %}
+											</a>
+											<div style="font-size:1px;height:4px;"></div>
+											<a href="{{URL}}/account" style="padding:0px;margin:0px;">
+												{% set button_name = 'Overview' %}
+												{% include "blue_button.html.twig" %}
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div><br><a name="General+Information"></a>
+				<div class="TopButtonContainer">
+					<a name="General+Information"></a>
+					<div class="TopButton">
+						<a name="General+Information"></a>
+						<a href="#top"><img style="border: 0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">General Information</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr style="background-color:#D4C0A1;">
+																		<td class="LabelV">Email Address:</td>
+																		<td style="width:90%;">
+																			<div style="position:relative;width:100%;">
+																				<span id="DisplayEMail" onmousedown="ToggleMaskedText('EMail');">********************</span>
+																				<span id="MaskedEMail">********************</span>
+																				<span id="ReadableEMail">{{ account.email }}</span><img id="ButtonEMail" onmousedown="ToggleMaskedText('EMail');" src="{{IMAGE_PATH}}/global/general/show.gif"></div>
+																		</td>
+																	</tr>
+																	<tr style="background-color:#F1E0C6;">
+																		<td class="LabelV">Created:</td>
+																		<td>{{ account.creation }}</td>
+																	</tr>
+																	<tr style="background-color:#D4C0A1;">
+																		<td class="LabelV">Account Status:</td>
+																		<td>
+																			<span class="{{ account.colorprem }}">
+																				<b>{{ account.textprem }}</b>
+																			</span><br>
+																			{% if account.premdays == 0 %}
+																				<small>(Premium Time expired, balance:
+																					{{ account.premdays }}
+																					days)</small>
+																			{% else %}
+																				<small>(Premium Time expire in
+																					{{ account.dateprem }}, balance:
+																					{{ account.premdays }}
+																					days)</small>
+																			{% endif %}
+																		</td>
+																	</tr>
+																	<tr style="background-color:#F1E0C6;">
+																		<td class="LabelV">Tibia Coins:</td>
+																		<td>{{ account.coins }}<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tibia Coins<br /><small>(initially non-transferable)</small>', 'Tibia Coins are Tibia\'s currency to purchase exclusive products in the <b>Store</b>.<br /><br />Within the first 6 months after the purchase, initially non-transferable Tibia Coins can neither be gifted to other accounts nor traded via the Market nor used to purchase casks in the <b>Store</b>.<br /><br />However, they can be used right after the purchase to buy all other products offered for Tibia Coins in the <b>Store</b>, e.g. mounts, outfits, Premium Time, boosts or decoration items.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tibiacoin.png" class="VSCCoinImages"></span>
+																			(Including:
+																			{{ account.coins }}<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tibia Coins<br /><small>(transferable)</small>', 'Tibia Coins are Tibia\'s currency to purchase exclusive products in the <b>Store</b>.<br /><br />Transferable Tibia Coins can be gifted to other accounts, traded via the Market and used to purchase all products offered for Tibia Coins in the <b>Store</b>, e.g. mounts, outfits, Premium Time, boosts or decoration items.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tibiacointrusted.png" class="VSCCoinImages"></span>)<span style="position: relative; margin-top: 1px;">
+																				<span style="position: absolute; top: 0px; margin-left: 5px;">
+																					<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Transferable Tibia Coins', 'Transferable Tibia Coins can be traded in the Market, gifted to other characters or used to purchase products in the Store.<br/><br/>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/info.gif"></span>
+																				</span>
+																			</span>
+																		</td>
+																	</tr>
+																	<tr style="background-color:#D4C0A1;">
+																		<td class="LabelV">Tournament Coins:</td>
+																		<td>0<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', 'Participate in Tournaments to earn Tournament Coins! Use them to purchase nice stuff in the <b>Store</b>.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tournamentcoin.png" class="VSCCoinImages"></span>
+																			<span style="position: relative; margin-top: 1px;">
+																				<span style="position: absolute; top: 0px; margin-left: 5px;">
+																					<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', '<p>Participate in Tournaments to earn Tournament Coins! Use them to purchase nice stuff in <b>the Store</b>.</p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/info.gif"></span>
+																				</span>
+																			</span>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr>
+																	<td>
+																		<a href="{{URL}}/account/changepassword" style="padding:0px;margin:0px;">
+																			{% set button_name = 'Change Password' %}
+																			{% include "blue_button.html.twig" %}
+																		</a>
+																	</td>
+																	<td>
+																		<a href="{{URL}}/account/changeemail" style="padding:0px;margin:0px;">
+																			{% set button_name = 'Change Email' %}
+																			{% include "blue_button.html.twig" %}
+																		</a>
+																	</td>
+																	<td>
+																		<a href="{{URL}}/account/terminateaccount" style="padding:0px;margin:0px;">
+																			{% set button_name = 'Terminate Account' %}
+																			{% include "blue_button.html.twig" %}
+																		</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br><br>
+				<a name="Products+Ready+To+Use"></a>
+				<div class="TopButtonContainer">
+					<a name="Products+Ready+To+Use"></a>
+					<div class="TopButton">
+						<a name="Products+Ready+To+Use"></a>
+						<a href="#top"><img style="border: 0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Products Ready To Use</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td class="LabelV">Main Character Change</td>
+																		<td></td>
+																	</tr>
+																	<tr>
+																		<td>Click on "Configure" to select a different character as your main character.</td>
+																		<td>[ <a href="{{URL}}/account/changemain">Configure</a> ]</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br><br>
+				<a name="Registration"></a>
+				<div class="TopButtonContainer">
+					<a name="Registration"></a>
+					<div class="TopButton">
+						<a name="Registration"></a>
+						<a href="#top"><img style="border: 0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Registration</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr width="100%">
+
+																		{% if account.registration.status == true %}
+																			<td class="LabelV">Address:</td>
+																			<td width="80%">{{ account.registration.firstname }}
+																				{{ account.registration.lastname }}<br>
+																				{{ account.registration.address }}
+																				{{ account.registration.housenumber }}<br>
+																				{{ account.registration.additional }}<br>
+																				{{ account.registration.postalcode }},
+																				{{ account.registration.city }}<br>
+																				{{ account.registration.country }}<br>
+																				{{ account.registration.state }}<br>
+																				{{ account.registration.mobile }}<br>
+																				<span class="ColorGreen">verified</span>
+																			</td>
+																			<td rowspan="2" style="vertical-align:top;horizontal-align:right;padding-right:5px;">
+																				<a href="{{URL}}/account/registration" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Edit"></div>
+																					</div>
+																				</a>
+																			</td>
+																		{% else %}
+																			<td class="red">
+																				<b>Register your account for greater protection.<br><a href="{{URL}}/account/registration">register now</a>
+																				</b>
+																			</td>
+																		{% endif %}
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br><br>
+				<a name="Authenticator"></a>
+				<div class="TopButtonContainer">
+					<a name="Authentication"></a>
+					<div class="TopButton">
+						<a name="Authentication"></a>
+						<a href="#top"><img style="border: 0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Authenticator</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			{% if account.authenticator == 0 %}
+																				<div class="InTableRightButtonContainer">
+																					<a href="{{URL}}/account/authentication">
+																						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="button" value="Request"></div>
+																						</div>
+																					</a>
+																				</div>
+																				<b>Connect your account to an authenticator!</b>
+																				<p>An authenticator offers you an additional layer of security to help prevent unauthorised access to your account.<br><br>
+																					As a first step to connect an authenticator to your account , click on "Request"! An email with a confirmation key will be sent to the email address assigned to your account.
+																				</p>
+																			{% endif %}
+																			{% if account.authenticator == 1 %}
+																				<div class="InTableRightButtonContainer">
+																					<a href="{{URL}}/account/authentication/unlink">
+																						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="button" value="Unlink"></div>
+																						</div>
+																					</a>
+																				</div>
+																				<b>Your account is
+																					<b style="color: green;">connected</b>
+																					to an authenticator.</b>
+																				<p>
+																					If you do not want to use an authenticator any longer, you can "Unlink" the authenticator. Note, however, an authenticator is an important security feature which helps to prevent any unauthorised access to your account.
+																				</p>
+																			{% endif %}
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

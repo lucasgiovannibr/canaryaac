@@ -1,0 +1,454 @@
+<div id="guilds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guilds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<table border="0" width="100%">
+					<tbody>
+						<tr>
+							<td width="64"><img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" width="64" height="64"></td>
+							<td align="center" width="100%">
+								<h1>{{ guild.name }}</h1>
+							</td>
+							<td width="64"><img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" width="64" height="64"></td>
+						</tr>
+					</tbody>
+				</table><br>
+				<table width="100%">
+					<colgroup class="GuildViewCols"><col width="90%"><col width="10%"></colgroup>
+					<tbody>
+						<tr class="GuildViewInformationBlocks">
+							<td class="GuildInformationTable">
+								<div class="TableContainer">
+									<div class="CaptionContainer">
+										<div class="CaptionInnerContainer">
+											<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+											<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+											<div class="Text">Guild Information</div>
+											<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+											<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+											<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+										</div>
+									</div>
+									<table class="Table1" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td>
+													<div class="InnerTableContainer" style="max-width: unset;">
+														<table style="width:100%;">
+															<tbody>
+																<tr>
+																	<td>
+																		<div id="GuildInformationContainer">
+																			{% if guild.description == true %}
+																				{{ guild.description }}<br><br>
+																			{% endif %}
+																			The guild was founded on
+																			{{ guild.creationdata }}.<br>
+																			It is currently active.<br>
+																			{% if isMember == true %}
+																				<b>Guild Bank Account Balance:
+																					{{ guild.balance}}
+																					Gold (+0 Reserved Gold for Auctions)</b><br>
+																			{% endif %}
+																			Guild is opened for applications.<br>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</td>
+							<td style="vertical-align:top;">
+								<div class="TableContainer">
+									<div class="CaptionContainer">
+										<div class="CaptionInnerContainer">
+											<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+											<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+											<div class="Text">Navigation</div>
+											<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+											<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+											<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+										</div>
+									</div>
+									<table class="Table1" cellpadding="0" cellspacing="0">
+										<tbody>
+											<tr>
+												<td>
+													<div class="InnerTableContainer" style="max-width: unset;">
+														<table style="width:100%;">
+															<tbody>
+																<tr>
+																	<td align="center">
+																		<div id="NavigationContainer">
+																			<a href="{{ URL }}/community/guilds/{{ guild.name }}/guildwars" method="get" style="padding:0px;margin:0px;">
+																				<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Guild Wars"></div>
+																				</div>
+																			</a>
+																			<div style="font-size:1px;height:4px;"></div>
+																			<a href="{{ URL }}/community/guilds/{{ guild.name }}/guildevents" style="padding:0px;margin:0px;">
+																				<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Guild Events"></div>
+																				</div>
+																			</a>
+																			{% if isLeader == true %}
+																				<div style="font-size:1px;height:4px;"></div>
+																				<a href="{{ URL }}/community/guilds/{{ guild.name }}/applications" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Applications"></div>
+																					</div>
+																				</a>
+																				<div style="font-size:1px;height:4px;"></div>
+																				<a href="{{ URL }}/community/guilds/{{ guild.name }}/activitylog" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Guild Activity Log"></div>
+																					</div>
+																				</a>
+																			{% endif %}
+																			<div style="font-size:1px;height:4px;"></div>
+																			<a href="{{ URL }}/community/guilds/{{ guild.name }}/reportoffence" style="padding:0px;margin:0px;">
+																				<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Report Offence"></div>
+																				</div>
+																			</a>
+																			<div style="font-size:1px;height:4px;"></div>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</td>
+							{% if isLeader == true %}
+								<td style="vertical-align:top;">
+									<div class="TableContainer">
+										<div class="CaptionContainer">
+											<div class="CaptionInnerContainer">
+												<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+												<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+												<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+												<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+												<div class="Text">Administration</div>
+												<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+												<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+												<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+												<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+											</div>
+										</div>
+										<table class="Table1" cellpadding="0" cellspacing="0">
+											<tbody>
+												<tr>
+													<td>
+														<div class="InnerTableContainer" style="max-width: unset;">
+															<table style="width:100%;">
+																<tbody>
+																	<tr>
+																		<td align="center">
+																			<div id="NavigationContainer">
+																				<a href="{{ URL }}/community/guilds/{{ guild.name }}/editdescription" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Edit Description"></div>
+																					</div>
+																				</a>
+																				<div style="font-size:1px;height:4px;"></div>
+																				<a href="{{ URL }}/community/guilds/{{ guild.name }}/disbandguild" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Disband Guild"></div>
+																					</div>
+																				</a>
+																				<div style="font-size:1px;height:4px;"></div>
+																				<a href="{{ URL }}/community/guilds/{{ guild.name }}/resignleadership" style="padding:0px;margin:0px;">
+																					<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																						<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Resign Leadership"></div>
+																					</div>
+																				</a>
+																				<div style="font-size:1px;height:4px;"></div>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							{% endif %}
+						</tr>
+					</tbody>
+				</table>
+				<script type="text/javascript">
+					$(document).ready(function () {
+var g_GuildInformationContainerHeight = $('#GuildInformationContainer').height();
+if ($('#AdministrationContainer').length > 0) {
+var g_AdministrationContainerHeight = $('#AdministrationContainer').height() + 28;
+var g_NavigationContainerHeight = $('#NavigationContainer').height() + 28;
+} else {
+var g_NavigationContainerHeight = $('#NavigationContainer').height();
+var g_AdministrationContainerHeight = 0;
+}
+// alert(g_GuildInformationContainerHeight+' '+g_NavigationContainerHeight+' '+g_AdministrationContainerHeight);
+if (g_GuildInformationContainerHeight < g_NavigationContainerHeight + g_AdministrationContainerHeight) {
+$('#GuildInformationContainer').css('height', g_NavigationContainerHeight + g_AdministrationContainerHeight);
+} else {
+if ($('#AdministrationContainer').length > 0) {
+$('#NavigationContainer').css('height', g_GuildInformationContainerHeight * 0.7 - 28);
+$('#AdministrationContainer').css('height', g_GuildInformationContainerHeight * 0.3 - 28);
+} else {
+$('#NavigationContainer').css('height', g_GuildInformationContainerHeight);
+}
+}
+if (window.matchMedia('(max-width: 768px)').matches) {
+$('#NavigationContainer').css('height', 'inherit');
+}
+});
+				</script>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Guild Members</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Rank</td>
+																		<td>Name and Title</td>
+																		<td>Vocation</td>
+																		<td>Level</td>
+																		<td>Joining Date</td>
+																		<td>Status</td>
+																	</tr>
+																	{% set i = 1 %}
+																	{% for ranks in members %}
+																		{% set i = i + 1 %}
+																		{% for member in ranks.rank_members %}
+																			{% set i = i + 1 %}
+																			<tr bgcolor="{{ getStyle(i) }}">
+																				<td>{{ ranks.rank_name }}</td>
+																				<td>
+																					<a href="{{ URL }}/community/characters/{{ member.player_name }}">{{ member.player_name }}</a>
+																					{% if member.nick is not empty %}
+																						({{ member.nick }})
+																					{% endif %}
+																				</td>
+																				<td>{{ member.player_vocation }}</td>
+																				<td>{{ member.player_level }}</td>
+																				<td>{{ member.date }}</td>
+																				<td class="onlinestatus">
+																					{% if member.player_online == true %}
+																						<span class="green">online</span>
+																					{% else %}
+																						<span class="red">offline</span>
+																					{% endif %}
+																				</td>
+																			</tr>
+																		{% endfor %}
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="display: flex; justify-content: left; padding-top: 5px;">
+					{% if isLogged == true %}
+						{% if isLeader == true %}
+							<a href="{{ URL }}/community/guilds/{{ guild.name }}/editranks" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Edit Ranks"></div>
+								</div>
+							</a>
+							<a href="{{ URL }}/community/guilds/{{ guild.name }}/editmembers" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Edit Members"></div>
+								</div>
+							</a>
+						{% endif %}
+						{% if isMember == true %}
+							<a href="{{ URL }}/community/guilds/{{ guild.name }}/leaveguild" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Leave Guild"></div>
+								</div>
+							</a>
+						{% endif %}
+					{% endif %}
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Invited Characters</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td></td>
+												</tr>
+												{% if invites is not empty %}
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Name</td>
+																		<td>Invitation Date</td>
+																	</tr>
+																	{% for invite in invites %}
+																		{% set i = i + 1 %}
+																		<tr class="{{ getStyleCss(i) }}">
+																			<td>
+																				<a class="DoNotBreak" href="{{ URL }}/community/characters/{{ invite.player_name }}">{{ invite.player_name }}</a>
+																			</td>
+																			<td>{{ invite.date }}</td>
+																		</tr>
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												{% endif %}
+												{% if invites is empty %}
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr bgcolor="#F1E0C6">
+																			<td>No invited characters found.</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												{% endif %}
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div style="display: flex; justify-content: left; padding-top: 5px;">
+					{% if isLogged == true %}
+						{% if isInvited == true %}
+							<a href="{{ URL }}/community/guilds/{{ guild.name }}/joinguild" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Join Guild"></div>
+								</div>
+							</a>
+						{% endif %}
+						{% if isLeader == true %}
+							<a href="{{ URL }}/community/guilds/{{ guild.name }}/invitecharacter" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Invite Character"></div>
+								</div>
+							</a>
+						{% endif %}
+						<a href="{{ URL }}/community/guilds/{{ guild.name }}/applytothisguild" style="margin-right:10px;">
+							<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Apply to this Guild"></div>
+							</div>
+						</a>
+					{% endif %}
+				</div>
+				<br>
+				<div class="SubmitButtonRow">
+					<div style="display: flex; justify-content: center;">
+						{% if isLogged == false %}
+							<a href="{{ URL }}/account/login" style="margin-right:10px;">
+								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Login"></div>
+								</div>
+							</a>
+						{% endif %}
+						<a href="{{ URL }}/community/guilds">
+							<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Back"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

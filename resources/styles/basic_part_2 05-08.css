@@ -1,0 +1,35 @@
+#tmp-browser-info #tmp-browser-info-chromium {
+  display: block
+}
+#tmp-browser-info #tmp-browser-info-internet-explorer-new {
+  display: none
+}
+#tmp-browser-info #tmp-browser-info-internet-explorer-old {
+  display: none
+}
+@supports(grid-template-columns:205px auto 200px) {
+  .main-header {
+    grid-area: header
+  }
+  .main-content {
+    grid-area: content;
+    display: table
+  }
+  .main-menu {
+    grid-area: navigation
+  }
+  .main-themboxes {
+    grid-area: sidebar
+  }
+  .main-site-container {
+    display: grid
+  }
+  .main-site-container {
+    grid-template-columns: 205px auto 200px;
+    grid-template-areas: "header     header  header""navigation content sidebar""navigation content sidebar"
+  }
+  .main-menu ul {
+    display: flex;
+    flex-direction: column
+  }
+}

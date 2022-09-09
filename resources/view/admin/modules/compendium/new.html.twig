@@ -1,0 +1,63 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Compendium</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Compendium</li>
+                                <li class="breadcrumb-item active">New</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">Publish News</h4>
+						</div>
+						<form action="{{URL}}/admin/compendium/new" method="post" class="form form-vertical">
+							<div class="row">
+								<div class="col-md-12 col-lg-6">
+									<label class="form-label" for="compendium_headline">Title</label>
+									<input type="text" name="compendium_headline" id="compendium_headline" class="form-control mb-1">
+								</div>
+								<div class="col-md-12 col-lg-6">
+									<label class="form-label" for="compendium_category">Category</label>
+									<select name="compendium_category" class="form-select">
+										<option value="3">USEFUL INFO</option>
+										<option value="4">SUPPORT</option>
+										<option value="13">CLIENT FEATURES</option>
+										<option value="15">GAME CONTENTS</option>
+										<option value="20">MAJOR UPDATES</option>
+									</select>
+								</div>
+								<div class="col-md-12 col-lg-12">
+									<label class="form-label" for="compendium_message">Message</label>
+									<textarea name="compendium_message" class="form-control" rows="10"></textarea>
+								</div>
+								<div class="col-md-12 col-lg-12 mt-1">
+									<input type="submit" class="btn btn-primary" value="Publish">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div></div>

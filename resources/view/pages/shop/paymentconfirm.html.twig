@@ -1,0 +1,188 @@
+<div id="webshop" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-webshop.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<script type="text/javascript">
+					g_Deactivated = true;
+				</script>
+				<div id="ProgressBar">
+					<div id="MainContainer">
+						<div id="BackgroundContainer">
+							<img id="BackgroundContainerLeftEnd" src="{{IMAGE_PATH}}/global/content/stonebar-left-end.gif">
+							<div id="BackgroundContainerCenter">
+								<div id="BackgroundContainerCenterImage" style="background-image:url({{IMAGE_PATH}}/global/content/stonebar-center.gif);"></div>
+							</div>
+							<img id="BackgroundContainerRightEnd" src="{{IMAGE_PATH}}/global/content/stonebar-right-end.gif">
+						</div>
+						<img id="TubeLeftEnd" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-tube-left-green.gif">
+						<img id="TubeRightEnd" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-tube-right-blue.gif">
+						<div id="FirstStep" class="Steps">
+							<div class="SingleStepContainer">
+								<img class="StepIcon" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-icon-1-green.gif">
+								<div class="StepText" style="font-weight:normal;">Select product</div>
+							</div>
+						</div>
+						<div id="StepsContainer1">
+							<div id="StepsContainer2">
+								<div class="Steps" style="width:33%">
+									<div class="TubeContainer">
+										<img class="Tube" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-tube-green.gif">
+									</div>
+									<div class="SingleStepContainer">
+										<img class="StepIcon" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-icon-2-green.gif">
+										<div class="StepText" style="font-weight:normal;">Enter payment data</div>
+									</div>
+								</div>
+								<div class="Steps" style="width:33%">
+									<div class="TubeContainer">
+										<img class="Tube" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-tube-green.gif">
+									</div>
+									<div class="SingleStepContainer">
+										<img class="StepIcon" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-icon-3-green.gif">
+										<div class="StepText" style="font-weight:bold;">Confirm your order</div>
+									</div>
+								</div>
+								<div class="Steps" style="width:33%">
+									<div class="TubeContainer">
+										<img class="Tube" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-tube-green-blue.gif">
+									</div>
+									<div class="SingleStepContainer">
+										<img class="StepIcon" src="{{IMAGE_PATH}}/global/content/progressbar/progress-bar-icon-4-blue.gif">
+										<div class="StepText" style="font-weight:normal;">Summary</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="CustomerIdentification">Order for:
+					<span id="DisplayEMail" onmousedown="ToggleMaskedText('EMail');">e*******@email.com</span>
+					<span id="MaskedEMail">e*******@email.com</span>
+					<span id="ReadableEMail">{{ email }}</span>
+					<div><img id="ButtonEMail" onmousedown="ToggleMaskedText('EMail');" src="{{IMAGE_PATH}}/global/general/show.gif"></div>
+				</div>
+				<form method="post" action="{{URL}}/payment/summary">
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Confirm your order</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td class="LabelV200">Service</td>
+																		<td>{{ coins }} Coins (transferable)</td>
+																		<input type="hidden" name="payment_coins" value="{{ coins }}">
+																	</tr>
+																	<tr>
+																		<td class="LabelV200">Price</td>
+																		<td>{{ price }} BRL</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td class="LabelV200">Payment Method</td>
+																		<td>{{ method }}</td>
+																		<input type="hidden" name="payment_method" value="{{ method }}">
+																	</tr>
+																	<tr>
+																		<td class="LabelV200">Country:</td>
+																		<td>{{ country }}</td>
+																		<input type="hidden" name="payment_country" value="{{ country }}">
+																	</tr>
+																	<tr>
+																		<td class="LabelV200">E-Mail Address:</td>
+																		<td>{{ email }}</td>
+																		<input type="hidden" name="payment_email" value="{{ email }}">
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td colspan="2">
+																			<input type="checkbox" name="TermsOfService" value="1" id="AgreementsCheckbox">
+																			<span>
+																				<label for="AgreementsCheckbox">I have read and I agree to the Extended Tibia Service Agreement and the Tibia Privacy Policy.</label>
+																			</span>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="SubmitButtonRow" style="display: flex; justify-content: center;">
+					<div class="LeftButton" style="padding: 10px;">
+						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green.gif)">
+							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green_over.gif);"></div><input class="BigButtonText" type="submit" value="Buy Now"></div>
+						</div>
+					</div>
+					<div class="RightButton" style="padding: 10px;">
+						<a href="{{URL}}/payment">
+							<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="button" value="Previous"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

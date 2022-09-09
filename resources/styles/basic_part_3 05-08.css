@@ -1,0 +1,111 @@
+@media screen\0, body {
+  #tmp-browser-info #tmp-browser-info-chromium {
+    display: none
+  }
+  #tmp-browser-info #tmp-browser-info-internet-explorer-new {
+    display: block
+  }
+  #tmp-browser-info #tmp-browser-info-internet-explorer-old {
+    display: none
+  }
+  body {
+    height: 100%
+  }
+  .main-site-container {
+    position: relative;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1280px;
+    height: 100%
+  }
+  .main-header {
+    position: relative;
+    text-align: center
+  }
+  .main-menu {
+    position: absolute;
+    top: 155px;
+    width: 140px
+  }
+  .main-content {
+    position: absolute;
+    top: 155px;
+    left: 205px;
+    width: 875px
+  }
+  .main-themboxes {
+    position: relative;
+    left: 1085px;
+    width: 200px;
+    margin-top: 0
+  }
+  .main-header #background-image {
+    display: none
+  }
+  #eventscheduletablecontainer .TableContainer {
+    overflow-x: scroll
+  }
+  .AuctionBody {
+    width: 712px
+  }
+  .BigButtonText {
+    filter: progid:DXImageTransform.Microsoft.Glow(Color=#000000, Strength=1)
+  }
+}
+@media \0screen\, screen\9 {
+  #tmp-browser-info #tmp-browser-info-chromium {
+    display: none
+  }
+  #tmp-browser-info #tmp-browser-info-internet-explorer-new {
+    display: none
+  }
+  #tmp-browser-info #tmp-browser-info-internet-explorer-old {
+    display: block
+  }
+  .TableContentContainer {
+    margin-right: 6px;
+    margin-bottom: 4px
+  }
+  body {
+    height: 100%
+  }
+  .main-site-container {
+    position: relative;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1280px;
+    height: 100%
+  }
+  .main-header {
+    position: relative;
+    text-align: center
+  }
+  .main-menu {
+    position: absolute;
+    top: 155px;
+    width: 140px
+  }
+  .main-content {
+    position: absolute;
+    top: 155px;
+    left: 210px;
+    width: 790px
+  }
+  .main-themboxes {
+    position: relative;
+    left: 1000px;
+    width: 200px;
+    margin-top: 0
+  }
+  .main-header #background-image {
+    display: none
+  }
+  .AuctionBody {
+    width: 712px
+  }
+  .BigButtonText {
+    filter: progid:DXImageTransform.Microsoft.Glow(Color=#000000, Strength=1)
+  }
+}

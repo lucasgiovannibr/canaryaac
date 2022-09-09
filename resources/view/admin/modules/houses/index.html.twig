@@ -1,0 +1,127 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Houses</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Houses</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-3 col-sm-6">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">Import XML Houses</h4>
+						</div>
+							<div class="row">
+								<div class="col-12">
+									<form action="{{URL}}/admin/houses/import" method="post" class="form form-vertical">
+										<input type="text" name="localxml" class="form-control mb-1" placeholder="server/data/world/house.xml">
+										<button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Import</button>
+									</form>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<div class="card">
+					<div class="card-body d-flex align-items-center justify-content-between">
+						<div>
+							<h3 class="fw-bolder mb-75">{{ total_houses }}</h3>
+							<span data-i18n="Total Guilds">Total Houses</span>
+						</div>
+						<div class="avatar bg-light-primary p-50">
+							<span class="avatar-content"><i data-feather="home" class="feather feather-home font-medium-4"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<div class="card">
+					<div class="card-body d-flex align-items-center justify-content-between">
+						<div>
+							<h3 class="fw-bolder mb-75">{{ total_houses_rented }}</h3>
+							<span data-i18n="Total Guilds">Total Houses Rented</span>
+						</div>
+						<div class="avatar bg-light-primary p-50">
+							<span class="avatar-content"><i data-feather="home" class="feather feather-home font-medium-4"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+		</div>
+		<div
+			class="content-body">
+			<!-- users list start -->
+			<section
+				class="app-user-list">
+				<!-- list and filter start -->
+				<div class="card">
+					<div class="card-body border-bottom">
+						<h4 class="card-title">Houses</h4>
+						<div class="row">
+							<div class="col-md-4 user_role"></div>
+							<div class="col-md-4 user_plan"></div>
+							<div class="col-md-4 user_status"></div>
+						</div>
+					</div>
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Rent</th>
+									<th>Town</th>
+									<th>Size</th>
+									<th>Beds</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for house in houses %}
+									<tr class="odd">
+										<td>{{ house.house_id }}</td>
+										<td>{{ house.name }} {% if house.owner != 0 %}<span class="badge rounded-pill badge-light-danger" data-i18n="Rented">Rented</span>{% endif %} {% if house.guildid == 1 %}<span class="badge rounded-pill badge-light-warning" data-i18n="Guild House">Guild House</span>{% endif %}</td>
+										<td>{{ house.rent }}</td>
+										<td>{{ house.town_id }}</td>
+										<td>{{ house.size }}
+											sqm</td>
+										<td>{{ house.beds }}</td>
+										<td>
+										<form action="{{URL}}/admin/houses/delete" method="post" class="form form-vertical">
+											<input type="hidden" name="houseid" value="{{ house.id }}">
+											<button type="submit" class="btn btn-icon btn-primary waves-effect waves-float waves-light">
+												Delete
+											</button>
+										</form>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- list and filter end -->
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>

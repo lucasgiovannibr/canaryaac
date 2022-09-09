@@ -1,0 +1,880 @@
+<style>
+.progress{
+	width: 100%;
+	height: 18px;
+	background-color: #f1e0c5;
+	border: 1px solid #5f4d41;
+	border-radius: 3px;
+}
+.progress-bar{
+	height: 18px;
+}
+.bg-danger{
+	background-color: #f93838;
+}
+.bg-default{
+	background-color: #3880f9;
+}
+.bg-success{
+	background-color: #4bbf52;
+}
+</style>
+<div id="characters" class="Box">
+	<div class="Corner-tl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{ IMAGE_PATH }}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{ IMAGE_PATH }}/global/strings/headline-characters.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{ IMAGE_PATH }}/global/content/scroll.gif);">
+
+			{% if player != false and player.info.name %}
+
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Information</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td width="20%" class="LabelV175">Name:</td>
+																		<td>{{ player.info.name }}
+                                                                        {% if player.info.main == 1 %}
+                                                                            <img src="{{IMAGE_PATH}}/account/maincharacter.png" alt="(Main Character)" title="Main Character">
+                                                                        {% endif %}
+                                                                        {% if player.info.online == 1 %}
+                                                                            <img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+                                                                        {% else %}
+                                                                            <img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+                                                                        {% endif %}
+																		{% if player.info.deletion == 1 %}
+																			<span style="color: red; font-weight: bold;">deleted</span>
+																		{% endif %}
+                                                                        <div style="float: right"></div>
+																		</td>
+																	</tr>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Sex:</td>
+																		<td>{{ player.info.sex }}</td>
+																	</tr>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Vocation:</td>
+																		<td>{{ player.info.vocation }}</td>
+																	</tr>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Level:</td>
+																		<td>{{ player.info.level }}</td>
+																	</tr>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">World:</td>
+																		<td>{{ player.info.world.name }}</td>
+																	</tr>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Residence:</td>
+																		<td>{{ player.info.town_id }}</td>
+																	</tr>
+																	{% if house is not empty %}
+																	{% for house in player.houses %}
+                                                                    {% set i = i + 1 %}
+																		<tr bgcolor="{{ getStyle(i) }}">
+																			<td class="LabelV175">House:</td>
+																			<td>
+																				<a href="">{{ house.name }}</a>
+																				({{ house.town_id }}) is paid until
+																				{{ house.paid }}</td>
+																		</tr>
+																	{% endfor %}
+																	{% endif %}
+																	{% if player.marriage.status == 1 %}
+																	{% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Married&nbsp;To:</td>
+																		<td>{{ player.marriage.spouse }}</td>
+																	</tr>
+																	{% endif %}
+																	{% if player.guild is not empty %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Guild&nbsp;Membership:</td>
+																		<td>{{ player.guild.rank_name }} of the <a href="{{URL}}/community/guilds/{{ player.guild.guild_name }}/view">{{ player.guild.guild_name }}</a> {% if player.guild.nick is not empty %} ({{ player.guild.nick }}){% endif %}</td>
+																	</tr>
+																	{% endif %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Last Login:</td>
+																		<td>{{ player.stats.lastlogout }}</td>
+																	</tr>
+																	{% if player.info.comment is not empty %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175" valign="top">Comment:</td>
+																		<td>{{ player.info.comment|raw }}</td>
+																	</tr>
+																	{% endif %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Account&nbsp;Status:</td>
+																		<td>{{ player.info.premdays }}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Account Information</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td class="LabelV175">Created:</td>
+																		<td>{{ player.info.creation }}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<a name="Character+Details"></a>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Details</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td style="width: 10rem;">
+									<div class="InnerTableContainer">
+										<table>
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td align="center" style="border:0px; width: 60px;">
+																			<b>Current outfit:</b>
+																		</td>
+																		<td style="border:0px;">
+																			<div style="width:64px; height:64px;">
+																				<img style="margin-left:-15px;margin-top:-15px;width:64px;height:64px;" src="{{ player.outfit.image_url }}" alt="player outfit">
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="InnerTableContainer">
+										<table>
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td align="center">
+																			<b>Inventory:</b>
+																		</td>
+																	</tr>
+																	<tr bgcolor="#D4C0A1">
+																		<td>
+																			<table width="100" align="center" cellspacing="0" cellpadding="0">
+																				<tbody>
+																					<tr>
+																						<td style="border:0px; padding:0px;">
+																							<table cellspacing="0" style="background: #292929;">
+																								<tbody>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['9'].url }}" width="32" height="32" border="0" alt="Necklace"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['6'].url }}" width="32" height="32" border="0" alt="Handright"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['2'].url }}" width="32" height="32" border="0" alt="Ring"></td>
+																									</tr>
+																									<tr>
+																										<td style="color: #fff; text-align: center; font-size: 10px;">Soul: {{ player.stats.soul }}</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																						<td style="border:0px; padding:0px;">
+																							<table cellspacing="0" style="background: #292929;">
+																								<tbody>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['1'].url }}" width="32" height="32" border="0" alt="Helmet"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['4'].url }}" width="32" height="32" border="0" alt="Armor"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['7'].url }}" width="32" height="32" border="0" alt="Legs"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['8'].url }}" width="32" height="32" border="0" alt="Boots"></td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																						<td style="border:0px; padding:0px;">
+																							<table cellspacing="0" style="background: #292929;">
+																								<tbody>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['3'].url }}" width="32" height="32" border="0" alt="Backpack"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['5'].url }}" width="32" height="32" border="0" alt="Hand Left"></td>
+																									</tr>
+																									<tr>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['10'].url }}" width="32" height="32" border="0" alt="Ammo"></td>
+																									</tr>
+																									<tr>
+																										<td style="color: #fff; text-align: center; font-size: 10px;">Cap: {{ player.stats.cap }}</td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td style="border:0px; width:15%; text-align: right;">
+																			<b>Health:</b>
+																		</td>
+																		<td style="border:0px; text-align: center;">
+																			{{ player.stats.health }}/{{ player.stats.healthmax }}(100%)
+																			<div class="progress">
+																				<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style=" width:100%;"></div>
+																			</div>
+																		</td>
+																	</tr>
+																	<tr bgcolor="#D4C0A1">
+																		<td style="border:0px; width:15%; text-align: right;">
+																			<b>Mana:</b>
+																		</td>
+																		<td style="border:0px; text-align: center;">
+																			{{ player.stats.mana }}/{{ player.stats.manamax }} (100%)
+																			<div class="progress">
+																				<div class="progress-bar bg-default" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td style="border:0px; width:15%; text-align: right;">
+																			<b>Experience:</b>
+																		</td>
+																		<td style="border:0px; text-align: center;">
+																			Have <b>{{ player.info.experience }}</b> and need <b>2200</b> to Level <b>{{ player.info.level }}</b>.
+																		</td>
+																	</tr>
+																	<tr bgcolor="#D4C0A1">
+																		<td style="border:0px; width:15%; text-align: right;">
+																			<b>Percent:</b>
+																		</td>
+																		<td style="border:0px; text-align: center;">
+																			{{ player.info.experience }}/6400 (0%)
+																			<div class="progress">
+																				<div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%"></div>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1" style="text-align: center;">
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/0/05/Journal_Shield.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/3/31/Lasting_Exercise_Rod.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/8/8a/Pair_of_Iron_Fists.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/3/3b/Lasting_Exercise_Club.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/d/db/Lasting_Exercise_Sword.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/4/44/Lasting_Exercise_Axe.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/7/7c/Lasting_Exercise_Bow.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/2/2f/Broken_Wooden_Shield.gif"></td>
+																		<td style="border:0px;"><img style="" src="https://www.tibiawiki.com.br/images/1/1f/Fishing_Rod.gif"></td>
+																	</tr>
+																	<tr bgcolor="#D4C0A1" style="text-align: center;">
+																		<td style="border:0px;">
+																			<b>Level</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>ML</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Fist</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Club</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Sword</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Axe</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Dist</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Def</b>
+																		</td>
+																		<td style="border:0px;">
+																			<b>Fish</b>
+																		</td>
+																	</tr>
+																	<tr bgcolor="#D4C0A1" style="text-align: center;">
+																		<td style="border:0px;">{{ player.info.level }}</td>
+																		<td style="border:0px;">{{ player.skills.maglevel }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_fist }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_club }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_sword }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_axe }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_dist }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_shielding }}</td>
+																		<td style="border:0px;">{{ player.skills.skill_fishing }}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Account Achievements</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+                                                            {% if player.achievements == null %}
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7; text-align: center;">
+																<tbody>
+																	<tr>
+																		<td>There are no achievements set to be displayed for this character.</td>
+																	</tr>
+																</tbody>
+															</table>
+                                                            {% else %}
+                                                            <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                                <tbody>
+                                                                {% for achievement in player.achievements %}
+                                                                {% set i = i + 1 %}
+                                                                    <tr bgcolor="{{ getStyle(i) }}">
+                                                                        <td class="LabelV175">
+                                                                            <img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement">
+                                                                            <img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement">
+                                                                        </td>
+                                                                        <td>Devovorga's Nemesis<img class="SecretAchievementIcon" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement"></td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                            {% endif %}
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Frags</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	{% for frag in player.frags %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td width="25%" valign="top">{{ frag.time|date("j M Y, H:i") }}</td>
+																		<td>{{ frag.description|raw }}({% if frag.unjustified %}<span style="color: red; font-size: 10px">Unjustified</span>{% else %}<span style="color: green; font-size: 10px">Justified</span>{% endif %})</td>
+																	</tr>
+																	{% endfor %}
+                                                                    {% if player.frags is empty %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td>No frags recorded.</td>
+																	</tr>
+																	{% endif %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Deaths</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	{% for death in player.deaths %}
+                                                                    {% set i = i + 1 %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td width="25%" valign="top">{{ death.time|date("j M Y, H:i") }}</td>
+																		<td>{{ death.description|raw }}</td>
+																	</tr>
+																	{% endfor %}
+                                                                    {% if player.deaths is empty %}
+																	<tr bgcolor="{{ getStyle(i) }}">
+																		<td>No deaths recorded.</td>
+																	</tr>
+																	{% endif %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Characters</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Name</td>
+                                                                        <td>Level</td>
+                                                                        <td>Vocation</td>
+																		<td>World</td>
+																		<td>Status</td>
+																		<td>&nbsp;</td>
+																	</tr>
+																	{% if player.info.hidden == 0 %}
+																	{% set count = 0 %}
+																	{% for player in player.allplayers %}
+																		{% if player.hidden == 0 %}
+																		{% set count = count + 1 %}
+                                                                        {% set i = i + 1 %}
+																		<tr bgcolor="{{ getStyle(i) }}">
+																			<td style="width: 20%">
+																				<nobr>{{ count }}.
+																					{{ player.name }}{% if player.deletion == 1 %}<span style="color: red; font-weight: bold;"> deleted</span>{% endif %}
+                                                                                    {% if player.main == 1 %}
+																					    <img src="{{IMAGE_PATH}}/account/maincharacter.png" alt="(Main Character)" title="Main Character">
+                                                                                    {% endif %}
+                                                                                    </nobr>
+																			</td>
+                                                                            <td style="width: 15%">{{ player.level }}</td>
+                                                                            <td style="width: 20%">{{ player.vocation }}</td>
+																			<td style="width: 15%"><nobr>{{ player.world.name }}</nobr></td>
+																			<td style="width: 10%">
+                                                                                {% if player.online == 1 %}
+                                                                                    <img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+                                                                                {% else %}
+                                                                                    <img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+                                                                                {% endif %}
+                                                                            </td>
+																			<td>
+																				<a href="{{URL}}/community/characters/{{ player.name }}">
+																					{% set button_name = 'View' %}
+																					{% include "blue_button.html.twig" %}
+																				</a>
+																			</td>
+																		</tr>
+																		{% endif %}
+																	{% endfor %}
+																	{% endif %}
+																	{% if player.info.hidden == 1 %}
+																		<tr>
+																			<td>{{ player.info.name }}{% if player.info.deletion == 1 %}<span style="color: red; font-weight: bold;"> deleted</span>{% endif %}</td>
+																			<td>{{ player.info.level }}</td>
+																			<td>{{ player.info.vocation }}</td>
+																			<td>{{ player.info.world.name }}</td>
+																			<td>
+																			{% if player.info.online == 1 %}
+																				<img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																			{% else %}
+																				<img src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																			{% endif %}
+																			</td>
+																			<td>
+																			<a href="{{URL}}/community/characters/{{ player.info.name }}">
+																					{% set button_name = 'View' %}
+																					{% include "blue_button.html.twig" %}
+																				</a>
+																			</td>
+																		</tr>
+																	{% endif %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><br>
+
+				{% endif %}
+
+				<form action="{{URL}}/community/characters" method="post" id="searchForm" name="searchForm">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Search Character</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td style="vertical-align:middle;" class="LabelV150">Character Name:</td>
+														<td class="GreedyCell">
+															<input style="width: 100%;" name="name" id="name" value="{{ player.info.name }}" size="29" maxlength="29">
+														</td>
+														<td>
+															<div style="margin-left: 15px;">
+																{% set button_name = 'Submit' %}
+																{% include "blue_button.html.twig" %}
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Characters</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table style="width:100%;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>Outfit</td>
+																		<td style="text-align: left; width: 60%">Name</td>
+																		<td>Level</td>
+																		<td>Vocation</td>
+																	</tr>
+																	<tbody class="searchResult">
+																	</tbody>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script>
+$(function(){
+	var form = $("#searchForm");
+	var input = $("#name");
+	input.keyup(function(e){
+		e.preventDefault();
+		$.ajax({
+			url: '{{URL}}/api/v1/searchcharacters',
+			type: 'post',
+			data: form.serialize(),
+			dataType: "json",
+			success: function(data){
+				$(".searchResult").empty();
+				$(data).each(function(key, value){
+					$(".searchResult").append("<tr><td><img src='" + value.outfit.image_url + "'></td><td><a href='{{URL}}/community/characters/" + value.name + "'>" + value.name + "</a></td><td>" + value.level + "</td><td>" + value.vocation + "</td></tr>");
+				});
+			},
+			error: function(data){
+				$(".searchResult").text("Nenhum resultado encontrado.");
+			},
+		});
+	});
+
+});
+</script>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

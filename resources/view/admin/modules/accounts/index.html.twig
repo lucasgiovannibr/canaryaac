@@ -1,0 +1,93 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Accounts</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Accounts</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<!-- users list start -->
+			<section class="app-user-list">
+				<div class="row">
+					<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+						<!-- list and filter start -->
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Accounts</h4>
+								<h6 class="card-subtitle text-muted">Listagem de todas contas criadas.</h6>
+							</div>
+							<div class="card-datatable table-responsive">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>#</th>
+											<th>Name</th>
+											<th>Page Access</th>
+											<th>Status</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for account in accounts %}
+											<tr>
+												<td>{{ account.id }}</td>
+												<td>
+													<div class="d-flex justify-content-left align-items-center">
+														<div class="d-flex flex-column">
+															<a href="{{ URL }}/admin/accounts/{{ account.id }}" class="user_name text-truncate text-body">
+																<span class="fw-bolder">
+																	{{ account.email }}
+																</span>
+															</a>
+															<small class="emp_post text-muted" data-i18n="{{ account.name }}">{{ account.name }}</small>
+														</div>
+													</div>
+												</td>
+												<td>
+													<span class="text-truncate align-middle" data-i18n="{{ account.page_access }}">{{ account.page_access }}</span>
+												</td>
+												<td>
+													{% if account.premdays > 0 %}
+														<span class="badge rounded-pill badge-light-success" data-i18n="{{ account.premium }}">{{ account.premium }}</span>
+													{% else %}
+														<span class="badge rounded-pill badge-light-danger" data-i18n="{{ account.premium }}">{{ account.premium }}</span>
+													{% endif %}
+													<span class="badge rounded-pill badge-light-warning" data-i18n="Coins">Coins:
+														{{ account.coins }}</span>
+												</td>
+												<td>
+													<a href="{{ URL }}/admin/accounts/{{ account.id }}">
+														<button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View" class="btn btn-icon btn-primary waves-effect waves-float waves-light">
+															<i data-feather="eye"></i>
+														</button>
+                                                        </a>
+													</td>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- list and filter end -->
+					</div>
+				</div>
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>

@@ -1,0 +1,390 @@
+<?php
+
+use App\Http\Response;
+
+use App\Controller\Admin\Home;
+use App\Controller\Admin\Players;
+use App\Controller\Admin\Accounts;
+use App\Controller\Admin\Achievements;
+use App\Controller\Admin\Market;
+use App\Controller\Admin\Bans;
+use App\Controller\Admin\Compendium;
+use App\Controller\Admin\Houses;
+use App\Controller\Admin\Guilds;
+use App\Controller\Admin\Creatures;
+use App\Controller\Admin\Donates;
+use App\Controller\Admin\Groups;
+use App\Controller\Admin\Publications;
+use App\Controller\Admin\Samples;
+use App\Controller\Admin\Settings;
+use App\Controller\Admin\Worlds;
+
+$obRouter->get('/admin', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Home::getHome($request));
+    }
+]);
+
+$obRouter->get('/admin/settings', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Settings::viewSettings($request));
+    }
+]);
+$obRouter->post('/admin/settings', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Settings::insertWorld($request));
+    }
+]);
+
+$obRouter->get('/admin/publications', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Publications::viewPublications($request));
+    }
+]);
+$obRouter->get('/admin/publications/news', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Publications::viewPublishNews($request));
+    }
+]);
+$obRouter->post('/admin/publications/news', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Publications::insertNews($request));
+    }
+]);
+$obRouter->get('/admin/publications/newsticker', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Publications::viewPublishNewsticker($request));
+    }
+]);
+$obRouter->post('/admin/publications/newsticker', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Publications::insertNewsticker($request));
+    }
+]);
+$obRouter->get('/admin/publications/featuredarticle', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Publications::viewPublishFeaturedArticle($request));
+    }
+]);
+$obRouter->post('/admin/publications/featuredarticle', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Publications::insertFeaturedArticle($request));
+    }
+]);
+
+$obRouter->get('/admin/donates', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Donates::viewDonates($request));
+    }
+]);
+$obRouter->get('/admin/donates/{reference}/view', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request, $reference){
+        return new Response(200, Donates::viewPaymentByReference($request, $reference));
+    }
+]);
+
+$obRouter->get('/admin/samples', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Samples::viewSamples($request));
+    }
+]);
+$obRouter->post('/admin/samples', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Samples::createSample($request));
+    }
+]);
+$obRouter->get('/admin/samples/{id}/edit', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Samples::viewEditSample($request, $id));
+    }
+]);
+$obRouter->post('/admin/samples/{id}/edit', [
+    'middlewares' => [
+        'required-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Samples::editSample($request, $id));
+    }
+]);
+
+$obRouter->get('/admin/worlds', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Worlds::viewWorlds($request));
+    }
+]);
+$obRouter->post('/admin/worlds', [
+    'middlewares' => [
+        'required-login',
+    ],
+    function($request){
+        return new Response(200, Worlds::insertWorld($request));
+    }
+]);
+
+$obRouter->get('/admin/market', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Market::getMarketOffers($request));
+    }
+]);
+
+$obRouter->get('/admin/bans', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Bans::getBans($request));
+    }
+]);
+
+$obRouter->get('/admin/achievements', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Achievements::viewAchievements($request));
+    }
+]);
+$obRouter->post('/admin/achievements', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Achievements::importAchievements($request));
+    }
+]);
+
+$obRouter->get('/admin/compendium', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Compendium::viewCompendium($request));
+    }
+]);
+$obRouter->get('/admin/compendium/{id}/view', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Compendium::viewPublishCompendium($request, $id));
+    }
+]);
+$obRouter->post('/admin/compendium/{id}/view', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Compendium::updateCompendium($request, $id));
+    }
+]);
+$obRouter->get('/admin/compendium/new', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Compendium::viewCompendiumPublish($request));
+    }
+]);
+$obRouter->post('/admin/compendium/new', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Compendium::insertCompendium($request));
+    }
+]);
+
+
+$obRouter->get('/admin/groups', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Groups::viewGroups($request));
+    }
+]);
+$obRouter->post('/admin/groups/import', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Groups::getGroupsXml($request));
+    }
+]);
+$obRouter->post('/admin/groups/delete', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Groups::deleteGroups($request));
+    }
+]);
+$obRouter->get('/admin/houses', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Houses::getHouses($request));
+    }
+]);
+$obRouter->post('/admin/houses/import', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Houses::getHousesXml($request));
+    }
+]);
+$obRouter->post('/admin/houses/delete', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Houses::deleteHouses($request));
+    }
+]);
+
+$obRouter->get('/admin/guilds', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Guilds::viewGuilds($request));
+    }
+]);
+$obRouter->get('/admin/guilds/{id}', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Guilds::viewEditGuild($request, $id));
+    }
+]);
+$obRouter->post('/admin/guilds/{id}', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Guilds::viewEditGuild($request, $id));
+    }
+]);
+
+$obRouter->get('/admin/creatures', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Creatures::viewCreatures($request));
+    }
+]);
+$obRouter->post('/admin/creatures', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Creatures::insertCreature($request));
+    }
+]);
+$obRouter->post('/admin/creatures/delete', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Creatures::insertCreature($request));
+    }
+]);
+
+$obRouter->get('/admin/players', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Players::getPlayers($request));
+    }
+]);
+$obRouter->get('/admin/players/{id}', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Players::viewPlayer($request, $id));
+    }
+]);
+
+$obRouter->get('/admin/accounts', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request){
+        return new Response(200, Accounts::getAccounts($request));
+    }
+]);
+$obRouter->get('/admin/accounts/{id}', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Accounts::viewAccount($request, $id));
+    }
+]);

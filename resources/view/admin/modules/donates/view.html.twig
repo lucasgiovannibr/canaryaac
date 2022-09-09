@@ -1,0 +1,147 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">View</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+                                <li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/donates">Donates</a>
+								</li>
+								<li class="breadcrumb-item active">View</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="content-body">
+                <section class="invoice-preview-wrapper">
+                    <div class="row invoice-preview">
+                        <!-- Invoice -->
+                        <div class="col-xl-9 col-md-8 col-12">
+                            <div class="card invoice-preview-card">
+                                <div class="card-body invoice-padding pb-0">
+                                    <!-- Header starts -->
+                                    <div class="d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0">
+                                        <div>
+                                            <h4 class="invoice-title">
+                                                <span class="invoice-number">#{{ donate.reference }}</span>
+                                            </h4>
+                                            <p class="card-text mb-25">{{ donate.method_img|raw }}</p>
+                                        </div>
+                                        <div class="mt-md-0 mt-2">
+                                            <div class="invoice-date-wrapper">
+                                                <p class="invoice-date-title">Date:</p>
+                                                <p class="invoice-date">{{ donate.date }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Header ends -->
+                                </div>
+
+                                <hr class="invoice-spacing">
+
+                                <!-- Address and Contact starts -->
+                                <div class="card-body invoice-padding pt-0">
+                                    <div class="row invoice-spacing">
+                                        <div class="col-xl-8 p-0">
+                                            <h6 class="mb-2">Account:</h6>
+                                            <h6 class="mb-25">{{ account.email }}</h6>
+                                            <p class="card-text mb-25">Shelby Company Limited</p>
+                                        </div>
+                                        <div class="col-xl-4 p-0 mt-xl-0 mt-2">
+                                            <h6 class="mb-2">Donate Details:</h6>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="pe-1">Total Price:</td>
+                                                        <td><span class="fw-bold">R$ {{ donate.final_price }}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pe-1">Total Coins:</td>
+                                                        <td>{{ donate.total_coins }} <img src="{{IMAGE_PATH}}/account/icon-tibiacoin.png" class="VSCCoinImages"> (Including: {{ donate.total_coins }} <img src="{{IMAGE_PATH}}/account/icon-tibiacointrusted.png" class="VSCCoinImages">)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Address and Contact ends -->
+
+                                <!-- Invoice Description starts -->
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="py-1">Donate</th>
+                                                <th class="py-1">Coins</th>
+                                                <th class="py-1">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-1">
+                                                    <p class="card-text fw-bold mb-25">{{ donate.total_coins }} Coins</p>
+                                                    <p class="card-text text-nowrap">
+                                                        <span class="fw-bold">Status:</span> <span class="ms-75">{{ donate.status_badge|raw }}</span>
+                                                    </p>
+                                                </td>
+                                                <td class="py-1">
+                                                    <span class="fw-bold">{{ donate.total_coins }}</span>
+                                                </td>
+                                                <td class="py-1">
+                                                    <span class="fw-bold">R$ {{ donate.final_price }}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <hr class="invoice-spacing">
+
+                                <!-- Invoice Note starts -->
+                                <div class="card-body invoice-padding pt-0">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="fw-bold">Note:</span>
+                                            <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
+                                                projects. Thank You!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Invoice Note ends -->
+                            </div>
+                        </div>
+                        <!-- /Invoice -->
+
+                        <!-- Invoice Actions -->
+                        <div class="col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <button class="btn btn-primary w-100 mb-75 waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#send-invoice-sidebar">
+                                        Send Invoice
+                                    </button>
+                                    <button class="btn btn-outline-secondary w-100 btn-download-invoice mb-75 waves-effect">Download</button>
+                                    <a class="btn btn-outline-secondary w-100 mb-75 waves-effect" href="./app-invoice-print.html" target="_blank"> Print </a>
+                                    <a class="btn btn-outline-secondary w-100 mb-75 waves-effect" href="./app-invoice-edit.html"> Edit </a>
+                                    <button class="btn btn-success w-100 waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
+                                        Add Payment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Invoice Actions -->
+                    </div>
+                </section>
+
+            </div>
+	</div>
+</div>

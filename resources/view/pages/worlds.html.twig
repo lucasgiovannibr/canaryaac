@@ -1,0 +1,367 @@
+<div id="worlds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{ IMAGE_PATH }}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{ IMAGE_PATH }}/global/strings/headline-worlds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div
+				class="BoxContent" style="background-image:url({{ IMAGE_PATH }}/global/content/scroll.gif);">
+				{# if se tem world selecionado #}
+				{% if current_world == true %}
+
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">World Selection</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<form action="{{ URL }}/community/worlds" method="get">
+														<tr>
+															<td style="vertical-align:middle;" class="LabelV150">World Name:</td>
+															<td style="width:170px;">
+																<select size="1" name="world" style="width:165px;">
+																	{% for world in worlds %}
+																		<option {% if world.name == current_world.name %}selected{% endif %} value="{{ world.name }}">{{ world.name }}</option>
+																	{% endfor %}
+																</select>
+															</td>
+															<td style="text-align:left;">
+																{% set button_name = 'Submit' %}
+																{% include "blue_button.html.twig" %}
+															</td>
+														</tr>
+													</form>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br><div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">World Information</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+                                                {% for worlds in worlds %}
+                                                {% if worlds.name == current_world.name %}
+													<tr>
+														<td class="LabelV200">Status:</td>
+														<td>
+															<div class="ServerInformationIconContainer_Worlds" style="top: 40px;"><img class="ServerInformationIcon" src="{{ IMAGE_PATH }}{{ worlds.location_icon }}" alt="Server Location"></div>
+															<div class="ServerInformationIconContainer_Worlds" style="top: 100px;"><img class="ServerInformationIcon" src="{{ IMAGE_PATH }}{{ worlds.php_type_icon }}" alt="Server PVP Type"></div>
+															{{ worlds.server_status }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Players Online:</td>
+														<td>{{ worlds.players_online }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Online Record:</td>
+														<td>{{ worlds.players_record.record }}
+															players (on
+															{{ worlds.players_record.timestamp|date("F d Y, G:i:s") }})</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Creation Date:</td>
+														<td>{{ worlds.creation|date("m/Y") }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Location:</td>
+														<td>{{ worlds.location }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">PvP Type:</td>
+														<td>{{ worlds.pvp_type }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Premium Type:</td>
+														<td>{{ worlds.premium_type }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Transfer Type:</td>
+														<td>{{ worlds.transfer_type }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">World Quest Titles:</td>
+														<td>
+															{% for quests in worlds.world_quests %}
+																<a href="/worldquests?page=details?worldquest={{ worlds.world_quests.name }}">{{ worlds.world_quests.name }}</a>
+															{% endfor %}
+															{% if worlds.world_quests == null %}
+																This game world currently has no title.
+															{% endif %}
+														</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">BattlEye Status:</td>
+														<td>{{ worlds.battle_eye }}</td>
+													</tr>
+													<tr>
+														<td class="LabelV200">Game World Type:</td>
+														<td>{{ worlds.world_type }}</td>
+													</tr>
+                                                {% endif %}
+                                                {% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br>
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Players Online</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table3" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table style="width:100%;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td>Outfit</td>
+																			<td style="text-align: left; width: 60%">Name</td>
+																			<td>Level</td>
+																			<td>Vocation</td>
+																		</tr>
+																		{% for player in online %}
+																			{% set i = i + 1 %}
+																			<tr class="Odd" style="background: {{ getStyle(i) }};">
+																				<td>
+																					<div style="width:64px; height:64px;">
+																						<img style="margin-left:-15px;margin-top:-15px;width:64px;height:64px;" src="{{ player.outfit.image_url }}" alt="player outfit">
+																					</div>
+																				</td>
+																				<td style="width:70%; text-align:left;">
+																					<a href="{{ URL }}/characters/{{ player.name }}">{{ player.name }}</a>
+																				</td>
+																				<td style="width:10%;">{{ player.level }}</td>
+																				<td style="width:20%;">{{ player.vocation }}</td>
+																			</tr>
+																		{% endfor %}
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="3">{{ pagination|raw }}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<br>
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Search Character</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<form action="{{URL}}/community/characters">
+															<td style="vertical-align:middle;" class="LabelV150">Character Name:</td>
+															<td class="GreedyCell"><input style="width: 100%;" name="name" value="" size="29" maxlength="29"></td>
+															<td>
+																<div style="margin-left: 15px;">
+																	{% set button_name = 'Submit' %}
+																	{% include "blue_button.html.twig" %}
+																</div>
+															</td>
+														</form>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br>
+					<center>
+						<a href="{{ URL }}/community/worlds">
+							{% set button_name = 'Back' %}
+							{% include "blue_button.html.twig" %}
+						</a>
+					</center>
+					{# if se tem world selecionado #}
+				{% else %}
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Game World Overview</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table3" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr>
+																			<td>
+																				<b>Overall Maximum:</b>&nbsp;&nbsp;&nbsp;{{ worlds.players_record.record|length }} (on {{ worlds.players_record.timestamp|date("F d Y, G:i:s") }})</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td style="text-align: center;">Regular Worlds</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td>World</td>
+																			<td>Online</td>
+																			<td>Location</td>
+																			<td>PvP Type</td>
+																			<td>BattlEye</td>
+																			<td>Additional Information</td>
+																		</tr>
+                                                                        {% for world in worlds %}
+																		<tr class="Odd">
+																			<td style="width: 150px;">
+																				<a href="{{URL}}/community/worlds?world={{ world.name }}">{{ world.name }}</a>
+																			</td>
+																			<td style="text-align: right;">{{ world.players_online }}</td>
+																			<td>{{ world.location }}</td>
+																			<td>{{ world.pvp_type }}</td>
+																			<td align="center" valign="middle">
+																				<span style="width: 18px; height: 18px;">
+																					<a href="" target="_blank">
+																						<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'BattlEye Protected Game World', '<p>On this game world, BattlEye blocks cheats from the game. The game world has been protected by BattlEye since its release.</p><p>You can only move to a game world initially protected by BattlEye if your character also comes from a game world which has been protected right from its release.</p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border: 0px;" src="{{IMAGE_PATH}}{{ world.battle_eye_icon }}"></span>
+																					</a>
+																				</span>
+																			</td>
+																			<td>{{ world.transfer_type }}</td>
+																		</tr>
+                                                                        {% endfor %}
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

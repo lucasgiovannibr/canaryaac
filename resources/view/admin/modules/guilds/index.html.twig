@@ -1,0 +1,191 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Guilds</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Guilds</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			class="content-body">
+			<!-- users list start -->
+			<section class="app-user-list">
+				<div class="row">
+					<div class="col-lg-3 col-sm-6">
+						<div class="card">
+							<div class="card-body d-flex align-items-center justify-content-between">
+								<div>
+									<h3 class="fw-bolder mb-75">{{ total_guilds }}</h3>
+									<span data-i18n="Total Guilds">Total Guilds</span>
+								</div>
+								<div class="avatar bg-light-primary p-50">
+									<span class="avatar-content">
+										<i data-feather="user" class="feather feather-user-plus font-medium-4"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6">
+						<div class="card">
+							<div class="card-body d-flex align-items-center justify-content-between">
+								<div>
+									<h3 class="fw-bolder mb-75">{{ total_guildmembership }}</h3>
+									<span data-i18n="Total Membros Guild">Total Membros Guild</span>
+								</div>
+								<div class="avatar bg-light-primary p-50">
+									<span class="avatar-content">
+										<i data-feather="user" class="feather feather-user-plus font-medium-4"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6">
+						<div class="card">
+							<div class="card-body d-flex align-items-center justify-content-between">
+								<div>
+									<h3 class="fw-bolder mb-75">{{ total_guildwarskills }}</h3>
+									<span data-i18n="Guild Wars Kills">Guild Wars Kills</span>
+								</div>
+								<div class="avatar bg-light-warning p-50">
+									<span class="avatar-content">
+										<i data-feather="globe" class="feather feather-user-x font-medium-4"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6">
+						<div class="card">
+							<div class="card-body d-flex align-items-center justify-content-between">
+								<div>
+									<h3 class="fw-bolder mb-75">{{ total_guildwars }}</h3>
+									<span data-i18n="Guild Wars">Guild Wars</span>
+								</div>
+								<div class="avatar bg-light-warning p-50">
+									<span class="avatar-content">
+										<i data-feather="globe" class="feather feather-user-x font-medium-4"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- list and filter start -->
+				{{ status|raw }}
+				<div class="card">
+					<div class="card-body border-bottom">
+						<h4 class="card-title">Guilds</h4>
+						<div class="row">
+							<div class="col-md-4 user_role"></div>
+							<div class="col-md-4 user_plan"></div>
+							<div class="col-md-4 user_status"></div>
+						</div>
+					</div>
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>Name</th>
+									<th>Level</th>
+									<th>Owner</th>
+									<th>Creation</th>
+									<th>Balance</th>
+									<th>Points</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for guild in guilds %}
+									<tr class="odd">
+										<td>
+											<div class="d-flex justify-content-left align-items-center">
+												<div class="avatar-wrapper">
+													<img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" alt="Avatar" height="55" width="55">
+												</div>
+												<div class="d-flex flex-column">
+													<a href="{{ URL }}/admin/guilds/{{ guild.id }}" class="user_name text-truncate text-body">
+														<span class="fw-bolder">
+															{{ guild.name }}
+														</span>
+													</a>
+												</div>
+											</div>
+										</td>
+										<td>
+											<span class="text-truncate align-middle">{{ guild.level }}</span>
+										</td>
+										<td>{{ guild.owner }}</td>
+										<td>{{ guild.creationdata }}</td>
+										<td>{{ guild.balance }}</td>
+										<td>{{ guild.points }}</td>
+										<td>
+											<a href="{{ URL }}/admin/guilds/{{ guild.id }}">
+												<button class="btn btn-primary">Editar</button>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- list and filter end -->
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="editLevelModal" tabindex="-1" aria-labelledby="editLevelTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-transparent">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body px-sm-5 mx-50 pb-5">
+				<h1 class="text-center mb-1" id="editLevelTitle">Skills</h1>
+
+				<!-- form -->
+				<form id="addNewCardValidation" class="row gy-1 gx-2 mt-75">
+
+					<div class="col-6 col-md-6">
+						<label class="form-label" for="char_health">Level / Experience</label>
+						<div class="input-group">
+							<input type="text" id="char_health" name="char_health" class="form-control" value="{{ character.level }}"/>
+							<input type="text" id="char_healthmax" name="char_healthmax" class="form-control" value="{{ character.experience }}"/>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-6">
+						<label class="form-label" for="char_mana">Capacity / Soul</label>
+						<div class="input-group">
+							<input type="text" id="char_mana" name="char_mana" class="form-control" value="{{ character.cap }}"/>
+							<input type="text" id="char_manamax" name="char_manamax" class="form-control" value="{{ character.soul }}"/>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-3">
+						<label class="form-label" for="char_level">Level</label>
+						<input type="text" id="char_level" name="char_level" class="form-control" value="{{ character.level }}"/>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

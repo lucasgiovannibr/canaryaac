@@ -1,0 +1,194 @@
+<script type="text/javascript" src="{{JS_PATH}}/create_character.js"></script>
+
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+                Please choose a name and sex for your character as well as the game world on which you want the character to live. If you cannot think of any fantasy names, click on the link below the name field to get some suggestions for a name.<br><br>In any case the name must not violate the naming conventions stated in the
+				Tibia Rules, or your character might get deleted or name locked.<br><br><br>
+				{{ status }}
+				<form action="{{URL}}/account/createcharacter" method="post">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Create Character</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table3" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="TableScrollbarWrapper" style="width: unset;">
+											<div class="TableScrollbarContainer"></div>
+										</div>
+										<div class="InnerTableContainer" style="max-width: unset;">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td style="width:50%;">
+																				<span>Name</span>
+																			</td>
+																			<td>
+																				<span>Sex</span>
+																			</td>
+																		</tr>
+																		<tr class="Odd">
+																			<td><input id="charactername" name="name" value="" size="30" maxlength="29"></td>
+																			<td>
+																				<label><input type="radio" name="sex" value="1">Male</label><br>
+																				<label><input type="radio" name="sex" value="0">Female</label>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													{% if activevoc == 1 %}
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td colspan="2">Vocation</td>
+																		</tr>
+																		<tr class="Odd">
+																			<td colspan="2">
+																				<table id="js_world_box" width="100%">
+																					<tbody>
+																						<tr id="world_list_tr">
+																							<td style="border-style: none" align="center">
+																								<div style="width: 15em; position: relative; text-align: left;">
+																									<input type="radio" name="vocation" id="vocation_sorcerer" value="1">
+																									<label for="vocation_sorcerer">Sorcerer</label>
+																								</div>
+																								<div style="width: 15em; position: relative; text-align: left;">
+																									<input type="radio" name="vocation" id="vocation_druid" value="2">
+																									<label for="vocation_druid">Druid</label>
+																								</div>
+																							</td>
+																							<td style="border-style: none" align="center">
+																								<div style="width: 15em; position: relative; text-align: left;">
+																									<input type="radio" name="vocation" id="vocation_paladin" value="3">
+																									<label for="vocation_paladin">Paladin</label>
+																								</div>
+																								<div style="width: 15em; position: relative; text-align: left;">
+																									<input type="radio" name="vocation" id="vocation_knight" value="4">
+																									<label for="vocation_knight">Knight</label>
+																								</div>
+																							</td>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													{% endif %}
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td colspan="2">Game World</td>
+																		</tr>
+																		<tr class="Odd">
+																			<td colspan="2">
+																				<table id="js_world_box" width="100%">
+																					<tbody>
+																						<tr id="world_list_tr">
+																							<td style="border-style: none" align="center">
+																							{% for world in worlds %}
+																								<div style="width: 15em; position: relative; text-align: left;">
+																								<input type="radio" name="world" id="server_{{ world.name }}" value="{{ world.id }}">
+																									<label for="server_{{ world.name }}">{{ world.name }}</label>
+																								</div>
+																							{% endfor %}
+																							</td>
+																					</tbody>
+																				</table>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td colspan="2">Play Tutorial</td>
+																		</tr>
+																		<tr class="Odd">
+																			<td style="padding: 1em">Do you want to play the tutorial?</td>
+																			<td style="padding: 1em"><input name="tutorial" type="checkbox" value="1"></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div><br><table style="width:100%;">
+						<tbody>
+							<tr align="center">
+								<td>
+									{% set button_name = 'Submit' %}
+									{% include "blue_button.html.twig" %}
+								</td>
+								<td>
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+											<a class="BigButtonText" href="{{URL}}/account">Back</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<script type="text/javascript">
+						PreselectWorld = "Canary";
+InitializeCharacterCreator('REG', 'BRA', 'open')
+					</script>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

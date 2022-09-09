@@ -1,0 +1,176 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Samples</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+                                <li class="breadcrumb-item active">Samples</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+        <section class="full-editor">
+            <div class="row">
+                <div class="">
+                    {{ status|raw }}
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">New Sample</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{URL}}/admin/samples" method="post" name="sample_form" id="sample_form">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="newsampler_vocation">Vocation ID</label>
+                                    <input type="number" name="newsampler_vocation" id="newsampler_vocation" class="form-control mb-1">
+                                </div>
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="newsampler_level">Level / Experience</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_level" id="newsampler_level" class="form-control mb-1" placeholder="Level">
+                                        <input type="number" name="newsampler_experience" id="newsampler_experience" class="form-control mb-1" placeholder="Experience">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-3 mb-1">
+                                    <label class="form-label" for="newsampler_health">Health / Health Max</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_health" id="newsampler_health" class="form-control mb-1" placeholder="Health">
+                                        <input type="number" name="newsampler_healthmax" id="newsampler_healthmax" class="form-control mb-1" placeholder="Health Max">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="newsampler_mana">Mana / Mana Max</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_mana" id="newsampler_mana" class="form-control mb-1" placeholder="Mana">
+                                        <input type="number" name="newsampler_manamax" id="newsampler_manamax" class="form-control mb-1" placeholder="Mana Max">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-3 mb-1">
+                                    <label class="form-label" for="newsampler_soul">Soul / Cap / Balance</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_soul" id="newsampler_soul" class="form-control mb-1" placeholder="Soul">
+                                        <input type="number" name="newsampler_cap" id="newsampler_cap" class="form-control mb-1" placeholder="Cap">
+                                        <input type="number" name="newsampler_balance" id="newsampler_balance" class="form-control mb-1" placeholder="Balance">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-5 mb-1">
+                                    <label class="form-label" for="newsampler_townid">Town / Position</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_townid" id="newsampler_townid" class="form-control mb-1" placeholder="Town ID">
+                                        <input type="number" name="newsampler_positionx" id="newsampler_positionx" class="form-control mb-1" placeholder="Pos X">
+                                        <input type="number" name="newsampler_positiony" id="newsampler_positiony" class="form-control mb-1" placeholder="Pos Y">
+                                        <input type="number" name="newsampler_positionz" id="newsampler_positionz" class="form-control mb-1" placeholder="Pos Z">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-1 mb-1">
+                                    <label class="form-label">Outfit Image</label>
+                                    <div class="input-group">
+                                        <div name="updateoutfit" id="updateoutfit">
+                                            <img src="https://outfit-images-oracle.ots.me/1285_walk_animation/animoutfit.php?id=128&addons=0&head=0&body=0&legs=0&feet=0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-6 mb-1">
+                                    <label class="form-label" for="newsampler_looktype">Outfit</label>
+                                    <div class="input-group">
+                                        <input type="number" name="newsampler_looktype" id="newsampler_looktype" class="form-control mb-1" min="0" placeholder="Outfit">
+                                        <input type="number" name="newsampler_head" id="newsampler_head" class="form-control mb-1" min="0" max="132" placeholder="Lookhead">
+                                        <input type="number" name="newsampler_body" id="newsampler_body" class="form-control mb-1" min="0" max="132" placeholder="Lookbody">
+                                        <input type="number" name="newsampler_legs" id="newsampler_legs" class="form-control mb-1" min="0" max="132" placeholder="Looklegs">
+                                        <input type="number" name="newsampler_feet" id="newsampler_feet" class="form-control mb-1" min="0" max="132" placeholder="Lookfeet">
+                                        <input type="number" name="newsampler_addons" id="newsampler_addons" class="form-control mb-1" min="0" max="3" placeholder="Look Addons">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <input type="submit" class="btn btn-primary" value="Create">
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+					<div class="card mb-3">
+                        <div class="card-header">
+                            <h4 class="card-title">Samples</h4>
+                        </div>
+						<div class="card-body">
+							<div class="card-datatable table-responsive pt-0">
+								<table class="players-list-table table">
+									<thead class="table-light">
+										<tr>
+											<th>Outfit</th>
+                                            <th>Vocation</th>
+                                            <th>Level</th>
+                                            <th>Experience</th>
+                                            <th>Balance</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for player in players %}
+											<tr class="odd">
+												<td><img src="{{ player.outfit }}" alt="Outfit"></td>
+                                                <td>(ID: {{ player.vocation_id }}) {{ player.vocation }}</td>
+                                                <td>{{ player.level }}</td>
+                                                <td>{{ player.experience }}</td>
+                                                <td>{{ player.balance }}</td>
+												<td>
+													<a href="{{URL}}/admin/samples/{{ player.id }}/edit"><button type="button" class="btn btn-primary waves-effect waves-float waves-light">Edit</button></a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </section>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script>
+$(document).ready(function () {
+	var looktype = $("#newsampler_looktype");
+    var head = $("#newsampler_head");
+    var body = $("#newsampler_body");
+    var legs = $("#newsampler_legs");
+    var feet = $("#newsampler_feet");
+    var addons = $("#newsampler_addons");
+
+    $(document).on('keyup', "#newsampler_looktype, #newsampler_head, #newsampler_body, #newsampler_legs, #newsampler_feet, #newsampler_addons", function (e) {
+		e.preventDefault();
+        var formaturl = '{{URL}}/api/v1/outfit?looktype=' + $("#newsampler_looktype").val() + '&lookaddons=' + addons.val() + '&lookhead=' + head.val() + '&lookbody=' + body.val() + '&looklegs=' + legs.val() + '&lookfeet=' + feet.val();
+		$.ajax({
+			url: formaturl,
+			type: 'GET',
+			data: $("#sample_form").serialize(),
+			dataType: "json",
+			success: function(data){
+                $("#updateoutfit").empty();
+                $("#updateoutfit").append("<img src='" + data.outfit + "'>");
+			},
+			error: function(data){
+				$("#updateoutfit").text("Nenhum resultado encontrado.");
+			},
+		});
+	});
+});
+</script>

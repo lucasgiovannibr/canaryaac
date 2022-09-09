@@ -1,0 +1,175 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Account #{{ account_id }}</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/accounts">Accounts</a>
+								</li>
+								<li class="breadcrumb-item active">#{{ account_id }}</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			class="content-body">
+			<!-- Vertical Tabs start -->
+			<section id="vertical-tabs">
+				<div
+					class="row match-height">
+					<!-- Vertical Left Tabs start -->
+					<div class="col-xl-8 col-lg-12">
+						<div class="card">
+                            <div class="card-body">
+								<h4 class="card-title">Characters</h4>
+								<h6 class="card-subtitle text-muted">Listagem de todos characters da conta.</h6>
+							</div>
+							<div class="card-body p-0">
+								<div class="nav-vertical">
+											<div class="card-datatable table-responsive pt-0">
+												<table class="players-list-table table">
+													<thead class="table-light">
+														<tr>
+															<th>Name</th>
+															<th>Level</th>
+															<th>Group</th>
+															<th>Status</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for player in characters %}
+															<tr class="odd">
+																<td>
+																	<div class="d-flex justify-content-left align-items-center">
+																		<div class="avatar-wrapper">
+																			<div class="avatar me-1">
+																				<img src="{{ player.outfit.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
+																			</div>
+																		</div>
+																		<div class="d-flex flex-column">
+																			<a href="{{ URL }}/admin/players/{{ player.id }}" class="user_name text-truncate text-body">
+																				<span class="fw-bolder">
+																					{{ player.name }}
+																					{% if player.skull is not empty %}
+																						<img src="{{ URL }}/resources/images/{{ player.skull }}" alt="Skull">
+																					{% endif %}
+																					{% if player.main == 1 %}
+																						<img src="{{ URL }}/resources/images/account/maincharacter.png" alt="Main Character">
+																					{% endif %}
+																				</span>
+																			</a>
+																			<small class="emp_post text-muted" data-i18n="{{ player.vocation }}">{{ player.vocation }}</small>
+																		</div>
+																	</div>
+																</td>
+																<td>
+																	<span class="text-truncate align-middle" data-i18n="{{ player.level }}">{{ player.level }}</span>
+																</td>
+																<td>{{ player.group }}</td>
+																<td>
+																	{% if player.online == true %}
+																		<span class="badge rounded-pill badge-light-success" data-i18n="Online">Online</span>
+																	{% else %}
+																		<span class="badge rounded-pill badge-light-danger" data-i18n="Offline">Offline</span>
+																	{% endif %}
+																</td>
+																<td>
+																	<a href="{{ URL }}/admin/players/{{ player.id }}">
+																		<button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View Character" class="btn btn-icon btn-primary waves-effect waves-float waves-light">
+																			<i data-feather="eye"></i>
+																		</button>
+																	</a>
+																</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Vertical Left Tabs ends -->
+
+                    <div class="col-12 col-md-12 col-lg-4 col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="border-bottom mb-1">
+                                    <h4 class="card-title">Account Info</h4>
+                                </div>
+								<form class="form form-vertical">
+																<div class="row">
+																	<div class="col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="email-id-vertical">Email</label>
+																			<input type="email" id="email-id-vertical" class="form-control" name="email-id" placeholder="Email" value="{{ account.email }}"/>
+																		</div>
+																	</div>
+																	<div class="col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="password-vertical">Password</label>
+																			<div class="input-group input-group-merge form-password-toggle mb-2">
+																				<input type="password" class="form-control" id="basic-default-password1" placeholder="Password" aria-describedby="basic-default-password1">
+																				<span class="input-group-text cursor-pointer">
+																					<i data-feather="eye" class="font-small-4"></i>
+																				</span>
+																			</div>
+																		</div>
+																	</div>
+                                                                    <div class="col-md-6 col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="first-name-vertical">Name</label>
+																			<input type="text" id="first-name-vertical" class="form-control" name="fname" placeholder="First Name" value="{{ account.name }}"/>
+																		</div>
+																	</div>
+																	<div class="col-md-6 col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="password-vertical">Page Access</label>
+																			<select class="form-select">
+																				<option {% if account.page_access == 0 %}selected{% endif %} value="0">0</option>
+																				<option {% if account.page_access == 1 %}selected{% endif %} value="1">1</option>
+																				<option {% if account.page_access == 2 %}selected{% endif %} value="2">2</option>
+																				<option {% if account.page_access == 3 %}selected{% endif %} value="3">3</option>
+																			</select>
+																		</div>
+																	</div>
+																	<div class="col-md-6 col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="contact-info-vertical">Premium Days</label>
+																			<input type="number" class="form-control numeral-mask" placeholder="1000" value="{{ account.premdays }}">
+																		</div>
+																	</div>
+																	<div class="col-md-6 col-12">
+																		<div class="mb-1">
+																			<label class="form-label" for="contact-info-vertical">Coins</label>
+																			<input type="number" class="form-control numeral-mask" placeholder="1000" value="{{ account.coins }}">
+																		</div>
+																	</div>
+
+
+																	<div class="col-12">
+																		<button type="reset" class="btn btn-primary me-1">Salvar Alterações</button>
+																		<button type="reset" class="btn btn-outline-secondary">Resetar</button>
+																	</div>
+																</div>
+															</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

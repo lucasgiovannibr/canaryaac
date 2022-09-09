@@ -1,0 +1,19 @@
+AddDefaultCharset utf-8
+
+# Prevent Directoy listing 
+Options -Indexes
+
+# Prevent Direct Access to files
+<FilesMatch "\.(db|log|sql|ini|cache)$">
+	Order allow,deny
+	Deny from all
+	Satisfy all
+</FilesMatch>
+
+# SEF URL Settings
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)$ ./index.php [QSA,NC]
+</IfModule>

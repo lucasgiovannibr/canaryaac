@@ -1,0 +1,91 @@
+body {
+    background-image: url('images/global/header/background-artwork.jpg');
+    background-color: #051122;
+    background-size: 100%;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #5A2800;
+}
+
+.card {
+    background-color: #fef0d9;
+}
+
+
+.NewsTickerCard {
+    padding: 0px;
+}
+
+.NewsTickerText {
+    font-size: 9pt;
+}
+
+
+.BigButton {
+    position: relative;
+    width: 135px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 10
+}
+
+.BigButtonOver {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 135px;
+    height: 25px;
+    visibility: hidden;
+    z-index: 15
+}
+
+.ButtonText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 135px;
+    z-index: 20
+}
+
+.BigButtonText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 135px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: none;
+    text-align: center;
+    color: #ffd18c;
+    font-family: Verdana, Arial, Times New Roman, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    z-index: 20;
+    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000
+}
+
+span.BigButtonText,
+a.BigButtonText {
+    margin-top: 5px
+}
+
+.BigButtonText:hover {
+    top: 1px;
+    left: 1px
+}
+
+a.BigButtonText,
+a.BigButtonText:link,
+a.BigButtonText:visited,
+a.BigButtonText:focus,
+a.BigButtonText:active,
+a.BigButtonText:hover {
+    font-weight: 400;
+    color: #ffd18c;
+    text-decoration: none
+}

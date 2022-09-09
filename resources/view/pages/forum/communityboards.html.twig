@@ -1,0 +1,145 @@
+{% include "info_bar.html.twig" %}
+
+{% include "boosted_creature.html.twig" %}
+
+<div id="communityboards" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-communityboards.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<div class="ForumHead">
+                    {% if islogged == false %}
+					<p class="ForumWelcome">You are <b>not</b> logged in.<br><a href="{{URL}}/account/login">Log in</a> to post on the forum.</p>
+                    <div class="ForumTimes">
+						<div class="CurrentTime">Current Time:
+							<i>{{ currenttime }}</i>
+						</div>
+					</div>
+                    {% else %}
+                    <p class="ForumWelcome">Welcome back to the {{ title }} Forum!</p>
+					<div class="ForumTimes">
+						<div class="CurrentTime">Current Time:
+							<i>{{ currenttime }}</i>
+						</div>
+					</div>
+                    {% endif %}
+				</div><br><div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Boards</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;" id="BoardOverview">
+																<tbody>
+																	<tr class="LabelH">
+																		<td class="BoardListFirstColumn"></td>
+																		<td>Board</td>
+																		<td>Posts</td>
+																		<td>Threads</td>
+																		<td>Last Post</td>
+																		<td>Board</td>
+																	</tr>
+                                                                    {% for board in boards %}
+                                                                    {% set i = i + 1 %}
+																	<tr style="background-color: {{ getStyle(i) }};">
+																		<td class="BoardListFirstColumn"></td>
+																		<td>
+																			<a href="{{URL}}/forum/boards/{{ board.id }}">{{ board.title }}</a><br><font class="ff_info">{{ board.description }}</font>
+																		</td>
+																		<td class="TextRight">{{ board.totaltopics }}</td>
+																		<td class="TextRight">{{ board.totalreplies }}</td>
+																		<td>
+                                                                            {% if board.totaltopics == 0 %}
+                                                                            <span class="LastPostInfo">
+																				<a href=""><img src="{{IMAGE_PATH}}/forum/logo_lastpost.gif" border="0" width="10" height="9"></a> No topics.
+                                                                            </span>
+                                                                            {% else %}
+																			<span class="LastPostInfo">
+																				<a href=""><img src="{{IMAGE_PATH}}/forum/logo_lastpost.gif" border="0" width="10" height="9"></a> {{ board.lasttopic.post_date }}
+                                                                            </span>
+																			<span>
+																				<font class="ff_info">
+																					<span class="LastEditedBy">
+																						by&nbsp;<a href="{{URL}}/characters?name={{ board.lasttopic.player_name }}">{{ board.lasttopic.player_name }}</a>
+																					</span>
+																				</font>
+																			</span>
+                                                                            {% endif %}
+																		</td>
+																		<td>
+																			<a href="">Gameplay (English Only)</a><br><font class="ff_info">{{ board.description }}</font>
+																			<div class="LastPostInformation">
+																				<span class="LastPostLabel">Last Post:
+																				</span>
+																				<span class="LastPostInfo">
+																					<a href=""><img src="{{IMAGE_PATH}}/forum/logo_lastpost.gif" border="0" width="10" height="9"></a>&nbsp;06.08.2022&nbsp;02:32:46</span>
+																				<span>
+																					<font class="ff_info">
+																						<span class="LastEditedBy">
+																							by&nbsp;<a href="">Lee kun</a>
+																						</span>
+																					</font>
+																				</span>
+																			</div>
+																			<div class="PostNumericInformation">Threads: 34,575 Posts: 330,411</div>
+																		</td>
+																	</tr>
+                                                                    {% endfor %}
+																	<tr></tr>
+																	<tr style="background-color: #F1E0C6;">
+																		<td colspan="5" class="ForumContentFooter">
+																			<div class="ForumContentFooterLeft">All times are CEST</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="LogoInfoRow">
+					<div class="LogoInfoCell"><img src="{{IMAGE_PATH}}/forum/logo_newposts.gif" border="0" width="31" height="31">New Posts</div>
+					<div class="LogoInfoCell"><img src="{{IMAGE_PATH}}/forum/logo_closed.gif" border="0" width="22" height="22">Closed Board</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

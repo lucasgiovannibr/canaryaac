@@ -1,0 +1,43 @@
+<div id="NewsArchive" class="Box">
+	<div class="Corner-tl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{ IMAGE_PATH }}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{ IMAGE_PATH }}/global/strings/headline-newsarchive.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{ IMAGE_PATH }}/global/content/scroll.gif);">
+				<div class="NewsHeadline">
+					<div class="NewsHeadlineBackground" style="background-image:url({{ IMAGE_PATH }}/global/content/newsheadline_background.gif);">
+						<div>
+							<img src="{{ new.category_img }}" class="NewsHeadlineIcon">
+							<div class="NewsHeadlineDate">{{ new.date }} -</div>
+						</div>
+						<div class="NewsHeadlineText">{{ new.title }}</div>
+					</div>
+				</div>
+				<table class="NewsTable" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td class="NewsTableContainer">
+                            {{ new.body|raw }}
+							</td>
+						</tr>
+					</tbody>
+				</table><br><center>
+					<a href="{{URL}}/newsarchive" style="padding:0px;margin:0px;">
+                    <div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
+							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image: url(&quot;{{ IMAGE_PATH }}/global/buttons/button_blue_over.gif&quot;); visibility: hidden;"></div><input class="BigButtonText" type="submit" value="Back"></div>
+						</div>
+					</a>
+				</center><br>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

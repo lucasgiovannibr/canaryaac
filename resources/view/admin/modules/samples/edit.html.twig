@@ -1,0 +1,144 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Edit Samples</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+                                <li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/samples">Samples</a>
+								</li>
+                                <li class="breadcrumb-item active">Edit Sample</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+        <section class="full-editor">
+            <div class="row">
+                <div class="">
+                    {{ status|raw }}
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Edit Sample</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{URL}}/admin/samples/{{ sample.id }}/edit" method="post" name="sample_form" id="sample_form">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="editsampler_vocation">Vocation ID</label>
+                                    <input type="number" name="editsampler_vocation" id="editsampler_vocation" class="form-control mb-1" value="{{ sample.vocation }}">
+                                </div>
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="editsampler_level">Level / Experience</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_level" id="editsampler_level" class="form-control mb-1" placeholder="Level" value="{{ sample.level }}">
+                                        <input type="number" name="editsampler_experience" id="editsampler_experience" class="form-control mb-1" placeholder="Experience" value="{{ sample.experience }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-3 mb-1">
+                                    <label class="form-label" for="editsampler_health">Health / Health Max</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_health" id="editsampler_health" class="form-control mb-1" placeholder="Health" value="{{ sample.health }}">
+                                        <input type="number" name="editsampler_healthmax" id="editsampler_healthmax" class="form-control mb-1" placeholder="Health Max" value="{{ sample.healthmax }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-2 mb-1">
+                                    <label class="form-label" for="editsampler_mana">Mana / Mana Max</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_mana" id="editsampler_mana" class="form-control mb-1" placeholder="Mana" value="{{ sample.mana }}">
+                                        <input type="number" name="editsampler_manamax" id="editsampler_manamax" class="form-control mb-1" placeholder="Mana Max" value="{{ sample.manamax }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-3 mb-1">
+                                    <label class="form-label" for="editsampler_mana">Soul / Cap / Balance</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_soul" id="editsampler_soul" class="form-control mb-1" placeholder="Soul" value="{{ sample.soul }}">
+                                        <input type="number" name="editsampler_cap" id="editsampler_cap" class="form-control mb-1" placeholder="Cap" value="{{ sample.cap }}">
+                                        <input type="number" name="editsampler_balance" id="editsampler_balance" class="form-control mb-1" placeholder="Balance" value="{{ sample.balance }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-5 mb-1">
+                                    <label class="form-label" for="editsampler_townid">Town / Position</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_townid" id="editsampler_townid" class="form-control mb-1" placeholder="Town ID" value="{{ sample.town_id }}">
+                                        <input type="number" name="editsampler_positionx" id="editsampler_positionx" class="form-control mb-1" placeholder="Pos X" value="{{ sample.posx }}">
+                                        <input type="number" name="editsampler_positiony" id="editsampler_positiony" class="form-control mb-1" placeholder="Pos Y" value="{{ sample.posy }}">
+                                        <input type="number" name="editsampler_positionz" id="editsampler_positionz" class="form-control mb-1" placeholder="Pos Z" value="{{ sample.posz }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-1 mb-1">
+                                    <label class="form-label">Outfit Image</label>
+                                    <div class="input-group">
+                                        <div name="updateoutfit" id="updateoutfit">
+                                            <img src="https://outfit-images-oracle.ots.me/1285_walk_animation/animoutfit.php?id={{ sample.looktype }}&addons={{ sample.lookaddons }}&head={{ sample.lookhead }}&body={{ sample.lookbody }}&legs={{ sample.looklegs }}&feet={{ sample.lookfeet }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-6 mb-1">
+                                    <label class="form-label" for="editsampler_looktype">Outfit</label>
+                                    <div class="input-group">
+                                        <input type="number" name="editsampler_looktype" id="editsampler_looktype" class="form-control mb-1" min="0" placeholder="Outfit" value="{{ sample.looktype }}">
+                                        <input type="number" name="editsampler_head" id="editsampler_head" class="form-control mb-1" min="0" max="132" placeholder="Lookhead" value="{{ sample.lookhead }}">
+                                        <input type="number" name="editsampler_body" id="editsampler_body" class="form-control mb-1" min="0" max="132" placeholder="Lookbody" value="{{ sample.lookbody }}">
+                                        <input type="number" name="editsampler_legs" id="editsampler_legs" class="form-control mb-1" min="0" max="132" placeholder="Looklegs" value="{{ sample.looklegs }}">
+                                        <input type="number" name="editsampler_feet" id="editsampler_feet" class="form-control mb-1" min="0" max="132" placeholder="Lookfeet" value="{{ sample.lookfeet }}">
+                                        <input type="number" name="editsampler_addons" id="editsampler_addons" class="form-control mb-1" min="0" max="3" placeholder="Lookaddons" value="{{ sample.lookaddons }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <input type="submit" class="btn btn-primary" value="Edit">
+                                    <input type="submit" class="btn btn-danger" name="btn_delete" value="Delete">
+                                    <a href="{{URL}}/admin/samples"><input type="button" class="btn btn-secondary" value="Voltar"></a>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script>
+$(document).ready(function () {
+	var looktype = $("#editsampler_looktype");
+    var head = $("#editsampler_head");
+    var body = $("#editsampler_body");
+    var legs = $("#editsampler_legs");
+    var feet = $("#editsampler_feet");
+    var addons = $("#editsampler_addons");
+
+    $(document).on('keyup', "#editsampler_looktype, #editsampler_head, #editsampler_body, #editsampler_legs, #editsampler_feet, #editsampler_addons", function (e) {
+		e.preventDefault();
+        var formaturl = '{{URL}}/api/v1/outfit?looktype=' + $("#editsampler_looktype").val() + '&lookaddons=' + addons.val() + '&lookhead=' + head.val() + '&lookbody=' + body.val() + '&looklegs=' + legs.val() + '&lookfeet=' + feet.val();
+		$.ajax({
+			url: formaturl,
+			type: 'GET',
+			data: $("#sample_form").serialize(),
+			dataType: "json",
+			success: function(data){
+                $("#updateoutfit").empty();
+                $("#updateoutfit").append("<img src='" + data.outfit + "'>");
+			},
+			error: function(data){
+				$("#updateoutfit").text("Nenhum resultado encontrado.");
+			},
+		});
+	});
+});
+</script>

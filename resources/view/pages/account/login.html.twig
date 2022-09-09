@@ -1,0 +1,222 @@
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				{% if status == true %}
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="ErrorMessage">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="AttentionSign" style="background-image:url({{IMAGE_PATH}}/global/content/attentionsign.gif);"></div>
+							<b>The following error has occurred:</b><br>
+							You have entered a wrong password or email address.<br>
+							</div>
+							<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+							<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+							<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						</div>
+					</div>
+				<br>
+				{% endif %}
+                <div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Account Login</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table4" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			<table style="float: left; width: 100%; " cellpadding="0" cellspacing="0">
+																				<tbody>
+																					<tr>
+                                                                                        <form action="" method="post">
+																						<td>
+																							<table style="float: left; width: 100%; " cellpadding="0" cellspacing="0">
+																								<tbody>
+																									<tr>
+																										<td class="LabelV120">
+																											<span {% if status == true %}class="red"{% endif %}>Email Address:</span>
+																										</td>
+																										<td><input type="text" name="loginemail" maxlength="50" style="width: 100%;"></td>
+																									</tr>
+																									<tr>
+																										<td class="LabelV120">
+																											<span {% if status == true %}class="red"{% endif %}>Tibia Password:</span>
+																										</td>
+																										<td><input type="password" name="loginpassword" maxlength="29" size="30" style="width: 100%;"></td>
+																									</tr>
+																									<tr id="inpauthenticator" style="display: none;">
+																										<td class="LabelV120">
+																											<span {% if status == true %}class="red"{% endif %}>Authenticator:</span>
+																										</td>
+																										<td><input type="text" name="token" maxlength="8" size="30" style="width: 100%;"></td>
+																									</tr>
+																								</tbody>
+																							</table>
+																						</td>
+																						<td id="LoginFormButtonCell">
+																							<div style="float: right; font-size: 1px;">
+                                                                                                <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Login"></div>
+																							</div>
+																							<div style="width: 2px; height: 2px;"></div>
+																							<a href="{{URL}}/account/lostaccount">
+																								<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="button" value="Lost Account"></div>
+																							</a>
+																							</div>
+																							</div>
+																						</td>
+                                                                                        </form>
+																					</tr>
+																				</tbody>
+																			</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			<div class="InnerTableRightTopButtons">
+																			<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" onClick="useAuthenticator()" id="btnauthenticator" type="button" value="Use Authenticator"></div></div>
+																			</div>
+																			If your account is not connected to an authenticator app, you can hide the field for the authenticator app token by clicking on "No Authenticator". Alternatively, you can simply leave it blank.<p>An authenticator app is a security feature which helps to prevent any unauthorised access to your Tibia account! You can connect your account to an authenticator app via your account management page.
+																			</p>
+																		</td>
+																		<script>
+																		function useAuthenticator(){
+																			var inputauthenticator = document.getElementById('inpauthenticator');
+																			var btnauthenticator = document.getElementById('btnauthenticator');
+																			if(inputauthenticator.style.display == 'none'){
+																				inputauthenticator.style.display = 'contents';
+																				btnauthenticator.value = 'No Authenticator';
+																			}else{
+																				inputauthenticator.style.display = 'none';
+																				btnauthenticator.value = 'Use Authenticator';
+																			}
+																		}
+																		</script>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><br>
+				<center>
+					<h1>New to Tibia?</h1>
+				</center>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">New Player</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			<div style="float: right; margin-top: 20px;">
+																				<a class="MediumButtonForm" href="{{URL}}/createaccount">
+																					<div class="MediumButtonBackground" style="background-image:url({{IMAGE_PATH}}/global/buttons/mediumbutton.gif)" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"><div class="MediumButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/mediumbutton-over.gif)" onmouseover="MouseOverMediumButton(this);" onmouseout="MouseOutMediumButton(this);"></div><input class="MediumButtonText" type="image" name="Create Account" alt="Create Account" src="{{IMAGE_PATH}}/global/buttons/mediumbutton_createaccount.png"></div>
+																				</a>
+																			</div>
+																			<div id="LoginCreateAccountBox">
+																				<p>
+																					<b>Tibia...</b>
+																				</p>
+																				<div style="margin-left: 10px;">
+																					<p>... where hardcore gaming meets fantasy.</p>
+																					<p>... where friendships last a lifetime.</p>
+																					<p>... unites adventurers since 1997!</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<script type="text/javascript">
+					var g_FormName = "AccountLoginForm";
+var g_FieldName = "loginemail";
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

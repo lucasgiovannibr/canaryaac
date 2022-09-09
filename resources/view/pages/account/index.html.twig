@@ -1,0 +1,379 @@
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<center>
+					<table>
+						<tbody>
+							<tr>
+								<td><img src="{{IMAGE_PATH}}/global/content/headline-bracer-left.gif"></td>
+								<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Welcome to your account {{ account.name }}!<br></td>
+								<td><img src="{{IMAGE_PATH}}/global/content/headline-bracer-right.gif"></td>
+							</tr>
+						</tbody>
+					</table>
+				</center><br><div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Account Status</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+                                                                        {% if account.premdays == 0 %}
+																		<td><img class="AccountStatusImage" src="{{IMAGE_PATH}}/account/account-status_red.gif" alt="free account"></td>
+																		<td width="100%" valign="middle">
+																			<span class="red">
+																				<span class="BigBoldText">Free Account</span>
+																			</span>
+																			<small><br>Your Premium Time expired.<br>(Balance of Premium Time: {{ account.premdays }} days)</small>
+																		</td>
+                                                                        {% else %}
+                                                                        <td><img class="AccountStatusImage" src="{{IMAGE_PATH}}/account/account-status_green.gif" alt="premium account"></td>
+																		<td width="100%" valign="middle">
+																			<span class="green">
+																				<span class="BigBoldText">Premium Account</span>
+																			</span>
+																			<small><br>Your Premium Time expire in {{ account.dateprem }}.<br>(Balance of Premium Time: {{ account.premdays }} days)</small>
+																		</td>
+                                                                        {% endif %}
+																		<td>
+																			<a href="{{URL}}/account/manage">
+																				{% set button_name = 'Manage Account' %}
+																				{% include "blue_button.html.twig" %}
+																			</a>
+																			<div style="font-size:1px;height:4px;"></div>
+																			<a href="{{URL}}/payment">
+																				{% set button_name = 'Get Coins' %}
+																				{% include "green_button.html.twig" %}
+																			</a>
+																			<div style="font-size:1px;height:4px;"></div>
+																			<a href="{{URL}}/account/logout">
+																				{% set button_name = 'Logout' %}
+																				{% include "red_button.html.twig" %}
+																			</a>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer"> <table class="TableContent" width="100%" style="border:1px solid #faf0d7;"><tbody><tr><style> .premiumbenefits {display: flex;margin: 0px auto;} .premiumbenefits > div { display: flex;align-items: center;flex: 1; margin: auto 5x;</style><td class="premiumbenefits"><div style="justify-content: flex-start"><img class="PremiumFeatureImage1" src="{{IMAGE_PATH}}/premiumfeatures/PremiumIcon-Spells.png" alt="premium feature 1" style="margin:0px 5px"><div>cast all powerful spells</div></div><div style="justify-content: center"><img class="PremiumFeatureImage1" src="{{IMAGE_PATH}}/premiumfeatures/PremiumIcon-Stamina.png" alt="premium feature 1" style="margin:0px 5px"><div>50% XP boost for 3 hours every day</div></div><div style="justify-content: flex-end"><img class="PremiumFeatureImage1" src="{{IMAGE_PATH}}/premiumfeatures/PremiumIcon-SecondaryBattlelists.png" alt="premium feature 1" style="margin:0px 5px"><div>organise characters and creatures nearby in secondary battle lists</div></div></td></tr> </tbody></table> </div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Download Client</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			<div style="height: 55px;">
+																				<div id="DowloadBox" style="position: relative; float:right;">
+																					<a href="{{URL}}/downloads"><img style="width: 45px; height: 45px; border: 0px; margin-right: 10px;" src="{{IMAGE_PATH}}/account/download_windows.gif"></a><br><a style="position: absolute; bottom: -5px; right: 0px;" href="{{URL}}/downloads">Download</a>
+																				</div>
+																				<span style="position: relative; top: 18px;">Click
+																					<a href="{{URL}}/downloads">here</a>
+																					to download the latest Tibia client!</span>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                <br>
+				{% if account.registered == false %}
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width: 100%;">
+											<b>Your account not registered!</b>
+										</td>
+										<td>
+											<a href="{{ URL }}/account/registration" style="padding:0px;margin:0px;">
+											<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image: url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif); visibility: hidden;"></div><input class="BigButtonText" type="button" value="Register Account"></div></div>
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+										You can register your account for increased protection. Click on "Register Account" and enter your correct address to be able to order a new recovery key when needed!
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+				<br>
+				{% endif %}
+				<a name="characters"></a>
+				<div class="RowsWithOverEffect">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">Characters</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table3" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td style="text-align: center;">Regular Characters</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td style="width: 15px !important;"></td>
+																			<td>Outfit</td>
+																			<td>Name</td>
+																			<td style="width: 100px !important;">Status</td>
+																			<td style="width: 100px !important;">&nbsp;</td>
+																		</tr>
+                                                                        {% set count = 0 %}
+																		<tr id="CharacterRow_{{ count }}" onmouseover="InRowWithOverEffect('CharacterRow_{{ count }}', '#ffedd1');" onmouseout="OutRowWithOverEffect('CharacterRow_{{ count }}', '{{ getStyle(i) }}');" onclick="FocusCharacter({{ count }}, '{{ account.player.name }}', 9);" class="CharacterList {{ getStyleCss(i) }}" style="font-weight: bold;">
+																			<td style="text-align: center; padding:2px; padding-top: 4px;">{{ count }}.</td>
+																			<td><img src="{{ account.player.outfit.image_url }}" alt="Outfit" title="Outfit" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;"></td>
+																			<td id="CharacterCell2_{{ count }}">
+																				<span style="white-space: nowrap; vertical-align: middle; line-height: 12px;">
+																					<span id="CharacterNameOf_{{ count }}" {% if account.player.deletion == true %}style="font-size:13pt; color: red"{% else %}style="font-size:13pt;"{% endif %}>{{ account.player.name }}
+																						<img src="{{IMAGE_PATH}}//account/maincharacter.png" alt="(Main Character)" title="Main Character"></span>
+																					<br>
+																						<small></small>
+																						<small>
+																							<span id="CharacterNameOf_{{ count }}">{{ account.player.vocation }} - Level {{ account.player.level }} - On {{ account.player.world.name }}<span style="position: relative; top: 3px; margin-left: 5px;">
+																								</span>
+																							</span>
+																							{% if account.player.guild %}
+																							<br>
+																							Guild Membership: 
+																							<span style="font-weight: normal;">{{ account.player.guild.rank_name }} of the <a href="{{URL}}/community/guilds/{{ account.player.guild.guild_name }}/view">{{ account.player.guild.guild_name }}</a></span>
+																							{% endif %}
+																						</small>
+																					</span>
+																				</td>
+																				<td id="CharacterCell3_{{ count }}">
+                                                                                    {% if account.player.isreward > 0 %}
+                                                                                    <img id="DailyReawardState" src="{{IMAGE_PATH}}/global/content/icon-status-dailyreward-notcollected.png" alt="Daily Reward not collected" title="Daily Reward not collected">
+                                                                                    {% else %}
+                                                                                    <img id="DailyReawardState" src="{{IMAGE_PATH}}/global/content/icon-status-dailyreward-collected.png" alt="Daily Reward collected" title="Daily Reward collected">
+                                                                                    {% endif %}
+																					{% if account.player.hidden == 1 %}
+                                                                                        <img id="VisibleState" src="{{IMAGE_PATH}}/global/content/icon-status-hidden.png" alt="hidden" title="hidden">
+																					{% endif %}
+																					{% if account.player.online == true %}
+																					<img id="VisibleState" src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																					{% else %}
+																					<img id="VisibleState" src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																					{% endif %}
+																					{% if account.player.skull is not empty %}
+																					<img src="{{IMAGE_PATH}}/{{ account.player.skull }}" alt="Skull" title="Skull">
+																					{% endif %}
+                                                                                </td>
+																				<td id="CharacterCell4_{{ count }}" style="text-align:center;">
+																					{% if account.player.deletion == true %}
+																					<span>Deleted</span>
+																					{% else %}
+																					<span id="CharacterOptionsOf_{{ count }}">
+																						<span style="font-weight:normal;">[<a href="{{URL}}/account/character/{{ account.player.name }}/edit">Edit</a>]</span><br><span style="font-weight:normal;">[<a href="{{URL}}/account/character/{{ account.player.name }}/delete">Delete</a>]</span>
+																					</span>
+																					{% endif %}
+																				</td>
+																			</tr>
+																		    {% for player in account.players %}
+                                                                                {% set count = count + 1 %}
+                                                                                {% set i = i + 1 %}
+																			<tr id="CharacterRow_{{ count }}" onmouseover="InRowWithOverEffect('CharacterRow_{{ count }}', '#e7d1af');" onmouseout="OutRowWithOverEffect('CharacterRow_{{ count }}', '{{ getStyle(i) }}');" onclick="FocusCharacter({{ count }}, '{{ player.name }}', 9);" class="CharacterList {{ getStyleCss(i) }}" style="cursor: pointer;">
+																				<td style="text-align: center; padding:2px; padding-top: 4px;">{{ count }}.</td>
+																				<td><img src="{{ player.outfit.image_url }}" alt="Outfit" title="Outfit" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;"></td>
+																				<td id="CharacterCell2_{{ count }}">
+																					<span style="white-space: nowrap; vertical-align: middle; line-height: 12px;">
+																						<span id="CharacterNameOf_{{ count }}" {% if player.deletion == true %}style="color: red"{% endif %}>{{ player.name }}</span>
+																						<br>
+																							<small></small>
+																							<small>
+																								<span id="CharacterNameOf_{{ count }}">{{ player.vocation }} - Level {{ player.level }} - On {{ player.world.name }}<span style="position: relative; top: 3px; margin-left: 5px;">
+																									</span>
+																								</span>
+																								{% if player.guild %}
+																								<br>
+																								Guild Membership: 
+																								<span style="font-weight: normal;">{{ player.guild.rank_name }} of the <a href="{{URL}}/community/guilds/{{ player.guild.guild_name }}/view">{{ player.guild.guild_name }}</a></span>
+																								{% endif %}
+																							</small>
+																						</span>
+																					</td>
+																					<td id="CharacterCell3_{{ count }}">
+                                                                                        {% if player.isreward > 0 %}
+                                                                                        <img id="DailyReawardState" src="{{IMAGE_PATH}}/global/content/icon-status-dailyreward-notcollected.png" alt="Daily Reward not collected" title="Daily Reward not collected">
+																						{% else %}
+                                                                                        <img id="DailyReawardState" src="{{IMAGE_PATH}}/global/content/icon-status-dailyreward-collected.png" alt="Daily Reward collected" title="Daily Reward collected">
+                                                                                        {% endif %}
+																						{% if player.hidden == 1 %}
+                                                                                        <img id="VisibleState" src="{{IMAGE_PATH}}/global/content/icon-status-hidden.png" alt="hidden" title="hidden">
+																						{% endif %}
+																						{% if player.online == true %}
+                                                                                        <img id="VisibleState" src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
+																						{% else %}
+																						<img id="VisibleState" src="{{IMAGE_PATH}}/off.gif" alt="Offline" title="Offline">
+																						{% endif %}
+																						{% if player.skull is not empty %}
+																						<img src="{{IMAGE_PATH}}/{{ player.skull }}" alt="Skull" title="Skull">
+																						{% endif %}
+                                                                                    </td>
+																					<td id="CharacterCell4_{{ count }}" style="text-align:center;">
+																						{% if player.deletion == true %}
+																						<span>Deleted</span>
+																						{% else %}
+																						<span id="CharacterOptionsOf_{{ count }}" style="display:none;">
+																							<span style="font-weight:normal;">[<a href="{{URL}}/account/character/{{ player.name }}/edit">Edit</a>]</span><br><span style="font-weight:normal;">[<a href="{{URL}}/account/character/{{ player.name }}/delete">Delete</a>]</span>
+																						</span>
+																						{% endif %}
+																					</td>
+																				</tr>
+                                                                                {% endfor %}
+																										</tbody>
+																									</table>
+																								</div>
+																							</td>
+																						</tr>
+																						<tr>
+																							<td>
+																								<table class="InnerTableButtonRow" cellpadding="0" cellspacing="0">
+																									<tbody>
+																										<tr>
+																											<td>
+																												<div class="DivWithButton">
+																													<a href="{{URL}}/account/createcharacter">
+																													{% set button_name = 'Create Character' %}
+																													{% include "blue_button.html.twig" %}
+																													</a>
+																												</div>
+																											</td>
+																										</tr>
+																									</tbody>
+																								</table>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div><br><br>
+												</div>
+											</div>
+										</div>
+										<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+										<div class="CornerWrapper-b">
+											<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+										</div>
+										<div class="CornerWrapper-b">
+											<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+										</div>
+									</div>

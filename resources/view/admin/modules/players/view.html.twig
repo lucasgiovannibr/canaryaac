@@ -1,0 +1,333 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">{{ character.name }}</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/players">Players</a>
+								</li>
+								<li class="breadcrumb-item active">{{ character.name }} #{{ player_id }}</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+            <div class="row match-height">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar-wrapper">
+                                    <div class="avatar me-75">
+                                        <img src="https://outfit-images-oracle.ots.me/1285_walk_animation/animoutfit.php?id=129&amp;addons=0&amp;head=95&amp;body=113&amp;legs=39&amp;feet=115&amp;mount=0" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <a href="" class="user_name text-truncate text-body">
+                                        <span class="fw-bolder fs-4">{{ name }}
+                                        {% if character.main == 1 %}<img src="{{ URL }}/resources/images/account/maincharacter.png" alt="Main Character">{% endif %}</span>
+                                    </a>
+                                    <small class="emp_post text-muted" data-i18n="{{ vocation }}">{{ vocation }}</small>
+                                </div>
+                                <div class="ms-auto">
+                                    <a href="{{ URL }}/admin/accounts/{{ character.account_id }}">
+                                    <button type="button" class="btn btn-sm btn-primary"><i data-feather="eye"></i> Account</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row match-height">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            iuviuiu
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="fw-bolder">Health</h5>
+                                <h5 class="fw-bolder">{{ character.health }} / {{ character.healthmax }}</h5>
+                            </div>
+                            <div class="progress progress-bar-danger mb-1">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="55" aria-valuemax="100" style="width: 55%">
+                                    55%
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="fw-bolder">Mana</h5>
+                                <h5 class="fw-bolder">{{ character.mana }} / {{ character.manamax }}</h5>
+                            </div>
+                            <div class="progress progress-bar-info mb-1">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="55" aria-valuemax="100" style="width: 55%">
+                                    55%
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Skills</div>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Magic Level:</span>
+                                    <span class="badge bg-light-secondary">{{ character.maglevel }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Fist Fighting:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_fist }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Club Fighting:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_club }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Sword Fighting:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_sword }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Axe Fighting:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_axe }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Distance Fighting:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_dist }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Shielding:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_shielding }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Fishing:</span>
+                                    <span class="badge bg-light-secondary">{{ character.skill_fishing }}</span>
+                                </li>
+                            </ul>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#editSkillsModal"><i data-feather="edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="fw-bolder">Level</h5>
+                                <h5 class="fw-bolder">{{ character.level }}</h5>
+                            </div>
+                            <div class="progress progress-bar-danger mb-1">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="55" aria-valuemax="100" style="width: 55%">
+                                    55%
+                                </div>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Experience:</span>
+                                    <span class="badge bg-light-secondary">{{ character.experience }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Soul Points:</span>
+                                    <span class="badge bg-light-secondary">{{ character.soul }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Capacity:</span>
+                                    <span class="badge bg-light-secondary">{{ character.cap }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Balance:</span>
+                                    <span class="badge bg-light-secondary">{{ character.balance }}</span>
+                                </li>
+                            </ul>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#editLevelModal"><i data-feather="edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Vocation:</span>
+                                    <span class="badge bg-light-secondary">{{ vocation }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Group:</span>
+                                    <span class="badge bg-light-secondary">{{ group }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Sex:</span>
+                                    <span class="badge bg-light-secondary">{{ character.sex }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">World:</span>
+                                    <span class="badge bg-light-secondary">{{ character.world }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Town:</span>
+                                    <span class="badge bg-light-secondary">{{ town }}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Daily Reward:</span>
+                                    <span class="badge bg-light-secondary">{% if character.isreward == 1 %}<i data-feather="check"></i> Open{% else %}<i data-feather="x"></i> Close{% endif %}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Tutorial:</span>
+                                    <span class="badge bg-light-secondary">{% if character.istutorial == 1 %}<i data-feather="check"></i>{% else %}<i data-feather="x"></i>{% endif %}</span>
+                                </li>
+                                <li class="mb-75">
+                                    <span class="fw-bolder me-25">Blessings:</span>
+                                    <span class="badge bg-light-secondary">Acesse edit</span>
+                                </li>
+                            </ul>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#editLevelModal"><i data-feather="edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+		</div>
+	</div>
+</div>
+
+
+<!-- edit skills  -->
+<div class="modal fade" id="editSkillsModal" tabindex="-1" aria-labelledby="editSkillsTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-sm-5 mx-50 pb-5">
+                <h1 class="text-center mb-1" id="editSkillsTitle">Skills</h1>
+
+                <!-- form -->
+                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75">
+
+                    <div class="col-6 col-md-6">
+                        <label class="form-label" for="char_health">Health / Max</label>
+                        <div class="input-group">
+                            <input type="text" id="char_health" name="char_health" class="form-control" value="{{ character.health }}" />
+                            <input type="text" id="char_healthmax" name="char_healthmax" class="form-control" value="{{ character.healthmax }}" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-6">
+                        <label class="form-label" for="char_mana">Mana / Max</label>
+                        <div class="input-group">
+                            <input type="text" id="char_mana" name="char_mana" class="form-control" value="{{ character.mana }}" />
+                            <input type="text" id="char_manamax" name="char_manamax" class="form-control" value="{{ character.manamax }}" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_magic">Magic Level</label>
+                        <input type="text" id="char_magic" name="char_magic" class="form-control" value="{{ character.maglevel }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_fist">Fist Fighting</label>
+                        <input type="text" id="char_fist" name="char_fist" class="form-control" value="{{ character.skill_fist }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_club">Club Fighting</label>
+                        <input type="text" id="char_club" name="char_club" class="form-control add-cvv-code-mask" value="{{ character.skill_club }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_sword">Sword Fighting</label>
+                        <input type="text" id="char_sword" name="char_sword" class="form-control add-cvv-code-mask" value="{{ character.skill_sword }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_axe">Axe Fighting</label>
+                        <input type="text" id="char_axe" name="char_axe" class="form-control add-cvv-code-mask" value="{{ character.skill_axe }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_dist">Distance Fighting</label>
+                        <input type="text" id="char_dist" name="char_dist" class="form-control add-cvv-code-mask" value="{{ character.skill_dist }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_shielding">Shielding</label>
+                        <input type="text" id="char_shielding" name="char_shielding" class="form-control add-cvv-code-mask" value="{{ character.skill_shielding }}" />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_fishing">Fishing</label>
+                        <input type="text" id="char_fishing" name="char_fishing" class="form-control add-cvv-code-mask" value="{{ character.skill_fishing }}" />
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-1 mt-1">Salvar</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ edit skills  -->
+
+<!-- edit level  -->
+<div class="modal fade" id="editLevelModal" tabindex="-1" aria-labelledby="editLevelTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-sm-5 mx-50 pb-5">
+                <h1 class="text-center mb-1" id="editLevelTitle">Skills</h1>
+
+                <!-- form -->
+                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75">
+
+                    <div class="col-6 col-md-6">
+                        <label class="form-label" for="char_health">Level / Experience</label>
+                        <div class="input-group">
+                            <input type="text" id="char_health" name="char_health" class="form-control" value="{{ character.level }}" />
+                            <input type="text" id="char_healthmax" name="char_healthmax" class="form-control" value="{{ character.experience }}" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-6">
+                        <label class="form-label" for="char_mana">Capacity / Soul</label>
+                        <div class="input-group">
+                            <input type="text" id="char_mana" name="char_mana" class="form-control" value="{{ character.cap }}" />
+                            <input type="text" id="char_manamax" name="char_manamax" class="form-control" value="{{ character.soul }}" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label" for="char_level">Level</label>
+                        <input type="text" id="char_level" name="char_level" class="form-control" value="{{ character.level }}" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ edit level  -->

@@ -1,0 +1,160 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Edit Guild</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/guilds">Guilds</a>
+								</li>
+								<li class="breadcrumb-item active">Edit</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<div class="row match-height">
+				<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="border-bottom mb-1">
+								<h4 class="card-title"><img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" alt="Avatar" height="55" width="55"> {{ guild.name }}</h4>
+							</div>
+							<form class="form form-vertical" action="{{URL}}/admin/guilds/edit/" method="post">
+								<div class="row">
+									<div class="col-6 row">
+										<div class="col-12">
+											<div class="mb-1">
+												<label class="form-label" for="guild-name">Name</label>
+												<input type="text" name="guild_name" id="guild-name" class="form-control" name="name" value="{{ guild.name }}">
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="mb-1">
+												<label class="form-label" for="guild-owner">Owner</label>
+												<input type="text" id="guild-owner" class="form-control" disabled value="{{ guild.owner }}">
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="mb-1">
+												<label class="form-label" for="guild-level">Level</label>
+												<input type="number" name="guild_level" id="guild-level" class="form-control" value="{{ guild.level }}">
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="mb-1">
+												<label class="form-label" for="guild-balance">Balance</label>
+												<input type="number" name="guild_balance" id="guild-balance" class="form-control" value="{{ guild.balance }}">
+											</div>
+										</div>
+										<div class="col-md-6 col-6">
+											<div class="mb-1">
+												<label class="form-label" for="guild-points">Points</label>
+												<input type="number" name="guild_points" id="guild-points" class="form-control" value="{{ guild.points }}">
+											</div>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="col-12">
+											<div class="mb-1">
+												<label class="form-label" for="guild-description">Description</label>
+												<textarea name="guild_description" class="form-control" id="guild-description" style="height: 200px">{{ guild.description }}</textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card">
+						<div class="card-body">
+							<button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Salvar Alterações</button>
+                            <button type="submit" class="btn btn-danger me-1 waves-effect waves-float waves-light">Deletar Guild</button>
+						</div>
+					</div>
+				</div>
+				<!-- Striped rows start -->
+				<div class="col-6">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Membership</h4>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Nick</th>
+										<th>Rank</th>
+                                        <th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for member in members %}
+									<tr>
+										<td>
+											<a href="{{URL}}/admin/players/{{ member.player_id }}">{{ member.player_name }}</span>
+										</td>
+										<td>{{ member.nick }}</td>
+										<td>{{ member.rank_id }}</td>
+                                        <td>
+                                        <input type="hidden" name="guild_id" value="{{ member.guild_id }}">
+                                        <input type="hidden" name="player_id" value="{{ member.player_id }}">
+                                        <button type="submit" class="btn btn-danger">Deletar</button>
+                                        </td>
+									</tr>
+                                    {% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Invited</h4>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Date</th>
+                                        <th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+                                    {% for invited in invites %}
+									<tr>
+										<td>
+											<a href="{{URL}}/admin/players/{{ invited.player_id }}">{{ invited.player_name }}</span>
+										</td>
+										<td>{{ invited.date }}</td>
+                                        <td>
+                                        <input type="hidden" name="guild_id" value="{{ invited.guild_id }}">
+                                        <input type="hidden" name="player_id" value="{{ invited.player_id }}">
+                                        <button type="submit" class="btn btn-danger">Deletar</button>
+                                        </td>
+									</tr>
+                                    {% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

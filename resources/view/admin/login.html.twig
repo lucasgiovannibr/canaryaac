@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="loading dark-layout" lang="pt" data-layout="dark-layout" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="author" content="Lucas Giovanni">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/vendors.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/components.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/pages/authentication.css">
+    <!-- END: Page CSS-->
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        <!-- Login basic -->
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="index.html" class="brand-logo">
+                                    <svg version="1.1" id="CanaryIcon" height="30" x="0px" y="0px"
+									viewBox="0 0 180 180" xml:space="preserve">
+								<style type="text/css">
+									.st0{fill:#7367f0;}
+								</style>
+								<g>
+									<g>
+										<path class="st0" d="M179.9,122.9c-13.6,33.5-47.3,57.3-86.8,57.3c-51.5,0-93.2-40.3-93.2-90c0-43.9,32.5-80.4,75.5-88.4
+											C81.1,0.7,87,0.2,93.1,0.2c34.4,0,64.4,18,80.6,44.8l-52.8,22.6C113.6,53,98.2,42.9,80.4,42.9c-21.1,0-38.8,14-43.6,33l-3.1,1.8
+											l-12.4,7l14.6,7.5l0.4,0.2c2.3,8.2,5.8,15.8,10.5,22.7c14.8,22,40.4,36.6,69.6,36.6C141.8,151.6,164.7,140.4,179.9,122.9z"/>
+									</g>
+									<ellipse class="st0" cx="59.9" cy="69.6" rx="4" ry="3.9"/>
+								</g>
+								</svg>
+                                    <h2 class="brand-text text-primary ms-1">CanaryAAC</h2>
+                                </a>
+
+                                <h4 class="card-title mb-1">Bem vindo ao CanaryAAC! 👋</h4>
+                                <p class="card-text mb-2">Faça login para ter acesso ao painel de administração.</p>
+
+								{{ status|raw }}
+
+                                <form class="auth-login-form mt-2" action="" method="POST">
+                                    <div class="mb-1">
+                                        <label for="login-email" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="login-email" name="login-email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <div class="input-group input-group-merge form-password-toggle">
+                                            <input type="password" class="form-control form-control-merge" id="login-password" name="login-password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
+                                            <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary w-100" tabindex="4">Logar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- /Login basic -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{ URL }}/resources/canary/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ URL }}/resources/canary/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{ URL }}/resources/canary/js/core/app-menu.js"></script>
+    <script src="{{ URL }}/resources/canary/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{ URL }}/resources/canary/js/scripts/pages/auth-login.js"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+</body>
+<!-- END: Body-->
+
+</html>

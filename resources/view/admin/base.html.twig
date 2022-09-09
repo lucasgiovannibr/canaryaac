@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Lucas Giovanni">
+
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/vendors.min.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/forms/select/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/tables/datatable/buttons.bootstrap5.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/bootstrap-extended.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/colors.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/components.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/themes/dark-layout.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/core/menu/menu-types/vertical-menu.css">
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/css/plugins/forms/form-validation.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+
+		<link rel="stylesheet" type="text/css" href="{{ URL }}/resources/canary/style.css">
+
+		<title>{{title}}</title>
+	</head>
+	<body
+		class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+		<!-- BEGIN: Header-->
+		<nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-dark navbar-shadow">
+			<div class="navbar-container d-flex content">
+				<div class="bookmark-wrapper d-flex align-items-center">
+					<ul class="nav navbar-nav d-xl-none">
+						<li class="nav-item">
+							<a class="nav-link menu-toggle" href="#">
+								<i class="ficon" data-feather="menu"></i>
+							</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav bookmark-icons">
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link" href="{{ URL }}/admin/players" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Players">
+								<i class="ficon" data-feather="user"></i>
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link" href="{{ URL }}/admin/houses" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Houses">
+								<i class="ficon" data-feather="home"></i>
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link" href="{{ URL }}/admin/settings" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Settings">
+								<i class="ficon" data-feather="settings"></i>
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link nav-link-style" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Theme Mode">
+								<i class="ficon" data-feather="sun"></i>
+							</a>
+						</li>
+					</ul>
+					
+				</div>
+				<ul class="nav navbar-nav align-items-center ms-auto">
+					<li class="nav-item dropdown dropdown-user">
+						<a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<div class="user-nav d-sm-flex d-none">
+								<span class="user-name fw-bolder">{{ admin.player.name }}</span>
+								<span class="user-status">{{ admin.player.group }}</span>
+							</div>
+							<span class="avatar"><img class="round" src="{{ admin.player.outfit.image_url }}" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;" alt="avatar" height="40" width="40">
+							{% if admin.player.online == true %}
+								<span class="avatar-status-online" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Online"></span>
+							{% else %}
+								<span class="avatar-status-busy" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Offline"></span>
+							{% endif %}
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+							<a class="dropdown-item" href="{{ URL }}/admin/profile">
+								<i class="me-50" data-feather="user"></i>
+								Profile</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ URL }}/admin/profile/settings">
+								<i class="me-50" data-feather="settings"></i>
+								Settings</a>
+							<a class="dropdown-item" href="{{ URL }}/admin/logout">
+								<i class="me-50" data-feather="power"></i>
+								Logout</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- END: Header-->
+
+		<!-- BEGIN: Main Menu-->
+		<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+			<div class="navbar-header">
+				<ul class="nav navbar-nav flex-row">
+					<li class="nav-item me-auto">
+						<a class="navbar-brand" href="{{ URL }}/admin">
+							<span class="brand-logo">
+								<svg version="1.1" id="CanaryIcon" height="30" x="0px" y="0px"
+									viewBox="0 0 180 180" xml:space="preserve">
+								<style type="text/css">
+									.st0{fill:#7367f0;}
+								</style>
+								<g>
+									<g>
+										<path class="st0" d="M179.9,122.9c-13.6,33.5-47.3,57.3-86.8,57.3c-51.5,0-93.2-40.3-93.2-90c0-43.9,32.5-80.4,75.5-88.4
+											C81.1,0.7,87,0.2,93.1,0.2c34.4,0,64.4,18,80.6,44.8l-52.8,22.6C113.6,53,98.2,42.9,80.4,42.9c-21.1,0-38.8,14-43.6,33l-3.1,1.8
+											l-12.4,7l14.6,7.5l0.4,0.2c2.3,8.2,5.8,15.8,10.5,22.7c14.8,22,40.4,36.6,69.6,36.6C141.8,151.6,164.7,140.4,179.9,122.9z"/>
+									</g>
+									<ellipse class="st0" cx="59.9" cy="69.6" rx="4" ry="3.9"/>
+								</g>
+								</svg>
+							</span>
+							<h2 class="brand-text">CanaryAAC</h2>
+						</a>
+					</li>
+					<li class="nav-item nav-toggle">
+						<a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
+							<i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
+							<i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="shadow-bottom"></div>
+			<div class="main-menu-content">
+				<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+				{% for menuview in menu %}
+					{% if menuview.submenu is empty %}
+					<li class="nav-item {{ menuview.current }}">
+						<a class="d-flex align-items-center" href="{{ menuview.url }}">
+							<i data-feather="{{ menuview.icon }}"></i>
+							<span class="menu-title text-truncate" data-i18n="{{ menuview.name }}">{{ menuview.name }}</span>
+						</a>
+					</li>
+					{% else %}
+						<li class="nav-item">
+						<a class="d-flex align-items-center" href="#">
+							<i data-feather="{{ menuview.icon }}"></i>
+							<span class="menu-title text-truncate" data-i18n="{{ menuview.name }}">{{ menuview.name }}</span>
+						</a>
+						<ul class="menu-content">
+						{% for submenu in menuview.submenu %}
+							<li class="{{ submenu.current }}">
+								<a class="d-flex align-items-center" href="{{ submenu.url }}">
+									<i data-feather="{{ submenu.icon }}"></i>
+									<span class="menu-item text-truncate" data-i18n="{{ submenu.name }}">{{ submenu.name }}</span>
+								</a>
+							</li>
+						{% endfor %}
+						</ul>
+					</li>
+					{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<!-- END: Main Menu-->
+
+		{{ content|raw }}
+
+		<div class="sidenav-overlay"></div>
+		<div class="drag-target"></div>
+
+		<!-- BEGIN: Footer-->
+		<footer class="footer footer-static footer-dark">
+			<p class="clearfix mb-0">
+				<span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2022<a class="ms-25" href="" target="_blank">CanaryAAC</a>
+					<span class="d-none d-sm-inline-block">, All rights Reserved</span>
+				</span>
+				<span class="float-md-end d-none d-md-block">by Lucas Giovanni</span>
+			</p>
+		</footer>
+		<button class="btn btn-primary btn-icon scroll-top" type="button">
+			<i data-feather="arrow-up"></i>
+		</button>
+		<!-- END: Footer-->
+
+		<script src="{{ URL }}/resources/canary/vendors/js/vendors.min.js"></script>
+
+		<script src="{{ URL }}/resources/canary/vendors/js/forms/select/select2.full.min.js"></script>
+
+		<!-- DataTables-->
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/responsive.bootstrap5.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/jszip.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/pdfmake.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/vfs_fonts.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/buttons.html5.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/buttons.print.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+		
+		<!-- Forms-->
+		<script src="{{ URL }}/resources/canary/vendors/js/forms/validation/jquery.validate.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/forms/cleave/cleave.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/forms/cleave/addons/cleave-phone.us.js"></script>
+
+		<script src="{{ URL }}/resources/canary/vendors/js/charts/chart.min.js"></script>
+		<script src="{{ URL }}/resources/canary/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+
+		<script src="{{ URL }}/resources/canary/js/core/app-menu.js"></script>
+		<script src="{{ URL }}/resources/canary/js/core/app.js"></script>
+
+		<script src="{{ URL }}/resources/canary/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+		<script src="{{ URL }}/resources/canary/custom/form-number-input.js"></script>
+
+		<!-- Custom -->
+		<script src="{{ URL }}/resources/canary/custom/charts.js"></script>
+		<script src="{{ URL }}/resources/canary/custom/players-list.js"></script>
+
+				
+		<script>
+			$(window).on('load', function () {
+				if (feather) {
+					feather.replace({width: 14, height: 14});
+				}
+			});
+		</script>
+	</body>
+</html>

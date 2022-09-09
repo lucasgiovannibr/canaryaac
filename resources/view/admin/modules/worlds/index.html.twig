@@ -1,0 +1,152 @@
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Worlds</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Worlds</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="worlds">
+				<div class="row match-height">
+					<div class="">
+						{{ status|raw }}
+					</div>
+					<div class="col-xl-12 col-md-12 col-12">
+						<div class="card">
+							<div class="card-body">
+								<form action="{{URL}}/admin/worlds" method="post">
+									<div class="row">
+										<div class="col-md-12 col-lg-6">
+											<label class="form-label" for="world_name">Name</label>
+											<input type="text" name="world_name" id="world_name" class="form-control mb-1">
+										</div>
+										<div class="col-md-6 col-lg-6 mb-1">
+											<label class="form-label" for="world_battle_eye">Battle-Eye</label>
+											<select class="form-select" name="world_battle_eye" id="world_battle_eye">
+												<option value="0">Not protected by BattlEye.</option>
+												<option value="1">Protected by BattlEye for a while.</option>
+												<option value="2">Protected by BattlEye since its release.</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-lg-3 mb-1">
+											<label class="form-label" for="world_location">Location</label>
+											<select class="form-select" name="world_location" id="world_location">
+												<option value="0">All</option>
+												<option value="1">Africa</option>
+												<option value="2">Antarctica</option>
+												<option value="3">Asia</option>
+												<option value="4">Australia/Oceania</option>
+												<option value="5">Europe</option>
+												<option value="6">North America</option>
+												<option value="7">South America</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-lg-3 mb-1">
+											<label class="form-label" for="world_pvp_type">Pvp Type</label>
+											<select class="form-select" name="world_pvp_type" id="world_pvp_type">
+												<option value="0">Open Pvp</option>
+												<option value="1">Optional Pvp</option>
+												<option value="2">Hardcore Pvp</option>
+												<option value="3">Retro Open Pvp</option>
+												<option value="4">Retro Hardcore Pvp</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="world_premium_type">Premium Type</label>
+											<select class="form-select" name="world_premium_type" id="world_premium_type">
+												<option value="0">Premium</option>
+												<option value="1">Free Premium</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="world_transfer_type">Transfer Type</label>
+											<select class="form-select" name="world_transfer_type" id="world_transfer_type">
+												<option value="0">blocked</option>
+												<option value="1">released</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="world_world_type">World Type</label>
+											<select class="form-select" name="world_world_type" id="world_world_type">
+												<option value="0">Regular</option>
+												<option value="1">Regular</option>
+											</select>
+										</div>
+										<div class="col-md-12 col-lg-12">
+											<input type="submit" class="btn btn-primary" name="world_create" value="Create World">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-12 col-md-12 col-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-12 col-lg-12">
+										<div class="card-datatable table-responsive">
+											<div class="card-header">
+												<h4 class="card-title">Worlds</h4>
+											</div>
+											<table class="players-list-table table">
+												<thead class="table-light">
+													<tr>
+														<th>Image</th>
+														<th>Date</th>
+														<th>Location</th>
+														<th>Pvp Type</th>
+														<th>Premium Type</th>
+														<th>Transfer Type</th>
+														<th>Battle-Eye</th>
+														<th>World Type</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for world in worlds %}
+														<tr class="odd">
+															<td>{{ world.name }}</td>
+															<td>{{ world.creation }}</td>
+															<td>{{ world.location }}</td>
+															<td>{{ world.pvp_type }}</td>
+															<td>{{ world.premium_type }}</td>
+															<td>{{ world.transfer_type }}</td>
+															<td>{{ world.battle_eye }}</td>
+															<td>{{ world.world_type }}</td>
+															<td>
+																<form action="{{URL}}/admin/worlds" method="post">
+																	<input type="hidden" name="world_id" value="{{ world.id }}">
+																	<input type="submit" class="btn btn-primary" name="delete_world" value="Delete">
+																</form>
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

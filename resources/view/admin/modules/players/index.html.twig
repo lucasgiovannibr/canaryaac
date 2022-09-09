@@ -1,0 +1,101 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-start mb-0">Players</h2>
+                            <div class="breadcrumb-wrapper">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ URL }}/admin">Home</a></li>
+                                    <li class="breadcrumb-item active">Players</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		<div class="content-body">
+			<!-- users list start -->
+			<section class="app-user-list">
+                <!-- list and filter start -->
+				<div class="card">
+					<div class="card-body border-bottom">
+						<h4 class="card-title">Players</h4>
+						<div class="row">
+							<div class="col-md-4 user_role"></div>
+							<div class="col-md-4 user_plan"></div>
+							<div class="col-md-4 user_status"></div>
+						</div>
+					</div>
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>Name</th>
+									<th>Level</th>
+									<th>Group</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for player in players %}
+								<tr class="odd">
+									<td>
+										<div class="d-flex justify-content-left align-items-center">
+											<div class="avatar-wrapper">
+												<div class="avatar me-1">
+													<img src="{{ player.outfit.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
+												</div>
+											</div>
+											<div class="d-flex flex-column">
+												<a href="{{ URL }}/admin/players/{{ player.id }}" class="user_name text-truncate text-body">
+													<span class="fw-bolder">
+													{{ player.name }}
+													{% if player.skull is not empty %}
+														<img src="{{ URL }}/resources/images/{{ player.skull }}" alt="Skull">
+													{% endif %}
+													{% if player.main == 1 %}
+														<img src="{{ URL }}/resources/images/account/maincharacter.png" alt="Main Character">
+													{% endif %}
+													</span>
+												</a>
+												<small class="emp_post text-muted" data-i18n="{{ player.vocation }}">{{ player.vocation }}</small>
+											</div>
+										</div>
+									</td>
+									<td>
+										<span class="text-truncate align-middle" data-i18n="{{ player.level }}">{{ player.level }}</span>
+									</td>
+									<td>{{ player.group }}</td>
+									<td>
+									{% if player.online == true %}
+										<span class="badge rounded-pill badge-light-success" data-i18n="Online">Online</span>
+									{% else %}
+										<span class="badge rounded-pill badge-light-danger" data-i18n="Offline">Offline</span>
+									{% endif %}
+									{% if player.premdays > 0 %}
+										<span class="badge rounded-pill badge-light-danger" data-i18n="{{ player.premium }}">{{ player.premium }}</span>
+									{% else %}
+										<span class="badge rounded-pill badge-light-success" data-i18n="{{ player.premium }}">{{ player.premium }}</span>
+									{% endif %}
+									<span class="badge rounded-pill badge-light-warning" data-i18n="Coins">Coins: {{ player.coins }}</span>
+									</td>
+									<td>
+										<a href="{{ URL }}/admin/players/{{ player.id }}"><button class="btn btn-primary"><i data-feather="edit"></i> Editar</button></a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- list and filter end -->
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>

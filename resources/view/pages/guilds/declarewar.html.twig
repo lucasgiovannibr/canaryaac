@@ -1,0 +1,142 @@
+<div id="guilds" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div>
+	<img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guilds.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+                {% if status is not empty %}
+					<div class="SmallBox">
+						<div class="MessageContainer">
+							<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+							<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+							<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+							<div class="Message">
+								<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+								<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+								<table style="width:100%;">
+									<tbody>
+										<tr>
+											<td style="width:100%;text-align:left;">
+												<b>{{ status }}</b>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+							<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+							<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						</div>
+					</div>
+					<br>
+				{% endif %}
+                <form action="{{URL}}/community/guilds/{{ guild.name }}/declarewar" method="post">
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Declare War</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table2" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>Opponent:</td>
+																		<td>
+                                                                        {% if guilds is empty %}
+                                                                        Nenhuma Guild ativada para war.
+                                                                        {% endif %}
+                                                                        {% if guilds is not empty %}
+                                                                        <select name="war_opponent">
+                                                                            {% for allguilds in guilds %}
+                                                                            <option value="{{ allguilds.name }}">{{ allguilds.name }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        {% endif %}
+                                                                        </td>
+																	</tr>
+																	<tr class="Even">
+																		<td>Duration:</td>
+                                                                        <td><input type="number" name="war_duration" size="30" min="7" max="180" placeholder="180"><br>
+                                                                        <small>(between 7 and 180 days)</small></td>
+																	</tr>
+                                                                    <tr class="Odd">
+																		<td>Kills to Win:</td>
+                                                                        <td><input type="number" name="war_kills" size="30" min="10" max="1000" placeholder="1000"><br>
+                                                                        <small>(between 10 and 1000 kills)</small></td>
+																	</tr>
+                                                                    <tr class="Even">
+																		<td>Fee for your Guild:</td>
+                                                                        <td><input type="number" name="price_myguild" size="30" min="0" max="2000000000" placeholder="2000000000"><br>
+                                                                        <small>(between 0 and 2000000000 gold)</small></td>
+																	</tr>
+                                                                    <tr class="Odd">
+																		<td>Fee for Opposing Guild:</td>
+                                                                        <td><input type="number" name="price_opponent" size="30" min="0" max="2000000000" placeholder="2000000000"><br>
+                                                                        <small>(between 0 and 2000000000 gold)</small></td>
+																	</tr>
+                                                                    <tr class="Even">
+																		<td>Comment:</td>
+                                                                        <td><textarea name="war_comment" cols="60" rows="10"></textarea></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+                <div style="display: flex; justify-content: center;">
+                    <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+                        <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+                        <input class="BigButtonText" type="submit" value="Declare War"></div>
+                    </div>
+					<a href="{{URL}}/community/guilds/{{ guild.name }}/guildwars" style="padding:0px;margin:0px;">
+						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+							<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+								<input class="BigButtonText" type="button" value="Back"></div>
+						</div>
+					</a>
+                </div>
+                </form>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

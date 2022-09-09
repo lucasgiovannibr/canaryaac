@@ -1,0 +1,437 @@
+<div id="accountmanagement" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-accountmanagement.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<div class="SmallBox" id="StickyNavigation">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="NavigationBarContainer">
+								<div class="NavigationBarButtons">
+									<a href="{{URL}}/account" style="padding:0px;margin:0px;">
+										<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+											<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Overview"></div>
+										</div>
+									</a>
+								</div>
+								<div class="NavigationBarLinkList">
+									<nobr>[<a onclick="ScrollToAnchor('Character+Data');">Character Data</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Edit+Character+Information');">Edit Character Information</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Grade+1');">Grade 1</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Grade+2');">Grade 2</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Grade+3');">Grade 3</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Grade+4');">Grade 4</a>]</nobr>
+									<nobr>[<a onclick="ScrollToAnchor('Secret+Achievements');">Secret Achievements</a>]</nobr>
+								</div>
+							</div>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div><br><br>Here you can see and edit the information about your character.<br>If you do not want to specify a certain field, just leave it blank.<br><br><a name="Character+Data"></a>
+				<div class="TopButtonContainer">
+					<div class="TopButton">
+						<a href="#top"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Data</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td class="LabelV200" style="vertical-align:middle;">Name:</td>
+																		<td>{{ player.name }}</td>
+																	</tr>
+																	<tr>
+																		<td class="LabelV200" style="vertical-align:middle;">World:</td>
+																		<td>{{ player.world.name }}</td>
+																	</tr>
+																	<tr>
+																		<td class="LabelV200">Sex:</td>
+																		<td>{{ player.sex }}</td>
+																	</tr>
+																	{% if player.guild is not empty %}
+																	<tr>
+																		<td class="LabelV200">Guild:</td>
+																		<td>{{ player.guild.rank_name }} of the <a href="{{URL}}/community/guilds/{{ player.guild.guild_name }}/view">{{ player.guild.guild_name }}</a></td>
+																	</tr>
+																	{% endif %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><br><br><a name="Edit+Character+Information"></a>
+				<div class="TopButtonContainer">
+					<div class="TopButton">
+						<a href="#top"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
+					</div>
+				</div>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Edit Character Information</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<form action="{{URL}}/account/character/{{ player.name }}/edit" method="post">
+												<tbody>
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr>
+																			<td class="LabelV">Hide Account:</td>
+																			<td style="width:80%;"><input type="checkbox" name="accountvisible" value="1" {% if player.hidden == 1 %} checked="" {% endif %}>
+																				check to hide your account information</td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">
+																				<span>Comment:</span>
+																			</td>
+																			<td style="width:80%;">
+																				<textarea name="comment" rows="10" cols="50" wrap="virtual">{{ player.comment }}</textarea>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td></td>
+																			<td>
+																				<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																					<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Submit"></div>
+																				</div>
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</form>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				<br>
+				Here you can select up to 5 gained achievements you would like to display on your character page. To do so, simply tick the box beside the achievements you want to show. Note that you can also select achievements you have accomplished with other characters of this account.
+				<br>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Display Character Achievements</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<form action="{{URL}}/account/character/{{ player.name }}/setachievements" method="post">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td align="center" valign="top">
+																			<a name="Grade+1"></a>
+																			<div class="TopButtonContainerInnerTable">
+																				<div class="TopButton">
+																					<a href="#top"><img style="border:0px;" src="{{ IMAGE_PATH }}/global/content/back-to-top.gif"></a>
+																				</div>
+																			</div>Display</td>
+																		<td width="90%" valign="top">
+																			<div style="float:left;margin-right:10px;">Grade 1</div><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"></td>
+																	</tr>
+																	{% for achievement in achievements %}
+																		{% if achievement.grade == 1 %}
+																			{% if achievement.status == false %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}" disabled="disabled"></td>
+																					<td class="grey">
+																						<b>{{ achievement.name }}</b>
+																						{% if achievement.secret == true %}
+																							<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																						{% endif %}
+																						<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																			{% if achievement.status == true %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}"></td>
+																					<td><b>{{ achievement.name }}</b>
+																					{% if achievement.secret == true %}
+																						<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																					{% endif %}
+																					<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																		{% endif %}
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td align="center" valign="top">
+																			<a name="Grade+2"></a>
+																			<div class="TopButtonContainerInnerTable">
+																				<div class="TopButton">
+																					<a href="#top"><img style="border:0px;" src="{{ IMAGE_PATH }}/global/content/back-to-top.gif"></a>
+																				</div>
+																			</div>Display</td>
+																		<td width="90%" valign="top">
+																			<div style="float:left;margin-right:10px;">Grade 2</div><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"></td>
+																	</tr>
+																	{% for achievement in achievements %}
+																		{% if achievement.grade == 2 %}
+																			{% if achievement.status == false %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}" disabled="disabled"></td>
+																					<td class="grey">
+																						<b>{{ achievement.name }}</b>
+																						{% if achievement.secret == true %}
+																							<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																						{% endif %}
+																						<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																			{% if achievement.status == true %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}"></td>
+																					<td><b>{{ achievement.name }}</b>
+																					{% if achievement.secret == true %}
+																					<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																					{% endif %}
+																					<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																		{% endif %}
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td align="center" valign="top">
+																			<a name="Grade+3"></a>
+																			<div class="TopButtonContainerInnerTable">
+																				<div class="TopButton">
+																					<a href="#top"><img style="border:0px;" src="{{ IMAGE_PATH }}/global/content/back-to-top.gif"></a>
+																				</div>
+																			</div>Display</td>
+																		<td width="90%" valign="top">
+																			<div style="float:left;margin-right:10px;">Grade 3</div><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"></td>
+																	</tr>
+																	{% for achievement in achievements %}
+																		{% if achievement.grade == 3 %}
+																			{% if achievement.status == false %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}" disabled="disabled"></td>
+																					<td class="grey">
+																						<b>{{ achievement.name }}</b>
+																						{% if achievement.secret == true %}
+																					<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																					{% endif %}
+																						<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																			{% if achievement.status == true %}
+																				{% set i = i + 1 %}
+																				<tr bgcolor="{{ getStyle(i) }}">
+																					<td align="center"><input type="checkbox" name="achievementlist[]" value="{{ achievement.id }}"></td>
+																					<td><b>{{ achievement.name }}</b>
+																					{% if achievement.secret == true %}
+																					<img style="position:absolute;width:44px;height:20px;margin-left:12px;right:3px" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement">
+																					{% endif %}
+																					<br>{{ achievement.description }}</td>
+																				</tr>
+																			{% endif %}
+																		{% endif %}
+																	{% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td align="center" valign="top">
+																			<a name="Grade+4"></a>
+																			<div class="TopButtonContainerInnerTable">
+																				<div class="TopButton">
+																					<a href="#top"><img style="border:0px;" src="{{ IMAGE_PATH }}/global/content/back-to-top.gif"></a>
+																				</div>
+																			</div>Display</td>
+																		<td width="90%" valign="top">
+																			<div style="float:left;margin-right:10px;">Grade 4</div><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"><img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement"></td>
+																	</tr>
+																	<tr bgcolor="#F1E0C6">
+																		<td colspan="2">There are currently no achievements of this grade available.<br>We will add exciting new achievements in future updates, so stay tuned!</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr bgcolor="#D4C0A1">
+																		<td>
+																			<a name="Secret+Achievements"></a>
+																			<div class="TopButtonContainerInnerTable">
+																				<div class="TopButton">
+																					<a href="#top"><img style="border:0px;" src="{{ IMAGE_PATH }}/global/content/back-to-top.gif"></a>
+																				</div>
+																			</div>You have discovered
+																			<b>0</b>
+																			of
+																			<b>{{ total_secretachievements }}</b>
+																			secret achievements!</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<table style="width:100%">
+															<tbody>
+																<tr align="center">
+																	<td><input type="hidden" name="name" value="Warden'Druid"><input type="hidden" name="countryid" value=""><div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
+																			<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Submit"></div>
+																		</div>
+																	</td>
+																	<td>
+																		<a href="{{URL}}/account" style="padding:0px;margin:0px;">
+																		<div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
+																				<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Back"></div>
+																			</div>
+																		</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+											</form>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

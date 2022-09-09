@@ -1,0 +1,210 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Donates</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Donates</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+            <div class="col-xl-6 col-md-6 col-12">
+                <div class="card card-statistics">
+                    <div class="card-body statistics-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6 col-12 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="my-auto">
+                                        <p class="card-text font-small-3 mb-0">Total Coins</p>
+                                        <h1 class="fw-bolder mb-0">{{ stats.total_coins }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="my-auto">
+                                        <p class="card-text font-small-3 mb-0">Final Price</p>
+                                        <h1 class="fw-bolder mb-0">R$ {{ stats.final_price }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="my-auto">
+                                        <p class="card-text font-small-3 mb-0">Coins Cancelado</p>
+                                        <h1 class="fw-bolder mb-0">{{ stats.total_coins }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="my-auto">
+                                        <p class="card-text font-small-3 mb-0">Valor Cancelado</p>
+                                        <h1 class="fw-bolder mb-0">R$ {{ stats.final_price }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-6 col-12">
+                <div class="card">
+                    <div class="list-group list-group-labels">
+                        <a href="#" class="list-group-item list-group-item-action"><span class="bullet bullet-sm bullet-info me-1"></span><span class="badge rounded-pill badge-light-info" text-capitalized=""> Aberto </span></a>
+                        <a href="#" class="list-group-item list-group-item-action"><span class="bullet bullet-sm bullet-warning me-1"></span><span class="badge rounded-pill badge-light-warning" text-capitalized=""> Analise </span></a>
+                        <a href="#" class="list-group-item list-group-item-action"><span class="bullet bullet-sm bullet-success me-1"></span><span class="badge rounded-pill badge-light-success" text-capitalized=""> Pago </span></a>
+                        <a href="#" class="list-group-item list-group-item-action"><span class="bullet bullet-sm bullet-danger me-1"></span><span class="badge rounded-pill badge-light-danger" text-capitalized=""> Cancelado </span></a>
+                    </div>
+                </div>
+            </div>
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+			<div class="col-6 col-md-12 col-lg-6 col-sm-12">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">Mercado Pago</h4>
+						</div>
+						<div class="row">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="players-list-table table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Reference</th>
+                                                <th>Total Coins</th>
+                                                <th>Final Price</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for payment in payments %}
+                                            {% if payment.method == 'mercadopago' %}
+                                            {% set i = i + 1 %}
+                                                <tr class="odd">
+                                                    <td>{{ payment.reference }}</td>
+                                                    <td>{{ payment.total_coins }}</td>
+                                                    <td>R$ {{ payment.final_price }}</td>
+                                                    <td>{{ payment.status_badge|raw }}</td>
+                                                    <td>{{ payment.date }}</td>
+                                                    <td>
+                                                    <a href="{{URL}}/admin/donates/{{ payment.reference }}/view"><input type="button" class="btn btn-primary" value="View"></a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-6 col-md-12 col-lg-6 col-sm-12">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">PagSeguro</h4>
+						</div>
+						<div class="row">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="players-list-table table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Reference</th>
+                                                <th>Total Coins</th>
+                                                <th>Final Price</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for payment in payments %}
+                                            {% if payment.method == 'pagseguro' %}
+                                            {% set i = i + 1 %}
+                                                <tr class="odd">
+                                                    <td>{{ payment.reference }}</td>
+                                                    <td>{{ payment.total_coins }}</td>
+                                                    <td>R$ {{ payment.final_price }}</td>
+                                                    <td>{{ payment.status_badge|raw }}</td>
+                                                    <td>{{ payment.date }}</td>
+                                                    <td>
+                                                    <a href="{{URL}}/admin/donates/{{ payment.reference }}/view"><input type="button" class="btn btn-primary" value="View"></a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-6 col-md-12 col-lg-6 col-sm-12">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">PayPal</h4>
+						</div>
+						<div class="row">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="players-list-table table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Reference</th>
+                                                <th>Total Coins</th>
+                                                <th>Final Price</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for payment in payments %}
+                                            {% if payment.method == 'paypal' %}
+                                            {% set i = i + 1 %}
+                                                <tr class="odd">
+                                                    <td>{{ payment.reference }}</td>
+                                                    <td>{{ payment.total_coins }}</td>
+                                                    <td>R$ {{ payment.final_price }}</td>
+                                                    <td>{{ payment.status_badge|raw }}</td>
+                                                    <td>{{ payment.date }}</td>
+                                                    <td>
+                                                    <a href="{{URL}}/admin/donates/{{ payment.reference }}/view"><input type="button" class="btn btn-primary" value="View"></a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

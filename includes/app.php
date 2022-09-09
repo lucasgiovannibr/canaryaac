@@ -1,0 +1,46 @@
+<?php
+require __DIR__.'/../vendor/autoload.php';
+
+use App\Utils\View;
+use Dotenv\Dotenv;
+use App\DatabaseManager\Database;
+use App\Http\Middleware\Queue as MiddlewareQueue;
+
+// Load the .env files
+Dotenv::createImmutable(__DIR__.'/../')->load();
+
+// Defines the URL constant
+define('URL', $_ENV['URL']);
+
+// Configure Database settings
+Database::config(
+    $_ENV['DB_HOST'],
+    $_ENV['DB_NAME'],
+    $_ENV['DB_USER'],
+    $_ENV['DB_PASS'],
+    $_ENV['DB_PORT']
+);
+
+// Sets the default value of variables
+View::init([
+    'URL' => URL,
+    'CACHE' => URL.'/resources/cache',
+    'SERVER_PATH' => 'D:/Canary/',
+    'IMAGE_PATH' => URL.'/resources/images',
+    'STYLES_PATH' => URL.'/resources/styles',
+    'JS_PATH' => URL.'/resources/javascripts',
+]);
+
+// Defines middleware mapping
+MiddlewareQueue::setMap([
+    'maintenance' => \App\Http\Middleware\Maintenance::class,
+    'required-logout' => \App\Http\Middleware\RequireLogout::class,
+    'required-login' => \App\Http\Middleware\RequireLogin::class,
+    'role-permission' => \App\Http\Middleware\RolePermission::class,
+    'api' => \App\Http\Middleware\Api::class
+]);
+
+// Defines default middleware mapping (runs on all routes)
+MiddlewareQueue::setDefault([
+    'maintenance',
+]);
