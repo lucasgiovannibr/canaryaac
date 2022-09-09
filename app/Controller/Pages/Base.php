@@ -70,13 +70,6 @@ class Base{
                 'color' => 'd7d7d7',
                 'category' => 'news',
             ],
-            'eventcalendar' => [
-                'name' => 'Event Schedule',
-                'tag' => 'eventcalendar',
-                'link' => 'eventcalendar',
-                'color' => 'd7d7d7',
-                'category' => 'news',
-            ],
             'creatures' => [
                 'name' => 'Creatures',
                 'tag' => 'creatures',

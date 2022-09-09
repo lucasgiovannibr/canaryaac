@@ -16,7 +16,7 @@ class RequireLogin{
     public static function handle($request, $next)
     {
         if(!SessionAdminLogin::isLogged()){
-            $request->getRouter()->redirect('/admin/login');
+            $request->getRouter()->redirect('/account/login');
         }
         return $next($request);
     }

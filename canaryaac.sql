@@ -1122,19 +1122,6 @@ CREATE TABLE `player_items` (
   `attributes` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `player_items`
---
-
-INSERT INTO `player_items` (`player_id`, `pid`, `sid`, `itemtype`, `count`, `attributes`) VALUES
-(20, 1, 101, 3387, 1, ''),
-(20, 3, 102, 2854, 1, ''),
-(20, 4, 103, 3388, 1, ''),
-(20, 6, 104, 3288, 1, ''),
-(20, 7, 105, 3389, 1, ''),
-(20, 8, 106, 3079, 1, ''),
-(20, 11, 107, 23396, 1, '');
-
 -- --------------------------------------------------------
 
 --
