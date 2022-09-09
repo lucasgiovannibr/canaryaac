@@ -21,7 +21,7 @@ use App\Controller\Admin\Worlds;
 
 $obRouter->get('/admin', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Home::getHome($request));
@@ -30,7 +30,7 @@ $obRouter->get('/admin', [
 
 $obRouter->get('/admin/settings', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Settings::viewSettings($request));
@@ -38,7 +38,7 @@ $obRouter->get('/admin/settings', [
 ]);
 $obRouter->post('/admin/settings', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Settings::insertWorld($request));
@@ -47,7 +47,7 @@ $obRouter->post('/admin/settings', [
 
 $obRouter->get('/admin/publications', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -56,7 +56,7 @@ $obRouter->get('/admin/publications', [
 ]);
 $obRouter->get('/admin/publications/news', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -65,7 +65,7 @@ $obRouter->get('/admin/publications/news', [
 ]);
 $obRouter->post('/admin/publications/news', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Publications::insertNews($request));
@@ -73,7 +73,7 @@ $obRouter->post('/admin/publications/news', [
 ]);
 $obRouter->get('/admin/publications/newsticker', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -82,7 +82,7 @@ $obRouter->get('/admin/publications/newsticker', [
 ]);
 $obRouter->post('/admin/publications/newsticker', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Publications::insertNewsticker($request));
@@ -90,7 +90,7 @@ $obRouter->post('/admin/publications/newsticker', [
 ]);
 $obRouter->get('/admin/publications/featuredarticle', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -99,7 +99,7 @@ $obRouter->get('/admin/publications/featuredarticle', [
 ]);
 $obRouter->post('/admin/publications/featuredarticle', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Publications::insertFeaturedArticle($request));
@@ -108,7 +108,7 @@ $obRouter->post('/admin/publications/featuredarticle', [
 
 $obRouter->get('/admin/donates', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -117,7 +117,7 @@ $obRouter->get('/admin/donates', [
 ]);
 $obRouter->get('/admin/donates/{reference}/view', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request, $reference){
@@ -127,7 +127,7 @@ $obRouter->get('/admin/donates/{reference}/view', [
 
 $obRouter->get('/admin/samples', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -136,7 +136,7 @@ $obRouter->get('/admin/samples', [
 ]);
 $obRouter->post('/admin/samples', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request){
@@ -145,7 +145,7 @@ $obRouter->post('/admin/samples', [
 ]);
 $obRouter->get('/admin/samples/{id}/edit', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request, $id){
@@ -154,7 +154,7 @@ $obRouter->get('/admin/samples/{id}/edit', [
 ]);
 $obRouter->post('/admin/samples/{id}/edit', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
         'role-permission'
     ],
     function($request, $id){
@@ -164,7 +164,7 @@ $obRouter->post('/admin/samples/{id}/edit', [
 
 $obRouter->get('/admin/worlds', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Worlds::viewWorlds($request));
@@ -172,7 +172,7 @@ $obRouter->get('/admin/worlds', [
 ]);
 $obRouter->post('/admin/worlds', [
     'middlewares' => [
-        'required-login',
+        'required-admin-login',
     ],
     function($request){
         return new Response(200, Worlds::insertWorld($request));
@@ -181,7 +181,7 @@ $obRouter->post('/admin/worlds', [
 
 $obRouter->get('/admin/market', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Market::getMarketOffers($request));
@@ -190,7 +190,7 @@ $obRouter->get('/admin/market', [
 
 $obRouter->get('/admin/bans', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Bans::getBans($request));
@@ -199,7 +199,7 @@ $obRouter->get('/admin/bans', [
 
 $obRouter->get('/admin/achievements', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Achievements::viewAchievements($request));
@@ -207,7 +207,7 @@ $obRouter->get('/admin/achievements', [
 ]);
 $obRouter->post('/admin/achievements', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Achievements::importAchievements($request));
@@ -216,7 +216,7 @@ $obRouter->post('/admin/achievements', [
 
 $obRouter->get('/admin/compendium', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Compendium::viewCompendium($request));
@@ -224,7 +224,7 @@ $obRouter->get('/admin/compendium', [
 ]);
 $obRouter->get('/admin/compendium/{id}/view', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Compendium::viewPublishCompendium($request, $id));
@@ -232,7 +232,7 @@ $obRouter->get('/admin/compendium/{id}/view', [
 ]);
 $obRouter->post('/admin/compendium/{id}/view', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Compendium::updateCompendium($request, $id));
@@ -240,7 +240,7 @@ $obRouter->post('/admin/compendium/{id}/view', [
 ]);
 $obRouter->get('/admin/compendium/new', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Compendium::viewCompendiumPublish($request));
@@ -248,7 +248,7 @@ $obRouter->get('/admin/compendium/new', [
 ]);
 $obRouter->post('/admin/compendium/new', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Compendium::insertCompendium($request));
@@ -258,7 +258,7 @@ $obRouter->post('/admin/compendium/new', [
 
 $obRouter->get('/admin/groups', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Groups::viewGroups($request));
@@ -266,7 +266,7 @@ $obRouter->get('/admin/groups', [
 ]);
 $obRouter->post('/admin/groups/import', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Groups::getGroupsXml($request));
@@ -274,7 +274,7 @@ $obRouter->post('/admin/groups/import', [
 ]);
 $obRouter->post('/admin/groups/delete', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Groups::deleteGroups($request));
@@ -282,7 +282,7 @@ $obRouter->post('/admin/groups/delete', [
 ]);
 $obRouter->get('/admin/houses', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Houses::getHouses($request));
@@ -290,7 +290,7 @@ $obRouter->get('/admin/houses', [
 ]);
 $obRouter->post('/admin/houses/import', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Houses::getHousesXml($request));
@@ -298,7 +298,7 @@ $obRouter->post('/admin/houses/import', [
 ]);
 $obRouter->post('/admin/houses/delete', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Houses::deleteHouses($request));
@@ -307,7 +307,7 @@ $obRouter->post('/admin/houses/delete', [
 
 $obRouter->get('/admin/guilds', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Guilds::viewGuilds($request));
@@ -315,7 +315,7 @@ $obRouter->get('/admin/guilds', [
 ]);
 $obRouter->get('/admin/guilds/{id}', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Guilds::viewEditGuild($request, $id));
@@ -323,7 +323,7 @@ $obRouter->get('/admin/guilds/{id}', [
 ]);
 $obRouter->post('/admin/guilds/{id}', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Guilds::viewEditGuild($request, $id));
@@ -332,7 +332,7 @@ $obRouter->post('/admin/guilds/{id}', [
 
 $obRouter->get('/admin/creatures', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Creatures::viewCreatures($request));
@@ -340,7 +340,7 @@ $obRouter->get('/admin/creatures', [
 ]);
 $obRouter->post('/admin/creatures', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Creatures::insertCreature($request));
@@ -348,7 +348,7 @@ $obRouter->post('/admin/creatures', [
 ]);
 $obRouter->post('/admin/creatures/delete', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Creatures::insertCreature($request));
@@ -357,7 +357,7 @@ $obRouter->post('/admin/creatures/delete', [
 
 $obRouter->get('/admin/players', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Players::getPlayers($request));
@@ -365,7 +365,7 @@ $obRouter->get('/admin/players', [
 ]);
 $obRouter->get('/admin/players/{id}', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Players::viewPlayer($request, $id));
@@ -374,7 +374,7 @@ $obRouter->get('/admin/players/{id}', [
 
 $obRouter->get('/admin/accounts', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request){
         return new Response(200, Accounts::getAccounts($request));
@@ -382,7 +382,7 @@ $obRouter->get('/admin/accounts', [
 ]);
 $obRouter->get('/admin/accounts/{id}', [
     'middlewares' => [
-        'required-login'
+        'required-admin-login'
     ],
     function($request, $id){
         return new Response(200, Accounts::viewAccount($request, $id));
