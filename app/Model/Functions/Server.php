@@ -10,10 +10,9 @@
 namespace App\Model\Functions;
 
 use App\DatabaseManager\Database;
-use App\Model\Entity\Guilds as EntityGuild;
-use App\Model\Entity\Player as EntityPlayer;
 
 class Server{
+
     public static function convertLocation($location_id)
     {
         $location = [
@@ -294,7 +293,9 @@ class Server{
                 'world_type' => self::convertWorldType($obWorlds->world_type),
                 'players_record' => self::getRecordPlayers(),
                 'players_online' => self::getCountPlayersOnline(),
-                'server_status' => self::getServerStatus()
+                'server_status' => self::getServerStatus(),
+                'ipaddress' => $obWorlds->ip,
+                'port' => $obWorlds->port,
             ];
         }
         return $world;
@@ -321,9 +322,12 @@ class Server{
                 'world_type' => self::convertWorldType($obWorlds->world_type),
                 'players_record' => self::getRecordPlayers(),
                 'players_online' => self::getCountPlayersOnline(),
-                'server_status' => self::getServerStatus()
+                'server_status' => self::getServerStatus(),
+                'ipaddress' => $obWorlds->ip,
+                'port' => $obWorlds->port,
             ];
         }
         return $world;
     }
+
 }

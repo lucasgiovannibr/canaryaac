@@ -31,11 +31,19 @@
 							<div class="card-body">
 								<form action="{{URL}}/admin/worlds" method="post">
 									<div class="row">
-										<div class="col-md-12 col-lg-6">
+										<div class="col-md-12 col-lg-4">
 											<label class="form-label" for="world_name">Name</label>
 											<input type="text" name="world_name" id="world_name" class="form-control mb-1">
 										</div>
-										<div class="col-md-6 col-lg-6 mb-1">
+										<div class="col-md-8 col-lg-3">
+											<label class="form-label" for="world_ipaddress">Ip Address</label>
+											<input type="text" name="world_ipaddress" id="world_ipaddress" class="form-control mb-1" placeholder="127.0.0.1">
+										</div>
+										<div class="col-md-4 col-lg-1">
+											<label class="form-label" for="world_port">Port</label>
+											<input type="text" name="world_port" id="world_port" class="form-control mb-1" placeholder="7172">
+										</div>
+										<div class="col-md-6 col-lg-4 mb-1">
 											<label class="form-label" for="world_battle_eye">Battle-Eye</label>
 											<select class="form-select" name="world_battle_eye" id="world_battle_eye">
 												<option value="0">Not protected by BattlEye.</option>
@@ -108,7 +116,7 @@
 												<thead class="table-light">
 													<tr>
 														<th>Image</th>
-														<th>Date</th>
+														<th>IP / Port</th>
 														<th>Location</th>
 														<th>Pvp Type</th>
 														<th>Premium Type</th>
@@ -122,7 +130,7 @@
 													{% for world in worlds %}
 														<tr class="odd">
 															<td>{{ world.name }}</td>
-															<td>{{ world.creation }}</td>
+															<td>{{ world.ipaddress }} / {{ world.port }}</td>
 															<td>{{ world.location }}</td>
 															<td>{{ world.pvp_type }}</td>
 															<td>{{ world.premium_type }}</td>

@@ -72,6 +72,16 @@ class Worlds extends Base{
                 return self::viewWorlds($request, $status);
             }
 
+            if (empty($postVars['world_ipaddress'])) {
+                $status = Alert::getError('IP inválido.');
+                return self::viewWorlds($request, $status);
+            }
+
+            if (empty($postVars['world_port'])) {
+                $status = Alert::getError('Port inválido.');
+                return self::viewWorlds($request, $status);
+            }
+
             EntityServerConfig::insertWorld(
                 [
                     'name' => $filter_name,
@@ -81,6 +91,8 @@ class Worlds extends Base{
                     'transfer_type' => $filter_transfer_type,
                     'battle_eye' => $filter_battle_eye,
                     'world_type' => $filter_world_type,
+                    'ip' => $postVars['world_ipaddress'],
+                    'port' => $postVars['world_port'],
                 ]
             );
             $status = Alert::getSuccess('World criado com sucesso.');

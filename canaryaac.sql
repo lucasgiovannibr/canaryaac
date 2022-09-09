@@ -580,15 +580,17 @@ CREATE TABLE `canary_worlds` (
   `premium_type` int(11) NOT NULL DEFAULT 0,
   `transfer_type` int(11) NOT NULL DEFAULT 0,
   `battle_eye` int(11) NOT NULL DEFAULT 0,
-  `world_type` int(11) NOT NULL DEFAULT 0
+  `world_type` int(11) NOT NULL DEFAULT 0,
+  `ip` varchar(18) NOT NULL,
+  `port` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `canary_worlds`
 --
 
-INSERT INTO `canary_worlds` (`id`, `name`, `creation`, `location`, `pvp_type`, `premium_type`, `transfer_type`, `battle_eye`, `world_type`) VALUES
-(1, 'CanaryAAC', '2022-05-03 06:06:43', 7, 1, 0, 0, 0, 1);
+INSERT INTO `canary_worlds` (`id`, `name`, `creation`, `location`, `pvp_type`, `premium_type`, `transfer_type`, `battle_eye`, `world_type`, `ip`, `port`) VALUES
+(1, 'CanaryAAC', '2022-09-09 23:16:36', 7, 1, 0, 0, 0, 1, '127.0.0.1', 7172);
 
 -- --------------------------------------------------------
 
