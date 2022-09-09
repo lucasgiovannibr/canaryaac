@@ -66,15 +66,8 @@ class AccountLogin extends Base{
             return self::getLogin($request, 'true');
         }
 
-            $authentication = Account::getAuthentication('account_id = "'.$obAccount->id.'"')->fetchObject();
-            if (empty($authentication)) {
-                return self::getLogin($request, 'true');
-            }
-            /*
-            if ($authentication->status != 1) {
-                return self::getLogin($request, 'true');
-            }
-            */
+        $authentication = Account::getAuthentication('account_id = "'.$obAccount->id.'"')->fetchObject();
+        if (!empty($authentication)) {
             if ($authentication->status == 1) {
                 if (empty($postVars['token'])) {
                     return self::getLogin($request, 'true');
@@ -85,7 +78,7 @@ class AccountLogin extends Base{
                     return self::getLogin($request, 'true');
                 }
             }
-        
+        }
         
         SessionAdminLogin::login($obAccount);
         $request->getRouter()->redirect('/account');
