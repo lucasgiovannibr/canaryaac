@@ -25,7 +25,8 @@ class Worlds extends Base{
                 $status = Alert::getError('Defina um nome.');
                 return self::viewWorlds($request, $status);
             }
-            $dbWorld = EntityServerConfig::getWorlds('name = "'.$postVars['world_name'].'"')->fetchObject();
+            $filter_name = filter_var($postVars['world_name'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $dbWorld = EntityServerConfig::getWorlds('name = "'.$filter_name.'"')->fetchObject();
             if(!empty($dbWorld)){
                 $status = Alert::getError('Já existe um mundo com este nome.');
                 return self::viewWorlds($request, $status);
@@ -83,7 +84,7 @@ class Worlds extends Base{
 
             EntityServerConfig::insertWorld(
                 [
-                    'name' => $postVars['world_name'],
+                    'name' => $filter_name,
                     'location' => $filter_location,
                     'pvp_type' => $filter_pvp_type,
                     'premium_type' => $filter_premium_type,
