@@ -110,8 +110,10 @@ class Worlds extends Base{
                 $status = Alert::getError('Nenhum world encontrado.');
                 return self::viewWorlds($request, $status);
             }
-
             EntityServerConfig::deleteWorld('id = "'.$filter_world.'"');
+            
+            $status = Alert::getSuccess('Deletado com sucesso.');
+            return self::viewWorlds($request, $status);
         }
         
     }
