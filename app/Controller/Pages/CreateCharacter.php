@@ -60,9 +60,20 @@ class CreateCharacter extends Base{
 
         $postVars = $request->getPostVars();
         $LoggedId = SessionAdminLogin::idLogged();
-        if(empty($postVars['name']) && empty($postVars['sex']) && empty($postVars['vocation']) && empty($postVars['world']) && empty($postVars['tutorial'])){
+        
+        if(empty($postVars['name'])){
             return self::viewCreateCharacter($request, '');
         }
+        if(empty($postVars['sex'])){
+            return self::viewCreateCharacter($request, '');
+        }
+        if(empty($postVars['vocation'])){
+            return self::viewCreateCharacter($request, '');
+        }
+        if(empty($postVars['world'])){
+            return self::viewCreateCharacter($request, '');
+        }
+        
         $character_name = filter_var($postVars['name'], FILTER_SANITIZE_SPECIAL_CHARS);
         $character_sex = filter_var($postVars['sex'], FILTER_SANITIZE_NUMBER_INT);
         $character_vocation = filter_var($postVars['vocation'], FILTER_SANITIZE_NUMBER_INT);
@@ -73,21 +84,12 @@ class CreateCharacter extends Base{
         if($CountName < 5){
             return self::viewCreateCharacter($request, 'The name must be at least 5 characters long.');
         }
-        if($CountName < 29){
+        if($CountName > 29){
             return self::viewCreateCharacter($request, 'The name must be at least 29 characters long.');
         }
         $verifyPlayerName = EntityPlayer::getPlayer('name = "'.$character_name.'"')->fetchObject();
         if($verifyPlayerName == true){
             return self::viewCreateCharacter($request, 'This character name is already being used.');
-        }
-        $character_name = preg_replace('/[^0-9]/', '', $character_name); // remove [. , /]
-        $invalid_name = [
-            'admin', 'adm', 'god', 'gm'
-        ];
-        foreach($invalid_name as $name){
-            if($name == $character_name){
-                return self::viewCreateCharacter($request, 'Invalid name.');
-            }
         }
 
         if($character_sex > 1){
