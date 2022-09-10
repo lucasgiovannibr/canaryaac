@@ -186,6 +186,33 @@ $obRouter->post('/admin/worlds', [
         return new Response(200, Worlds::insertWorld($request));
     }
 ]);
+$obRouter->get('/admin/worlds/{id}/edit', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Worlds::viewUpdateWorld($request, $id));
+    }
+]);
+$obRouter->post('/admin/worlds/{id}/edit', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Worlds::updateWorld($request, $id));
+    }
+]);
+$obRouter->get('/admin/worlds/{id}/delete', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Worlds::deleteWorld($request, $id));
+    }
+]);
 
 $obRouter->get('/admin/market', [
     'middlewares' => [

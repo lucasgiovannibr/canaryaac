@@ -1,0 +1,113 @@
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Worlds</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+                                <li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/worlds">Worlds</a>
+								</li>
+								<li class="breadcrumb-item active">Edit World</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+			<section id="worlds">
+				<div class="row match-height">
+					<div class="">
+						{{ status|raw }}
+					</div>
+					<div class="col-xl-12 col-md-12 col-12">
+						<div class="card">
+							<div class="card-body">
+								<form action="{{URL}}/admin/worlds/{{ world.id }}/edit" method="post">
+									<div class="row">
+										<div class="col-md-12 col-lg-4">
+											<label class="form-label" for="editworld_name">Name</label>
+											<input type="text" name="editworld_name" id="editworld_name" class="form-control mb-1" value="{{ world.name }}">
+										</div>
+										<div class="col-md-8 col-lg-3">
+											<label class="form-label" for="editworld_ipaddress">Ip Address</label>
+											<input type="text" name="editworld_ipaddress" id="editworld_ipaddress" class="form-control mb-1" value="{{ world.ipaddress }}" placeholder="127.0.0.1">
+										</div>
+										<div class="col-md-4 col-lg-1">
+											<label class="form-label" for="editworld_port">Port</label>
+											<input type="text" name="editworld_port" id="editworld_port" class="form-control mb-1" value="{{ world.port }}" placeholder="7172">
+										</div>
+										<div class="col-md-6 col-lg-4 mb-1">
+											<label class="form-label" for="editworld_battle_eye">Battle-Eye</label>
+                                            <select class="form-select" name="editworld_battle_eye" id="editworld_battle_eye">
+                                                <option value="0" {% if world.battle_eye == 'Not protected by BattlEye.' %}selected{% endif %}>Not protected by BattlEye.</option>
+                                                <option value="1" {% if world.battle_eye == 'Protected by BattlEye for a while.' %}selected{% endif %}>Protected by BattlEye for a while.</option>
+                                                <option value="2" {% if world.battle_eye == 'Protected by BattlEye since its release.' %}selected{% endif %}>Protected by BattlEye since its release.</option>
+                                            </select>
+										</div>
+										<div class="col-md-6 col-lg-3 mb-1">
+											<label class="form-label" for="editworld_location">Location</label>
+                                            <select class="form-select" name="editworld_location" id="editworld_location">
+                                                <option value="0" {% if world.location == 'All' %}selected{% endif %}>All</option>
+                                                <option value="1" {% if world.location == 'Africa' %}selected{% endif %}>Africa</option>
+                                                <option value="2" {% if world.location == 'Antarctica' %}selected{% endif %}>Antarctica</option>
+                                                <option value="3" {% if world.location == 'Asia' %}selected{% endif %}>Asia</option>
+                                                <option value="4" {% if world.location == 'Australia/Oceania' %}selected{% endif %}>Australia/Oceania</option>
+                                                <option value="5" {% if world.location == 'Europe' %}selected{% endif %}>Europe</option>
+                                                <option value="6" {% if world.location == 'North America' %}selected{% endif %}>North America</option>
+                                                <option value="7" {% if world.location == 'South America' %}selected{% endif %}>South America</option>
+                                            </select>
+										</div>
+										<div class="col-md-6 col-lg-3 mb-1">
+											<label class="form-label" for="editworld_pvp_type">Pvp Type</label>
+                                            <select class="form-select" name="editworld_pvp_type" id="editworld_pvp_type">
+                                                <option value="0" {% if world.pvp_type == 'Open Pvp' %}selected{% endif %}>Open Pvp</option>
+                                                <option value="1" {% if world.pvp_type == 'Optional Pvp' %}selected{% endif %}>Optional Pvp</option>
+                                                <option value="2" {% if world.pvp_type == 'Hardcore Pvp' %}selected{% endif %}>Hardcore Pvp</option>
+                                                <option value="3" {% if world.pvp_type == 'Retro Open Pvp' %}selected{% endif %}>Retro Open Pvp</option>
+                                                <option value="4" {% if world.pvp_type == 'Retro Hardcore Pvp' %}selected{% endif %}>Retro Hardcore Pvp</option>
+                                            </select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="editworld_premium_type">Premium Type</label>
+                                            <select class="form-select" name="editworld_premium_type" id="editworld_premium_type">
+                                                <option value="0" {% if world.premium_type == 'Premium' %}selected{% endif %}>Premium</option>
+                                                <option value="1" {% if world.premium_type == 'Free Premium' %}selected{% endif %}>Free Premium</option>
+                                            </select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="editworld_transfer_type">Transfer Type</label>
+                                            <select class="form-select" name="editworld_transfer_type" id="editworld_transfer_type">
+                                                <option value="0" {% if world.transfer_type == 'blocked' %}selected{% endif %}>blocked</option>
+                                                <option value="1" {% if world.transfer_type == 'released' %}selected{% endif %}>released</option>
+                                            </select>
+										</div>
+										<div class="col-md-6 col-lg-2 mb-1">
+											<label class="form-label" for="editworld_world_type">World Type</label>
+                                            <select class="form-select" name="editworld_world_type" id="editworld_world_type">
+                                                <option value="0" {% if world.world_type == 'Regular' %}selected{% endif %}>Regular</option>
+                                                <option value="1" {% if world.world_type == 'Experimental' %}selected{% endif %}>Experimental</option>
+                                            </select>
+										</div>
+										<div class="col-md-12 col-lg-12">
+											<input type="submit" class="btn btn-primary" value="Update World">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

@@ -56,4 +56,8 @@ class ServerConfig{
         return (new Database('canary_worlds'))->delete($where);
     }
 
+    public static function updateWorld($where = null, $values = null){
+        return (new Database('canary_worlds'))->update($where, $values);
+    }
+
 }

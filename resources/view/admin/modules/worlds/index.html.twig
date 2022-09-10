@@ -96,7 +96,7 @@
 											</select>
 										</div>
 										<div class="col-md-12 col-lg-12">
-											<input type="submit" class="btn btn-primary" name="world_create" value="Create World">
+											<input type="submit" class="btn btn-primary" value="Create World">
 										</div>
 									</div>
 								</form>
@@ -138,10 +138,12 @@
 															<td>{{ world.battle_eye }}</td>
 															<td>{{ world.world_type }}</td>
 															<td>
-																<form action="{{URL}}/admin/worlds" method="post">
-																	<input type="hidden" name="world_id" value="{{ world.id }}">
-																	<input type="submit" class="btn btn-primary" name="delete_world" value="Delete">
-																</form>
+															<a href="{{URL}}/admin/worlds/{{ world.id }}/edit">
+																<button type="button" class="btn btn-primary btn-sm">Edit</button>
+															</a>
+															<a href="{{URL}}/admin/worlds/{{ world.id }}/delete">
+																<button type="button" class="btn btn-danger btn-sm">Delete</button>
+															</a>
 															</td>
 														</tr>
 													{% endfor %}
