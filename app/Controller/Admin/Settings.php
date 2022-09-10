@@ -36,8 +36,7 @@ class Settings extends Base{
             }
 
             if(empty($postVars['website_vocation'])){
-                $status = Alert::getError('Error vocation.');
-                return self::viewSettings($request, $status);
+                $filter_vocation = 0;
             }
             $filter_vocation = filter_var($postVars['website_vocation'], FILTER_SANITIZE_NUMBER_INT);
             if($filter_vocation > 1){
