@@ -37,8 +37,9 @@ class Settings extends Base{
 
             if(empty($postVars['website_vocation'])){
                 $filter_vocation = 0;
+            }else{
+                $filter_vocation = 1;
             }
-            $filter_vocation = filter_var($postVars['website_vocation'], FILTER_SANITIZE_NUMBER_INT);
             if($filter_vocation > 1){
                 $status = Alert::getError('Defina se está ativo as vocações.');
                 return self::viewSettings($request, $status);

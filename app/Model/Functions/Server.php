@@ -165,7 +165,7 @@ class Server{
     {
         $world_type = [
             '0' => 'Regular',
-            '1' => 'Regular'
+            '1' => 'Experimental'
         ];
         foreach($world_type as $key => $value){
             if($key == $worldtype_id){
