@@ -16,7 +16,7 @@ class RequireAdminLogout{
     public static function handle($request, $next)
     {
         if(SessionAdminLogin::isLogged()){
-            $request->getRouter()->redirect('/admin');
+            $request->getRouter()->redirect('/admin/home');
         }
 
         return $next($request);

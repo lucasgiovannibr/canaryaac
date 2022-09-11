@@ -28,6 +28,15 @@ $obRouter->get('/admin', [
         return new Response(200, Home::getHome($request));
     }
 ]);
+$obRouter->get('/admin/home', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Home::getHome($request));
+    }
+]);
 
 $obRouter->get('/admin/settings', [
     'middlewares' => [

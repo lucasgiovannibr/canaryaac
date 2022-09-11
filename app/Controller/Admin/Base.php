@@ -21,7 +21,7 @@ class Base{
             'id' => 1,
             'parent_id' => null,
             'name' => 'Home',
-            'url' => URL . '/admin',
+            'url' => URL . '/admin/home',
             'icon' => 'home',
             'slug' => 'home',
         ],
