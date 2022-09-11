@@ -1309,6 +1309,10 @@ input[type="submit"].SubmenuButtonAsLink {
   overflow-y: visible;
   word-wrap: anywhere;
 }
+.ThreadReviewPosting img {
+  max-width: 600px;
+  margin: 5px;
+}
 #ThreadOverview td:nth-last-child(-n+2){
   display: none;
 }
@@ -1614,6 +1618,7 @@ input[type="submit"].SubmenuButtonAsLink {
    -webkit-box-shadow: 2px 2px 3px 3px #7C5231;
    -ms-box-shadow: 2px 2px 3px 3px #7C5231;
    box-shadow: 2px 2px 3px 3px #7C5231;
+   margin-bottom: 3px;
 }
 #eventscheduletable th {
    border: 1px solid #FAF0D7;
@@ -2017,6 +2022,11 @@ input[type="submit"].SubmenuButtonAsLink {
 }
 .InTableRightButtonContainer .BigButton {
   margin-bottom: 4px;
+}
+.InTableRightLinkContainer {
+  float: right;
+  text-align: right;
+  margin-left: 20px;
 }
 .InnerTableButtonRow {
   width: 100%;
@@ -3512,6 +3522,12 @@ table.fixed td { overflow: hidden; }
   flex-basis: 100%;
   height: 0;
 }
+#accountmanagement .LoginButtons {
+  vertical-align: top;
+}
+#accountmanagement .LoginButtons .ButtonField{
+  margin-bottom: 1px;
+}
 /* --- */
 /* FAQ */
 /* --- */
@@ -4317,6 +4333,7 @@ table.fixed td { overflow: hidden; }
   margin-top: 4px;
   margin-bottom: 4px;
   height: 13px;
+  text-align: right;
 }
 .SpecialCharacterFeatures {
   flex-basis: 300px;
@@ -4608,4 +4625,11 @@ table.fixed td { overflow: hidden; }
     display: flex;
     flex-direction: column;
   }
+}
+
+.UpperCaseInput {
+  text-transform: uppercase;
+}
+.LowerCaseInput {
+  text-transform: lowercase;
 }

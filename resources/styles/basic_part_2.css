@@ -432,6 +432,14 @@ input#MobileShortMenuIcon {
     margin-left: auto;
     margin-right: auto;
   }
+  #accountmanagement .LoginTable {
+    display: flex;
+    flex-direction: column;
+  }
+  #accountmanagement .LoginButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
   /* Account - Create Account */
   #createaccount .CreateAccountFormInput, .ChangePasswordFormInput, .SetPasswordFormInput {
     margin-right: 15px;

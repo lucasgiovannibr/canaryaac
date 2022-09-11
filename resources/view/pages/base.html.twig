@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 		<meta name="description" content="Tibia is a free massively multiplayer online role-playing game (MMORPG). Join this fascinating game that has thousands of fans from all over the world! - http://www.tibia.com"/>
 		<meta name="author" content="Lucas Giovanni"/>
 		<meta http-equiv="content-language" content="pt-br"/>
 		<meta name="keywords" content="free online game, free multiplayer game, free online rpg, free mmorpg, mmorpg, mmog, online role playing game, online multiplayer game, internet game, online rpg, rpg"/>
 		<meta name="google-site-verification" content=""/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 
 		<meta property="og:title" content="A free and open-source Automatic Account Creator."/>
 		<meta property="og:url" content="{{URL}}"/>
@@ -79,8 +78,7 @@
 		<script type="text/javascript" src="{{JS_PATH}}/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="{{JS_PATH}}/ajaxcip_tibia_v1.js"></script>
 		<script type="text/javascript">
-
-			var loginStatus = 0;
+var loginStatus = 0;
 loginStatus = {{ loginStatus }};
 var activeSubmenuItem = '{{ activemenu }}';
 var JS_DIR_IMAGES = 0;
@@ -115,10 +113,125 @@ var FB_ForceReload = 0;
 	<body onbeforeunload="SaveMenu();" onunload="SaveMenu();" onload="SetFormFocus()" style="background-image:url({{IMAGE_PATH}}/global/header/background-artwork.jpg);">
 		<div id="DeactivationContainer" onclick="ActivateWebsiteFrame();$('.LightBoxContentToHide').css('display', 'none');"></div>
 		<a name="top"></a>
-
 		{# main-site-container START #}
 		<div class="main-site-container">
-			<div class="main-header"></div>
+			<div class="main-header">
+				<header id="MobileMenu">
+					<nav>
+						<div id="MobileMenuBottom"></div>
+						<div class="MobileTibiaLogo"><a id="" href="https://www.tibia.com/news/?subtopic=latestnews"> </a></div>
+						<input type="checkbox" id="MobileShortMenuIcon">
+						<label for="MobileShortMenuIcon" id="MyAccount" class="MobileShortMenuIconContainer MobileNavigationMainElement"></label>
+						<ul class="MobileMenuItems MobileShortMenuItems">
+							{% if loginStatus == 'false' %}
+							<li class="Level2Entry MobileNavigationLinkContainer" id="MobileShortMenuMyAccount">
+								<a href="{{ URL }}/account/login" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green_over.gif);"></div>
+											<input class="BigButtonText" type="button" value="Login">
+										</div>
+									</div>
+								</a>
+							</li>
+							{% else %}
+							<li class="Level2Entry MobileNavigationLinkContainer" id="MobileShortMenuMyAccount">
+								<a href="{{ URL }}/account" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_green_over.gif);"></div>
+											<input class="BigButtonText" type="button" value="My Account">
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="Level2Entry MobileNavigationLinkContainer" id="MobileShortMenuLogout">
+								<a href="{{ URL }}/account/logout" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_red.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_red_over.gif);"></div>
+										<input class="BigButtonText" type="button" value="Logout">
+										</div>
+									</div>
+								</a>
+							</li>
+							{% endif %}
+							<li class="Level2Entry MobileNavigationLinkContainer" id="MobileShortMenuLogout">
+								<a href="{{ URL }}/downloads" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+											<input class="BigButtonText" type="button" value="Download">
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+						<input type="checkbox" id="MobileMenuIcon">
+						<label for="MobileMenuIcon" class="MobileMenuIconContainer MobileNavigationMainElement"></label>
+						<ul class="MobileMenuItems">
+
+						<li class="Level1Block" id="news">
+							<div class="Level1Entry" onclick="MenuItemAction('news')" ;="">News</div>
+							<ul class="">
+								{% for menu in menu %}
+								{% if menu.category == 'news' %}
+								<li class="Level2Block MobileNavigationLinkContainer" id="{{ menu.tag }}" style="display: none;">
+									<a class="Level2Entry" href="{{ URL }}/{{ menu.link }}">{{ menu.name }}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="Level1Block" id="library">
+							<div class="Level1Entry" onclick="MenuItemAction('library')" ;="">Library</div>
+							<ul class="">
+								{% for menu in menu %}
+								{% if menu.category == 'library' %}
+								<li class="Level2Block MobileNavigationLinkContainer" id="{{ menu.tag }}" style="display: none;">
+									<a class="Level2Entry" href="{{ URL }}/{{ menu.link }}">{{ menu.name }}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="Level1Block" id="community">
+							<div class="Level1Entry" onclick="MenuItemAction('community')" ;="">Community</div>
+							<ul class="">
+								{% for menu in menu %}
+								{% if menu.category == 'community' %}
+								<li class="Level2Block MobileNavigationLinkContainer" id="{{ menu.tag }}" style="display: none;">
+									<a class="Level2Entry" href="{{ URL }}/{{ menu.link }}">{{ menu.name }}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="Level1Block" id="account">
+							<div class="Level1Entry" onclick="MenuItemAction('account')" ;="">Account</div>
+							<ul class="">
+								{% for menu in menu %}
+								{% if menu.category == 'account' %}
+								<li class="Level2Block MobileNavigationLinkContainer" id="{{ menu.tag }}" style="display: none;">
+									<a class="Level2Entry" href="{{ URL }}/{{ menu.link }}">{{ menu.name }}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="Level1Block" id="shop">
+							<div class="Level1Entry" onclick="MenuItemAction('shop')" ;="">Shop</div>
+							<ul class="">
+								{% for menu in menu %}
+								{% if menu.category == 'shop' %}
+								<li class="Level2Block MobileNavigationLinkContainer" id="{{ menu.tag }}" style="display: none;">
+									<a class="Level2Entry" href="{{ URL }}/{{ menu.link }}">{{ menu.name }}</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</li>
+						
+						</ul>
+					</nav>
+				</header>
+			</div>
 			<div class="main-menu">
 				<div id="MenuColumn">
 					<div id="LeftArtwork">
@@ -331,9 +444,8 @@ var FB_ForceReload = 0;
 				<div id="Footer" class="main-footer">Copyright by CanaryAAC. All rights reserved.<br>Layout by CipSoft GmbH.</div>
 			</div>
 			{# Themeboxes START #}
-			<div
-				class="main-themboxes Themeboxes">
-
+			<div class="main-themboxes Themeboxes">
+				<div id="DeactivationContainerThemebox" onclick="StopVideoIfExists();DisableDeactivationContainer();"></div>
 				{# PremiumBox START #}
 				<div id="PremiumBox" class="Themebox" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/themebox.png);">
 					<div id="PremiumBoxDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/crown_animation.gif);"></div>
@@ -353,13 +465,10 @@ var FB_ForceReload = 0;
 					<div id="PremiumBoxButtonDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/button_premiumtime.png);"></div>
 				</div>
 				{# PremiumBox END #}
-							
-							      </div>
-							      {# Themeboxes END #}
-							
-									</div>
-							    {# main-site-container END #}
-							
+			</div>
+			{# Themeboxes END #}
+			</div>
+			{# main-site-container END #}
 							    <div id="HelperDivContainer" style="background-image: url({{IMAGE_PATH}}/global/content/scroll.gif); top: 543px; left: 755.453px; display: none;">
 							    <div class="HelperDivArrow" style="background-image: url({{IMAGE_PATH}}/global/content/helper-div-arrow.png); top: -1px;"></div>
 							    <div id="HelperDivHeadline"></div>
@@ -383,6 +492,8 @@ var FB_ForceReload = 0;
 							      });
 							    }
 							  </script>
+							  
+							  <div id="BackToTopButton" class="MobileNavigationLinkContainer MobileNavigationMainElement"><a id="BackToTopArrowUp" href="#top"> </a></div>
 							
 								</body>
 							</html>
