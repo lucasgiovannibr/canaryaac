@@ -10,7 +10,7 @@
 						<div class="breadcrumb-wrapper">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="{{ URL }}/admin">Home</a>
+									<a href="{{ URL }}/admin/home">Home</a>
 								</li>
 								<li class="breadcrumb-item active">Accounts</li>
 							</ol>
@@ -48,12 +48,11 @@
 												<td>
 													<div class="d-flex justify-content-left align-items-center">
 														<div class="d-flex flex-column">
-															<a href="{{ URL }}/admin/accounts/{{ account.id }}" class="user_name text-truncate text-body">
+															<a href="{{ URL }}/admin/accounts/{{ account.id }}/view" class="user_name text-truncate text-body">
 																<span class="fw-bolder">
 																	{{ account.email }}
 																</span>
 															</a>
-															<small class="emp_post text-muted" data-i18n="{{ account.name }}">{{ account.name }}</small>
 														</div>
 													</div>
 												</td>

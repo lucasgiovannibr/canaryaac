@@ -9,15 +9,82 @@
 
 namespace App\Controller\Admin;
 
-use App\Model\Entity\Login as EntityLogin;
 use App\Utils\View;
-use App\Http\Request;
 use App\Controller\Admin\Alert;
-use App\DatabaseManager\Pagination;
 use App\Model\Entity\Player as EntityPlayer;
+use App\Model\Entity\Account as EntityAccount;
 use App\Model\Functions\Player;
 
 class Accounts extends Base{
+
+    public static function updateAccount($request, $id)
+    {
+        $postVars = $request->getPostVars();
+
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            $status = Alert::getError('Invalid account ID.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+
+        if (empty($postVars['account_email'])) {
+            $status = Alert::getError('You need to enter an email.');
+            return self::viewAccount($request, $id, $status);
+        }
+        if (!filter_var($postVars['account_email'], FILTER_VALIDATE_EMAIL)) {
+            $status = Alert::getError('Invalid email format.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_email = filter_var($postVars['account_email'], FILTER_SANITIZE_EMAIL);
+
+        if (empty($postVars['account_pageaccess'])) {
+            $status = Alert::getError('Invalid page access number.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_access = filter_var($postVars['account_pageaccess'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (empty($postVars['account_type'])) {
+            $status = Alert::getError('Invalid type number.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_type = filter_var($postVars['account_type'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (!isset($postVars['account_premdays'])) {
+            $status = Alert::getError('Invalid number of premium days.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_premdays = filter_var($postVars['account_premdays'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (!isset($postVars['account_coins'])) {
+            $status = Alert::getError('Invalid number of coins.');
+            return self::viewAccount($request, $id, $status);
+        }
+        $filter_account_coins = filter_var($postVars['account_coins'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (isset($postVars['account_password'])) {
+            $filter_account_password = filter_var($postVars['account_password'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $convert_password = sha1($filter_account_password);
+        }
+
+        if (empty($postVars['account_password'])) {
+            EntityAccount::updateAccount('id = "'.$filter_account_id.'"', [
+                'email' => $filter_account_email,
+                'page_access' => $filter_account_access,
+                'premdays' => $filter_account_premdays,
+                'coins' => $filter_account_coins,
+            ]);
+        } else {
+            EntityAccount::updateAccount('id = "'.$filter_account_id.'"', [
+                'email' => $filter_account_email,
+                'password' => $convert_password,
+                'page_access' => $filter_account_access,
+                'premdays' => $filter_account_premdays,
+                'coins' => $filter_account_coins,
+            ]);
+        }
+        $status = Alert::getSuccess('Account successfully updated.');
+        return self::viewAccount($request, $id, $status);
+    }
 
     public static function getAllAccounts()
     {
@@ -25,7 +92,6 @@ class Accounts extends Base{
         while($obAccounts = $select->fetchObject()){
             $allAccounts[] = [
                 'id' => $obAccounts->id,
-                'name' => $obAccounts->name,
                 'email' => $obAccounts->email,
                 'page_access' => $obAccounts->page_access,
                 'coins' => $obAccounts->coins,
@@ -37,17 +103,26 @@ class Accounts extends Base{
         return $allAccounts;
     }
 
-    public static function viewAccount($request, $id)
+    public static function getAccountById($account_id)
     {
-        $select = EntityPlayer::getAccount('id = "'.$id.'"')->fetchObject();
-        $characters = Player::getAllCharacters($id);
-        
-        $content = View::render('admin/modules/accounts/view', [
-            'account_id' => $id,
-            'account' => $select,
-            'characters' => $characters,
-        ]);
+        $select_account = EntityPlayer::getAccount('id = "'.$account_id.'"')->fetchObject();
+        return [
+            'email' => $select_account->email,
+            'page_access' => $select_account->page_access,
+            'type' => $select_account->type,
+            'premdays' => $select_account->premdays,
+            'coins' => $select_account->coins,
+        ];
+    }
 
+    public static function viewAccount($request, $id, $status = null)
+    {
+        $content = View::render('admin/modules/accounts/view', [
+            'status' => $status,
+            'account_id' => $id,
+            'account' => self::getAccountById($id),
+            'characters' => Player::getAllCharacters($id),
+        ]);
         return parent::getPanel('Account #'.$id, $content, 'accounts');
     }
 
@@ -56,10 +131,8 @@ class Accounts extends Base{
         $content = View::render('admin/modules/accounts/index', [
             'accounts' => self::getAllAccounts()
         ]);
-
         return parent::getPanel('Accounts', $content, 'accounts');
     }
-
 
     public function getStatus($request)
     {

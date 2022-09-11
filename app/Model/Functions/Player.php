@@ -106,7 +106,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
 
         public static function convertWorld($world_id)
         {
-            $select_world = ServerConfig::getWorlds('id = "'.$world_id.'"');
+            $select_world = ServerConfig::getWorlds('id = "'.$world_id.'"')->fetchObject();
             return $select_world->name ?? 'None';
             
         }
