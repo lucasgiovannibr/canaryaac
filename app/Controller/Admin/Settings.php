@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Settings Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -83,16 +83,18 @@ class Settings extends Base{
                 'player_guild' => $filter_levelguild,
                 'donates' => $filter_donates
             ]);
-            $status = Alert::getSuccess('Atualizado com sucesso.');
-            return self::viewSettings($request, $status);
+            $status = Alert::getSuccess('Information successfully updated.');
+            $sweetAlert = SweetAlert::Types('Success', 'Information successfully updated.', 'success', 'btn btn-success');
+            return self::viewSettings($request, $status, $sweetAlert);
         }
     }
 
-    public static function viewSettings($request, $status = null)
+    public static function viewSettings($request, $status = null, $sweetAlert = null)
     {
         $dbServer = EntityServerConfig::getInfoWebsite()->fetchObject();
         $content = View::render('admin/modules/settings/index', [
             'status' => $status,
+            'sweetAlert' => $sweetAlert,
             'title' => $dbServer->title,
             'download_link' => $dbServer->downloads,
             'player_voc' => $dbServer->player_voc,
