@@ -11,7 +11,7 @@
 						<div class="breadcrumb-wrapper">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="{{ URL }}/admin">Home</a>
+									<a href="{{ URL }}/admin/home">Home</a>
 								</li>
 								<li class="breadcrumb-item active">Settings</li>
 							</ol>
@@ -39,7 +39,7 @@
 											<label class="form-label" for="website_download">Client Link</label>
 											<input type="text" name="website_download" id="website_download" class="form-control mb-1" value="{{ download_link }}">
 										</div>
-										<div class="col-md-12 col-lg-4 mb-1">
+										<div class="col-md-12 col-lg-2 mb-1">
 											<label class="form-label" for="website_vocation">Vocation</label>
 											<div class="form-check form-switch">
 												{% if player_voc == 0 %}
@@ -47,6 +47,17 @@
 												{% endif %}
 												{% if player_voc == 1 %}
 													<input type="checkbox" class="form-check-input" name="website_vocation" id="website_vocation" value="1" checked="">
+												{% endif %}
+											</div>
+										</div>
+										<div class="col-md-12 col-lg-2 mb-1">
+											<label class="form-label" for="website_donates">Donates</label>
+											<div class="form-check form-switch">
+												{% if active_donates == 0 %}
+													<input type="checkbox" class="form-check-input" name="website_donates" id="website_donates" value="1">
+												{% endif %}
+												{% if active_donates == 1 %}
+													<input type="checkbox" class="form-check-input" name="website_donates" id="website_donates" value="1" checked="">
 												{% endif %}
 											</div>
 										</div>

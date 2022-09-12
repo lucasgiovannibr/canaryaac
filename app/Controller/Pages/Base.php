@@ -21,16 +21,12 @@ class Base{
         /*if(count($pages) <= 1) return '';*/
 
         $links = '';
-
         $url = $request->getRouter()->getCurrentUrl();
-
         $queryParams = $request->getQueryParams();
 
         foreach($pages as $page){
             $queryParams['page'] = $page['page'];
-
             $link = $url.'?'.http_build_query($queryParams);
-
             $links .= View::render('pagination/link', [
                 'page' => $page['page'],
                 'link' => $link,
@@ -200,7 +196,8 @@ class Base{
             'boostedcreature' => Server::getBoostedCreature(),
             'boostedboss' => Server::getBoostedBoss(),
             'playersonline' => Server::getCountPlayersOnline(),
-            'server_status' => Server::getServerStatus()
+            'server_status' => Server::getServerStatus(),
+            'active_donates' => $websiteInfo->donates,
         ]);
     }
 }

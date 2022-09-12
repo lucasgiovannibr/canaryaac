@@ -11,6 +11,7 @@ namespace App\Controller\Pages;
 
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\Account as EntityAccount;
+use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Player;
 use App\Model\Entity\Badges as EntityBadges;
 use \App\Utils\View;
@@ -121,8 +122,11 @@ class AccountManage extends Base{
 
     public static function getAccount($request)
     {
+        $websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+
         $content = View::render('pages/account/manage', [
-            'account' => self::getAccountLogged()
+            'account' => self::getAccountLogged(),
+            'active_donates' => $websiteInfo->donates,
         ]);
         return parent::getBase('Account Management', $content, 'account');
     }

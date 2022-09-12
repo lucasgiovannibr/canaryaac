@@ -45,6 +45,16 @@ class Settings extends Base{
                 return self::viewSettings($request, $status);
             }
 
+            if(empty($postVars['website_donates'])){
+                $filter_donates = 0;
+            }else{
+                $filter_donates = 1;
+            }
+            if($filter_donates > 1){
+                $status = Alert::getError('Defina se está ativo os donates.');
+                return self::viewSettings($request, $status);
+            }
+
             if(empty($postVars['website_maxplayers'])){
                 $status = Alert::getError('Defina o máximo de players por conta.');
                 return self::viewSettings($request, $status);
@@ -71,6 +81,7 @@ class Settings extends Base{
                 'player_voc' => $filter_vocation,
                 'player_max' => $filter_maxplayers,
                 'player_guild' => $filter_levelguild,
+                'donates' => $filter_donates
             ]);
             $status = Alert::getSuccess('Atualizado com sucesso.');
             return self::viewSettings($request, $status);
@@ -87,6 +98,7 @@ class Settings extends Base{
             'player_voc' => $dbServer->player_voc,
             'player_max' => $dbServer->player_max,
             'player_guild' => $dbServer->player_guild,
+            'active_donates' => $dbServer->donates,
             'worlds' => Server::getWorlds(),
         ]);
         return parent::getPanel('Settings', $content, 'settings');

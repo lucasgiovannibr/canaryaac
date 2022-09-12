@@ -534,15 +534,16 @@ CREATE TABLE `canary_website` (
   `downloads` varchar(250) NOT NULL,
   `player_voc` int(11) NOT NULL COMMENT '0 off and 1 on',
   `player_max` int(11) NOT NULL COMMENT 'players por conta',
-  `player_guild` int(11) NOT NULL COMMENT 'level'
+  `player_guild` int(11) NOT NULL COMMENT 'level',
+  `donates` int(11) NOT NULL COMMENT '0 off and 1 on',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `canary_website`
 --
 
-INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`) VALUES
-(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100);
+INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`, `donates`) VALUES
+(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100, 1);
 
 -- --------------------------------------------------------
 

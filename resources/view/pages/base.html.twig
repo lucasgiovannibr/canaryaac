@@ -215,6 +215,7 @@ var FB_ForceReload = 0;
 								{% endfor %}
 							</ul>
 						</li>
+						{% if active_donates == 1 %}
 						<li class="Level1Block" id="shop">
 							<div class="Level1Entry" onclick="MenuItemAction('shop')" ;="">Shop</div>
 							<ul class="">
@@ -227,6 +228,7 @@ var FB_ForceReload = 0;
 								{% endfor %}
 							</ul>
 						</li>
+						{% endif %}
 						
 						</ul>
 					</nav>
@@ -399,6 +401,7 @@ var FB_ForceReload = 0;
 								{% endfor %}
 							</div>
 						</div>
+						{% if active_donates == 1 %}
 						<div id='shop' class='menuitem'>
 							<span onclick="MenuItemAction('shop')">
 								<div class='MenuButton' style='background-image:url({{IMAGE_PATH}}/global/menu/button-background.gif);'>
@@ -429,6 +432,7 @@ var FB_ForceReload = 0;
 								{% endfor %}
 							</div>
 						</div>
+						{% endif %}
 						<div id="MenuBottom" style="background-image:url({{IMAGE_PATH}}/global/general/box-bottom.gif);"></div>
 					</div>
 					<script>

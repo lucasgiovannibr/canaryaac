@@ -12,6 +12,7 @@ namespace App\Controller\Pages;
 use App\Model\Entity\Account;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\Worlds as EntityWorlds;
+use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Player;
 use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
@@ -107,9 +108,11 @@ class AccountIndex extends Base{
 
     public static function getAccount($request)
     {
+        $websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+
         $content = View::render('pages/account/index', [
-            'title' => 'test',
-            'account' => self::getAccountLogged()
+            'account' => self::getAccountLogged(),
+            'active_donates' => $websiteInfo->donates,
         ]);
         return parent::getBase('Account Management', $content, 'account');
     }

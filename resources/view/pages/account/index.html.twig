@@ -65,11 +65,13 @@
 																				{% set button_name = 'Manage Account' %}
 																				{% include "blue_button.html.twig" %}
 																			</a>
+																			{% if active_donates == 1 %}
 																			<div style="font-size:1px;height:4px;"></div>
 																			<a href="{{URL}}/payment">
 																				{% set button_name = 'Get Coins' %}
 																				{% include "green_button.html.twig" %}
 																			</a>
+																			{% endif %}
 																			<div style="font-size:1px;height:4px;"></div>
 																			<a href="{{URL}}/account/logout">
 																				{% set button_name = 'Logout' %}

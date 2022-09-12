@@ -24,11 +24,13 @@
 											<nobr>[<a href="#Authenticator">Authenticator</a>]</nobr>
 										</td>
 										<td>
+											{% if active_donates == 1 %}
 											<a href="{{URL}}/payment" style="padding:0px;margin:0px;">
 												{% set button_name = 'Get Coins' %}
 												{% include "green_button.html.twig" %}
 											</a>
 											<div style="font-size:1px;height:4px;"></div>
+											{% endif %}
 											<a href="{{URL}}/account" style="padding:0px;margin:0px;">
 												{% set button_name = 'Overview' %}
 												{% include "blue_button.html.twig" %}
