@@ -448,6 +448,29 @@ CREATE TABLE `canary_payments` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `canary_products`
+--
+
+CREATE TABLE `canary_products` (
+  `id` int(11) NOT NULL,
+  `coins` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `canary_products`
+--
+
+INSERT INTO `canary_products` (`id`, `coins`) VALUES
+(1, 250),
+(2, 750),
+(3, 1500),
+(4, 3000),
+(5, 4500),
+(6, 15000);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `canary_samples`
 --
 
@@ -536,14 +559,18 @@ CREATE TABLE `canary_website` (
   `player_max` int(11) NOT NULL COMMENT 'players por conta',
   `player_guild` int(11) NOT NULL COMMENT 'level',
   `donates` int(11) NOT NULL COMMENT '0 off and 1 on',
+  `coin_price` decimal(10,2) NOT NULL,
+  `mercadopago` int(11) NOT NULL,
+  `pagseguro` int(11) NOT NULL,
+  `paypal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `canary_website`
 --
 
-INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`, `donates`) VALUES
-(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100, 1);
+INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`, `donates`, `coin_price`, `mercadopago`, `pagseguro`, `paypal`) VALUES
+(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100, 1, '0.10', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1405,6 +1432,12 @@ ALTER TABLE `canary_news`
 --
 ALTER TABLE `canary_payments`
   ADD PRIMARY KEY (`id`);
+  
+--
+-- Índices para tabela `canary_products`
+--
+ALTER TABLE `canary_products`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `canary_samples`
@@ -1731,6 +1764,12 @@ ALTER TABLE `canary_news`
 --
 ALTER TABLE `canary_payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  
+--
+-- AUTO_INCREMENT de tabela `canary_products`
+--
+ALTER TABLE `canary_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `canary_samples`

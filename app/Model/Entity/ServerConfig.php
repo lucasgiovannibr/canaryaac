@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * ServerConfig Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -58,6 +58,14 @@ class ServerConfig{
 
     public static function updateWorld($where = null, $values = null){
         return (new Database('canary_worlds'))->update($where, $values);
+    }
+
+    public static function getProducts($where = null, $order = null, $limit = null, $fields = '*'){
+        return (new Database('canary_products'))->select($where, $order, $limit, $fields);
+    }
+
+    public static function updateProducts($where = null, $values = null){
+        return (new Database('canary_products'))->update($where, $values);
     }
 
 }

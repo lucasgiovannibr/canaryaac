@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Payment Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -16,6 +16,7 @@ use App\Payment\PayPal\ApiPayPal;
 use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
 use App\Model\Entity\Payments as EntityPayments;
+use App\Model\Entity\ServerConfig as EntityServerConfig;
 
 class Payment extends Base{
 
@@ -23,9 +24,27 @@ class Payment extends Base{
     {
         $idLogged = SessionAdminLogin::idLogged();
         $dbAccount = EntityAccount::getAccount('id = "'.$idLogged.'"')->fetchObject();
+        $donateConfigs = EntityServerConfig::getInfoWebsite('id = "1"')->fetchObject();
+
+        $select_products = EntityServerConfig::getProducts(null, 'id ASC');
+        $product_web_id = 192;
+        while ($product = $select_products->fetchObject()) {
+            $product_web_id++;
+            $final_price = $donateConfigs->coin_price * $product->coins;
+            $arrayProducts[] = [
+                'id' => $product->id,
+                'coins' => $product->coins,
+                'web_id' => $product_web_id,
+                'final_price' => $final_price
+            ];
+        }
 
         $content = View::render('pages/shop/payment', [
             'email' => $dbAccount->email ?? null,
+            'products' => $arrayProducts,
+            'active_mercadopago' => $donateConfigs->mercadopago,
+            'active_pagseguro' => $donateConfigs->pagseguro,
+            'active_paypal' => $donateConfigs->paypal,
         ]);
         return parent::getBase('Webshop', $content, 'donate');
     }
@@ -57,8 +76,7 @@ class Payment extends Base{
 
     public static function viewPaymentConfirm($request)
     {
-        $idLogged = SessionAdminLogin::idLogged();
-        $dbAccount = EntityAccount::getAccount('id = "'.$idLogged.'"')->fetchObject();
+        $donateConfigs = EntityServerConfig::getInfoWebsite('id = "1"')->fetchObject();
         $postVars = $request->getPostVars();
 
         if(!isset($postVars['payment_email'])){
@@ -69,8 +87,7 @@ class Payment extends Base{
         }
 
         $filter_coins = filter_var($postVars['payment_coins'], FILTER_SANITIZE_NUMBER_INT);
-        $price = self::convertCoinsToPrice($filter_coins);
-        $final_price = $filter_coins * $price;
+        $final_price = $filter_coins * $donateConfigs->coin_price;
         
         $content = View::render('pages/shop/paymentconfirm', [
             'method' => $postVars['payment_method'],
@@ -86,6 +103,7 @@ class Payment extends Base{
     {
         $idLogged = SessionAdminLogin::idLogged();
         $dbAccount = EntityAccount::getAccount('id = "'.$idLogged.'"')->fetchObject();
+        $donateConfigs = EntityServerConfig::getInfoWebsite('id = "1"')->fetchObject();
         $postVars = $request->getPostVars();
 
         if($postVars['TermsOfService'] != 1){
@@ -101,6 +119,16 @@ class Payment extends Base{
             $request->getRouter()->redirect('/payment');
         }
         if(!isset($postVars['payment_email'])){
+            $request->getRouter()->redirect('/payment');
+        }
+
+        if ($donateConfigs->mercadopago == 0) {
+            $request->getRouter()->redirect('/payment');
+        }
+        if ($donateConfigs->pagseguro == 0) {
+            $request->getRouter()->redirect('/payment');
+        }
+        if ($donateConfigs->paypal == 0) {
             $request->getRouter()->redirect('/payment');
         }
 
@@ -135,7 +163,7 @@ class Payment extends Base{
             $request->getRouter()->redirect('/payment');
         }
         $filter_coins = filter_var($postVars['payment_coins'], FILTER_SANITIZE_NUMBER_INT);
-        $final_price = self::convertCoinsToPrice($filter_coins);
+        $final_price = $donateConfigs->coin_price;
         if($final_price == 0){
             $request->getRouter()->redirect('/payment');
         }
@@ -217,12 +245,6 @@ class Payment extends Base{
                 'date' => strtotime(date('Y-m-d h:i:s')),
             ];
             EntityPayments::insertPayment($order);
-            /*
-            echo '<pre>';
-            print_r($code_payment);
-            echo '</pre>';
-            exit;
-            */
         }
 
         $content = View::render('pages/shop/paymentsummary', [
@@ -231,26 +253,6 @@ class Payment extends Base{
             'code_payment' => $code_payment ?? null,
         ]);
         return parent::getBase('Webshop', $content, 'donate');
-    }
-
-    public static function convertCoinsToPrice($total_coins)
-    {
-        $filter_coins = filter_var($total_coins, FILTER_SANITIZE_NUMBER_INT);
-        $arrayPacks = [
-            250 => 0.50,
-            750 => 0.50,
-            1500 => 0.50,
-            3000 => 0.50,
-            4500 => 0.50,
-            15000 => 0.50,
-        ];
-        foreach($arrayPacks as $coin => $price){
-            if($coin == $filter_coins){
-                $final_price = $price;
-            }
-        }
-
-        return $final_price ?? 0;
     }
 
 }

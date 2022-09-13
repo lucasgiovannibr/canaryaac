@@ -205,8 +205,8 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 					</div>
 				</div>
 				<div class="CustomerIdentification">Order for:
-					<span id="DisplayEMail" onmousedown="ToggleMaskedText('EMail');">e*******@email.com</span>
-					<span id="MaskedEMail">e*******@email.com</span>
+					<span id="DisplayEMail" onmousedown="ToggleMaskedText('EMail');">********@email.com</span>
+					<span id="MaskedEMail">********@email.com</span>
 					<span id="ReadableEMail">{{ email }}</span>
 					<div><img id="ButtonEMail" onmousedown="ToggleMaskedText('EMail');" src="{{IMAGE_PATH}}/global/general/show.gif"></div>
 				</div>
@@ -523,150 +523,30 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																		<tr>
 																			<td style="text-align: center;" align="center">
 																				<div class="OptionsContainer">
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_193">
+																					{% for product in products %}
+																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_{{ product.web_id }}">
 																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_193" style="" onclick="ChangeService(193, 19);" onmouseover="MouseOverServiceID(193, 19);" onmouseout="MouseOutServiceID(193, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_193" style="display: none;">
+																							<div class="ServiceID_Icon" id="ServiceID_Icon_{{ product.web_id }}" style="" onclick="ChangeService({{ product.web_id }}, 19);" onmouseover="MouseOverServiceID({{ product.web_id }}, 19);" onmouseout="MouseOutServiceID({{ product.web_id }}, 19);">
+																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_{{ product.web_id }}" style="display: none;">
 																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
 																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
 																									</span>
 																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_193" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_193_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_193"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_193"></div>
-																								<label for="ServiceID_193">
+																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_{{ product.web_id }}" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_{{ product.web_id }}_transferable.png);"></div>
+																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_{{ product.web_id }}"></div>
+																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_{{ product.web_id }}"></div>
+																								<label for="ServiceID_{{ product.web_id }}">
 																									<div class="ServiceIDLabelContainer">
 																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_193" name="payment_coins" value="250" style="display: none;">250 Coins
+																											<input type="radio" id="ServiceID_{{ product.web_id }}" name="payment_coins" value="{{ product.coins }}" style="display: none;">{{ product.coins }} Coins
 																										</div>
 																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_193">50.00 BRL</span>
-																										*</div>
+																									<div class="ServiceIDPriceContainer"><span class="ServiceIDPrice" id="PD_{{ product.web_id }}">{{ product.final_price }}.00 BRL</span>*</div>
 																								</label>
 																							</div>
 																						</div>
 																					</div>
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_194">
-																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_194" style="" onclick="ChangeService(194, 19);" onmouseover="MouseOverServiceID(194, 19);" onmouseout="MouseOutServiceID(194, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_194" style="display: none;">
-																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
-																									</span>
-																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_194" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_194_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_194"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_194"></div>
-																								<label for="ServiceID_194">
-																									<div class="ServiceIDLabelContainer">
-																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_194" name="payment_coins" value="750" style="display: none;">750 Coins
-																										</div>
-																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_194">139.00 BRL</span>
-																										*</div>
-																								</label>
-																							</div>
-																						</div>
-																					</div>
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_195">
-																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_195" style="" onclick="ChangeService(195, 19);" onmouseover="MouseOverServiceID(195, 19);" onmouseout="MouseOutServiceID(195, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_195" style="display: none;">
-																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
-																									</span>
-																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_195" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_195_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_195"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_195"></div>
-																								<label for="ServiceID_195">
-																									<div class="ServiceIDLabelContainer">
-																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_195" name="payment_coins" value="1500" style="display: none;">1500 Coins
-																										</div>
-																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_195">278.00 BRL</span>
-																										*</div>
-																								</label>
-																							</div>
-																						</div>
-																					</div>
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_196">
-																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_196" style="" onclick="ChangeService(196, 19);" onmouseover="MouseOverServiceID(196, 19);" onmouseout="MouseOutServiceID(196, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_196" style="display: none;">
-																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
-																									</span>
-																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_196" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_196_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_196"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_196"></div>
-																								<label for="ServiceID_196">
-																									<div class="ServiceIDLabelContainer">
-																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_196" name="payment_coins" value="3000" style="display: none;">3000 Coins
-																										</div>
-																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_196">556.89 BRL</span>
-																										*</div>
-																								</label>
-																							</div>
-																						</div>
-																					</div>
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_197">
-																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_197" style="" onclick="ChangeService(197, 19);" onmouseover="MouseOverServiceID(197, 19);" onmouseout="MouseOutServiceID(197, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_197" style="display: none;">
-																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
-																									</span>
-																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_197" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_197_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_197"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_197"></div>
-																								<label for="ServiceID_197">
-																									<div class="ServiceIDLabelContainer">
-																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_197" name="payment_coins" value="4500" style="display: none;">4500 Coins
-																										</div>
-																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_197">835.00 BRL</span>
-																										*</div>
-																								</label>
-																							</div>
-																						</div>
-																					</div>
-																					<div class="ServiceID_Icon_Container" id="ServiceID_Icon_Container_198">
-																						<div class="ServiceID_Icon_Container_Background" id="" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_icon_normal.png);">
-																							<div class="ServiceID_Icon" id="ServiceID_Icon_198" style="" onclick="ChangeService(198, 19);" onmouseover="MouseOverServiceID(198, 19);" onmouseout="MouseOutServiceID(198, 19);">
-																								<div class="PermanentDeactivated ServiceID_Deactivated_ByChoice" id="ServiceID_NotAllowed_198" style="display: none;">
-																									<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Service Info:', '<p>The product is not available for the selected payment method!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																										<div class="ServiceID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/serviceid_deactivated.png);"></div>
-																									</span>
-																								</div>
-																								<div class="ServiceID_Icon_New" id="ServiceID_Icon_New_198" style="background-image:url({{IMAGE_PATH}}/payment/serviceid_198_transferable.png);"></div>
-																								<div class="ServiceID_Icon_Selected" id="ServiceID_Icon_Selected_198"></div>
-																								<div class="ServiceID_Icon_Over" id="ServiceID_Icon_Over_198"></div>
-																								<label for="ServiceID_198">
-																									<div class="ServiceIDLabelContainer">
-																										<div class="ServiceIDLabel">
-																											<input type="radio" id="ServiceID_198" name="payment_coins" value="15000" style="display: none;">15000 Coins
-																										</div>
-																									</div>
-																									<div class="ServiceIDPriceContainer">
-																										<span class="ServiceIDPrice" id="PD_198">2784.00 BRL</span>
-																										*</div>
-																								</label>
-																							</div>
-																						</div>
-																					</div>
+																					{% endfor %}
 																				</div>
 																			</td>
 																		</tr>
@@ -692,6 +572,7 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																		<tr>
 																			<td style="text-align: center;" align="center">
 																				<div class="OptionsContainer">
+																					{% if active_paypal == 1 %}
 																					<div class="PMCID_Icon_Container" id="PMCID_Icon_Container_31">
 																						<div class="PMCID_Icon" id="PMCID_Icon_31" style="background-image:url({{IMAGE_PATH}}//payment/pmcid_icon_normal.png);" onclick="ChangePMC(31);" onmouseover="MouseOverPMCID(31);" onmouseout="MouseOutPMCID(31);">
 																							<div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_31" style="display: none;" "=" ">
@@ -704,7 +585,7 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																							<div class="PMCID_QuicknessIndicator">
 																								<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Usual Process Time:', '<p>It usually takes <b>several hours</b> until you receive the ordered product if you use this payment method.</p><p>However, in some cases, the process time <b>can also take several days!</b></p>', '');" onmouseout="$('#HelperDivContainer').hide();">
 																									<div class="PMCID_QuicknessIndicatorLabelContainer">
-																										<div class="PMCID_QuicknessIndicatorLabel">Usual Process Time:<br>fast</div>
+																										<div class="PMCID_QuicknessIndicatorLabel">Usual Process Time:<br>very fast</div>
 																									</div>
 																								</span>
 																							</div>
@@ -717,6 +598,8 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																							</div>
 																						</div>
 																					</div>
+																					{% endif %}
+																					{% if active_pagseguro == 1 %}
 																					<div class="PMCID_Icon_Container" id="PMCID_Icon_Container_32">
 																						<div class="PMCID_Icon" id="PMCID_Icon_32" style="background-image:url({{IMAGE_PATH}}//payment/pmcid_icon_normal.png);" onclick="ChangePMC(32);" onmouseover="MouseOverPMCID(32);" onmouseout="MouseOutPMCID(32);">
 																							<div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_32" style="display: none;" "=" ">
@@ -729,7 +612,7 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																							<div class="PMCID_QuicknessIndicator">
 																								<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Usual Process Time:', '<p>It usually takes <b>several hours</b> until you receive the ordered product if you use this payment method.</p><p>However, in some cases, the process time <b>can also take several days!</b></p>', '');" onmouseout="$('#HelperDivContainer').hide();">
 																									<div class="PMCID_QuicknessIndicatorLabelContainer">
-																										<div class="PMCID_QuicknessIndicatorLabel">Usual Process Time:<br>fast</div>
+																										<div class="PMCID_QuicknessIndicatorLabel">Usual Process Time:<br>very fast</div>
 																									</div>
 																								</span>
 																							</div>
@@ -742,31 +625,8 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																							</div>
 																						</div>
 																					</div>
-																					<div class="PMCID_Icon_Container" id="PMCID_Icon_Container_145">
-																						<div class="PMCID_Icon" id="PMCID_Icon_145" style="background-image:url({{IMAGE_PATH}}//payment/pmcid_icon_normal.png);" onclick="ChangePMC(145);" onmouseover="MouseOverPMCID(145);" onmouseout="MouseOutPMCID(145);">
-																							<div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_145" style="display: none;" "=" ">
-																								<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Payment Method Info:', '<p>The payment method is not allowed for the selected service!</p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																									<div class="PMCID_Deactivated" style="background-image: url({{IMAGE_PATH}}/payment/pmcid_deactivated.png);"></div>
-																								</span>
-																							</div>
-																							<div class="PMCID_Icon_Selected" id="PMCID_Icon_Selected_145"></div>
-																							<div class="PMCID_Icon_Over" id="PMCID_Icon_Over_145"></div>
-																							<div class="PMCID_QuicknessIndicator">
-																								<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Usual Process Time:', '<p>It usually takes <b>several minutes</b> until you receive the ordered product if you use this payment method.</p><p>However, in some cases, the process time <b>can also take several days!</b></p>', '');" onmouseout="$('#HelperDivContainer').hide();">
-																									<div class="PMCID_QuicknessIndicatorLabelContainer">
-																										<div class="PMCID_QuicknessIndicatorLabel">Usual Process Time:<br>very fast</div>
-																									</div>
-																								</span>
-																							</div>
-																							<span style="position: absolute; left: 125px; top: 53px; z-index: 99;"></span>
-																							<img class="PMCID_CP_Icon" src="{{IMAGE_PATH}}/payment/paymentmethodcategory145.gif">
-																							<div class="PMCID_CP_Label">
-																								<input type="radio" id="PMCID_145" name="payment_method" value="pix" style="display: none;">
-																								<label for="PMCID_145">PIX
-																								</label>
-																							</div>
-																						</div>
-																					</div>
+																					{% endif %}
+																					{% if active_mercadopago == 1 %}
 																					<div class="PMCID_Icon_Container" id="PMCID_Icon_Container_144">
 																						<div class="PMCID_Icon" id="PMCID_Icon_144" style="background-image:url({{IMAGE_PATH}}//payment/pmcid_icon_normal.png);" onclick="ChangePMC(144);" onmouseover="MouseOverPMCID(144);" onmouseout="MouseOutPMCID(144);">
 																							<div class="PermanentDeactivated PMCID_Deactivated_ByChoice" id="PMCID_NotAllowed_144" style="display: none;" "=" ">
@@ -792,6 +652,7 @@ $('#ServiceID_Icon_Over_' + a_ServiceID).css('background-image', '');
 																							</div>
 																						</div>
 																					</div>
+																					{% endif %}
 																				</div>
 																			</td>
 																		</tr>

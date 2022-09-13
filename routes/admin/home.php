@@ -130,6 +130,15 @@ $obRouter->get('/admin/donates', [
         return new Response(200, Donates::viewDonates($request));
     }
 ]);
+$obRouter->post('/admin/donates', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Donates::updateDonates($request));
+    }
+]);
 $obRouter->get('/admin/donates/{reference}/view', [
     'middlewares' => [
         'required-admin-login',
@@ -139,6 +148,7 @@ $obRouter->get('/admin/donates/{reference}/view', [
         return new Response(200, Donates::viewPaymentByReference($request, $reference));
     }
 ]);
+
 
 $obRouter->get('/admin/samples', [
     'middlewares' => [
