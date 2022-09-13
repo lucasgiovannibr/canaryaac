@@ -430,7 +430,7 @@ window.colors = {
     i18next.use(window.i18nextXHRBackend).init(
       {
         debug: false,
-        fallbackLng: 'en',
+        fallbackLng: ['en','pt'],
         backend: {
           loadPath: assetPath + 'data/locales/{{lng}}.json'
         },
@@ -454,6 +454,7 @@ window.colors = {
       var currentLanguage = $this.data('language');
       i18next.changeLanguage(currentLanguage, function (err, t) {
         $('.main-menu, .horizontal-menu-wrapper').localize();
+        $('.app-content, .content').localize();
       });
     });
   }
