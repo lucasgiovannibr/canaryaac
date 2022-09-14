@@ -6,16 +6,16 @@
 			<div class="content-header-left col-md-9 col-12 mb-2">
 				<div class="row breadcrumbs-top">
 					<div class="col-12">
-						<h2 class="content-header-title float-start mb-0">Publications</h2>
+						<h2 class="content-header-title float-start mb-0" data-i18n="Publications">Publications</h2>
 						<div class="breadcrumb-wrapper">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="{{ URL }}/admin">Home</a>
+									<a href="{{ URL }}/admin/home" data-i18n="Home">Home</a>
 								</li>
 								<li class="breadcrumb-item active">
-									<a href="{{ URL }}/admin/publications">Publications</a>
+									<a href="{{ URL }}/admin/publications" data-i18n="Publications">Publications</a>
 								</li>
-								<li class="breadcrumb-item active">News</li>
+								<li class="breadcrumb-item active" data-i18n="News">News</li>
 							</ol>
 						</div>
 					</div>
@@ -31,17 +31,17 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">News</h4>
+								<h4 class="card-title" data-i18n="News">News</h4>
 							</div>
 							<div class="card-body">
                                 <form action="{{URL}}/admin/publications/news" method="post">
 								<div class="row">
 									<div class="col-md-12 col-lg-6 mb-1">
-										<label class="form-label" for="news_title">Title</label>
+										<label class="form-label" for="news_title" data-i18n="Title">Title</label>
 										<input type="text" name="news_title" id="news_title" class="form-control" value="{{ title }}">
 									</div>
                                     <div class="col-md-12 col-lg-6">
-                                        <label class="form-label" for="news_player">Author</label>
+                                        <label class="form-label" for="news_player" data-i18n="Author">Author</label>
 										<select class="form-select" name="news_player">
                                             {% for player in players %}
                                             <option value="{{ player.id }}">{{ player.name }}</option>
@@ -49,7 +49,7 @@
                                         </select>
 									</div>
 									<div class="col-md-12 col-lg-12 mb-1">
-										<label class="form-label">Category</label>
+										<label class="form-label" data-i18n="Category">Category</label>
 										<input type="radio" class="form-check-input" name="news_category" id="category_1" value="1">
 										<label for="category_1" class="form-check-label">
 											<img class="NewsTypeIcon" src="{{ IMAGE_PATH }}/global/content/newsicon_cipsoft_small.gif">
@@ -73,11 +73,11 @@
 									</div>
 									<div class="col-sm-12 mb-1">
 										<div class="form-floating">
-											<textarea name="news_body" class="form-control" style="height: 100px"></textarea>
+											<textarea name="news_body" id="news_body" class="form-control" style="height: 100px"></textarea>
 										</div>
 									</div>
 									<div class="col-md-12 col-lg-12">
-										<input type="submit" class="btn btn-primary" value="Publicar">
+										<input type="submit" class="btn btn-primary" data-i18n="Publish" value="Publish">
 									</div>
 								</div>
                                 </form>
@@ -89,3 +89,10 @@
 		</div>
 	</div>
 </div>
+<script>
+CKEDITOR.replace('news_body', {
+	height: 400,
+	baseFloatZIndex: 10005,
+	removeButtons: 'PasteFromWord'
+});
+</script>
