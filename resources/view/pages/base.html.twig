@@ -450,6 +450,7 @@ var FB_ForceReload = 0;
 			{# Themeboxes START #}
 			<div class="main-themboxes Themeboxes">
 				<div id="DeactivationContainerThemebox" onclick="StopVideoIfExists();DisableDeactivationContainer();"></div>
+				{% if active_donates == 1 %}
 				{# PremiumBox START #}
 				<div id="PremiumBox" class="Themebox" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/themebox.png);">
 					<div id="PremiumBoxDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/crown_animation.gif);"></div>
@@ -469,35 +470,33 @@ var FB_ForceReload = 0;
 					<div id="PremiumBoxButtonDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/button_premiumtime.png);"></div>
 				</div>
 				{# PremiumBox END #}
+				{% endif %}
 			</div>
 			{# Themeboxes END #}
 			</div>
 			{# main-site-container END #}
-							    <div id="HelperDivContainer" style="background-image: url({{IMAGE_PATH}}/global/content/scroll.gif); top: 543px; left: 755.453px; display: none;">
-							    <div class="HelperDivArrow" style="background-image: url({{IMAGE_PATH}}/global/content/helper-div-arrow.png); top: -1px;"></div>
-							    <div id="HelperDivHeadline"></div>
-							    <div id="HelperDivText"></div>
-							    <center><img class="Ornament" src="{{IMAGE_PATH}}/global/content/ornament.gif"></center>
-							    <br>
-							    </div>
-							
-							    <script type="text/javascript">
-							    // disable all control elements which are not part of the content container element
-							    if (g_Deactivated == true) {
-							      $(document).ready(function() {
-							        $('#Monster').removeAttr('onclick');
-							        $('#Monster').css('cursor', 'default');
-							        $('#DeactivationContainer').removeAttr('onclick');
-							        $('#LoginButtonContainer').css('z-index', 1);
-							        $('#DeactivationContainer').css('display', 'block');
-							        $('#DeactivationContainer').css('z-index', 50);
-							        $('.Themeboxes').css('z-index', 40);
-							        $('#RightArtwork').css('opacity', 0.30);
-							      });
-							    }
-							  </script>
-							  
-							  <div id="BackToTopButton" class="MobileNavigationLinkContainer MobileNavigationMainElement"><a id="BackToTopArrowUp" href="#top"> </a></div>
-							
-								</body>
-							</html>
+			<div id="HelperDivContainer" style="background-image: url({{IMAGE_PATH}}/global/content/scroll.gif); top: 543px; left: 755.453px; display: none;">
+			<div class="HelperDivArrow" style="background-image: url({{IMAGE_PATH}}/global/content/helper-div-arrow.png); top: -1px;"></div>
+			<div id="HelperDivHeadline"></div>
+			<div id="HelperDivText"></div>
+			<center><img class="Ornament" src="{{IMAGE_PATH}}/global/content/ornament.gif"></center>
+			<br>
+			</div>
+			<script type="text/javascript">
+			// disable all control elements which are not part of the content container element
+			if (g_Deactivated == true) {
+				$(document).ready(function() {
+				$('#Monster').removeAttr('onclick');
+				$('#Monster').css('cursor', 'default');
+				$('#DeactivationContainer').removeAttr('onclick');
+				$('#LoginButtonContainer').css('z-index', 1);
+				$('#DeactivationContainer').css('display', 'block');
+				$('#DeactivationContainer').css('z-index', 50);
+				$('.Themeboxes').css('z-index', 40);
+				$('#RightArtwork').css('opacity', 0.30);
+				});
+			}
+			</script>
+			<div id="BackToTopButton" class="MobileNavigationLinkContainer MobileNavigationMainElement"><a id="BackToTopArrowUp" href="#top"> </a></div>
+	</body>
+</html>
