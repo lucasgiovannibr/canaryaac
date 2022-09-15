@@ -10,12 +10,12 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Model\Functions\Server;
 use App\Model\Entity\Guilds as EntityGuild;
 use App\Model\Entity\Houses as EntityHouses;
 use App\Model\Entity\Market as EntityMarket;
-use App\Model\Entity\Payments as EntityPayments;
 use App\Model\Entity\Player as EntityPlayer;
+use App\Model\Functions\Payments as PaymentsFunctions;
+use App\Model\Functions\Server as FunctionsServer;
 
 class Home extends Base{
 
@@ -35,64 +35,29 @@ class Home extends Base{
         return $vocations;
     }
 
-    public static function getPaymentBetweenDate($month = '1')
-    {
-        $current_year = date('Y');
-        $date_start = strtotime($current_year . '-' . $month . '-01');
-        $date_end = strtotime($current_year . '-' . $month . '-' . date('t'));
-
-        $payment_canceled_coins = 0;
-        $payment_paid_coins = 0;
-
-        $payment_paid_price = 0;
-        $payment_canceled_price = 0;
-
-        $select_payments = EntityPayments::getPayment('date BETWEEN "' . $date_start . '" AND "' . $date_end . '"');
-        while ($payment = $select_payments->fetchObject()) {
-            if ($payment->status == 4) {
-                $payment_paid_coins += $payment->total_coins;
-                $payment_paid_price += $payment->final_price;
-            }
-            if ($payment->status == 1) {
-                $payment_canceled_coins += $payment->total_coins;
-                $payment_canceled_price += $payment->final_price;
-            }
-        }
-        return [
-            'coins' => [
-                'paid' => $payment_paid_coins,
-                'canceled' => $payment_canceled_coins
-            ],
-            'price' => [
-                'paid' => $payment_paid_price,
-                'canceled' => $payment_canceled_price
-            ]
-        ];
-    }
-
     public static function statsDonates()
     {
         return [
-            'jan' => self::getPaymentBetweenDate(1),
-            'feb' => self::getPaymentBetweenDate(2),
-            'mar' => self::getPaymentBetweenDate(3),
-            'apr' => self::getPaymentBetweenDate(4),
-            'may' => self::getPaymentBetweenDate(5),
-            'jun' => self::getPaymentBetweenDate(6),
-            'jul' => self::getPaymentBetweenDate(7),
-            'aug' => self::getPaymentBetweenDate(8),
-            'sep' => self::getPaymentBetweenDate(9),
-            'oct' => self::getPaymentBetweenDate(10),
-            'nov' => self::getPaymentBetweenDate(11),
-            'dec' => self::getPaymentBetweenDate(12)
+            'jan' => PaymentsFunctions::getPaymentBetweenDate(1),
+            'feb' => PaymentsFunctions::getPaymentBetweenDate(2),
+            'mar' => PaymentsFunctions::getPaymentBetweenDate(3),
+            'apr' => PaymentsFunctions::getPaymentBetweenDate(4),
+            'may' => PaymentsFunctions::getPaymentBetweenDate(5),
+            'jun' => PaymentsFunctions::getPaymentBetweenDate(6),
+            'jul' => PaymentsFunctions::getPaymentBetweenDate(7),
+            'aug' => PaymentsFunctions::getPaymentBetweenDate(8),
+            'sep' => PaymentsFunctions::getPaymentBetweenDate(9),
+            'oct' => PaymentsFunctions::getPaymentBetweenDate(10),
+            'nov' => PaymentsFunctions::getPaymentBetweenDate(11),
+            'dec' => PaymentsFunctions::getPaymentBetweenDate(12)
         ];
     }
 
     public static function getHome($request)
     {
         $content = View::render('admin/modules/home/index', [
-            'boosted_boss' => Server::getBoostedBoss(),
-            'boosted_creature' => Server::getBoostedCreature(),
+            'boosted_boss' => FunctionsServer::getBoostedBoss(),
+            'boosted_creature' => FunctionsServer::getBoostedCreature(),
             'total_guilds' => (int)EntityGuild::getGuilds(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
             'total_houses' => (int)EntityHouses::getHouses(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
             'total_marketoffers' => (int)EntityMarket::getMarketOffers(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
