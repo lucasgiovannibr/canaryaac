@@ -1,4 +1,3 @@
-<!-- BEGIN: Content-->
 <div class="app-content content ">
 	<div class="content-overlay"></div>
 	<div class="header-navbar-shadow"></div>
@@ -7,10 +6,10 @@
 			<div class="content-header-left col-md-9 col-12 mb-2">
 				<div class="row breadcrumbs-top">
 					<div class="col-12">
-						<h2 class="content-header-title float-start mb-0">Home</h2>
+						<h2 class="content-header-title float-start mb-0" data-i18n="Home">Home</h2>
 						<div class="breadcrumb-wrapper">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item active">Home</li>
+								<li class="breadcrumb-item active" data-i18n="Home">Home</li>
 							</ol>
 						</div>
 					</div>
@@ -18,56 +17,17 @@
 			</div>
 		</div>
 		<div class="content-body">
-			<section id="">
+			<section id="app-admin-home">
 				<div class="row match-height">
-
-					<div class="col-xl-4 col-md-6 col-12">
-						<div class="card card-statistics">
-							<div class="card-header">
-								<h4 class="card-title">Today's boosted</h4>
-							</div>
-							<div class="card-body statistics-body">
-								<div class="row">
-									<div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
-										<div class="d-flex flex-row">
-											<div class="avatar-wrapper">
-												<div class="avatar me-1">
-													<img src="{{ boosted_creature.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
-												</div>
-											</div>
-											<div class="my-auto">
-												<p class="card-text font-small-3 mb-0">Creature</p>
-												<h5 class="fw-bolder mb-0">{{ boosted_creature.boostname }}</h5>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
-										<div class="d-flex flex-row">
-											<div class="avatar-wrapper">
-												<div class="avatar me-1">
-													<img src="{{ boosted_boss.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
-												</div>
-											</div>
-											<div class="my-auto">
-												<p class="card-text font-small-3 mb-0">Boss</p>
-												<h5 class="fw-bolder mb-0">{{ boosted_boss.boostname }}</h5>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Statistics Card -->
-					<div class="col-xl-8 col-md-6 col-12">
+					
+					<div class="col-xl-6 col-md-12 col-12">
 						<div class="card card-statistics">
 							<div class="card-header">
 								<h4 class="card-title" data-i18n="Statistics">Statistics</h4>
 							</div>
 							<div class="card-body statistics-body">
 								<div class="row">
-									<div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
+									<div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
 										<div class="d-flex flex-row">
 											<div class="avatar bg-light-primary me-2">
 												<div class="avatar-content">
@@ -80,7 +40,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
+									<div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
 										<div class="d-flex flex-row">
 											<div class="avatar bg-light-info me-2">
 												<div class="avatar-content">
@@ -93,20 +53,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
-										<div class="d-flex flex-row">
-											<div class="avatar bg-light-danger me-2">
-												<div class="avatar-content">
-													<i data-feather="dollar-sign" class="feather feather-box avatar-icon"></i>
-												</div>
-											</div>
-											<div class="my-auto">
-												<p class="card-text font-small-3 mb-0">Market Offers</p>
-												<h4 class="fw-bolder mb-0">{{ total_marketoffers }}</h4>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-6 col-12">
+									<div class="col-xl-3 col-sm-6 col-12">
 										<div class="d-flex flex-row">
 											<div class="avatar bg-light-success me-2">
 												<div class="avatar-content">
@@ -114,12 +61,12 @@
 												</div>
 											</div>
 											<div class="my-auto">
-												<p class="card-text font-small-3 mb-0">Accounts</p>
+												<p class="card-text font-small-3 mb-0" data-i18n="Accounts">Accounts</p>
 												<h4 class="fw-bolder mb-0">{{ total_accounts }}</h4>
 											</div>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-6 col-12">
+									<div class="col-xl-3 col-sm-6 col-12">
 										<div class="d-flex flex-row">
 											<div class="avatar bg-light-success me-2">
 												<div class="avatar-content">
@@ -127,8 +74,39 @@
 												</div>
 											</div>
 											<div class="my-auto">
-												<p class="card-text font-small-3 mb-0">Players</p>
+												<p class="card-text font-small-3 mb-0" data-i18n="Players">Players</p>
 												<h4 class="fw-bolder mb-0">{{ total_players }}</h4>
+											</div>
+										</div>
+									</div>
+									<div class="col-xl-12 col-md-12 col-12">
+										<h6 class="my-2 text-muted">Today's boosted</h6>
+										<div class="row">
+											<div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
+												<div class="d-flex flex-row p-1 btn btn-primary">
+													<div class="">
+														<div class="me-1">
+															<img src="{{ boosted_creature.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
+														</div>
+													</div>
+													<div class="my-auto">
+														<p class="card-text font-small-3 mb-0" data-i18n="Creature">Creature</p>
+														<h5 class="fw-bolder mb-0">{{ boosted_creature.boostname }}</h5>
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-6 col-sm-6 col-12 mb-2 mb-xl-0">
+												<div class="d-flex flex-row p-1 btn btn-primary">
+													<div class="">
+														<div class="me-1">
+															<img src="{{ boosted_boss.image_url }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
+														</div>
+													</div>
+													<div class="my-auto">
+														<p class="card-text font-small-3 mb-0" data-i18n="Boss">Boss</p>
+														<h5 class="fw-bolder mb-0">{{ boosted_boss.boostname }}</h5>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -136,10 +114,130 @@
 							</div>
 						</div>
 					</div>
-					<!--/ Statistics Card -->
+					<div class="col-xl-6 col-md-6 col-12">
+						<div class="card card-body">
+							<div class="row">
+								<div class="d-sm-flex justify-content-between align-items-center mb-3">
+									<h4 class="card-title mb-50 mb-sm-0" data-i18n="Donates">Donates</h4>
+									<div class="d-flex align-items-center">
+										<div class="d-flex align-items-center me-2">
+											<span class="bullet bullet-primary font-small-3 me-50 cursor-pointer"></span>
+											<span data-i18n="Paid">Paid</span>
+										</div>
+										<div class="d-flex align-items-center ms-75">
+											<span class="bullet bullet-danger font-small-3 me-50 cursor-pointer"></span>
+											<span  data-i18n="Canceled">Canceled</span>
+										</div>
+									</div>
+								</div>
+								<div id="donates-chart"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>
 	</div>
 </div>
-<!-- END: Content-->
+<script>
+  var $primaryColor = '#7367f0';
+  var $secondaryColor = '#EBEBEB';
+  var $warningColor = '#ff9f43';
+  var $dangerColor = '#ea5455';
+  var $textMutedColor = '#b9b9c3';
+
+  var $revenueReportChart = document.querySelector('#donates-chart');
+  var revenueReportChartOptions;
+  var revenueReportChart;
+  revenueReportChartOptions = {
+    chart: {
+      height: 230,
+      stacked: true,
+      type: 'bar',
+      toolbar: { show: false }
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: '17%',
+        endingShape: 'rounded'
+      },
+      distributed: true
+    },
+    colors: [$primaryColor, $dangerColor],
+    series: [
+      {
+        name: 'Paid',
+        data: [
+			{{ donate_stats.jan.price.paid }},
+			{{ donate_stats.feb.price.paid }},
+			{{ donate_stats.mar.price.paid }},
+			{{ donate_stats.apr.price.paid }},
+			{{ donate_stats.may.price.paid }},
+			{{ donate_stats.jun.price.paid }},
+			{{ donate_stats.jul.price.paid }},
+			{{ donate_stats.aug.price.paid }},
+			{{ donate_stats.sep.price.paid }},
+			{{ donate_stats.oct.price.paid }},
+			{{ donate_stats.nov.price.paid }},
+			{{ donate_stats.dec.price.paid }}
+			]
+      },
+      {
+        name: 'Canceled',
+        data: [-{{ donate_stats.jan.price.canceled }},
+			-{{ donate_stats.feb.price.canceled }},
+			-{{ donate_stats.mar.price.canceled }},
+			-{{ donate_stats.apr.price.canceled }},
+			-{{ donate_stats.may.price.canceled }},
+			-{{ donate_stats.jun.price.canceled }},
+			-{{ donate_stats.jul.price.canceled }},
+			-{{ donate_stats.aug.price.canceled }},
+			-{{ donate_stats.sep.price.canceled }},
+			-{{ donate_stats.oct.price.canceled }},
+			-{{ donate_stats.nov.price.canceled }},
+			-{{ donate_stats.dec.price.canceled }}
+			]
+      }
+    ],
+    dataLabels: {
+      enabled: false
+    },
+    legend: {
+      show: false
+    },
+    grid: {
+      padding: {
+        top: -20,
+        bottom: -10
+      },
+      yaxis: {
+        lines: { show: true }
+      }
+    },
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      labels: {
+        style: {
+          colors: $textMutedColor,
+          fontSize: '0.86rem'
+        }
+      },
+      axisTicks: {
+        show: false
+      },
+      axisBorder: {
+        show: false
+      }
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: $textMutedColor,
+          fontSize: '0.86rem'
+        }
+      }
+    }
+  };
+  revenueReportChart = new ApexCharts($revenueReportChart, revenueReportChartOptions);
+  revenueReportChart.render();
+</script>
