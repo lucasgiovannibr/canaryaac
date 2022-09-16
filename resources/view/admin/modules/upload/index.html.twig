@@ -1,0 +1,57 @@
+{{ sweetAlert|raw }}
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0" data-i18n="Upload">Upload</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/home" data-i18n="Home">Home</a>
+								</li>
+								<li class="breadcrumb-item active" data-i18n="Upload">Upload</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-body">
+            <div class="row match-height">
+				<div class="col-xl-4 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Select multiple files to upload. Only with the <code>png</code> extension</p>
+                        </div>
+						<div class="card-body">
+                            <form action="{{ URL }}/admin/upload" method="post" enctype="multipart/form-data">
+                                <input type="file" name="file[]" multiple class="form-control">
+                                <input type="submit" class="btn btn-primary mt-1" data-i18n="Submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div class="row">
+                        {% for upload in uploads %}
+                        <div class="col-md-4 col-xl-2">
+                            <div class="card mb-3">
+                                <img class="card-img-top" src="{{ upload.path }}" alt="Upload image">
+                                <div class="card-body">
+                                    <label class="form-label" for="upload_url_{{ upload.id }}">URL</label>
+                                    <input type="text" class="form-control" id="upload_url_{{ upload.id }}" value="{{ upload.path }}">
+                                    <p class="card-text"><small class="text-muted">{{ upload.date }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

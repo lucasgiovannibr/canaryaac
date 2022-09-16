@@ -547,6 +547,19 @@ INSERT INTO `canary_towns` (`id`, `town_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `canary_uploads`
+--
+
+CREATE TABLE `canary_uploads` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `path` varchar(500) NOT NULL,
+  `date` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `canary_website`
 --
 
@@ -1450,6 +1463,12 @@ ALTER TABLE `canary_samples`
 --
 ALTER TABLE `canary_towns`
   ADD PRIMARY KEY (`id`);
+  
+--
+-- Índices para tabela `canary_uploads`
+--
+ALTER TABLE `canary_uploads`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `canary_website`
@@ -1782,6 +1801,12 @@ ALTER TABLE `canary_samples`
 --
 ALTER TABLE `canary_towns`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  
+--
+-- AUTO_INCREMENT de tabela `canary_uploads`
+--
+ALTER TABLE `canary_uploads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `canary_website`

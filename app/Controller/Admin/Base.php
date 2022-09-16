@@ -34,6 +34,14 @@ class Base{
             'slug' => 'donates',
         ],
         [
+            'id' => 27,
+            'parent_id' => null,
+            'name' => 'Upload',
+            'url' => URL . '/admin/upload',
+            'icon' => 'upload',
+            'slug' => 'upload',
+        ],
+        [
             'id' => 2,
             'parent_id' => null,
             'name' => 'Settings',

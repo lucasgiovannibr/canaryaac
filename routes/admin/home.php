@@ -17,6 +17,7 @@ use App\Controller\Admin\Groups;
 use App\Controller\Admin\Publications;
 use App\Controller\Admin\Samples;
 use App\Controller\Admin\Settings;
+use App\Controller\Admin\Upload;
 use App\Controller\Admin\Worlds;
 
 $obRouter->get('/admin', [
@@ -54,6 +55,25 @@ $obRouter->post('/admin/settings', [
     ],
     function($request){
         return new Response(200, Settings::insertWorld($request));
+    }
+]);
+
+$obRouter->get('/admin/upload', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Upload::viewUpload($request));
+    }
+]);
+$obRouter->post('/admin/upload', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Upload::upload($request));
     }
 ]);
 

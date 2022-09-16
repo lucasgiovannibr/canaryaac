@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Request Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -21,6 +21,8 @@
 
         private $postVars = [];
 
+        private $postFiles = [];
+
         private $headers = [];
 
         public function __construct($router)
@@ -37,9 +39,11 @@
             if($this->httpMethod == 'GET') return false;
 
             $this->postVars = $_POST ?? [];
-
             $inputRaw = file_get_contents('php://input');
             $this->postVars = (strlen($inputRaw) && empty($_POST)) ? json_decode($inputRaw, true) : $this->postVars;
+
+            $this->postFiles = $_FILES ?? [];
+            $this->postFiles = (strlen($inputRaw) && empty($_FILES)) ? json_decode($inputRaw, true) : $this->postFiles;
         }
 
         private function setUri(){
@@ -77,5 +81,10 @@
         public function getPostVars()
         {
             return $this->postVars;
+        }
+
+        public function getPostFiles()
+        {
+            return $this->postFiles;
         }
     }
