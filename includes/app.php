@@ -25,7 +25,6 @@ Database::config(
 View::init([
     'URL' => URL,
     'CACHE' => URL.'/resources/cache',
-    'SERVER_PATH' => 'D:/Canary/',
     'IMAGE_PATH' => URL.'/resources/images',
     'STYLES_PATH' => URL.'/resources/styles',
     'JS_PATH' => URL.'/resources/javascripts',

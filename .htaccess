@@ -1,19 +1,34 @@
-AddDefaultCharset utf-8
-
-# Prevent Directoy listing 
-Options -Indexes
-
-# Prevent Direct Access to files
-<FilesMatch "\.(db|log|sql|ini|cache)$">
-	Order allow,deny
-	Deny from all
-	Satisfy all
-</FilesMatch>
-
-# SEF URL Settings
 <IfModule mod_rewrite.c>
-	RewriteEngine On
+	AddDefaultCharset utf-8
 
+	<IfModule mod_negotiation.c>
+		Options Indexes FollowSymLinks MultiViews
+    </IfModule>
+	
+	<FilesMatch "\.(db|log|sql|ini|cache)$">
+		Order allow,deny
+		Deny from all
+		Satisfy all
+	</FilesMatch>
+	
+	<Files .env>
+		Order allow,deny
+		Deny from all
+	</Files>
+	
+	<Files .htaccess>
+		Order allow,deny
+		Deny from all
+	</Files>
+	
+	<FilesMatch "^\.">
+		Order allow,deny
+		Deny from all
+	</FilesMatch>
+	
+	RewriteEngine On
+	
 	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^(.*)$ ./index.php [QSA,NC]
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ ./index.php [QSA,L]
 </IfModule>

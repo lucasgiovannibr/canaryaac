@@ -9,6 +9,7 @@
 
 namespace App\Controller\Api;
 
+use App\Model\Functions\Player;
 use Exception;
 
 class Outfit extends Api{
@@ -25,8 +26,9 @@ class Outfit extends Api{
         $lookbody = $queryParams['lookbody'] ?? 0;
         $looklegs = $queryParams['looklegs'] ?? 0;
         $lookfeet = $queryParams['lookfeet'] ?? 0;
+        $mount = $queryParams['mount'] ?? 0;
         $outfit = [
-            'outfit' => 'https://outfit-images-oracle.ots.me/1285_walk_animation/animoutfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'',
+            'outfit' => Player::getOutfitImage($looktype, $lookaddons, $lookbody, $lookfeet, $lookhead, $looklegs, $mount),
         ];
         return $outfit;
     }

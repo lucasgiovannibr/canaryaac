@@ -103,6 +103,7 @@ class Samples extends Base
             'vocation' => $filter_vocation,
             'level' => $filter_level,
             'experience' => $filter_experience,
+            'outfit' => Player::getOutfitImage($filter_looktype, $filter_lookaddons, $filter_lookbody, $filter_lookfeet, $filter_lookhead, $filter_looklegs),
             'looktype' => $filter_looktype,
             'lookaddons' => $filter_lookaddons,
             'lookbody' => $filter_lookbody,

@@ -224,7 +224,7 @@ class Server{
 
     public static function getMonsterImage($looktype = 0, $lookaddons = 0, $lookbody = 0, $lookfeet = 0, $lookhead = 0, $looklegs = 0, $mount = 0)
     {
-        $outfit = 'https://outfit-images-oracle.ots.me/1285_walk_animation/animoutfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
+        $outfit = 'https://outfit-images-oracle.ots.me/12xx_latest/animoutfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
         return $outfit;
     }
 
