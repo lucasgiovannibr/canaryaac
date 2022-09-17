@@ -10,9 +10,9 @@
 namespace App\Controller\Pages;
 
 use App\Model\Entity\News as EntityNews;
-use App\Model\Functions\News;
+use App\Model\Entity\ServerConfig as EntityServerConfig;
+use App\Model\Functions\News as FunctionsNews;
 use \App\Utils\View;
-use App\Model\Functions\Server;
 
 class Newsarchive extends Base{
 
@@ -32,8 +32,8 @@ class Newsarchive extends Base{
             'type' => $news->type,
             'date' => date('M d Y', strtotime($news->date)),
             'time' => date('H:i', strtotime($news->date)),
-            'category' => News::convertCategoryName($news->category),
-            'category_img' => News::convertCategoryBigImage($news->category),
+            'category' => FunctionsNews::convertCategoryName($news->category),
+            'category_img' => FunctionsNews::convertCategoryBigImage($news->category),
             'player_id' => $news->player_id,
             'article_text' => $news->article_text,
             'article_image' => $news->article_image,
@@ -47,41 +47,103 @@ class Newsarchive extends Base{
 
     public static function getAllNews($request)
     {
+        $dateformat = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($dateformat->timezone);
         $postVars = $request->getPostVars();
 
-        $filter_begin_day = $postVars['filter_begin_day'] ?? date('d');
-        $filter_begin_month = $postVars['filter_begin_month'] ?? date('m');
-        $filter_begin_year = $postVars['filter_begin_year'] ?? date('Y');
-        $final_begin_date = $filter_begin_day . '-' . $filter_begin_month . '-' . $filter_begin_year;
-        $convert_begin_date = strtotime($final_begin_date);
+        if (empty($postVars['filter_begin_day'])) {
+            $begin_date = date("Y-m-d", strtotime(date("Y-m-d")."-1 month"));
+        } else {
+            $filter_begin_day = filter_var($postVars['filter_begin_day'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $filter_begin_month = filter_var($postVars['filter_begin_month'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $filter_begin_year = filter_var($postVars['filter_begin_year'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $begin_date = $filter_begin_year . '-' . $filter_begin_month . '-' . $filter_begin_day;
+        }
+        if (empty($postVars['filter_begin_day'])) {
+            $end_date = date("Y-m-d");
+        } else {
+            $filter_end_day = filter_var($postVars['filter_end_day'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $filter_end_month = filter_var($postVars['filter_end_month'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $filter_end_year = filter_var($postVars['filter_end_year'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $end_date = $filter_end_year . '-' . $filter_end_month . '-' . $filter_end_day;
+        }
+        $active_type_ticker = 0;
+        if (empty($postVars['filter_ticker'])) {
+            $postVars['filter_ticker'] = null;
+        }
+        if ($postVars['filter_ticker'] == 'ticker') {
+            $active_type_ticker = 3;
+        }
+        $active_type_article = 0;
+        if (empty($postVars['filter_article'])) {
+            $postVars['filter_article'] = null;
+        }
+        if ($postVars['filter_article'] == 'article') {
+            $active_type_article = 2;
+        }
+        $active_type_news = 0;
+        if (empty($postVars['filter_news'])) {
+            $postVars['filter_news'] = null;
+        }
+        if ($postVars['filter_news'] == 'news') {
+            $active_type_news = 1;
+        }
 
-        $filter_end_day = $postVars['filter_end_day'] ?? date('d');
-        $filter_end_month = $postVars['filter_end_month'] ?? date('m');
-        $filter_end_year = $postVars['filter_end_year'] ?? date('Y');
-        $final_end_date = $filter_end_day . '-' . $filter_end_month . '-' . $filter_end_year;
-        $convert_end_date = strtotime($final_end_date);
-
-        $selectNews = EntityNews::getNews();
+        $selectNews = EntityNews::getNews('date BETWEEN "'.$begin_date.'" AND "'.$end_date.'"', 'date ASC');
         while ($news = $selectNews->fetchObject()) {
-            $arrayNews[] = [
-                'id' => $news->id,
-                'title' => $news->title,
-                'body' => $news->body,
-                'type' => $news->type,
-                'date' => date('M d Y', strtotime($news->date)),
-                'time' => date('H:i', strtotime($news->date)),
-                'category' => News::convertCategoryName($news->category),
-                'category_img' => News::convertCategoryImage($news->category),
-                'player_id' => $news->player_id,
-                'article_text' => $news->article_text,
-                'article_image' => $news->article_image,
-                'hidden' => $news->hidden,
-            ];
+            if ($news->type == $active_type_ticker) {
+                $arrayNews[] = [
+                    'id' => $news->id,
+                    'title' => $news->title,
+                    'body' => $news->body,
+                    'type' => FunctionsNews::convertTypeName($news->type),
+                    'date' => date('M d Y', strtotime($news->date)),
+                    'time' => date('H:i', strtotime($news->date)),
+                    'category' => FunctionsNews::convertCategoryName($news->category),
+                    'category_img' => FunctionsNews::convertCategoryImage($news->category),
+                    'player_id' => $news->player_id,
+                    'article_text' => $news->article_text,
+                    'article_image' => $news->article_image,
+                    'hidden' => $news->hidden,
+                ];
+            }
+            if ($news->type == $active_type_article) {
+                $arrayNews[] = [
+                    'id' => $news->id,
+                    'title' => $news->title,
+                    'body' => $news->body,
+                    'type' => FunctionsNews::convertTypeName($news->type),
+                    'date' => date('M d Y', strtotime($news->date)),
+                    'time' => date('H:i', strtotime($news->date)),
+                    'category' => FunctionsNews::convertCategoryName($news->category),
+                    'category_img' => FunctionsNews::convertCategoryImage($news->category),
+                    'player_id' => $news->player_id,
+                    'article_text' => $news->article_text,
+                    'article_image' => $news->article_image,
+                    'hidden' => $news->hidden,
+                ];
+            }
+            if ($news->type == $active_type_news) {
+                $arrayNews[] = [
+                    'id' => $news->id,
+                    'title' => $news->title,
+                    'body' => $news->body,
+                    'type' => FunctionsNews::convertTypeName($news->type),
+                    'date' => date('M d Y', strtotime($news->date)),
+                    'time' => date('H:i', strtotime($news->date)),
+                    'category' => FunctionsNews::convertCategoryName($news->category),
+                    'category_img' => FunctionsNews::convertCategoryImage($news->category),
+                    'player_id' => $news->player_id,
+                    'article_text' => $news->article_text,
+                    'article_image' => $news->article_image,
+                    'hidden' => $news->hidden,
+                ];
+            }
         }
         $filters = [
-            'filter_ticker' => $postVars['filter_ticker'] ?? 0,
-            'filter_article' => $postVars['filter_article'] ?? 0,
-            'filter_news' => $postVars['filter_news'] ?? 0,
+            'filter_ticker' => $postVars['filter_ticker'] ?? 'ticker',
+            'filter_article' => $postVars['filter_article'] ?? 'article',
+            'filter_news' => $postVars['filter_news'] ?? 'news',
             'filter_cipsoft' => $postVars['filter_cipsoft'] ?? 0,
             'filter_community' => $postVars['filter_community'] ?? 0,
             'filter_development' => $postVars['filter_development'] ?? 0,
@@ -90,26 +152,28 @@ class Newsarchive extends Base{
         ];
         $returnNews = [
             'filters' => $filters,
-            'news' => $arrayNews
+            'news' => $arrayNews ?? '',
+            'date' => [
+                'to_day' => $postVars['filter_end_day'] ?? date('d'),
+                'to_month' => $postVars['filter_end_month'] ?? date('m'),
+                'to_year' => $postVars['filter_end_year'] ?? date('Y'),
+                'from_day' => $postVars['filter_begin_day'] ?? date('d'),
+                'from_month' => $postVars['filter_begin_month'] ?? date('m', strtotime('-1 month')),
+                'from_year' => $postVars['filter_begin_year'] ?? date('Y'),
+            ],
         ];
         return $returnNews ?? '';
     }
 
     public static function viewNewsArchive($request)
     {
-        $arrayDate = [
-            'to_day' => date('d'),
-            'to_month' => date('m'),
-            'to_year' => date('Y'),
-            'from_day' => date('d'),
-            'from_month' => date('m', strtotime('-1 month')),
-            'from_year' => date('Y'),
-        ];
+        $dateformat = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($dateformat->timezone);
         $allNews = self::getAllNews($request);
         $content = View::render('pages/newsarchive', [
             'news' => $allNews['news'],
-            'filter' => $allNews['filters'],
-            'date' => $arrayDate,
+            'filters' => $allNews['filters'],
+            'date' => $allNews['date'],
         ]);
         return parent::getBase('Newsarchive', $content, 'newsarchive');
     }

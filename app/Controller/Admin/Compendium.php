@@ -126,7 +126,7 @@ class Compendium extends Base
                 'type' => 'REGULAR',
             ];
         }
-        return $arrayCompendium;
+        return $arrayCompendium ?? '';
     }
 
     public static function getCompendiumById($compendium_id)

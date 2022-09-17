@@ -47,7 +47,7 @@ class Payments
                 'date' => date('d/m/Y h:i:s', $payment->date),
             ];
         }
-        return $arrayPayments;
+        return $arrayPayments ?? '';
     }
 
     public static function getPaymentBetweenDate($month = '1')

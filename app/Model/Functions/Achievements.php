@@ -35,7 +35,7 @@ class Achievements{
                 'storage' => $base_storage,
             ];
         }
-        return $arrayAchievements;
+        return $arrayAchievements ?? '';
     }
 
     public static function getAchievementByGrade($grade_id = 1)

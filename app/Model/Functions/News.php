@@ -71,6 +71,27 @@ class News
         }
     }
 
+    public static function convertTypeName($type_id)
+    {
+        switch ($type_id)
+        {
+            case 0:
+                return 'None';
+                exit;
+            case 1:
+                return 'News';
+                exit;
+            case 2:
+                return 'Featured Article';
+                exit;
+            case 3:
+                return 'News Ticker';
+                exit;
+            default:
+                return 'None';
+        }
+    }
+
     public static function convertCategoryName($category_id)
     {
         switch($category_id)
