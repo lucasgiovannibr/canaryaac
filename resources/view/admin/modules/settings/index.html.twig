@@ -24,7 +24,7 @@
 		<div class="content-body">
 			<section id="settings">
 				<div class="row match-height">
-					<div class="col-xl-6 col-md-12 col-12">
+					<div class="col-xl-8 col-md-12 col-12">
 						{{ status|raw }}
 						<div class="card">
 							<div class="card-body">
@@ -60,7 +60,7 @@
 												{% endif %}
 											</div>
 										</div>
-										<div class="col-md-12 col-lg-4 mb-1">
+										<div class="col-md-12 col-lg-2 mb-1">
 											<label class="form-label" for="website_maxplayers" data-i18n="Max Players Account">Max Players Account</label>
 											<div class="demo-inline-spacing">
 												<div class="input-group bootstrap-touchspin">
@@ -68,13 +68,21 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-12 col-lg-4 mb-1">
+										<div class="col-md-12 col-lg-2 mb-1">
 											<label class="form-label" for="website_levelguild" data-i18n="Level Guild">Level Guild</label>
 											<div class="demo-inline-spacing">
 												<div class="input-group">
 													<input type="number" class="form-control" name="website_levelguild" id="website_levelguild" value="{{ player_guild }}"/>
 												</div>
 											</div>
+										</div>
+										<div class="col-md-12 col-lg-4 mb-1">
+											<label class="form-label" for="website_timezone" data-i18n="Timezone">Timezone</label>
+											<select class="form-select" name="website_timezone" id="website_timezone">
+												{% for timezone in all_timezones %}
+													<option value="{{ timezone }}" {% if timezone == webtimezone %}selected="selected"{% endif %}>{{ timezone }}</option>
+												{% endfor %}
+											</select>
 										</div>
 										<div class="col-md-12 col-lg-12">
 											<input type="submit" class="btn btn-primary" name="website_update" id="sweet-success" value="Save Changes">
