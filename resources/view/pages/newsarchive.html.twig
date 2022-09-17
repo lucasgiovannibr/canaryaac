@@ -40,7 +40,7 @@
                                                                 {% set i = i + 1 %}
                                                                 <tr class="{{ getStyleCss(i) }}">
                                                                     <td width="16"><img src="{{ new.category_img }}"></td>
-                                                                    <td width="100" align="center">{{ new.date }}<br><small>{{ new.category }}</small>
+                                                                    <td width="100" align="center">{{ new.date }}<br><small>{{ new.type }}</small>
                                                                     </td>
                                                                     <td>
                                                                         <a href="{{URL}}/newsarchive/{{ new.id }}/view">{{ new.title }}</a>
@@ -250,11 +250,11 @@
 																				</table>
 																			</td>
 																			<td>
-																				<label><input type="checkbox" name="filter_ticker" value="ticker" checked="checked">News Ticker</label>
+																				<label><input type="checkbox" name="filter_ticker" value="ticker" {% if filters.filter_ticker == 'ticker' %}checked="checked"{% endif %}>News Ticker</label>
                                                                                 <br>
-                                                                                <label><input type="checkbox" name="filter_article" value="article" checked="checked">Featured Article</label>
+                                                                                <label><input type="checkbox" name="filter_article" value="article" {% if filters.filter_article == 'article' %}checked="checked"{% endif %}>Featured Article</label>
                                                                                 <br>
-                                                                                <label><input type="checkbox" name="filter_news" value="news" checked="checked">News</label>
+                                                                                <label><input type="checkbox" name="filter_news" value="news" {% if filters.filter_news == 'news' %}checked="checked"{% endif %}>News</label>
                                                                                 <br>
                                                                                 </td>
 																			<td>
