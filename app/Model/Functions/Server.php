@@ -327,7 +327,7 @@ class Server{
                 'port' => $obWorlds->port,
             ];
         }
-        return $world;
+        return $world ?? null;
     }
 
 }

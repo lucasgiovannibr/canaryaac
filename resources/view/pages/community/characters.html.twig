@@ -203,7 +203,8 @@
 				<br>
 				<a name="Character+Details"></a>
 				<div class="TableContainer">
-					<div class="CaptionContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterDetails');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Details.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterDetails" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
 						<div class="CaptionInnerContainer">
 							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
@@ -220,7 +221,8 @@
 						<tbody>
 							<tr>
 								<td style="width: 10rem;">
-									<div class="InnerTableContainer">
+									<div class="InnerTableContainer" id="TableCharacterDetails" style="display: none;">
+										<div style="display: flex;">
 										<table>
 											<tbody>
 												<tr>
@@ -243,12 +245,6 @@
 														</div>
 													</td>
 												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div class="InnerTableContainer">
-										<table>
-											<tbody>
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -268,13 +264,13 @@
 																							<table cellspacing="0" style="background: #292929;">
 																								<tbody>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['9'].url }}" width="32" height="32" border="0" alt="Necklace"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['9'].url is empty %}no_necklace.gif{% else %}{{ player.equipaments['9'].url }}{% endif %}" width="32" height="32" border="0" alt="Necklace"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['6'].url }}" width="32" height="32" border="0" alt="Handright"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['6'].url is empty %}no_handright.gif{% else %}{{ player.equipaments['6'].url }}{% endif %}" width="32" height="32" border="0" alt="Handright"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['2'].url }}" width="32" height="32" border="0" alt="Ring"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['2'].url is empty %}no_ring.gif{% else %}{{ player.equipaments['2'].url }}{% endif %}" width="32" height="32" border="0" alt="Ring"></td>
 																									</tr>
 																									<tr>
 																										<td style="color: #fff; text-align: center; font-size: 10px;">Soul: {{ player.stats.soul }}</td>
@@ -286,16 +282,16 @@
 																							<table cellspacing="0" style="background: #292929;">
 																								<tbody>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['1'].url }}" width="32" height="32" border="0" alt="Helmet"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['1'].url is empty %}no_helmet.gif{% else %}{{ player.equipaments['1'].url }}{% endif %}" width="32" height="32" border="0" alt="Helmet"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['4'].url }}" width="32" height="32" border="0" alt="Armor"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['4'].url is empty %}no_armor.gif{% else %}{{ player.equipaments['4'].url }}{% endif %}" width="32" height="32" border="0" alt="Armor"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['7'].url }}" width="32" height="32" border="0" alt="Legs"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['7'].url is empty %}no_legs.gif{% else %}{{ player.equipaments['7'].url }}{% endif %}" width="32" height="32" border="0" alt="Legs"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['8'].url }}" width="32" height="32" border="0" alt="Boots"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['8'].url is empty %}no_boots.gif{% else %}{{ player.equipaments['8'].url }}{% endif %}" width="32" height="32" border="0" alt="Boots"></td>
 																									</tr>
 																								</tbody>
 																							</table>
@@ -304,13 +300,13 @@
 																							<table cellspacing="0" style="background: #292929;">
 																								<tbody>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['3'].url }}" width="32" height="32" border="0" alt="Backpack"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['3'].url is empty %}no_backpack.gif{% else %}{{ player.equipaments['3'].url }}{% endif %}" width="32" height="32" border="0" alt="Backpack"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['5'].url }}" width="32" height="32" border="0" alt="Hand Left"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['5'].url is empty %}no_handleft.gif{% else %}{{ player.equipaments['5'].url }}{% endif %}" width="32" height="32" border="0" alt="Hand Left"></td>
 																									</tr>
 																									<tr>
-																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{{ player.equipaments['10'].url }}" width="32" height="32" border="0" alt="Ammo"></td>
+																										<td style="border:1px solid #808080;"><img src="{{IMAGE_PATH}}/charactertrade/objects/{% if player.equipaments['10'].url is empty %}no_ammo.gif{% else %}{{ player.equipaments['10'].url }}{% endif %}" width="32" height="32" border="0" alt="Ammo"></td>
 																									</tr>
 																									<tr>
 																										<td style="color: #fff; text-align: center; font-size: 10px;">Cap: {{ player.stats.cap }}</td>
@@ -330,10 +326,6 @@
 												</tr>
 											</tbody>
 										</table>
-									</div>
-								</td>
-								<td>
-									<div class="InnerTableContainer">
 										<table style="width:100%;">
 											<tbody>
 												<tr>
@@ -368,12 +360,6 @@
 														</div>
 													</td>
 												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div class="InnerTableContainer">
-										<table style="width:100%;">
-											<tbody>
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -403,12 +389,6 @@
 														</div>
 													</td>
 												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div class="InnerTableContainer">
-										<table style="width:100%;">
-											<tbody>
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -472,6 +452,7 @@
 												</tr>
 											</tbody>
 										</table>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -480,13 +461,14 @@
 				</div>
 				<br>
 				<div class="TableContainer">
-					<div class="CaptionContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterBonus');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Bonus.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterBonus" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
 						<div class="CaptionInnerContainer">
 							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
-							<div class="Text">Account Achievements</div>
+							<div class="Text">Character Bonus</div>
 							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
 							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
@@ -497,41 +479,47 @@
 						<tbody>
 							<tr>
 								<td>
-									<div class="InnerTableContainer">
+									<div class="InnerTableContainer" id="TableCharacterBonus" style="display: none;">
+										<div style="display: flex;">
 										<table style="width:100%;">
 											<tbody>
 												<tr>
 													<td>
 														<div class="TableContentContainer">
-                                                            {% if player.achievements == null %}
-															<table class="TableContent" width="100%" style="border:1px solid #faf0d7; text-align: center;">
-																<tbody>
-																	<tr>
-																		<td>There are no achievements set to be displayed for this character.</td>
-																	</tr>
-																</tbody>
-															</table>
-                                                            {% else %}
                                                             <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
                                                                 <tbody>
-                                                                {% for achievement in player.achievements %}
-                                                                {% set i = i + 1 %}
-                                                                    <tr bgcolor="{{ getStyle(i) }}">
-                                                                        <td class="LabelV175">
-                                                                            <img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement">
-                                                                            <img style="width:18px;height:18px;margin-right:2px;" src="{{ IMAGE_PATH }}/global/general/achievement-grade-symbol.gif" alt="Tibia Achievement">
-                                                                        </td>
-                                                                        <td>Devovorga's Nemesis<img class="SecretAchievementIcon" src="{{ IMAGE_PATH }}/global/general/achievement-secret-symbol.gif" alt="Tibia Secret Achievement"></td>
+																	<tr bgcolor="#D4C0A1">
+                                                                        <td class="LabelV175">Critical Hit Chance</td>
+                                                                        <td>{{ player.skills.skill_critical_hit_chance }}</td>
                                                                     </tr>
-                                                                {% endfor %}
+																	<tr bgcolor="#F1E0C6">
+                                                                        <td class="LabelV175">Critical Hit Damage</td>
+                                                                        <td>{{ player.skills.skill_critical_hit_damage }}</td>
+                                                                    </tr>
+																	<tr bgcolor="#D4C0A1">
+                                                                        <td class="LabelV175">Life Leech Chance</td>
+                                                                        <td>{{ player.skills.skill_life_leech_chance }}</td>
+                                                                    </tr>
+																	<tr bgcolor="#F1E0C6">
+                                                                        <td class="LabelV175">Life Leech Amount</td>
+                                                                        <td>{{ player.skills.skill_life_leech_amount }}</td>
+                                                                    </tr>
+																	<tr bgcolor="#D4C0A1">
+                                                                        <td class="LabelV175">Mana Leech Change</td>
+                                                                        <td>{{ player.skills.skill_mana_leech_chance }}</td>
+                                                                    </tr>
+																	<tr bgcolor="#F1E0C6">
+                                                                        <td class="LabelV175">Mana Leech Amount</td>
+                                                                        <td>{{ player.skills.skill_mana_leech_amount }}</td>
+                                                                    </tr>
                                                                 </tbody>
                                                             </table>
-                                                            {% endif %}
 														</div>
 													</td>
 												</tr>
 											</tbody>
 										</table>
+										</div>
 									</div>
 								</td>
 							</tr>
@@ -539,8 +527,10 @@
 					</table>
 				</div>
 				<br>
+				{% if player.frags is not empty %}
 				<div class="TableContainer">
-					<div class="CaptionContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterFrags');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Frags.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterFrags" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
 						<div class="CaptionInnerContainer">
 							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
@@ -557,7 +547,7 @@
 						<tbody>
 							<tr>
 								<td>
-									<div class="InnerTableContainer">
+									<div class="InnerTableContainer" id="TableCharacterFrags" style="display: none;">
 										<table style="width:100%;">
 											<tbody>
 												<tr>
@@ -591,8 +581,11 @@
 					</table>
 				</div>
 				<br>
+				{% endif %}
+				{% if player.deaths is not empty %}
 				<div class="TableContainer">
-					<div class="CaptionContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterDeaths'); $('#labelshow').html($('#labelshow').html() == 'show' ? 'hide' : 'show');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Deaths.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterDeaths" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
 						<div class="CaptionInnerContainer">
 							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
@@ -605,11 +598,11 @@
 							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
 						</div>
 					</div>
-					<table class="Table3" cellpadding="0" cellspacing="0">
+					<table class="Table3" cellpadding="0" cellspacing="0" >
 						<tbody>
 							<tr>
 								<td>
-									<div class="InnerTableContainer">
+									<div class="InnerTableContainer" id="TableCharacterDeaths" style="display: none;">
 										<table style="width:100%;">
 											<tbody>
 												<tr>
@@ -643,6 +636,7 @@
 					</table>
 				</div>
 				<br>
+				{% endif %}
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer">
@@ -694,7 +688,7 @@
 																			</td>
                                                                             <td style="width: 15%">{{ player.level }}</td>
                                                                             <td style="width: 20%">{{ player.vocation }}</td>
-																			<td style="width: 15%"><nobr>{{ player.world.name }}</nobr></td>
+																			<td style="width: 15%"><nobr>{{ player.world.name }}</nobr> <img src="{{IMAGE_PATH}}/{{ player.world.battle_eye_icon}}"></td>
 																			<td style="width: 10%">
                                                                                 {% if player.online == 1 %}
                                                                                     <img src="{{IMAGE_PATH}}/on.gif" alt="Online" title="Online">
