@@ -450,12 +450,128 @@ var FB_ForceReload = 0;
 			{# Themeboxes START #}
 			<div class="main-themboxes Themeboxes">
 				<div id="DeactivationContainerThemebox" onclick="StopVideoIfExists();DisableDeactivationContainer();"></div>
+<style>
+#HighscoreBox {
+	height: 360px;
+}
+.HighscoresContent {
+	display: flex;
+	padding: 0px 7px 0px 7px;
+}
+.HighscoresLabel {
+	background-image: url({{IMAGE_PATH}}/global/themeboxes/highscores/highscores.png);
+	height: 32px;
+	width: 100%;
+}
+.HighscoresBg {
+	background-image: url({{IMAGE_PATH}}/global/themeboxes/highscores/bg.png);
+	background-repeat: repeat-y !important;
+	width: 166px;
+	height: 316px;
+	padding-top: 5px;
+}
+.rank {
+	position: relative;
+	display: flex;
+}
+.rank:hover {
+	background: rgb(0 0 0 / 25%);
+}
+.HighscoresOutfit {
+	width: 64px;
+	height: 64px;
+	position: relative;
+	left: -20px;
+	top: -60px;
+}
+.HighscoresImage {
+	height:45px;
+	width: 50px;
+}
+.HighscoresRibbon {
+	position: relative;
+	left: -5px;
+	top: 30px;
+	z-index: 1;
+}
+.HighscoresText {
+	display: grid;
+	width: 100px;
+}
+.HighscoresName {
+	margin: 0px;
+}
+.HighscoresHr {
+	display: block;
+    border: 0;
+	border-top: 1px solid #5e5e5e;
+	padding: 0;
+	margin: 5px;
+}
+.HighscoresLink {
+	font-family: sans-serif !important;
+    font-weight: normal !important;
+	font-size: 8pt !important;
+    color: #5A2800 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+.HighscoresLink:hover {
+	text-decoration: none !important;
+}
+.Themeboxes #SearchCharacterBox #SearchCharacterText {
+	font-family: Verdana,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 11pt;
+    color: #5a2800;
+    position: absolute;
+    height: 70px;
+    width: 150px;
+    top: 37px;
+    left: 15px;
+    padding-top: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+</style>
+				<div id="HighscoreBox" class="Themebox">
+					<div class="HighscoresLabel"></div>
+					<div class="HighscoresContent">
+						<div class="HighscoresBg">
+							{% for highscore in highscores %}
+							<a class="HighscoresLink" href="{{URL}}/community/characters/{{ highscore.name }}">
+							<div class="rank">
+								<div class="HighscoresImage">
+									<img class="HighscoresRibbon" src="{{ highscore.ribbon }}">
+									<img class="HighscoresOutfit" src="{{ highscore.outfit.image_url }}">
+								</div>
+								<div class="HighscoresText">
+									<p class="HighscoresName">{{ highscore.name }}</p>
+									<small>Level: {{ highscore.level }}<br>{{ highscore.vocation }}</small>
+								</div>
+							</div>
+							</a>
+							<hr class="HighscoresHr">
+							{% endfor %}
+							<div class="ThemeboxButton">
+								<a href="{{URL}}/community/highscores" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
+											<input class="BigButtonText" type="button" value="View Highscores">
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="Bottom" style="background-image:url({{IMAGE_PATH}}/global/general/box-bottom.gif);"></div>
+				</div>
 				{% if active_donates == 1 %}
 				{# PremiumBox START #}
 				<div id="PremiumBox" class="Themebox" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/themebox.png);">
 					<div id="PremiumBoxDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/crown_animation.gif);"></div>
 					<div id="PremiumBoxBg" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/coins_premium.png);"></div>
-					<div id="PremiumBoxOverlay" style="background-image:url({{IMAGE_PATH}}//global/themeboxes/premium/type_overlay.png);">
+					<div id="PremiumBoxOverlay" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/type_overlay.png);">
 						<p id="PremiumBoxOverlayText">Donate here!</p>
 					</div>
 					<div id="PremiumBoxButton">
@@ -497,6 +613,5 @@ var FB_ForceReload = 0;
 				});
 			}
 			</script>
-			<div id="BackToTopButton" class="MobileNavigationLinkContainer MobileNavigationMainElement"><a id="BackToTopArrowUp" href="#top"> </a></div>
 	</body>
 </html>

@@ -12,7 +12,8 @@ namespace App\Controller\Pages;
 use \App\Utils\View;
 use App\Session\Admin\Login as SessionPlayerLogin;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
-use App\Model\Functions\Server;
+use App\Model\Functions\Server as FunctionsServer;
+use App\Model\Functions\ThemeBox as FunctionsThemeBox;
 
 class Base{
     public static function getPagination($request, $obPagination)
@@ -193,11 +194,12 @@ class Base{
             'menu' => self::getMenu($currentPage),
             'activemenu' => $currentPage,
             'loginStatus' => self::getLogged(),
-            'boostedcreature' => Server::getBoostedCreature(),
-            'boostedboss' => Server::getBoostedBoss(),
-            'playersonline' => Server::getCountPlayersOnline(),
-            'server_status' => Server::getServerStatus(),
+            'boostedcreature' => FunctionsServer::getBoostedCreature(),
+            'boostedboss' => FunctionsServer::getBoostedBoss(),
+            'playersonline' => FunctionsServer::getCountPlayersOnline(),
+            'server_status' => FunctionsServer::getServerStatus(),
             'active_donates' => $websiteInfo->donates,
+            'highscores' => FunctionsThemeBox::getHighscoresTop5()
         ]);
     }
 }
