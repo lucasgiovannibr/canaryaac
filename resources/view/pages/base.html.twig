@@ -534,8 +534,8 @@ var FB_ForceReload = 0;
     text-align: center;
 }
 </style>
-				<div id="HighscoreBox" class="Themebox">
-					<div class="HighscoresLabel"></div>
+			<div id="HighscoreBox" class="Themebox">
+				<div class="HighscoresLabel"></div>
 					<div class="HighscoresContent">
 						<div class="HighscoresBg">
 							{% for highscore in highscores %}
@@ -586,6 +586,18 @@ var FB_ForceReload = 0;
 					<div id="PremiumBoxButtonDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/button_premiumtime.png);"></div>
 				</div>
 				{# PremiumBox END #}
+				{% endif %}
+				{% if current_poll is not empty %}
+				<div id="CurrentPollBox" class="Themebox" style="background-image:url({{ IMAGE_PATH }}/global/themeboxes/current-poll/currentpollbox.gif);">
+					<div id="CurrentPollText">{{ current_poll.title }}</div>
+					<div class="ThemeboxButton">
+						<a href="{{ URL }}/community/polls/{{ current_poll.id }}/view" style="padding:0px;margin:0px;">
+							<div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div>
+							<input class="BigButtonText" type="submit" value="Vote Now"></div></div>
+						</a>
+					</div>
+					<div class="Bottom" style="background-image:url({{ IMAGE_PATH }}/global/general/box-bottom.gif);"></div>
+				</div>
 				{% endif %}
 			</div>
 			{# Themeboxes END #}

@@ -1,0 +1,144 @@
+<div id="polls" class="Box">
+	<div class="Corner-tl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{ IMAGE_PATH }}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{ IMAGE_PATH }}/global/strings/headline-polls.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{ IMAGE_PATH }}/global/content/scroll.gif);">
+                <form action="{{ URL }}/community/polls/{{ poll.id }}/view" method="POST">
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tbody>
+						<tr>
+							<td>
+								All players with a character of at least level 10 may vote.<br><br><table border="0" cellspacing="0" cellpadding="2" width="100%">
+									<tbody>
+										<tr>
+											<td>
+                                                <b>{% if answer == true %}You have already voted.{% endif %}</b><br>
+												<b>{{ poll.title|raw }}</b><br><br>{{ poll.description|raw }}<br><br>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div class="TableContainer">
+													<div class="CaptionContainer">
+														<div class="CaptionInnerContainer">
+															<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+															<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+															<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+															<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+															<div class="Text">Question</div>
+															<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+															<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+															<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+															<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+														</div>
+													</div>
+													<table class="Table3" cellpadding="0" cellspacing="0">
+														<tbody>
+															<tr>
+																<td>
+																	<div class="TableScrollbarWrapper" style="width: unset;">
+																		<div class="TableScrollbarContainer"></div>
+																	</div>
+																	<div class="InnerTableContainer" style="max-width: unset;">
+																		<table style="width:100%;">
+																			<tbody>
+																				<tr>
+																					<td>
+																						<div class="TableContentContainer">
+																							<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																								<tbody>
+																									<tr class="LabelH">
+																										<td colspan="40">
+																											<b>{{ poll.title|raw }}</b>
+																										</td>
+																									</tr>
+																									{% if status == false %}
+																										{% if answer == false %}
+																											{% for question in questions %}
+																											{% set i = i + 1 %}
+																											<tr bgcolor="{{ getStyle(i) }}">
+																												<td id="poll_question_{{ question.id }}" colspan="1">
+																												<input type="radio" id="poll_question_{{ question.id }}" name="poll_question" value="{{ question.id }}" {% if question.answer == 1 %}checked{% endif %}></td>
+																												<td id="poll_question_{{ question.id }}" colspan="14">{{ question.question }}</td>
+																												<td id="poll_question_{{ question.id }}" colspan="15">{{ question.description|raw }}</td>
+																											</tr>
+																											{% endfor %}
+																										{% else %}
+																											{% for question in questions %}
+																											{% set i = i + 1 %}
+																											<tr bgcolor="{{ getStyle(i) }}">
+																												<td id="poll_question_{{ question.id }}" colspan="1">
+																												<input type="radio" id="poll_question_{{ question.id }}" name="poll_question" value="{{ question.id }}" disabled {% if question.answer == 1 %}checked{% endif %}></td>
+																												<td id="poll_question_{{ question.id }}" colspan="14">{{ question.question }}</td>
+																												<td id="poll_question_{{ question.id }}" colspan="15">{{ question.description|raw }}</td>
+																											</tr>
+																											{% endfor %}
+																										{% endif %}
+																									{% else %}
+																										{% for question in questions %}
+																											{% set i = i + 1 %}
+																											<tr bgcolor="{{ getStyle(i) }}">
+																												<td id="poll_question_{{ question.id }}" colspan="1">
+																												<input type="radio" id="poll_question_{{ question.id }}" name="poll_question" value="{{ question.id }}" disabled {% if question.answer == 1 %}checked{% endif %}></td>
+																												<td id="poll_question_{{ question.id }}" colspan="14">{{ question.question }}</td>
+																												<td id="poll_question_{{ question.id }}" colspan="15">{{ question.description|raw }}</td>
+																											</tr>
+																										{% endfor %}
+																									{% endif %}
+																								</tbody>
+																							</table>
+																						</div>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div><br></td>
+										</tr>
+                                        {% if questions is not empty %}
+											{% if status == false %}
+												{% if answer == false %}
+												<tr>
+													<td>
+														<div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
+															<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div>
+															<input class="BigButtonText" type="submit" value="Submit"></div>
+														</div>
+													</td>
+												</tr>
+												{% endif %}
+											{% endif %}
+                                        {% endif %}
+									</tbody>
+								</table>
+                                </form>
+								<br>Poll started at {{ poll.date_start }}.<br>
+								Poll will end at {{ poll.date_end }}.<br><br>
+								<a href="{{ URL }}/community/polls" style="padding:0px;margin:0px;">
+									<div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
+										<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div>
+                                        <input class="BigButtonText" type="button" value="Back"></div>
+									</div>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{ IMAGE_PATH }}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{ IMAGE_PATH }}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

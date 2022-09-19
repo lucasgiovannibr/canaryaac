@@ -14,6 +14,7 @@ use App\Controller\Admin\Guilds;
 use App\Controller\Admin\Creatures;
 use App\Controller\Admin\Donates;
 use App\Controller\Admin\Groups;
+use App\Controller\Admin\Polls;
 use App\Controller\Admin\Publications;
 use App\Controller\Admin\Samples;
 use App\Controller\Admin\Settings;
@@ -252,7 +253,51 @@ $obRouter->get('/admin/worlds/{id}/delete', [
         return new Response(200, Worlds::deleteWorld($request, $id));
     }
 ]);
-
+$obRouter->get('/admin/polls', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Polls::viewPolls($request));
+    }
+]);
+$obRouter->get('/admin/polls/new', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Polls::viewInsertNewPoll($request));
+    }
+]);
+$obRouter->post('/admin/polls/new', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Polls::insertNewPoll($request));
+    }
+]);
+$obRouter->get('/admin/polls/{id}/view', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Polls::viewPollById($request, $id));
+    }
+]);
+$obRouter->get('/admin/polls/{id}/delete', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request, $id){
+        return new Response(200, Polls::deletePoll($request, $id));
+    }
+]);
 $obRouter->get('/admin/market', [
     'middlewares' => [
         'required-admin-login',

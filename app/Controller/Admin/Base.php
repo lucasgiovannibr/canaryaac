@@ -66,6 +66,22 @@ class Base{
             'slug' => 'samples',
         ],
         [
+            'id' => 22,
+            'parent_id' => 2,
+            'name' => 'Worlds',
+            'url' => URL . '/admin/worlds',
+            'icon' => 'circle',
+            'slug' => 'worlds',
+        ],
+        [
+            'id' => 28,
+            'parent_id' => 2,
+            'name' => 'Polls',
+            'url' => URL . '/admin/polls',
+            'icon' => 'circle',
+            'slug' => 'polls',
+        ],
+        [
             'id' => 5,
             'parent_id' => null,
             'name' => 'Publications',
@@ -200,14 +216,6 @@ class Base{
             'url' => URL . '/admin/groups',
             'icon' => 'circle',
             'slug' => 'groups',
-        ],
-        [
-            'id' => 22,
-            'parent_id' => 2,
-            'name' => 'Worlds',
-            'url' => URL . '/admin/worlds',
-            'icon' => 'circle',
-            'slug' => 'worlds',
         ],
         [
             'id' => 23,

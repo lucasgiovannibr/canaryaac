@@ -1,0 +1,95 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">View Poll</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/home">Home</a>
+								</li>
+                                <li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/polls">Polls</a>
+								</li>
+								<li class="breadcrumb-item active">View Poll</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="content-body">
+			<section id="polls">
+                <div class="match-height">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-3">
+                                        <label class="form-label" for="poll_title">Title</label>
+                                        <p>{{ poll.title }}</p>
+                                    </div>
+                                    <div class="col-md-12 col-lg-5">
+                                        <label class="form-label">Description</label>
+                                        <p>{{ poll.description }}</p>
+                                    </div>
+                                    <div class="col-md-12 col-lg-2">
+                                        <label class="form-label">Date Start</label>
+                                        <p>{{ poll.date_start }}</p>
+                                    </div>
+                                    <div class="col-md-12 col-lg-2">
+                                        <label class="form-label">Date End</label>
+                                        <p>{{ poll.date_end }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row math-width">
+                        {% for question in questions %}
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6">
+                                        <label class="form-label" for="question_title">Question</label>
+                                        <p>{{ question.question }}</p>
+                                    </div>
+                                    <div class="col-md-12 col-lg-6">
+                                        <label class="form-label" for="question_description">Description</label>
+                                        <p>{{ question.description }}</p>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <label class="form-label" for="question_title">Stats</label>
+                                        <div class="progress progress-bar-primary">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ question.percent }}" aria-valuemin="{{ question.percent }}" aria-valuemax="100" style="width: {{ question.percent }}%">
+                                                {{ question.percent }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6">
+                                        <a href="{{ URL }}/admin/polls/{{ poll.id }}/delete">
+                                            <input type="button" class="btn btn-danger" value="Delete Poll">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

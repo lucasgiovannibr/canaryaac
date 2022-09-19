@@ -83,6 +83,40 @@ CREATE TABLE IF NOT EXISTS `boosted_creature` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `canary_polls` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `date_start` int(11) NOT NULL,
+  `date_end` int(11) NOT NULL
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `canary_polls_questions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(11) NOT NULL,
+  `question` varchar(250) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `votes` int(11) NOT NULL
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `canary_polls_answers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `poll_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `date` int(11) NOT NULL
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `canary_achievements` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,

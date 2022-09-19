@@ -1,0 +1,119 @@
+{{ sweetAlert|raw }}
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">New Poll</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/home">Home</a>
+								</li>
+                                <li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/polls">Polls</a>
+								</li>
+								<li class="breadcrumb-item active">New Poll</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="content-body">
+			<section id="polls">
+                <form action="{{URL}}/admin/polls/new" method="post">
+                    <div class="row match-height">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="poll_title">Title</label>
+                                            <input type="text" name="poll_title" id="poll_title" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="poll_date_end">Date End</label>
+                                            <input type="date" name="poll_date_end" id="poll_date_end" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-12">
+                                            <label class="form-label" for="poll_description">Description</label>
+                                            <textarea name="poll_description" id="poll_description" class="form-control" style="max-height: 10px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 source-item">
+                            <div data-repeater-list="questions">
+                                <div class="repeater-wrapper" data-repeater-item>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="question_title">Question</label>
+                                            <input type="text" name="question_title" id="question_title" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="question_description">Description</label>
+                                            <input type="text" name="question_description" id="question_description" class="form-control mb-1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6">
+                                    <button type="button" class="btn btn-primary btn-sm btn-add-new" data-repeater-create>
+                                        <i data-feather="plus" class="me-25"></i>
+                                        <span class="align-middle">Add Question</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <input type="submit" class="btn btn-primary" value="Create Poll">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
+<script>
+$(function () {
+    var sourceItem = $('.source-item');
+
+    if (sourceItem.length) {
+    sourceItem.on('submit', function (e) {
+      e.preventDefault();
+    });
+    sourceItem.repeater({
+      show: function () {
+        $(this).slideDown();
+      },
+      hide: function (e) {
+        $(this).slideUp();
+      }
+    });
+  }
+});
+  
+</script>
+<script>
+CKEDITOR.replace('poll_description', {
+	height: 200,
+	baseFloatZIndex: 10005,
+	removeButtons: 'PasteFromWord',
+});
+</script>

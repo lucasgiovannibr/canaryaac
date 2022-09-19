@@ -14,6 +14,7 @@ use App\Controller\Pages\Worlds;
 use App\Controller\Pages\Houses;
 use App\Controller\Pages\EventCalendar;
 use App\Controller\Pages\Newsarchive;
+use App\Controller\Pages\Polls;
 
 include __DIR__.'/pages/account.php';
 
@@ -104,7 +105,27 @@ $obRouter->get('/community/highscores', [
         return new Response(200, Highscores::getHighscores($request));
     }
 ]);
-
+$obRouter->get('/community/polls', [
+    function($request){
+        return new Response(200, Polls::viewPolls($request));
+    }
+]);
+$obRouter->get('/community/polls/{id}/view', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Polls::viewPollById($request, $id));
+    }
+]);
+$obRouter->post('/community/polls/{id}/view', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $id){
+        return new Response(200, Polls::insertAnswer($request, $id));
+    }
+]);
 $obRouter->get('/community/houses', [
     function($request){
         return new Response(200, Houses::getHouses($request));

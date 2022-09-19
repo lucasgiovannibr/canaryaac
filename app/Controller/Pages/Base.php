@@ -130,6 +130,13 @@ class Base{
                 'color' => 'd7d7d7',
                 'category' => 'community',
             ],
+            'polls' => [
+                'name' => 'Polls',
+                'tag' => 'polls',
+                'link' => 'community/polls',
+                'color' => 'd7d7d7',
+                'category' => 'community',
+            ],
             'accountmanagement' => [
                 'name' => 'Account Management',
                 'tag' => 'account',

@@ -9,6 +9,8 @@
 
 namespace App\Model\Functions;
 
+use App\Model\Entity\ServerConfig as EntityServerConfig;
+use App\Model\Entity\Polls as EntityPolls;
 use App\Model\Functions\Player as FunctionsPlayer;
 use App\Model\Entity\Player;
 
@@ -33,4 +35,29 @@ class ThemeBox
         }
         return $arrayPlayers ?? '';
     }
+
+    public static function getCurrentPoll()
+    {
+        $websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($websiteInfo->timezone);
+
+        $currentDate = strtotime(date('Y-m-d'));
+        $poll = EntityPolls::getPolls(null, 'date_end DESC', 1)->fetchObject();
+        if (empty($poll)) {
+            return '';
+        }
+
+        if ($poll->date_end > $currentDate) {
+            $arrayPolls = [
+                'id' => $poll->id,
+                'player_id' => $poll->player_id,
+                'title' => $poll->title,
+                'description' => $poll->description,
+                'date_start' => date('M d Y', $poll->date_start),
+                'date_end' => date('M d Y', $poll->date_end)
+            ];
+        }
+        return $arrayPolls ?? '';
+    }
+
 }

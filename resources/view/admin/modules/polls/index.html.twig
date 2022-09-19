@@ -1,0 +1,100 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Polls</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/home">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Polls</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="content-body">
+			<section id="polls">
+				<div class="row match-height">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">Current Polls</h4>
+                                <a href="{{URL}}/admin/polls/new"><input type="button" class="btn btn-primary" value="New Poll"></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="players-list-table table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Date Start</th>
+                                                <th>Date End</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for poll in current_polls %}
+                                                <tr class="odd">
+                                                    <td>{{ poll.title|raw }}</td>
+                                                    <td>{{ poll.description|raw }}</td>
+                                                    <td>{{ poll.date_start }}</td>
+                                                    <td>{{ poll.date_end }}</td>
+                                                    <td><a href="{{ URL }}/admin/polls/{{ poll.id }}/view">
+                                                        <input type="button" class="btn btn-primary btn-sm" value="View">
+                                                    </a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">Closed Polls</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="players-list-table table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Date Start</th>
+                                                <th>Date End</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for poll in end_polls %}
+                                                <tr class="odd">
+                                                    <td>{{ poll.title|raw }}</td>
+                                                    <td>{{ poll.description|raw }}</td>
+                                                    <td>{{ poll.date_start }}</td>
+                                                    <td>{{ poll.date_end }}</td>
+                                                    <td><a href="{{ URL }}/admin/polls/{{ poll.id }}/view">
+                                                        <input type="button" class="btn btn-primary btn-sm" value="View">
+                                                    </a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
