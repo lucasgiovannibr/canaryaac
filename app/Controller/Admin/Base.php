@@ -42,6 +42,14 @@ class Base{
             'slug' => 'upload',
         ],
         [
+            'id' => 29,
+            'parent_id' => null,
+            'name' => 'Create Client',
+            'url' => URL . '/admin/client',
+            'icon' => 'file-plus',
+            'slug' => 'client',
+        ],
+        [
             'id' => 2,
             'parent_id' => null,
             'name' => 'Settings',

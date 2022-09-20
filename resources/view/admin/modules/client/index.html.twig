@@ -1,0 +1,179 @@
+{{ sweetAlert|raw }}
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-2">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Create Client</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin/home">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Create Client</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="content-body">
+			<section id="polls">
+                <form action="{{URL}}/admin/client" method="post" enctype="multipart/form-data">
+                    <div class="row match-height">
+                        <div class="col-md-12 col-lg-12">
+                            {% if client_url is not empty %}
+                            <div class="alert alert-success" role="alert">
+                                <div class="alert-body"><a href="{{ client_url|raw }}" target="new">Click here to download.</a></div>
+                            </div>
+                            {% endif %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="content-header mb-1">
+                                            <h5 class="mb-0">Client</h5>
+                                            <small class="text-muted">Select the client and enter the rsa key.</small>
+                                        </div>
+                                        <div class="col-md-12 col-lg-4">
+                                            <label class="form-label" for="client_exe">Select file client.exe</label>
+                                            <input type="file" name="client_exe" id="client_exe" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-8">
+                                            <label class="form-label" for="client_rsa">RSA</label>
+                                            <input type="text" name="client_rsa" id="client_rsa" class="form-control mb-1" value="9B646903B45B07AC956568D87353BD7165139DD7940703B03E6DD079399661B4A837AA60561D7CCB9452FA0080594909882AB5BCA58A1A1B35F8B1059B72B1212611C6152AD3DBB3CFBEE7ADC142A75D3D75971509C321C5C24A5BD51FD460F01B4E15BEB0DE1930528A5D3F15C1E3CBF5C401D6777E10ACAAB33DBE8D5B7FF5">
+                                        </div>
+                                        <hr>
+                                        <div class="content-header mb-1">
+                                            <h5 class="mb-0">Basic</h5>
+                                            <small class="text-muted">Server connection information.</small>
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="client_loginWebService">Login Web Service</label>
+                                            <input type="text" name="client_loginWebService" id="client_loginWebService" class="form-control mb-1" placeholder="http://127.0.0.1/api/v1/login">
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <label class="form-label" for="client_clientWebService">Client Web Service</label>
+                                            <input type="text" name="client_clientWebService" id="client_clientWebService" class="form-control mb-1" placeholder="http://127.0.0.1/api/v1/login">
+                                        </div>
+                                        <hr>
+                                        <div class="content-header mb-1">
+                                            <h5 class="mb-0">Account</h5>
+                                            <small class="text-muted">Direct links to the website.</small>
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_createAccountUrl">Create Account Url</label>
+                                            <input type="text" name="client_createAccountUrl" id="client_createAccountUrl" class="form-control mb-1" placeholder="http://127.0.0.1/createaccount">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_tibiaPageUrl">Tibia Page Url</label>
+                                            <input type="text" name="client_tibiaPageUrl" id="client_tibiaPageUrl" class="form-control mb-1" placeholder="http://127.0.0.1/">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_accessAccountUrl">Access Account Url</label>
+                                            <input type="text" name="client_accessAccountUrl" id="client_accessAccountUrl" class="form-control mb-1" placeholder="http://127.0.0.1/account/login">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_tibiaStoreGetCoinsUrl">Tibia Store Get Coins Url</label>
+                                            <input type="text" name="client_tibiaStoreGetCoinsUrl" id="client_tibiaStoreGetCoinsUrl" class="form-control mb-1" placeholder="http://127.0.0.1/payment">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_getPremiumUrl">Get Premium Url</label>
+                                            <input type="text" name="client_getPremiumUrl" id="client_getPremiumUrl" class="form-control mb-1" placeholder="http://127.0.0.1/payment">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_lostAccountUrl">Lost Account Url</label>
+                                            <input type="text" name="client_lostAccountUrl" id="client_lostAccountUrl" class="form-control mb-1" placeholder="http://127.0.0.1/account/lostaccount">
+                                        </div>
+                                        <hr>
+                                        <div class="content-header mb-1">
+                                            <h5 class="mb-0">Social</h5>
+                                            <small class="text-muted">Social networking information.</small>
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_twitchTibiaUrl">Twitch Tibia Url</label>
+                                            <input type="text" name="client_twitchTibiaUrl" id="client_twitchTibiaUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_youTubeTibiaUrl">YouTube Tibia Url</label>
+                                            <input type="text" name="client_youTubeTibiaUrl" id="client_youTubeTibiaUrl" class="form-control mb-1">
+                                        </div>
+                                        <hr>
+                                        <div class="content-header mb-1">
+                                            <h5 class="mb-0">Other</h5>
+                                            <small class="text-muted">Some additional information.</small>
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_createTournamentCharacterUrl">createTournamentCharacterUrl</label>
+                                            <input type="text" name="client_createTournamentCharacterUrl" id="client_createTournamentCharacterUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_manualUrl">manualUrl</label>
+                                            <input type="text" name="client_manualUrl" id="client_manualUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_faqUrl">faqUrl</label>
+                                            <input type="text" name="client_faqUrl" id="client_faqUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_premiumFeaturesUrl">premiumFeaturesUrl</label>
+                                            <input type="text" name="client_premiumFeaturesUrl" id="client_premiumFeaturesUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_limesurveyUrl">limesurveyUrl</label>
+                                            <input type="text" name="client_limesurveyUrl" id="client_limesurveyUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_hintsUrl">hintsUrl</label>
+                                            <input type="text" name="client_hintsUrl" id="client_hintsUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_cipSoftUrl">cipSoftUrl</label>
+                                            <input type="text" name="client_cipSoftUrl" id="client_cipSoftUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_crashReportUrl">crashReportUrl</label>
+                                            <input type="text" name="client_crashReportUrl" id="client_crashReportUrl" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_fpsHistoryRecipient">fpsHistoryRecipient</label>
+                                            <input type="text" name="client_fpsHistoryRecipient" id="client_fpsHistoryRecipient" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_tutorialProgressWebService">tutorialProgressWebService</label>
+                                            <input type="text" name="client_tutorialProgressWebService" id="client_tutorialProgressWebService" class="form-control mb-1">
+                                        </div>
+                                        <div class="col-md-12 col-lg-3">
+                                            <label class="form-label" for="client_tournamentDetailsUrl">tournamentDetailsUrl</label>
+                                            <input type="text" name="client_tournamentDetailsUrl" id="client_tournamentDetailsUrl" class="form-control mb-1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <input type="submit" class="btn btn-primary" value="Change IP Client">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+CKEDITOR.replace('poll_description', {
+	height: 200,
+	baseFloatZIndex: 10005,
+	removeButtons: 'PasteFromWord',
+});
+</script>

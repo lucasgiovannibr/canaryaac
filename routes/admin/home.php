@@ -8,6 +8,7 @@ use App\Controller\Admin\Accounts;
 use App\Controller\Admin\Achievements;
 use App\Controller\Admin\Market;
 use App\Controller\Admin\Bans;
+use App\Controller\Admin\Client;
 use App\Controller\Admin\Compendium;
 use App\Controller\Admin\Houses;
 use App\Controller\Admin\Guilds;
@@ -207,7 +208,24 @@ $obRouter->post('/admin/samples/{id}/edit', [
         return new Response(200, Samples::editSample($request, $id));
     }
 ]);
-
+$obRouter->get('/admin/client', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Client::viewCreateClient($request));
+    }
+]);
+$obRouter->post('/admin/client', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Client::editClient($request));
+    }
+]);
 $obRouter->get('/admin/worlds', [
     'middlewares' => [
         'required-admin-login',
