@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `canary_polls` (
   `title` varchar(250) NOT NULL,
   `description` varchar(500) NOT NULL,
   `date_start` int(11) NOT NULL,
-  `date_end` int(11) NOT NULL
+  `date_end` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `canary_polls_questions` (
   `poll_id` int(11) NOT NULL,
   `question` varchar(250) NOT NULL,
   `description` varchar(500) NOT NULL,
-  `votes` int(11) NOT NULL
+  `votes` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `canary_polls_answers` (
   `poll_id` int(11) NOT NULL,
   `account_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `date` int(11) NOT NULL
+  `date` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `canary_worlds` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `canary_worlds` (`id`, `name`, `creation`, `location`, `pvp_type`, `premium_type`, `transfer_type`, `battle_eye`, `world_type`, `ip`, `port`) VALUES
-(null, 'Canary', null, 5, 0, 0, 0, 0, 0, '127.0.0.1', 7172);
+(null, 'Canary', 0, 5, 0, 0, 0, 0, 0, '127.0.0.1', 7172);
 
 -- --------------------------------------------------------
 
