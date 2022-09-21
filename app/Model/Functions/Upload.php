@@ -28,6 +28,8 @@ class Upload
 
     private $duplicates = 0;
 
+    private $web_url;
+
     public function __construct($file)
     {
         $this->type = $file['type'];
@@ -48,6 +50,11 @@ class Upload
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    public function getUrl()
+    {
+        return $this->web_url;
     }
 
     public function generateNewName()
@@ -79,6 +86,8 @@ class Upload
         $dirob = __DIR__ . '/../../../resources/' . $dir;
         $path = __DIR__ . '/../../../resources/' . $dir . '/' . $this->getPossibleBasename($dirob, $overwrite);
         $url = URL . '/resources/' . $dir . '/' . $this->getPossibleBasename($dirob, $overwrite);
+
+        $this->web_url = $url;
         self::insertUpload($this->getPossibleBasename($dirob, $overwrite), $url);
         return move_uploaded_file($this->tmpName, $path);
     }

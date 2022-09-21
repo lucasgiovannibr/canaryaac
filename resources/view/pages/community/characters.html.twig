@@ -527,6 +527,106 @@
 					</table>
 				</div>
 				<br>
+				{% if player.outfitsmounts.outfits is not empty %}
+				<div class="TableContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterOutfits');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Outfits.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterOutfits" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Outfits</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer" id="TableCharacterOutfits" style="display: none;">
+										<div style="display: flex;">
+										{% for outfit in player.outfitsmounts.outfits %}
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+                                                            <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                                <tbody>
+																	<tr bgcolor="#D4C0A1">
+                                                                        <td><img src="{{ outfit.image_url }}"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										{% endfor %}
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				{% endif %}
+				{% if player.outfitsmounts.mounts is not empty %}
+				<div class="TableContainer">
+					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterMounts');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Mounts.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
+						<div id="Indicator_TableCharacterMounts" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Character Mounts</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{ IMAGE_PATH }}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer" id="TableCharacterMounts" style="display: none;">
+										<div style="display: flex;">
+										{% for mount in player.outfitsmounts.mounts %}
+										<table style="width:100%;">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+                                                            <table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+                                                                <tbody>
+																	<tr bgcolor="#D4C0A1">
+                                                                        <td><img src="{{ mount.looktype }}"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										{% endfor %}
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br>
+				{% endif %}
 				{% if player.frags is not empty %}
 				<div class="TableContainer">
 					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterFrags');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Frags.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">

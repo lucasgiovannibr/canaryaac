@@ -12,6 +12,7 @@ namespace App\Model\Functions;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Entity\Polls as EntityPolls;
 use App\Model\Functions\Player as FunctionsPlayer;
+use App\Model\Entity\Countdowns as EntityCountdowns;
 use App\Model\Entity\Player;
 
 class ThemeBox
@@ -58,6 +59,23 @@ class ThemeBox
             ];
         }
         return $arrayPolls ?? '';
+    }
+
+    public static function getCurrentCountdown()
+    {
+        $websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($websiteInfo->timezone);
+        
+        $countdown = EntityCountdowns::getCountdowns(null, 'date_end DESC', 1)->fetchObject();
+        if (empty($countdown)) {
+            return '';
+        }
+        $arrayCountdown = [
+            'date_start' => date('M d Y H:i', $countdown->date_start),
+            'date_end' => $countdown->date_end,
+            'themebox' => $countdown->themebox
+        ];
+        return $arrayCountdown;
     }
 
 }

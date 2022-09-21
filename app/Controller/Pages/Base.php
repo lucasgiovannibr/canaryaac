@@ -206,7 +206,9 @@ class Base{
             'playersonline' => FunctionsServer::getCountPlayersOnline(),
             'server_status' => FunctionsServer::getServerStatus(),
             'active_donates' => $websiteInfo->donates,
-            'highscores' => FunctionsThemeBox::getHighscoresTop5()
+            'highscores' => FunctionsThemeBox::getHighscoresTop5(),
+            'current_poll' => FunctionsThemeBox::getCurrentPoll(),
+            'countdown' => FunctionsThemeBox::getCurrentCountdown()
         ]);
     }
 }

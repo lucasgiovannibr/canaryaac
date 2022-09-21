@@ -95,12 +95,13 @@ JS_COOKIE_DOMAIN ='{{ URL }}';
 var g_FormName = '';
 var g_FormField = '';
 var g_Deactivated = false;
-var JS_ANNIVERSARY_THEMEBOX_STEP_1 = 0;
-JS_ANNIVERSARY_THEMEBOX_STEP_1 = '1639386000';
-var JS_ANNIVERSARY_THEMEBOX_STEP_2 = 0;
-JS_ANNIVERSARY_THEMEBOX_STEP_2 = '1641373200';
-var JS_ANNIVERSARY_THEMEBOX_STEP_3 = 0;
-JS_ANNIVERSARY_THEMEBOX_STEP_3 = '1641546000';
+var JS_ANNIVERSARY_THEMEBOX_STEP_1=0;
+JS_ANNIVERSARY_THEMEBOX_STEP_1='1663660800';
+var JS_ANNIVERSARY_THEMEBOX_STEP_2=0;
+JS_ANNIVERSARY_THEMEBOX_STEP_2='1663660800';
+var JS_ANNIVERSARY_THEMEBOX_STEP_3=0;
+JS_ANNIVERSARY_THEMEBOX_STEP_3='{{ countdown.date_end }}';
+
 var FB_TryLogin = 0;
 var FB_ForceReload = 0;
 		</script>
@@ -450,6 +451,32 @@ var FB_ForceReload = 0;
 			{# Themeboxes START #}
 			<div class="main-themboxes Themeboxes">
 				<div id="DeactivationContainerThemebox" onclick="StopVideoIfExists();DisableDeactivationContainer();"></div>
+				{% if countdown is not empty %}
+				<div id="AnniversaryCountDownExtendedBox" class="Themebox" style="background-image:url({{ countdown.themebox }});">
+					<div class="FancyAnniversaryCountDown Test">
+						<div class="Number NumberFirst"><span class="DaysFirst" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-0.png&quot;);"></span>
+							<div class="CountDownLabel">days</div>
+						</div>
+						<div class="Number NumberSecond"><span class="DaysLast" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-5.png&quot;);"></span></div>
+							<div class="Separator" style="background-image: url({{IMAGE_PATH}}/global/themeboxes/anniversary/separator.png)"></div>
+							<div class="Number NumberFirst"><span class="HoursFirst" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-1.png&quot;);"></span>
+							<div class="CountDownLabel">hrs</div>
+						</div>
+						<div class="Number NumberSecond"><span class="HoursLast" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-6.png&quot;);"></span></div>
+							<div class="Separator" style="background-image: url({{IMAGE_PATH}}/global/themeboxes/anniversary/separator.png)"></div>
+							<div class="Number NumberFirst"><span class="MinutesFirst" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-0.png&quot;);"></span>
+							<div class="CountDownLabel">mins</div>
+						</div>
+						<div class="Number NumberSecond"><span class="MinutesLast" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-6.png&quot;);"></span></div>
+							<div class="Separator" style="background-image: url({{IMAGE_PATH}}/global/themeboxes/anniversary/separator.png)"></div>
+							<div class="Number NumberFirst"><span class="SecondsFirst" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-1.png&quot;);"></span>
+							<div class="CountDownLabel">secs</div>
+						</div>
+						<div class="Number NumberSecond"><span class="SecondsLast" style="background-image: url(&quot;{{IMAGE_PATH}}/global/themeboxes/anniversary/number-4.png&quot;);"></span></div>
+					</div>
+					<div class="Bottom" style="background-image:url({{IMAGE_PATH}}/global/general/box-bottom.gif);"></div>
+				</div>
+				{% endif %}
 <style>
 #HighscoreBox {
 	height: 360px;

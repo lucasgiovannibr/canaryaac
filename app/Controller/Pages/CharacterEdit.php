@@ -102,7 +102,7 @@ class CharacterEdit extends Base{
                 'status' => $achievementStatus
             ];
         }
-        return $arrayAchievement;
+        return $arrayAchievement ?? '';
     }
 
     public static function viewCharacterEdit($request, $name)

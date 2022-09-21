@@ -11,7 +11,6 @@ namespace App\Controller\Pages;
 
 use App\Model\Entity\Account;
 use \App\Utils\View;
-use App\Model\Entity\Characters as Character;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Player;
@@ -40,6 +39,43 @@ class Characters extends Base{
                 $request->getRouter()->redirect('/community/characters');
             }
         }
+
+        if (!empty($dbAccount)) {
+            $start_storage_outfit = 10001000;
+            $select_storage_outfit = EntityPlayer::getStorage('player_id = "' . $obPlayer->id . '"');
+            while ($outfit = $select_storage_outfit->fetchObject()) {
+                if ($outfit->key >= $start_storage_outfit and $outfit->key <= $start_storage_outfit + 1000) {
+                    $looktype = $outfit->value >> 16;
+                    $addons = $outfit->value & 0xFF;
+                    $arrayOutfits[] = [
+                        'looktype' => $outfit->value >> 16,
+                        'addons' => $outfit->value & 0xFF,
+                        'image_url' => Player::getOutfitImage($looktype, $addons, $obPlayer->lookbody, $obPlayer->lookfeet, $obPlayer->lookhead, $obPlayer->looklegs, $obPlayer->lookmountbody),
+                        'lookbody' => $obPlayer->lookbody,
+                        'lookfeet' => $obPlayer->lookfeet,
+                        'lookhead' => $obPlayer->lookhead,
+                        'looklegs' => $obPlayer->looklegs,
+                    ];
+                }
+            }
+            $start_storage_mount = 10002001;
+            $count_mount = 1;
+            $select_storage_mount = EntityPlayer::getStorage('player_id = "' . $obPlayer->id . '"');
+            while ($mount = $select_storage_mount->fetchObject()) {
+                if ($mount->key >= $start_storage_mount and $mount->key < $start_storage_mount + 500) {
+                    $count_mount++;
+                    $left_shift = 1 << (($count_mount - 1) % 31);
+                    $arrayMounts[] = [
+                        'looktype' => $left_shift & $mount->value
+                    ];
+                }
+            }
+        }
+        $MountsAndOutfits = [
+            'outfits' => $arrayOutfits ?? '',
+            'mounts' => $arrayMounts ?? ''
+        ];
+
         if(!empty($dbAccount)){
         $player['info'] = [
             'name' => $obPlayer->name,
@@ -153,6 +189,7 @@ class Characters extends Base{
         $player['deaths'] = Player::getDeaths($obPlayer->id);
         $player['frags'] = Player::getFrags($obPlayer->id);
         $player['equipaments'] = Player::getEquipaments($obPlayer->id);
+        $player['outfitsmounts'] = $MountsAndOutfits;
 
         }else{
             $player = false;

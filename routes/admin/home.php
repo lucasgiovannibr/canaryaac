@@ -10,6 +10,7 @@ use App\Controller\Admin\Market;
 use App\Controller\Admin\Bans;
 use App\Controller\Admin\Client;
 use App\Controller\Admin\Compendium;
+use App\Controller\Admin\Countdowns;
 use App\Controller\Admin\Houses;
 use App\Controller\Admin\Guilds;
 use App\Controller\Admin\Creatures;
@@ -206,6 +207,24 @@ $obRouter->post('/admin/samples/{id}/edit', [
     ],
     function($request, $id){
         return new Response(200, Samples::editSample($request, $id));
+    }
+]);
+$obRouter->get('/admin/countdowns', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Countdowns::viewCountdowns($request));
+    }
+]);
+$obRouter->post('/admin/countdowns', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Countdowns::insertCountdown($request));
     }
 ]);
 $obRouter->get('/admin/client', [

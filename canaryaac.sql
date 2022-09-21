@@ -83,6 +83,16 @@ CREATE TABLE IF NOT EXISTS `boosted_creature` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `canary_countdowns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_start` int(11) NOT NULL,
+  `date_end` int(11) NOT NULL,
+  `themebox` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `canary_polls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
