@@ -96,6 +96,14 @@ class Guilds{
         return (new Database('guild_wars'))->insert($values);
     }
 
+    public static function updateWar($where = null, $values = null){
+        return (new Database('guild_wars'))->update($where, $values);
+    }
+
+    public static function deleteWar($where = null){
+        return (new Database('guild_wars'))->delete($where);
+    }
+
     public static function insertEvents($values = null){
         return (new Database('guild_events'))->insert($values);
     }

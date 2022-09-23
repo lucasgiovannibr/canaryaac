@@ -3,6 +3,7 @@
 use App\Http\Response;
 
 use App\Controller\Pages\Guilds;
+use App\Controller\Pages\GuildWar;
 
 $obRouter->get('/community/guilds', [
     function(){
@@ -32,7 +33,7 @@ $obRouter->get('/community/guilds/{name}/view', [
 ]);
 $obRouter->get('/community/guilds/{name}/guildwars', [
     function($request,$name){
-        return new Response(200, Guilds::viewGuildWars($request,$name));
+        return new Response(200, GuildWar::viewGuildWars($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/declarewar', [
@@ -40,7 +41,7 @@ $obRouter->get('/community/guilds/{name}/declarewar', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewDeclareWar($request,$name));
+        return new Response(200, GuildWar::viewDeclareWar($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/declarewar', [
@@ -48,7 +49,31 @@ $obRouter->post('/community/guilds/{name}/declarewar', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::insertDeclareWar($request,$name));
+        return new Response(200, GuildWar::insertDeclareWar($request,$name));
+    }
+]);
+$obRouter->get('/community/guilds/{name}/guildwars/{war}/accept', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $name, $war){
+        return new Response(200, GuildWar::acceptWar($request, $name, $war));
+    }
+]);
+$obRouter->get('/community/guilds/{name}/guildwars/{warid}/reject', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $name, $warid){
+        return new Response(200, GuildWar::rejectWar($request, $name, $warid));
+    }
+]);
+$obRouter->get('/community/guilds/{name}/guildwars/{warid}/cancel', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $name, $warid){
+        return new Response(200, GuildWar::cancelWar($request, $name, $warid));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildevents', [

@@ -35,9 +35,7 @@
 												<tbody>
 													{% if wars is empty %}
 														<tr>
-															<td>The guild
-																{{ guild.name }}
-																has currently no open war declarations.</td>
+															<td>The guild {{ guild.name }} has currently no open war declarations.</td>
 														</tr>
 													{% endif %}
 													{% if wars is not empty %}
@@ -58,13 +56,20 @@
 																			{% for war in wars %}
 																				{% set i = i + 1 %}
 																				<tr class="{{ getStyleCss(i) }}">
-																					<td>{{ war.name2 }}</td>
-																					<td>{{ war.price2 }}</td>
+																					<td>{{ war.name }}</td>
+																					<td>{{ war.price }} gold coin</td>
 																					<td>{{ war.frags }}</td>
-																					<td>{{ war.status }}</td>
+																					{% if war.status == 2 %}
+																					<td>Open</td>
+																					{% endif %}
 																					<td>{{ war.started }}</td>
 																					<td>{{ war.ended }}</td>
-																					<td></td>
+																					{% if war.guild1 == guild.id %}
+																					<td>{% if war.status == 2 %}<a href="{{ URL }}/community/guilds/{{ guild.name }}/guildwars/{{ war.id }}/cancel">[ Cancel ]</a>{% endif %}</td>
+																					{% endif %}
+																					{% if war.guild2 == guild.id %}
+																					<td>{% if war.status == 2 %}<a href="{{ URL }}/community/guilds/{{ guild.name }}/guildwars/{{ war.id }}/accept">[ Accept ]</a><br><a href="{{ URL }}/community/guilds/{{ guild.name }}/guildwars/{{ war.id }}/reject">[ Reject ]</a>{% endif %}</td>
+																					{% endif %}
 																				</tr>
 																			{% endfor %}
 																		</tbody>
@@ -116,11 +121,42 @@
 									<div class="InnerTableContainer" style="max-width: unset;">
 										<table style="width:100%;">
 											<tbody>
+												{% if current_wars is empty %}
 												<tr>
-													<td>The guild
-														{{ guild.name }}
-														is currently not involved in a guild war.</td>
+													<td>The guild {{ guild.name }} is currently not involved in a guild war.</td>
 												</tr>
+												{% endif %}
+												{% if current_wars is not empty %}
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td>Guild</td>
+																			<td>Kills</td>
+																			<td>Guild</td>
+																			<td>Kills</td>
+																			<td>Final Frags</td>
+																		</tr>
+																		{% for current_war in current_wars %}
+																			{% set i = i + 1 %}
+																			{% if current_war.status == 1 %}
+																			<tr class="{{ getStyleCss(i) }}">
+																				<td>{{ current_war.name1 }}</td>
+																				<td>{{ current_war.kills1 }}</td>
+																				<td>{{ current_war.name2 }}</td>
+																				<td>{{ current_war.kills2 }}</td>
+																				<td>{{ current_war.frags }}</td>
+																			</tr>
+																			{% endif %}
+																		{% endfor %}
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												{% endif %}
 											</tbody>
 										</table>
 									</div>
@@ -154,11 +190,40 @@
 									<div class="InnerTableContainer" style="max-width: unset;">
 										<table style="width:100%;">
 											<tbody>
+												{% if history_wars is empty %}
 												<tr>
-													<td>The guild
-														{{ guild.name }}
-														has never participated in a guild war.</td>
+													<td>The guild {{ guild.name }} has never participated in a guild war.</td>
 												</tr>
+												{% endif %}
+												{% if history_wars is not empty %}
+													<tr>
+														<td>
+															<div class="TableContentContainer">
+																<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																	<tbody>
+																		<tr class="LabelH">
+																			<td>Guild</td>
+																			<td>Kills</td>
+																			<td>Guild</td>
+																			<td>Kills</td>
+																			<td>Final Frags</td>
+																		</tr>
+																		{% for history_war in history_wars %}
+																			{% set i = i + 1 %}
+																			<tr class="{{ getStyleCss(i) }}">
+																				<td>{{ history_war.name1 }}</td>
+																				<td>{{ history_war.kills1 }}</td>
+																				<td>{{ history_war.name2 }}</td>
+																				<td>{{ history_war.kills2 }}</td>
+																				<td>{{ history_war.frags }}</td>
+																			</tr>
+																		{% endfor %}
+																	</tbody>
+																</table>
+															</div>
+														</td>
+													</tr>
+												{% endif %}
 											</tbody>
 										</table>
 									</div>

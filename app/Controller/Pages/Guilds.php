@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Guilds Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -9,14 +9,16 @@
 
 namespace App\Controller\Pages;
 
+use \App\Utils\View;
 use App\Model\Entity\Guilds as EntityGuilds;
 use App\Session\Admin\Login as SessionAdminLogin;
-use \App\Utils\View;
 use App\Model\Functions\Guilds as FunctionGuilds;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\Account as EntityAccount;
 use App\Model\Functions\Player as FunctionPlayer;
 use App\Model\Functions\Server as FunctionServer;
+use App\Model\Entity\ServerConfig as EntityServerConfig;
+use App\Model\Functions\Guilds\Found as FoundGuild;
 
 class Guilds extends Base{
 
@@ -35,51 +37,74 @@ class Guilds extends Base{
 	{
 		$idLogged = SessionAdminLogin::idLogged();
 		$postVars = $request->getPostVars();
+
+		$websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($websiteInfo->timezone);
+
 		if(empty($postVars['password'])){
-			$status = 'Você precisa digitar um password.';
-			return self::viewFoundGuild($request,$status);
+			$status = 'You need to enter a password.';
+			return self::viewFoundGuild($request, $status);
 		}
 		$filter_pass = filter_var($postVars['password'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$convert_pass = sha1($filter_pass);
 		$dbAccountLogged = EntityPlayer::getAccount('id = "'.$idLogged.'"')->fetchObject();
 		if($dbAccountLogged->password != $convert_pass){
-			$status = 'Algo deu errado com o password.';
-			return self::viewFoundGuild($request,$status);
+			$status = 'Something went wrong with the password.';
+			return self::viewFoundGuild($request, $status);
 		}
-
 		if(empty($postVars['guild_name'])){
-			$status = 'Insira um nome.';
-			return self::viewFoundGuild($request,$status);
+			$status = 'Enter a name.';
+			return self::viewFoundGuild($request, $status);
 		}
 		$filter_name = filter_var($postVars['guild_name'], FILTER_SANITIZE_SPECIAL_CHARS);
+		if (strlen($filter_name) < 5) {
+			$status = 'The name must contain at least 5 characters.';
+			return self::viewFoundGuild($request, $status);
+		}
 		$dbGuilds = EntityGuilds::getGuilds('name = "'.$filter_name.'"')->fetchObject();
 		if(!empty($dbGuilds)){
-			$status = 'Já existe uma Guild com este nome.';
-			return self::viewFoundGuild($request,$status);
+			$status = 'A Guild with this name already exists.';
+			return self::viewFoundGuild($request, $status);
 		}
-
 		if(empty($postVars['guild_leader'])){
-			$status = 'Selecione um leader.';
+			$status = 'Select a leader.';
 			return self::viewFoundGuild($request,$status);
 		}
 		$filter_leader = filter_var($postVars['guild_leader'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$dbPlayerId = EntityPlayer::getPlayer('name = "'.$filter_leader.'" AND account_id = "'.$idLogged.'"')->fetchObject();
 		if($dbPlayerId->deletion == 1){
-			return self::viewFoundGuild($request);
+			$status = 'You cannot select a character with a deleted status.';
+			return self::viewFoundGuild($request, $status);
 		}
-
 		$dbPlayerLeader = EntityPlayer::getPlayer('name = "'.$filter_leader.'" AND account_id = "'.$idLogged.'"');
-		while($player = $dbPlayerLeader->fetchObject()){
+		while ($player = $dbPlayerLeader->fetchObject()) {
+			if ($player->level < $websiteInfo->player_guild) {
+				$status = 'The minimum level to found a Guild is '.$websiteInfo->player_guild.'.';
+				return self::viewFoundGuild($request, $status);
+			}
 			$dbMembers = EntityGuilds::getMembership('player_id = "'.$player->id.'"')->fetchObject();
-			if(!empty($dbMembers)){
-				$status = 'Este personagem já está em alguma Guild.';
-				return self::viewFoundGuild($request,$status);
+			if (!empty($dbMembers)) {
+				$status = 'This character is already in a Guild.';
+				return self::viewFoundGuild($request, $status);
 			}
 		}
-
+		if (empty($postVars['guild_world'])) {
+			$status = 'You need to select a World.';
+			return self::viewFoundGuild($request, $status);
+		}
+		if (!filter_var($postVars['guild_world'], FILTER_VALIDATE_INT)) {
+			$status = 'You have selected an invalid World.';
+			return self::viewFoundGuild($request, $status);
+		}
+		$filter_world = filter_var($postVars['guild_world'], FILTER_SANITIZE_NUMBER_INT);
+		if ($dbPlayerId->world != $filter_world) {
+			$status = 'The character does not match the selected World.';
+			return self::viewFoundGuild($request, $status);
+		}
 		$insertGuild = EntityGuilds::insertGuild([
 			'level' => 1,
 			'name' => $filter_name,
+			'creationdata' => strtotime(date('Y-m-d H:i:s')),
 			'ownerid' => $dbPlayerId->id,
 			'motd' => '',
 			'residence' => '',
@@ -87,24 +112,25 @@ class Guilds extends Base{
 			'points' => 0,
 			'description' => '',
 			'logo_name' => 'default_logo',
+			'world_id' => $filter_world
 		]);
-
 		$dbRanks = EntityGuilds::getRanks('guild_id = "'.$insertGuild.'" AND level = 3')->fetchObject();
-		$insertMember = self::insertMemberInFound($dbPlayerId->id, $insertGuild, $dbRanks->id);
-		$status = 'Guild criada com sucesso.';
-		return self::viewFoundGuild($request,$status);
-
+		self::insertMemberInFound($dbPlayerId->id, $insertGuild, $dbRanks->id);
+		$status = 'Guild created successfully.';
+		return self::viewFoundGuild($request, $status);
 	}
 
 	public static function insertMemberInFound($player_id, $guild_id, $rank_id)
 	{
-		$current_date = strtotime(date('m-d-Y h:i:s'));
+		$websiteInfo = EntityServerConfig::getInfoWebsite()->fetchObject();
+        date_default_timezone_set($websiteInfo->timezone);
+
 		$insertMember = EntityGuilds::insertJoinMember([
 			'player_id' => $player_id,
 			'guild_id' => $guild_id,
 			'rank_id' => $rank_id,
 			'nick' => '',
-			'date' => $current_date,
+			'date' => strtotime(date('Y-m-d H:i:s')),
 		]);
 		return $insertMember;
 	}
@@ -140,21 +166,21 @@ class Guilds extends Base{
 		$postVars = $request->getPostVars();
 		$guild_id = self::convertGuildName($name);
 		if(empty($postVars['description'])){
-			$status = 'Você precisa escrever alguma descrição.';
+			$status = 'You need to write some description.';
 			return self::viewEditDescription($request,$name,$status);
 		}
 
 		$filter_description = filter_var($postVars['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$count_description = strlen($filter_description);
 		if($count_description > 250){
-			$status = 'Tem que ter menos de 250 caracteres.';
+			$status = 'It must be less than 250 characters.';
 			return self::viewEditDescription($request,$name,$status);
 		}
 
 		EntityGuilds::updateGuild('id = "'.$guild_id.'"', [
 			'description' => $filter_description,
 		]);
-		$status = 'Atualizado com sucesso.';
+		$status = 'Updated successfully.';
 		return self::viewEditDescription($request,$name,$status);
 	}
 
@@ -184,14 +210,14 @@ class Guilds extends Base{
 		$idLogged = SessionAdminLogin::idLogged();
 
 		if(empty($postVars['password'])){
-			$status = 'Você precisa digitar seu password.';
+			$status = 'You need to enter your password.';
 			self::viewDisbandGuild($request,$name,$status);
 		}
 
 		$filter_password = filter_var($postVars['password'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$dbAccount = EntityAccount::getAccount('id = "'.$idLogged.'" AND password = "'.$filter_password.'"');
 		if(!empty($dbAccount)){
-			$status = 'Algo deu errado.';
+			$status = 'Something went wrong.';
 			self::viewDisbandGuild($request,$name,$status);
 		}
 
@@ -225,11 +251,11 @@ class Guilds extends Base{
 		$idLogged = SessionAdminLogin::idLogged();
 
 		if(empty($postVars['password'])){
-			$status = 'Você precisa inserir seu password.';
+			$status = 'You need to enter your password.';
 			self::viewResignLeadership($request,$name,$status);
 		}
 		if(empty($postVars['character'])){
-			$status = 'Você precisa selecionar um personagem.';
+			$status = 'You need to select a character.';
 			self::viewResignLeadership($request,$name,$status);
 		}
 
@@ -238,26 +264,26 @@ class Guilds extends Base{
 
 		$dbAccount = EntityAccount::getAccount('id = "'.$idLogged.'" AND password = "'.$filter_password.'"')->fetchObject();
 		if(empty($dbAccount)){
-			$status = 'Algo deu errado.';
+			$status = 'Something went wrong.';
 			self::viewResignLeadership($request,$name,$status);
 		}
 
 		$dbPlayer = EntityPlayer::getPlayer('name = "'.$filter_character.'"')->fetchObject();
 		if(empty($dbPlayer)){
-			$status = 'Personagem não existe.';
+			$status = 'Character does not exist.';
 			self::viewResignLeadership($request,$name,$status);
 		}
 
 		$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 		if(empty($dbMember)){
-			$status = 'Precisa ser membro da Guild.';
+			$status = 'Must be a member of the Guild.';
 			self::viewResignLeadership($request,$name,$status);
 		}
 
 		EntityGuilds::updateGuild('guild_id = "'.$guild_id.'"', [
 			'ownerid' => $dbPlayer->id,
 		]);
-		$status = 'Atualizado com sucesso.';
+		$status = 'Updated successfully.';
 		self::viewResignLeadership($request,$name,$status);
 
 	}
@@ -277,178 +303,6 @@ class Guilds extends Base{
 		return parent::getBase('Guilds', $content, 'guilds');
 	}
 
-	public static function viewGuildWars($request,$name)
-	{
-		$guild_id = self::convertGuildName($name);
-
-		$dbGuildWars = EntityGuilds::getWars('guild1 = "'.$guild_id.'" OR guild2 = "'.$guild_id.'"');
-		while($war = $dbGuildWars->fetchObject()){
-			$arrayWars[] = [
-				'guild1' => $war->guild1,
-				'guild2' => $war->guild2,
-				'name1' => $war->name1,
-				'name2' => $war->name2,
-				'price1' => $war->price1,
-				'price2' => $war->price2,
-				'frags' => $war->frags,
-				'comment' => $war->comment,
-				'status' => $war->status,
-				'started' => $war->started,
-				'ended' => $war->ended,
-			];
-		}
-
-		$content = View::render('pages/guilds/guildwars', [
-			'isleader' => FunctionGuilds::verifyAccountLeader(self::convertGuildName($name)),
-			'guild' => FunctionGuilds::getGuildbyId(self::convertGuildName($name)),
-			'wars' => $arrayWars,
-		]);
-		return parent::getBase('Guilds', $content, 'guilds');
-	}
-
-	public static function viewDeclareWar($request,$name,$status = null)
-	{
-		$isLeader = FunctionGuilds::verifyAccountLeader(self::convertGuildName($name));
-		if($isLeader == false){
-			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
-		}
-
-		$guild_id = self::convertGuildName($name);
-		$dbGuilds = EntityGuilds::getGuilds();
-		while($guild = $dbGuilds->fetchObject()){
-			if($guild->id != $guild_id){
-				$arrayGuilds[] = [
-					'id' => $guild->id,
-					'name' => $guild->name,
-				];
-			}
-		}
-
-		$content = View::render('pages/guilds/declarewar', [
-			'status' => $status,
-			'isleader' => FunctionGuilds::verifyAccountLeader($guild_id),
-			'worlds' => FunctionServer::getWorlds(),
-			'guild' => FunctionGuilds::getGuildbyId(self::convertGuildName($name)),
-			'guilds' => $arrayGuilds ?? null,
-		]);
-		return parent::getBase('Guilds', $content, 'guilds');
-	}
-
-	public static function insertDeclareWar($request,$name)
-	{
-		$postVars = $request->getPostVars();
-		$guild_id = self::convertGuildName($name);
-
-		$isLeader = FunctionGuilds::verifyAccountLeader(self::convertGuildName($name));
-		if($isLeader == false){
-			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
-		}
-
-		if(empty($postVars['war_opponent'])){
-			$status = 'Você precisa selecionar um oponente.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if(empty($postVars['war_duration'])){
-			$status = 'Você precisa colocar duração da war.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if(empty($postVars['war_kills'])){
-			$status = 'Você precisa definir quantas kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if(empty($postVars['price_myguild'])){
-			$status = 'Você precisa definir um valor.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if(empty($postVars['price_opponent'])){
-			$status = 'Você precisa definir um valor.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		
-		$filter_opponent = filter_var($postVars['war_opponent'] ?? null, FILTER_SANITIZE_SPECIAL_CHARS);
-		$filter_duration = filter_var($postVars['war_duration'], FILTER_SANITIZE_NUMBER_INT);
-		$filter_kills = filter_var($postVars['war_kills'], FILTER_SANITIZE_NUMBER_INT);
-		$filter_pricemyguild = filter_var($postVars['price_myguild'], FILTER_SANITIZE_NUMBER_INT);
-		$filter_priceopponent = filter_var($postVars['price_opponent'], FILTER_SANITIZE_NUMBER_INT);
-		$filter_comment = filter_var($postVars['war_comment'] ?? null, FILTER_SANITIZE_SPECIAL_CHARS);
-
-		$dbGuilds = EntityGuilds::getGuilds('name = "'.$filter_opponent.'"')->fetchObject();
-		if(empty($dbGuilds)){
-			$status = 'Oponente inválido.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($dbGuilds->id == $guild_id){
-			$status = 'Oponente inválido.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-
-		$validade_duration = filter_var($filter_duration, FILTER_VALIDATE_INT);
-		if($validade_duration == false){
-			$status = 'Você precisa definir uma duração válida.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_duration > 180){
-			$status = 'Você precisa definir um tempo entre 7 a 180 dias.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_duration < 7){
-			$status = 'Você precisa definir um tempo entre 7 a 180 dias.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-
-		$validade_kills = filter_var($filter_kills, FILTER_VALIDATE_INT);
-		if($validade_kills == false){
-			$status = 'Você precisa definir um valor válido de kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_kills > 1000){
-			$status = 'Você precisa definir um valor válido de kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_kills < 10){
-			$status = 'Você precisa definir um valor válido de kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-
-		$validade_pricemyguild = filter_var($filter_pricemyguild, FILTER_VALIDATE_INT);
-		if($validade_pricemyguild == false){
-			$status = 'Você precisa definir um valor válido de kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_pricemyguild > 2000000000){
-			$status = 'Você precisa definir um valor válido.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-
-		$validade_priceopponent = filter_var($filter_priceopponent, FILTER_VALIDATE_INT);
-		if($validade_priceopponent == false){
-			$status = 'Você precisa definir um valor válido de kills.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-		if($filter_priceopponent > 2000000000){
-			$status = 'Você precisa definir um valor válido.';
-			return self::viewDeclareWar($request,$name,$status);
-		}
-
-		$myGuild = EntityGuilds::getGuilds('id = "'.$guild_id.'"')->fetchObject();
-
-		EntityGuilds::insertWar([
-			'guild1' => $guild_id,
-			'guild2' => $dbGuilds->id,
-			'name1' => $myGuild->name,
-			'name2' => $dbGuilds->name,
-			'price1' => $filter_pricemyguild,
-			'price2' => $filter_priceopponent,
-			'frags' => $filter_kills,
-			'comment' => $filter_comment,
-			'status' => 0,
-			'started' => 0,
-			'ended' => 0,
-		]);
-		$status = 'War declarada com sucesso.';
-		return self::viewDeclareWar($request,$name,$status);
-	}
-
 	public static function insertGuildEvent($request,$name)
 	{
 		$postVars = $request->getPostVars();
@@ -460,12 +314,12 @@ class Guilds extends Base{
 		}
 
 		if(empty($postVars['event_name'])){
-			$status = 'Ensira um nome.';
+			$status = 'Enter a name.';
 			return self::viewCreateGuildEvents($request,$name,$status);
 		}
 
 		if(empty($postVars['event_text'])){
-			$status = 'Você precisa escrever alguma descrição.';
+			$status = 'You need to write some description.';
 			return self::viewCreateGuildEvents($request,$name,$status);
 		}
 
@@ -491,7 +345,7 @@ class Guilds extends Base{
 			'date' => $dateint,
 			'private' => $event_private,
 		]);
-		$status = 'Evento criado com sucesso!';
+		$status = 'Event created successfully!';
 		return self::viewCreateGuildEvents($request,$name,$status);
 
 	}
@@ -537,11 +391,11 @@ class Guilds extends Base{
 		}
 
 		if(empty($postVars['rank_name'])){
-			$status = 'Escreva um nome.';
+			$status = 'Write a name.';
 			return self::viewEditRanks($request,$name,$status);
 		}
 		if(empty($postVars['rank_level'])){
-			$status = 'Selecione um rank.';
+			$status = 'Select a rank.';
 			return self::viewEditRanks($request,$name,$status);
 		}
 
@@ -550,14 +404,14 @@ class Guilds extends Base{
 
 		$dbRanks = EntityGuilds::getRanks('id = "'.$filter_level.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 		if(empty($dbRanks)){
-			$status = 'Selecione um rank válido.';
+			$status = 'Please select a valid rank.';
 			return self::viewEditRanks($request,$name,$status);
 		}
 
 		EntityGuilds::updateRank('id = "'.$filter_level.'" AND guild_id = "'.$guild_id.'"', [
 			'name' => $filter_name,
 		]);
-		$status = 'Atualizado com sucesso.';
+		$status = 'Updated successfully.';
 		return self::viewEditRanks($request,$name,$status);
 	}
 
@@ -583,7 +437,7 @@ class Guilds extends Base{
 		}
 
 		if(empty($postVars['application_player'])){
-			$status = 'Selecione uma aplicação válida.';
+			$status = 'Please select a valid application.';
 			return self::viewApplications($request,$name,$status);
 		}
 		$input_idplayer = filter_var($postVars['application_player'], FILTER_SANITIZE_NUMBER_INT);
@@ -591,7 +445,7 @@ class Guilds extends Base{
 		if(isset($postVars['btn_accept'])){
 			$dbMembers = EntityGuilds::getMembership('player_id = "'.$input_idplayer.'"')->fetchObject();
 			if(!empty($dbMembers)){
-				$status = 'Este personagem é membro de outra Guild.';
+				$status = 'This character is a member of another Guild.';
 				return self::viewApplications($request,$name,$status);
 			}
 
@@ -605,20 +459,20 @@ class Guilds extends Base{
 				'nick' => '',
 				'date' => strtotime(date('m-d-Y h:i:s')),
 			]);
-			$status = 'Atualizado com sucesso.';
+			$status = 'Updated successfully.';
 			return self::viewApplications($request,$name,$status);
 		}
 
 		if(isset($postVars['btn_reject'])){
 			if(empty($postVars['application_player'])){
-				$status = 'Selecione uma aplicação válida.';
+				$status = 'Please select a valid application.';
 				return self::viewApplications($request,$name,$status);
 			}
 			$input_idplayer = filter_var($postVars['application_player'], FILTER_SANITIZE_NUMBER_INT);
 			EntityGuilds::updateApplication('player_id = "'.$input_idplayer.'" AND guild_id = "'.$guild_id.'"', [
 				'status' => 1,
 			]);
-			$status = 'Atualizado com sucesso.';
+			$status = 'Updated successfully.';
 			return self::viewApplications($request,$name,$status);
 		}
 
@@ -710,17 +564,17 @@ class Guilds extends Base{
 		}
 
 		if($action == false){
-			$status = 'Selecione uma ação.';
+			$status = 'Select an action.';
 			return self::viewEditMembers($request,$name,$status);
 		}
 
 		if($filter_action == 'settitle'){
 			if(empty($postVars['character'])){
-				$status = 'Você precisa selecionar um personagem.';
+				$status = 'You need to select a character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 			if(empty($postVars['newtitle'])){
-				$status = 'Escreva um título.';
+				$status = 'Write a title.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 
@@ -729,79 +583,75 @@ class Guilds extends Base{
 
 			$dbPlayers = EntityPlayer::getPlayer('name = "'.$filter_character.'"')->fetchObject();
 			if(empty($dbPlayers)){
-				$status = 'Personagem inválido.';
+				$status = 'Invalid character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 
 			$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayers->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(empty($dbMember)){
-				$status = 'Este personagem não pertence a está guild.';
+				$status = 'This character does not belong to this guild.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 
 			EntityGuilds::updateMember('guild_id = "'.$guild_id.'" AND player_id = "'.$dbPlayers->id.'"', [
 				'nick' => $filter_title,
 			]);
-			$status = 'Atualizado com sucesso.';
+			$status = 'Updated successfully.';
 			return self::viewEditMembers($request,$name,$status);
 		}
 
 		if($filter_action == 'exclude'){
 			if(empty($postVars['character'])){
-				$status = 'Você precisa selecionar um personagem.';
+				$status = 'You need to select a character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 			$filter_character = filter_var($postVars['character'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 			$dbPlayers = EntityPlayer::getPlayer('name = "'.$filter_character.'"')->fetchObject();
 			if(empty($dbPlayers)){
-				$status = 'Personagem inválido.';
+				$status = 'Invalid character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 
 			$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayers->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(empty($dbMember)){
-				$status = 'Este personagem não pertence a está guild.';
+				$status = 'This character does not belong to this guild.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 
 			EntityGuilds::deleteMember('guild_id = "'.$guild_id.'" AND player_id = "'.$dbPlayers->id.'"');
-			$status = 'Atualizado com sucesso.';
+			$status = 'Updated successfully.';
 			return self::viewEditMembers($request,$name,$status);
 		}
 
 		if($filter_action == 'setrank'){
 			if(empty($postVars['character'])){
-				$status = 'Você precisa selecionar um personagem.';
+				$status = 'You need to select a character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
 			if(empty($postVars['newrank'])){
-				$status = 'Você precisa selecionar um rank.';
+				$status = 'You need to select a rank.';
 				return self::viewEditMembers($request,$name,$status);
 			}
-
 			$filter_character = filter_var($postVars['character'], FILTER_SANITIZE_SPECIAL_CHARS);
 			$filter_rank = filter_var($postVars['newrank'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 			$dbPlayers = EntityPlayer::getPlayer('name = "'.$filter_character.'"')->fetchObject();
 			if(empty($dbPlayers)){
-				$status = 'Personagem inválido.';
+				$status = 'Invalid character.';
 				return self::viewEditMembers($request,$name,$status);
 			}
-
 			$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayers->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(empty($dbMember)){
-				$status = 'Este personagem não pertence a está guild.';
+				$status = 'This character does not belong to this guild.';
 				return self::viewEditMembers($request,$name,$status);
 			}
-
 			$dbRanks = EntityGuilds::getRanks('guild_id = "'.$guild_id.'" AND level = "'.$filter_rank.'"')->fetchObject();
 			$newRank = $dbRanks->id;
-
 			EntityGuilds::updateRankOnMember('guild_id = "'.$guild_id.'" AND player_id = "'.$dbPlayers->id.'"', [
 				'rank_id' => $newRank,
 			]);
-			$status = 'Atualizado com sucesso.';
+			$status = 'Updated successfully.';
 			return self::viewEditMembers($request,$name,$status);
 		}
 	}
@@ -812,27 +662,9 @@ class Guilds extends Base{
 		if($isLeader == false){
 			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
 		}
-
-		/*
 		$dbMembers = EntityGuilds::getMembership('guild_id = "'.self::convertGuildName($name).'"');
 		while($member = $dbMembers->fetchObject()){
 			$memberRank = FunctionGuilds::convertRankGuild($member->rank_id);
-			if($memberRank['rank_level'] != 3){
-				$dbPlayers = EntityPlayer::getPlayer('id = "'.$member->player_id.'"');
-				while($player = $dbPlayers->fetchObject()){
-					$arrayMembers[] = [
-						'player_name' => $player->name,
-					];
-				}
-			}
-		}
-		*/
-
-		$dbMembers = EntityGuilds::getMembership('guild_id = "'.self::convertGuildName($name).'"');
-		while($member = $dbMembers->fetchObject()){
-
-			$memberRank = FunctionGuilds::convertRankGuild($member->rank_id);
-
 			$dbPlayers = EntityPlayer::getPlayer('id = "'.$member->player_id.'"');
 			while($player = $dbPlayers->fetchObject()){
 				$arrayMembers[] = [
@@ -841,13 +673,10 @@ class Guilds extends Base{
 					'rank_level' => $memberRank['rank_level'],
 				];
 			}
-
 		}
-
 		$content = View::render('pages/guilds/editmembers', [
 			'status' => $status,
 			'guild' => FunctionGuilds::getGuildbyId(self::convertGuildName($name)),
-			/*'members' => FunctionGuilds::getGuildMembership(self::convertGuildName($name)),*/
 			'members' => $arrayMembers,
 			'ranks' => FunctionGuilds::getRanks(self::convertGuildName($name)),
 		]);
@@ -859,25 +688,21 @@ class Guilds extends Base{
 		$postVars = $request->getPostVars();
 		$idLogged = SessionAdminLogin::idLogged();
 		$guild_id = self::convertGuildName($name);
-
 		if(empty($postVars['character_leave'])){
-			$status = 'Selecione um personagem.';
+			$status = 'Select a character.';
 			return self::viewLeaveGuild($request,$name,$status);
 		}
-
 		$input_character = filter_var($postVars['character_leave'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$dbPlayer = EntityPlayer::getPlayer('account_id = "'.$idLogged.'" AND name = "'.$input_character.'"')->fetchObject();
 		if(empty($dbPlayer)){
-			$status = 'Personagem inválido.';
+			$status = 'Invalid character.';
 			return self::viewLeaveGuild($request,$name,$status);
 		}
-
 		$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 		if(empty($dbMember)){
-			$status = 'Personagem inválido ou pertence a outra Guild.';
+			$status = 'Invalid character or belongs to another Guild.';
 			return self::viewLeaveGuild($request,$name,$status);
 		}
-
 		EntityGuilds::deleteMember('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"');
 		$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
 	}
@@ -886,7 +711,6 @@ class Guilds extends Base{
 	{
 		$idLogged = SessionAdminLogin::idLogged();
 		$guild_id = self::convertGuildName($name);
-
 		$dbPlayersAccount = EntityPlayer::getPlayer('account_id = "'.$idLogged.'"');
 		while($player = $dbPlayersAccount->fetchObject()){
 			$dbMember = EntityGuilds::getMembership('player_id = "'.$player->id.'" AND guild_id = "'.$guild_id.'"');
@@ -900,7 +724,6 @@ class Guilds extends Base{
 				}
 			}
 		}
-
 		$content = View::render('pages/guilds/leaveguild', [
 			'status' => $status,
 			'guild' => FunctionGuilds::getGuildbyId(self::convertGuildName($name)),
@@ -912,77 +735,65 @@ class Guilds extends Base{
 	public static function insertInviteCharacter($request,$name)
 	{
 		$postVars = $request->getPostVars();
-
 		$isLeader = FunctionGuilds::verifyAccountLeader(self::convertGuildName($name));
 		if($isLeader == false){
 			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
 		}
-
 		if(isset($postVars['btn_invite'])){
 			if(empty($postVars['invite_name'])){
-				$status_invite = 'Insira um nome de personagem.';
+				$status_invite = 'Enter a character name.';
 				return self::viewInviteCharacter($request,$name,$status_invite);
 			}
-
 			$input_name = filter_var($postVars['invite_name'], FILTER_SANITIZE_SPECIAL_CHARS);
 			$dbPlayer = EntityPlayer::getPlayer('name = "'.$input_name.'"')->fetchObject();
-
 			if(empty($dbPlayer)){
-				$status_invite = 'Personagem não existe.';
+				$status_invite = 'Character does not exist.';
 				return self::viewInviteCharacter($request,$name,$status_invite);
 			}
 			if($dbPlayer->deletion == 1){
-				$status_invite = 'Personagem está deletado.';
+				$status_invite = 'Character is deleted.';
 				return self::viewInviteCharacter($request,$name,$status_invite);
 			}
-
 			$dbMembers = EntityGuilds::getMembership('player_id = "'.$dbPlayer->id.'"')->fetchObject();
 			if(!empty($dbMembers)){
-				$status_invite = 'Este personagem já participa de uma Guild.';
+				$status_invite = 'This character already participates in a Guild.';
 				return self::viewInviteCharacter($request,$name,$status_invite);
 			}
-
 			$guild_id = self::convertGuildName($name);
 			$dbInvited = EntityGuilds::getInvites('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(!empty($dbInvited)){
-				$status_invite = 'Este personagem já está invitado.';
+				$status_invite = 'This character is already invited.';
 				return self::viewInviteCharacter($request,$name,$status_invite);
 			}
-
 			EntityGuilds::insertInvite([
 				'player_id' => $dbPlayer->id,
 				'guild_id' => $guild_id,
 				'date' => strtotime(date('d-m-Y h:i:s')),
 			]);
-			$status_invite = 'Personagem invitado com sucesso.';
+			$status_invite = 'Successfully invited character.';
 			return self::viewInviteCharacter($request,$name,$status_invite);
 		}
 
 		if(isset($postVars['btn_cancel'])){
 			if(empty($postVars['cancel_name'])){
-				$status_cancelinvite = 'Selecione um personagem.';
+				$status_cancelinvite = 'Select a character.';
 				return self::viewInviteCharacter($request,$name,null,$status_cancelinvite);
 			}
-
 			$input_cancelname = filter_var($postVars['cancel_name'], FILTER_SANITIZE_SPECIAL_CHARS);
 			$dbPlayer = EntityPlayer::getPlayer('name = "'.$input_cancelname.'"')->fetchObject();
-
 			if(empty($dbPlayer)){
-				$status_cancelinvite = 'Personagem não existe.';
+				$status_cancelinvite = 'Character does not exist.';
 				return self::viewInviteCharacter($request,$name,null,$status_cancelinvite);
 			}
-
 			$guild_id = self::convertGuildName($name);
 			$dbInvited = EntityGuilds::getInvites('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(empty($dbInvited)){
-				$status_cancelinvite = 'Este personagem não está invitado.';
+				$status_cancelinvite = 'This character is not invited.';
 				return self::viewInviteCharacter($request,$name,null,$status_cancelinvite);
 			}
-
 			EntityGuilds::deleteInvite('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"');
-			$status_cancelinvite = 'Deletado com sucesso.';
+			$status_cancelinvite = 'Successfully deleted.';
 			return self::viewInviteCharacter($request,$name,null,$status_cancelinvite);
-
 		}
 	}
 
@@ -992,7 +803,6 @@ class Guilds extends Base{
 		if($isLeader == false){
 			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
 		}
-
 		$content = View::render('pages/guilds/invitecharacter', [
 			'status' => $status_invite,
 			'status_cancelinvite' => $status_cancelinvite,
@@ -1008,45 +818,43 @@ class Guilds extends Base{
 		$postVars = $request->getPostVars();
 		$guild_id = self::convertGuildName($name);
 		$idLogged = SessionAdminLogin::idLogged();
-
 		if(isset($postVars['apply_btn'])){
-
 			if(empty($postVars['apply_name'])){
-				$status = 'Você precisa selecionar um personagem.';
+				$status = 'You need to select a character.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 			$input_character = filter_var($postVars['apply_name'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 			$dbPlayer = EntityPlayer::getPlayer('name = "'.$input_character.'" AND account_id = "'.$idLogged.'"')->fetchObject();
 			if(empty($dbPlayer)){
-				$status = 'Este personagem não pertence a conta logada.';
+				$status = 'This character does not belong to the logged in account.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 			if($dbPlayer->deletion == 1){
-				$status = 'Este personagem está deletado.';
+				$status = 'This character is deleted.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
 			$dbApplications = EntityGuilds::getApplications('player_id = "'.$dbPlayer->id.'"')->fetchObject();
 			if(!empty($dbApplications)){
-				$status = 'Este personagem já se aplicou para alguma Guild.';
+				$status = 'This character has already applied to a Guild.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
 			if(empty($postVars['apply_text'])){
-				$status = 'Você precisa adicionar um texto.';
+				$status = 'You need to add some text.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
 			$dbInvitations = EntityGuilds::getInvites('player_id = "'.$dbPlayer->id.'" AND guild_id = "'.$guild_id.'"')->fetchObject();
 			if(!empty($dbInvitations)){
-				$status = 'Este personagem já está invitado para está Guild.';
+				$status = 'This character is already invited to this Guild.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
 			$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayer->id.'"')->fetchObject();
 			if(!empty($dbMember)){
-				$status = 'Este personagem já está em alguma Guild.';
+				$status = 'This character is already in a Guild.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
@@ -1061,14 +869,14 @@ class Guilds extends Base{
 				'status' => 0,
 				'date' => $current_date
 			]);
-			$status = 'Enviado com sucesso!';
+			$status = 'Sent with success!';
 			return self::viewApplyToThisGuild($request,$name,$status);
 		}
 
 		if(isset($postVars['btn_cancelapply'])){
 
 			if(empty($postVars['character_cancelapply'])){
-				$status = 'Selecione uma application.';
+				$status = 'Select an application.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 
@@ -1076,12 +884,12 @@ class Guilds extends Base{
 			$dbApplications = EntityGuilds::getApplications('player_id = "'.$player_id.'" AND account_id = "'.$idLogged.'"');
 
 			if(empty($dbApplications)){
-				$status = 'Personagem errado.';
+				$status = 'Wrong character.';
 				return self::viewApplyToThisGuild($request,$name,$status);
 			}
 			
 			EntityGuilds::deleteMyApplication('player_id = "'.$player_id.'" AND account_id = "'.$idLogged.'"');
-			$status = 'Application cancelada com sucesso.';
+			$status = 'Application successfully canceled.';
 			return self::viewApplyToThisGuild($request,$name,$status);
 		}
 
@@ -1148,25 +956,25 @@ class Guilds extends Base{
 		$idLogged = SessionAdminLogin::idLogged();
 
 		if(empty($postVars['character_join'])){
-			$status = 'Selecione um personagem.';
+			$status = 'Select a character.';
 			return self::viewJoinGuild($request,$name,$status);
 		}
 		$character_name = filter_var($postVars['character_join'], FILTER_SANITIZE_SPECIAL_CHARS);
 		$dbPlayer = EntityPlayer::getPlayer('name = "'.$character_name.'" AND account_id = "'.$idLogged.'"')->fetchObject();
 		if(empty($dbPlayer)){
-			$status = 'Personagem inválido.';
+			$status = 'Invalid character.';
 			return self::viewJoinGuild($request,$name,$status);
 		}
 
 		$dbMember = EntityGuilds::getMembership('player_id = "'.$dbPlayer->id.'"')->fetchObject();
 		if(!empty($dbMember)){
-			$status = 'Este personagem está em alguma Guild.';
+			$status = 'This character is in a Guild.';
 			return self::viewJoinGuild($request,$name,$status);
 		}
 
 		$dbApplication = EntityGuilds::getApplications('player_id = "'.$dbPlayer->id.'"')->fetchObject();
 		if(empty($dbApplication)){
-			$status = 'Este personagem está aplicado pra outra Guild.';
+			$status = 'This character is applied to another Guild.';
 			return self::viewJoinGuild($request,$name,$status);
 		}
 
@@ -1193,11 +1001,9 @@ class Guilds extends Base{
 				];
 			}
 		}
-
 		if(empty($arrayInvitations)){
 			$request->getRouter()->redirect('/community/guilds/'.$name.'/view');
 		}
-
 		$content = View::render('pages/guilds/joinguild', [
 			'status' => $status,
 			'worlds' => FunctionServer::getWorlds(),

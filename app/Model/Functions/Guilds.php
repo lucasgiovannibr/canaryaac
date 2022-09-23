@@ -25,7 +25,7 @@ class Guilds{
 				'level' => (int)$guild->level,
 				'name' => $guild->name,
 				'ownerid' => (int)$guild->ownerid,
-				'creationdata' => date('d M Y H:i', strtotime($guild->creationdata)),
+				'creationdata' => date('d M Y H:i', $guild->creationdata),
 				'motd' => $guild->motd,
 				'residence' => $guild->residence,
 				'balance' => (int)$guild->balance,
@@ -46,7 +46,7 @@ class Guilds{
 			'level' => (int)$guild->level,
 			'name' => $guild->name,
 			'ownerid' => (int)$guild->ownerid,
-			'creationdata' => date('M d Y', strtotime($guild->creationdata)),
+			'creationdata' => date('M d Y', $guild->creationdata),
 			'motd' => $guild->motd,
 			'residence' => $guild->residence,
 			'balance' => (int)$guild->balance,
@@ -149,23 +149,6 @@ class Guilds{
 		return $invites;
 	}
 
-	/*
-	public static function verifyAccountLeader($guild_id)
-	{
-		$verifyLeader = false;
-		if (SessionAdminLogin::isLogged() == true) {
-			$LoggedId = SessionAdminLogin::idLogged();
-			$dbMembers = EntityGuild::getMembership('guild_id = "' . $guild_id . '" AND rank_id = 3');
-			while ($member = $dbMembers->fetchObject()) {
-				$dbPlayer = EntityPlayer::getPlayer('id = "' . $member->player_id . '" AND account_id = "' . $LoggedId . '"')->fetchObject();
-				if ($dbPlayer == true) {
-					$verifyLeader = true;
-				}
-			}
-		}
-		return $verifyLeader;
-	}
-	*/
 	public static function verifyAccountLeader($guild_id)
 	{
 		$verifyLeader = false;

@@ -15,6 +15,20 @@ ALTER TABLE `players` ADD `hidden` int(11) NOT NULL DEFAULT 0;
 
 -- --------------------------------------------------------
 
+ALTER TABLE `guilds` ADD `points` int(11) NOT NULL DEFAULT 0;
+ALTER TABLE `guilds` ADD `description` text NOT NULL;
+ALTER TABLE `guilds` ADD `logo_name` varchar(100) NOT NULL;
+ALTER TABLE `guilds` ADD `world_id` int(11) NOT NULL DEFAULT 0;
+
+-- --------------------------------------------------------
+
+ALTER TABLE `guild_wars` ADD `price1` int(11) NOT NULL DEFAULT 0;
+ALTER TABLE `guild_wars` ADD `price2` int(11) NOT NULL DEFAULT 0;
+ALTER TABLE `guild_wars` ADD `frags` int(11) NOT NULL DEFAULT 0;
+ALTER TABLE `guild_wars` ADD `comment` text NOT NULL;
+
+-- --------------------------------------------------------
+
 ALTER TABLE `server_config` ADD `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp();
 
 -- --------------------------------------------------------
