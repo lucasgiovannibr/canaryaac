@@ -60,18 +60,12 @@ class CreateCharacter extends Base{
 
         $postVars = $request->getPostVars();
         $LoggedId = SessionAdminLogin::idLogged();
-        
+
         if(empty($postVars['name'])){
-            return self::viewCreateCharacter($request, '');
-        }
-        if(empty($postVars['sex'])){
-            return self::viewCreateCharacter($request, '');
-        }
-        if(empty($postVars['vocation'])){
-            return self::viewCreateCharacter($request, '');
+            return self::viewCreateCharacter($request, 'Set a name for the character.');
         }
         if(empty($postVars['world'])){
-            return self::viewCreateCharacter($request, '');
+            return self::viewCreateCharacter($request, 'Select a World.');
         }
         
         $character_name = filter_var($postVars['name'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -93,7 +87,7 @@ class CreateCharacter extends Base{
         }
 
         if($character_sex > 1){
-            return self::viewCreateCharacter($request, '');
+            return self::viewCreateCharacter($request, 'Please select a valid gender.');
         }
         
         $activeVocations = EntityServerConfig::getInfoWebsite()->fetchObject();
@@ -107,7 +101,7 @@ class CreateCharacter extends Base{
         }
         $selectWorlds = EntityWorlds::getWorlds('id = "'.$character_world.'"')->fetchObject();
         if($selectWorlds == false){
-            return self::viewCreateCharacter($request, '');
+            return self::viewCreateCharacter($request, 'Invalid world.');
         }
         if(empty($character_tutorial)){
             $character_tutorial = 0;
