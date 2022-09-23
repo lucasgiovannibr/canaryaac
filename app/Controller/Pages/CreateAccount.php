@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * CreateAccount Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -15,8 +15,7 @@ use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Functions\Server as FunctionServer;
 use \App\Utils\View;
-use App\Controller\Admin\Alert;
-use App\Model\Functions\FunMailer;
+use App\Model\Functions\Player as FunctionsPlayer;
 
 class CreateAccount extends Base{
 
@@ -27,10 +26,8 @@ class CreateAccount extends Base{
         return $active;
     }
 
-    public static function getCreateAccount($request, $errorMessage = null)
+    public static function getCreateAccount($request, $status = null)
     {
-        $status = !is_null($errorMessage) ? Alert::getError($errorMessage) : '';
-
         $content = View::render('pages/account/createaccount', [
             'status' => $status,
             'worlds' => FunctionServer::getWorlds(),
@@ -81,15 +78,6 @@ class CreateAccount extends Base{
         if($verifyPlayerName == true){
             return self::getCreateAccount($request, 'This character name is already being used.');
         }
-        $filter_name = preg_replace('/[^0-9]/', '', $filter_name); // remove [. , /]
-        $invalid_name = [
-            'admin', 'adm', 'god', 'gm'
-        ];
-        foreach($invalid_name as $name){
-            if($name == $filter_name){
-                return self::getCreateAccount($request, 'Invalid name.');
-            }
-        }
 
         $filter_sex = filter_var($character_sex, FILTER_SANITIZE_SPECIAL_CHARS);
         if($filter_sex > 1){
@@ -116,10 +104,6 @@ class CreateAccount extends Base{
         if($account_agreeagreements != 'true'){
             return self::getCreateAccount($request, 'You need to read and accept the rules.');
         }
-
-        $email_active = false;
-        $html = '<div style="text-align: center;"><img src="'.URL.'/resources/images/logo.png"><br><h1>Conta criada!</h1><br><br><b>Email:</b> '. $filter_email .'<br><b>Password:</b> **********<br></div>';
-        FunMailer::envMailFuncWebsite($filter_email, 'Conta criada!', '', $html);
 
         $account = [
             'name' => '',
@@ -168,9 +152,16 @@ class CreateAccount extends Base{
         ];
         EntityCreateAccount::createCharacter($character);
 
+        $confirmCharacter = [
+            'name' => $filter_name,
+            'vocation' => FunctionsPlayer::convertVocation($playerSample->vocation),
+            'sex' => FunctionsPlayer::convertSex($filter_sex),
+            'world' => FunctionServer::getWorldById($filter_world),
+        ];
+
         $content = View::render('pages/account/createaccount_confirm', [
             'account' => $account,
-            'character' => $character,
+            'character' => $confirmCharacter,
         ]);
         return parent::getBase('Create Account', $content, 'createaccount');
     }

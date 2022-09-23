@@ -1,6 +1,7 @@
 
 ALTER TABLE `accounts` ADD `page_access` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `accounts` MODIFY COLUMN `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE `accounts` DROP INDEX `accounts_unique`;
 
 INSERT INTO `accounts` (`id`, `name`, `password`, `email`, `page_access`, `premdays`, `lastday`, `type`, `coins`, `creation`, `recruiter`) VALUES
 (null, '', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'admin@canaryaac.com', 3, 0, 0, 5, 2000, '2022-08-03 08:44:10', 0);
