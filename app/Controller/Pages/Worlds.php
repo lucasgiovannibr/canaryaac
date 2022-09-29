@@ -9,7 +9,6 @@
 
 namespace App\Controller\Pages;
 
-use App\DatabaseManager\Database;
 use App\DatabaseManager\Pagination;
 use App\Model\Functions\Player;
 use App\Model\Entity\Worlds as EntityWorlds;
@@ -24,7 +23,7 @@ class Worlds extends Base{
         $currentWorld = $queryParams['world'] ?? '';
         $world = [];
 
-        $selectWorlds = (new Database('canary_worlds'))->select('name = "'.$currentWorld.'"');
+        $selectWorlds = EntityWorlds::getWorlds('name = "'.$currentWorld.'"');
         while($obWorlds = $selectWorlds->fetchObject()){
             $world = [
                 'id' => $obWorlds->id,

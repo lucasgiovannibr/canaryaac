@@ -1,3 +1,5 @@
+<script type="text/javascript" src="{{JS_PATH}}/create_character.js"></script>
+
 <style>
 	.PWStrengthContainer {
 		position: relative;
@@ -131,6 +133,18 @@
 	}
 </style>
 
+<script type="text/javascript">
+var PreselectServerLocation = "BRA";
+g_FormName = "CreateAccountAndCharacter";
+g_FieldName = "email";
+document.getElementById("ActiveSubmenuItemIcon_createaccount").style.visibility = "visible";
+document.getElementById("ActiveSubmenuItemLabel_createaccount").style.color = "white";
+
+{% for world in worlds %}
+ServerList.push(new Array('{{ world.name }}', '{{ world.location_initial }}', '{{ world.pvp_type_initial }}', '0', '0', '{{ world.creation_int }}', '{{ world.battle_eye_int }}'));
+{% endfor %}
+</script>
+
 <div id="createaccount" class="Box">
 	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
 	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
@@ -203,9 +217,7 @@
 																			</tr>
 																			<tr>
 																				<td></td>
-																				<td>
-																					<span id="email_errormessage" class="FormFieldError"></span>
-																				</td>
+																				<td><span id="email_errormessage" class="FormFieldError" style="display: none;">Please enter your email address!</span></td>
 																			</tr>
 																			<tr>
 																				<td class="LabelV150">
@@ -251,7 +263,7 @@
 																			<tr>
 																				<td></td>
 																				<td>
-																					<span id="password_errormessage" class="FormFieldError"></span>
+																					<span id="password_errormessage" class="FormFieldError" style="display: none;">Please enter the password again!</span>
 																				</td>
 																			</tr>
 																		</tbody>
@@ -269,8 +281,8 @@
 																					<span id="charactername_label">Character Name:</span>
 																				</td>
 																				<td>
-																					<input id="charactername" name="name" class="CreateAccountFormInput" value="" maxlength="29" onblur="SendAjaxCip({DataType: 'Container'}, {Href: 'https://www.tibia.com/websiteservices/check_charactername.php',PostData: 'a_CharacterName='+this.value,Method: 'POST'});">
-																					<div id="charactername_indicator" class="InputIndicator" style="background-image:url({{IMAGE_PATH}}/global/general/nok.gif);"></div>
+																					<input id="charactername" name="name" class="CreateAccountFormInput" value="" maxlength="29">
+																					<div id="charactername_indicator" class="InputIndicatorNotOK"></div>
 																				</td>
 																			</tr>
 																			<tr>
@@ -362,22 +374,64 @@
 																<div class="TableContentContainer">
 																	<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																		<tbody>
+																			<tr id="filterbox_location">
+																				<td class="LabelV150" colspan="4"><span>World Location:</span></td>
+																			</tr>
 																			<tr>
-																				<td class="LabelV150">
-																					<span>World Name:</span>
+																				<td colspan="4">
+																					<table width="100%">
+																						<tbody>
+																							<tr>
+																								<td width="25%" valign="top">
+																									<script>CreateFilterOption('server_location', 'all', 'all')</script>
+																								</td>
+																								<td width="25%" style="width: 25%" valign="top">
+																									<script>CreateFilterOption('server_location', 'EUR', 'Europe');</script>
+																								</td>
+																								<td width="25%" valign="top">
+																									<script>CreateFilterOption('server_location', 'USA', 'North&#160;America');</script>
+																								</td>
+																								<td width="25%" valign="top">
+																									<script>CreateFilterOption('server_location', 'BRA', 'South&#160;America');</script>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
 																				</td>
-																				<td>
-																					<div id="js_world_box">
+																			</tr>
+																			<tr id="filterbox_pvp">
+																				<td class="LabelV150" colspan="4">
+																					<span>World Type:</span>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td colspan="4">
+																					<div>
 																						<table width="100%">
 																							<tbody>
-																								<tr id="world_list_tr" style="text-align:left;">
-																									<td style="border-style: none" align="center">
-																										{% for world in worlds %}
-																											<div style="width: 15em; position: relative; text-align: left;">
-																												<input type="radio" name="world" id="server_{{ world.name }}" value="{{ world.id }}">
-																												<label for="server_{{ world.name }}">{{ world.name }}</label>
-																											</div>
-																										{% endfor %}
+																								<tr>
+																									<td width="33%" align="center" valign="top">
+																										<b><script>CreateFilterOption('server_pvp_type', 'optional', 'Optional PvP')</script></b>
+																										Only if both sides agree, characters can be fought<br /><br />
+																									</td>
+																									<td width="33%" align="center" valign="top">
+																										<b><script>CreateFilterOption('server_pvp_type', 'open', 'Open PvP')</script></b>
+																										Killing other characters is possible, but restricted<br /><br />
+																									</td>
+																									<td width="33%" align="center" valign="top">
+																										<b><script>CreateFilterOption('server_pvp_type', 'hardcore', 'Hardcore PvP')</script></b>
+																										Killing other characters is not restricted at all<br /><br />
+																									</td>
+																								</tr>
+																								<tr>
+																									<td width="33%" align="center" valign="top" style="border:0px;"></td>
+																									<td width="33%" align="center" valign="top">
+																										<b><script>CreateFilterOption('server_pvp_type', 'retro', 'Retro Open PvP')</script></b>
+																										Killing other characters is possible, but restricted (old PvP rules)<br /><br />
+																									</td>
+																									<td width="33%" align="center" valign="top">
+																										<b><script>CreateFilterOption('server_pvp_type', 'retrohardcore', 'Retro Hardcore PvP')</script></b>
+																										Killing other characters is not restricted at all (old PvP rules)<br /><br />
 																									</td>
 																								</tr>
 																							</tbody>
@@ -385,6 +439,62 @@
 																					</div>
 																				</td>
 																			</tr>
+																			<tr>
+																				<td class="LabelV150">
+																					<span>World Name:</span>
+																				</td>
+																				<td>
+																					<div id="js_world_box" style="display: none">
+																						<table width="100%">
+																							<tbody>
+																								<tr id="world_list_tr" style="text-align:left;">
+																									<td style="border-style: none" align="center">
+																										{% for world in worlds %}
+																										<div style="width: 15em; position: relative; text-align: left;">
+																											<input type="radio" name="world" id="server_{{ world.name }}" value="{{ world.id }}">
+																											<label for="server_{{ world.name }}">{{ world.name }}</label>
+																										</div>
+																										{% endfor %}
+																									</td>
+																								</tr>
+																							</tbody>
+																						</table>
+																						<span onclick="ToggleVisibility('js_world_box', 'suggested_world_box'); UpdateServerList(); ">
+																							<small>[<a style="cursor:pointer;">suggest game world</a>]</small>
+																						</span>
+																					</div>
+																					<div id="suggested_world_box">Suggested world:
+																						<span id="suggested_world_div"></span><br><span onclick="ToggleVisibility('suggested_world_box', 'js_world_box'); ">
+																							<small>[<a style="cursor:pointer;">change game world</a>
+																							</small>
+																						</span>
+																						<small>]</small>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td colspan="2">
+																					<table id="js_world_box" width="100%">
+																						<tbody>
+																							<tr id="world_list_tr"></tr>
+																						</tbody>
+																					</table>
+																					<table id="plain_world_box" width="100%" style="display: none;">
+																						<tbody>
+																							<tr>
+																								<td>
+																									{% for world in worlds %}
+																									<label for="server_static_{{ world.name }}">
+																										<input id="server_static_{{ world.name }}" type="radio" name="world" value="{{ world.id }}">{{ world.name }} (PVP Type: {{ world.pvp_type_initial }}, Location: {{ world.location }})
+																									</label><br>
+																									{% endfor %}
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																			<script type="text/javascript">PreselectWorld = ""; InitializeCharacterCreator(0, "all", '{{ preselect_world_pvptype }}')</script>
 																		</tbody>
 																	</table>
 																</div>
@@ -441,153 +551,28 @@
 		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
 	</div>
 </div>
-
-<script type="text/javascript" src="{{JS_PATH}}/create_character.js"></script>
-
+<script type="text/javascript" src="{{JS_PATH}}/canary_create_character.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <script>
-	let timeout;
-let password = document.getElementById('password1')
-let password2 = document.getElementById('password2')
-let strengthBadge = document.getElementById('StrengthDisp')
-let PWRule01 = document.getElementById('PWRule01')
-let PWRule02 = document.getElementById('PWRule02')
-let PWRule03 = document.getElementById('PWRule03')
-let PWRule04 = document.getElementById('PWRule04')
-let PWRule05 = document.getElementById('PWRule05')
-let PWRule06 = document.getElementById('PWRule06')
-let PWStrengthIndicator = document.getElementById('PWStrengthIndicator')
-let password1_indicator = document.getElementById('password1_indicator')
-let email = document.getElementById('email')
-let email_indicator = document.getElementById('email_indicator')
-let email_regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-let passwordConst = document.getElementById('password1')
-let invalida = /[ \f\n\r\t\v\u00A0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u2028\u2029\u202f\u205f\u3000]/;
-let especial = /[@!#$%^&*()/\\]/;
-let minuscula = /[a-z]/;
-let maiuscula = /[A-Z]/;
-let numberPassword = /[0-9]/;
-let indicator = 0;
-let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
-let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
-function StrengthChecker(PasswordParameter) {
-	if (password.value.length >= 10) {
-		PWRule01.classList.remove('InputIndicatorNotOK')
-		PWRule01.classList.add('InputIndicatorOK')
-		indicator++;
-	} else {
-		PWRule01.classList.remove('InputIndicatorOK')
-		PWRule01.classList.add('InputIndicatorNotOK')
-	}
-
-	if (invalida.test(PasswordParameter)) {
-		PWRule02.classList.remove('InputIndicatorOK')
-		PWRule02.classList.add('InputIndicatorNotOK')
-	} else {
-		PWRule02.classList.remove('InputIndicatorNotOK')
-		PWRule02.classList.add('InputIndicatorOK')
-		indicator++;
-	}
-
-	if (especial.test(PasswordParameter)) {
-		PWRule03.classList.remove('InputIndicatorNotOK')
-		PWRule03.classList.add('InputIndicatorOK')
-		indicator++;
-	} else {
-		PWRule03.classList.remove('InputIndicatorOK')
-		PWRule03.classList.add('InputIndicatorNotOK')
-	}
-
-	if (minuscula.test(PasswordParameter)) {
-		PWRule04.classList.remove('InputIndicatorNotOK')
-		PWRule04.classList.add('InputIndicatorOK')
-		indicator++;
-	} else {
-		PWRule04.classList.remove('InputIndicatorOK')
-		PWRule04.classList.add('InputIndicatorNotOK')
-	}
-
-	if (maiuscula.test(PasswordParameter)) {
-		PWRule05.classList.remove('InputIndicatorNotOK')
-		PWRule05.classList.add('InputIndicatorOK')
-		indicator++;
-	} else {
-		PWRule05.classList.remove('InputIndicatorOK')
-		PWRule05.classList.add('InputIndicatorNotOK')
-	}
-
-	if (numberPassword.test(PasswordParameter)) {
-		PWRule06.classList.remove('InputIndicatorNotOK')
-		PWRule06.classList.add('InputIndicatorOK')
-		indicator++;
-	} else {
-		PWRule06.classList.remove('InputIndicatorOK')
-		PWRule06.classList.add('InputIndicatorNotOK')
-	}
-
-	if (password.value.length > 0) {
-		PWStrengthIndicator.textContent = 'very weak';
-		PWStrengthIndicator.classList.remove('PWStrengthLevel0')
-		PWStrengthIndicator.classList.add('PWStrengthLevel1')
-	}
-
-	if (password.value.length > 5) {
-	PWStrengthIndicator.textContent = 'weak';
-	PWStrengthIndicator.classList.remove('PWStrengthLevel1')
-	PWStrengthIndicator.classList.add('PWStrengthLevel2')
-	}
-
-	if (password.value.length >= 10 && ! invalida.test(PasswordParameter) && especial.test(PasswordParameter) && minuscula.test(PasswordParameter) && maiuscula.test(PasswordParameter) && numberPassword.test(PasswordParameter)) {
-		PWStrengthIndicator.textContent = 'medium';
-		PWStrengthIndicator.classList.remove('PWStrengthLevel2')
-		PWStrengthIndicator.classList.add('PWStrengthLevel3')
-	}
-
-	if (password.value.length >= 12 && ! invalida.test(PasswordParameter) && especial.test(PasswordParameter) && minuscula.test(PasswordParameter) && maiuscula.test(PasswordParameter) && numberPassword.test(PasswordParameter)) {
-		PWStrengthIndicator.textContent = 'strong';
-		PWStrengthIndicator.classList.remove('PWStrengthLevel3')
-		PWStrengthIndicator.classList.add('PWStrengthLevel4')
-		password1_indicator.classList.remove('InputIndicatorNotOK')
-		password1_indicator.classList.add('InputIndicatorOK')
-	}
-}
-password.addEventListener("input", () => {
-	password1_indicator.classList.remove('InputIndicatorOK')
-	password1_indicator.classList.add('InputIndicatorNotOK')
-
-	strengthBadge.style.display = 'block'
-	StrengthChecker(password.value)
-	if (password.value.length !== 0) {
-		strengthBadge.style.display != 'block'
-	} else {
-		strengthBadge.style.display = 'none'
-	}
-});
-
-function PasswordTwo(one, two) {
-	if (password2.value == password.value) {
-		password2_indicator.classList.remove('InputIndicatorNotOK')
-		password2_indicator.classList.add('InputIndicatorOK')
-	}
-}
-password2.addEventListener("input", () => {
-	password2_indicator.classList.remove('InputIndicatorOK')
-	password2_indicator.classList.add('InputIndicatorNotOK')
-	PasswordTwo(password.value, password1.value)
-});
-
-function isEmail(EmailParameter) {
-	if (email_regex.test(EmailParameter)) {
-		email_indicator.classList.remove('InputIndicatorNotOK')
-		email_indicator.classList.add('InputIndicatorOK')
-	} else {
-		email_indicator.classList.remove('InputIndicatorOK')
-		email_indicator.classList.add('InputIndicatorNotOK')
-	}
-}
-email.addEventListener("input", () => {
-	email_indicator.classList.remove('InputIndicatorOK')
-	email_indicator.classList.add('InputIndicatorNotOK')
-	isEmail(email.value)
+$(document).ready(function () {
+    $(document).on('keyup', "#charactername", function (e) {
+		e.preventDefault();
+		$.ajax({
+			url: "{{ URL }}/api/v1/check_charactername",
+			type: "POST",
+			data: $("#CreateAccountAndCharacterForm").serialize(),
+			dataType:"json",
+			success: function(data){
+				$("#charactername_indicator").removeClass('InputIndicatorNotOK');
+				$("#charactername_indicator").addClass('InputIndicatorOK');
+				$("#charactername_label").css('color', '')
+			},
+			error: function(data){
+				$("#charactername_indicator").removeClass('InputIndicatorOK');
+				$("#charactername_indicator").addClass('InputIndicatorNotOK');
+				$("#charactername_label").css('color', 'red')
+			}
+		});
+	});
 });
 </script>

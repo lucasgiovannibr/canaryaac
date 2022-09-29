@@ -1,23 +1,24 @@
 <?php
 /**
- * Validator class
+ * Login Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
-use App\Model\Entity\Login as EntityLogin;
 use App\Utils\View;
 use App\Http\Request;
+use App\Controller\Pages\Base;
+use App\Model\Entity\Login as EntityLogin;
 use App\Session\Admin\Login as SessionAdminLogin;
 use App\Controller\Admin\Alert;
 use App\Model\Entity\Account;
 use PragmaRX\Google2FA\Google2FA;
 
-class AccountLogin extends Base{
+class Login extends Base{
 
     /**
      * Method responsible for returning the login page rendering

@@ -27,13 +27,23 @@
 							<h4 class="card-title">Import XML Houses</h4>
 						</div>
 							<div class="row">
+							<form action="{{URL}}/admin/houses/import" method="post" class="form form-vertical">
 								<div class="col-12">
-									<form action="{{URL}}/admin/houses/import" method="post" class="form form-vertical">
 										<input type="text" name="localxml" class="form-control mb-1" placeholder="server/data/world/house.xml">
-										<button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Import</button>
-									</form>
+								</div>
+								<div class="col-12">
+									<label class="form-label" for="house_world">World</label>
+									<select class="form-select" name="house_world" id="house_world">
+										{% for world in worlds %}
+										<option value="{{ world.id }}">{{ world.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="col-12">
+									<button type="submit" class="btn btn-primary mt-1 waves-effect waves-float waves-light">Import</button>
 								</div>
 							</div>
+							</form>
 					</div>
 				</div>
 			</div>
@@ -90,6 +100,7 @@
 									<th>Name</th>
 									<th>Rent</th>
 									<th>Town</th>
+									<th>World</th>
 									<th>Size</th>
 									<th>Beds</th>
 									<th>Action</th>
@@ -102,8 +113,8 @@
 										<td>{{ house.name }} {% if house.owner != 0 %}<span class="badge rounded-pill badge-light-danger" data-i18n="Rented">Rented</span>{% endif %} {% if house.guildid == 1 %}<span class="badge rounded-pill badge-light-warning" data-i18n="Guild House">Guild House</span>{% endif %}</td>
 										<td>{{ house.rent }}</td>
 										<td>{{ house.town_id }}</td>
-										<td>{{ house.size }}
-											sqm</td>
+										<td>{{ house.world.name }}</td>
+										<td>{{ house.size }} sqm</td>
 										<td>{{ house.beds }}</td>
 										<td>
 										<form action="{{URL}}/admin/houses/delete" method="post" class="form form-vertical">

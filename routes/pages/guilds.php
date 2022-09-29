@@ -3,11 +3,15 @@
 use App\Http\Response;
 
 use App\Controller\Pages\Guilds;
-use App\Controller\Pages\GuildWar;
 
 $obRouter->get('/community/guilds', [
-    function(){
-        return new Response(200, Guilds::viewAllGuilds());
+    function($request){
+        return new Response(200, Guilds\ViewGuild::viewAllGuilds($request));
+    }
+]);
+$obRouter->get('/community/guilds/{name}/view', [
+    function($request,$name){
+        return new Response(200, Guilds\ViewGuild::viewGuild($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/found', [
@@ -15,7 +19,7 @@ $obRouter->get('/community/guilds/found', [
         'required-login'
     ],
     function($request){
-        return new Response(200, Guilds::viewFoundGuild($request));
+        return new Response(200, Guilds\Found::viewFoundGuild($request));
     }
 ]);
 $obRouter->post('/community/guilds/found', [
@@ -23,17 +27,12 @@ $obRouter->post('/community/guilds/found', [
         'required-login'
     ],
     function($request){
-        return new Response(200, Guilds::insertFoundGuild($request));
-    }
-]);
-$obRouter->get('/community/guilds/{name}/view', [
-    function($request,$name){
-        return new Response(200, Guilds::viewGuild($request,$name));
+        return new Response(200, Guilds\Found::insertFoundGuild($request));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildwars', [
     function($request,$name){
-        return new Response(200, GuildWar::viewGuildWars($request,$name));
+        return new Response(200, Guilds\DeclareWar::viewGuildWars($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/declarewar', [
@@ -41,7 +40,7 @@ $obRouter->get('/community/guilds/{name}/declarewar', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, GuildWar::viewDeclareWar($request,$name));
+        return new Response(200, Guilds\DeclareWar::viewDeclareWar($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/declarewar', [
@@ -49,7 +48,7 @@ $obRouter->post('/community/guilds/{name}/declarewar', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, GuildWar::insertDeclareWar($request,$name));
+        return new Response(200, Guilds\DeclareWar::insertDeclareWar($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildwars/{war}/accept', [
@@ -57,7 +56,7 @@ $obRouter->get('/community/guilds/{name}/guildwars/{war}/accept', [
         'required-login'
     ],
     function($request, $name, $war){
-        return new Response(200, GuildWar::acceptWar($request, $name, $war));
+        return new Response(200, Guilds\DeclareWar::acceptWar($request, $name, $war));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildwars/{warid}/reject', [
@@ -65,7 +64,7 @@ $obRouter->get('/community/guilds/{name}/guildwars/{warid}/reject', [
         'required-login'
     ],
     function($request, $name, $warid){
-        return new Response(200, GuildWar::rejectWar($request, $name, $warid));
+        return new Response(200, Guilds\DeclareWar::rejectWar($request, $name, $warid));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildwars/{warid}/cancel', [
@@ -73,12 +72,12 @@ $obRouter->get('/community/guilds/{name}/guildwars/{warid}/cancel', [
         'required-login'
     ],
     function($request, $name, $warid){
-        return new Response(200, GuildWar::cancelWar($request, $name, $warid));
+        return new Response(200, Guilds\DeclareWar::cancelWar($request, $name, $warid));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildevents', [
     function($request,$name){
-        return new Response(200, Guilds::viewGuildEvents($request,$name));
+        return new Response(200, Guilds\GuildEvent::viewGuildEvents($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/guildevents/create', [
@@ -86,7 +85,7 @@ $obRouter->get('/community/guilds/{name}/guildevents/create', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewCreateGuildEvents($request,$name));
+        return new Response(200, Guilds\GuildEvent::viewCreateGuildEvents($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/guildevents/create', [
@@ -94,7 +93,7 @@ $obRouter->post('/community/guilds/{name}/guildevents/create', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::insertGuildEvent($request,$name));
+        return new Response(200, Guilds\GuildEvent::insertGuildEvent($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/applications', [
@@ -102,7 +101,7 @@ $obRouter->get('/community/guilds/{name}/applications', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewApplications($request,$name));
+        return new Response(200, Guilds\Applications::viewApplications($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/applications', [
@@ -110,7 +109,7 @@ $obRouter->post('/community/guilds/{name}/applications', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::actionApplications($request,$name));
+        return new Response(200, Guilds\Applications::actionApplications($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/activitylog', [
@@ -118,7 +117,7 @@ $obRouter->get('/community/guilds/{name}/activitylog', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewActivityLog($request,$name));
+        return new Response(200, Guilds\ActivityLog::viewActivityLog($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/editdescription', [
@@ -126,7 +125,7 @@ $obRouter->get('/community/guilds/{name}/editdescription', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewEditDescription($request,$name));
+        return new Response(200, Guilds\EditDescription::viewEditDescription($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/editdescription', [
@@ -134,7 +133,7 @@ $obRouter->post('/community/guilds/{name}/editdescription', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::updateEditDescription($request,$name));
+        return new Response(200, Guilds\EditDescription::updateEditDescription($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/disbandguild', [
@@ -142,7 +141,7 @@ $obRouter->get('/community/guilds/{name}/disbandguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewDisbandGuild($request,$name));
+        return new Response(200, Guilds\DisbandGuild::viewDisbandGuild($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/disbandguild', [
@@ -150,7 +149,7 @@ $obRouter->post('/community/guilds/{name}/disbandguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::deleteDisbandGuild($request,$name));
+        return new Response(200, Guilds\DisbandGuild::deleteDisbandGuild($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/resignleadership', [
@@ -158,7 +157,7 @@ $obRouter->get('/community/guilds/{name}/resignleadership', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewResignLeadership($request,$name));
+        return new Response(200, Guilds\ResignLeadership::viewResignLeadership($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/resignleadership', [
@@ -166,7 +165,7 @@ $obRouter->post('/community/guilds/{name}/resignleadership', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::updateResignLeadership($request,$name));
+        return new Response(200, Guilds\ResignLeadership::updateResignLeadership($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/editranks', [
@@ -174,7 +173,7 @@ $obRouter->get('/community/guilds/{name}/editranks', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewEditRanks($request,$name));
+        return new Response(200, Guilds\EditRanks::viewEditRanks($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/editranks', [
@@ -182,7 +181,7 @@ $obRouter->post('/community/guilds/{name}/editranks', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::updateEditRanks($request,$name));
+        return new Response(200, Guilds\EditRanks::updateEditRanks($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/editmembers', [
@@ -190,7 +189,7 @@ $obRouter->get('/community/guilds/{name}/editmembers', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewEditMembers($request,$name));
+        return new Response(200, Guilds\EditMembers::viewEditMembers($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/editmembers', [
@@ -198,7 +197,7 @@ $obRouter->post('/community/guilds/{name}/editmembers', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::updateEditMembers($request,$name));
+        return new Response(200, Guilds\EditMembers::updateEditMembers($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/leaveguild', [
@@ -206,7 +205,7 @@ $obRouter->get('/community/guilds/{name}/leaveguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewLeaveGuild($request,$name));
+        return new Response(200, Guilds\LeaveGuild::viewLeaveGuild($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/leaveguild', [
@@ -214,7 +213,7 @@ $obRouter->post('/community/guilds/{name}/leaveguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::deleteLeaveGuild($request,$name));
+        return new Response(200, Guilds\LeaveGuild::deleteLeaveGuild($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/joinguild', [
@@ -222,7 +221,7 @@ $obRouter->get('/community/guilds/{name}/joinguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewJoinGuild($request,$name));
+        return new Response(200, Guilds\JoinGuild::viewJoinGuild($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/joinguild', [
@@ -230,7 +229,7 @@ $obRouter->post('/community/guilds/{name}/joinguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::insertJoinGuild($request,$name));
+        return new Response(200, Guilds\JoinGuild::insertJoinGuild($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/invitecharacter', [
@@ -238,7 +237,7 @@ $obRouter->get('/community/guilds/{name}/invitecharacter', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewInviteCharacter($request,$name));
+        return new Response(200, Guilds\InviteCharacter::viewInviteCharacter($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/invitecharacter', [
@@ -246,7 +245,7 @@ $obRouter->post('/community/guilds/{name}/invitecharacter', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::insertInviteCharacter($request,$name));
+        return new Response(200, Guilds\InviteCharacter::insertInviteCharacter($request,$name));
     }
 ]);
 $obRouter->get('/community/guilds/{name}/applytothisguild', [
@@ -254,7 +253,7 @@ $obRouter->get('/community/guilds/{name}/applytothisguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::viewApplyToThisGuild($request,$name));
+        return new Response(200, Guilds\ApplyToThisGuild::viewApplyToThisGuild($request,$name));
     }
 ]);
 $obRouter->post('/community/guilds/{name}/applytothisguild', [
@@ -262,6 +261,6 @@ $obRouter->post('/community/guilds/{name}/applytothisguild', [
         'required-login'
     ],
     function($request,$name){
-        return new Response(200, Guilds::insertApplyToThisGuild($request,$name));
+        return new Response(200, Guilds\ApplyToThisGuild::insertApplyToThisGuild($request,$name));
     }
 ]);

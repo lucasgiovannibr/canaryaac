@@ -9,37 +9,44 @@
 				<table border="0" cellspacing="1" cellpadding="4">
 					<tbody>
 						<tr>
-							<td valign="top"><img src="{{IMAGE_PATH}}/houses/house_40105.png" width="150" height="150"></td>
+							<td valign="top"><img src="{{IMAGE_PATH}}/houses/house_{{ house.house_id }}.png" width="150" height="150"></td>
 							<td valign="top">
-								<b>Underwood 5</b><br>This house can have up to 3 beds.
+								<b>{{ house.name }}</b><br>This house can have up to {{ house.beds }} beds.
 								<br><br>The house has a size of
-								<b>26 square meters</b>. The monthly rent is
-								<b>80k gold</b>
+								<b>{{ house.size }} square meters</b>. The monthly rent is
+								<b>{{ house.rent }} gold</b>
 								and will be debited to the bank account on
-								<b>Antica</b>.<br><br>The house has been rented by
-								<a href="{{URL}}/community/characters/NOME">Suhenux</a>. She has paid the rent until
-								<b>Aug&nbsp;21&nbsp;2022, 10:05:18&nbsp;CEST</b>.</td>
+								<b>{{ house.world.name }}</b>.<br><br>
+								{% if house.owner == 0 %}
+									{% if house.last_bid == 0 %}
+									The house is currently being auctioned. No bid has been submitted so far.<br>
+									{% endif %}
+									{% if house.last_bid != 0 %}
+									The house is currently being auctioned. The auction will end at <b>{{ house.bid_date }}</b>.
+									The highest bid so far is <b>{{ house.last_bid }} gold</b> and has been submitted by <a href="{{URL}}/community/characters/{{ house.highest_bidder_name }}">{{ house.highest_bidder_name }}</a>.
+									{% endif %}
+								{% else %}
+									The house has been rented by
+									<a href="{{URL}}/community/characters/{{ house.owner_name }}">{{ house.owner_name }}</a>. She has paid the rent until
+									<b>{{ house.paid }}</b>.
+								{% endif %}
+							</td>
 						</tr>
 					</tbody>
 				</table>
 				<br>
 				<div class="SubmitButtonRow" style="display: flex; justify-content: center;">
+					{% if house.owner == 0 %}
+						<div class="LeftButton" style="width: 25%;">
+							<a href="{{URL}}/community/houses/{{ house.house_id }}/bid" style="padding:0px;margin:0px;">
+							<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+									<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Bid"></div>
+								</div>
+							</a>
+						</div>
+					{% endif %}
 					<div class="LeftButton" style="width: 25%;">
-						<form action="{{URL}}/community/houses/NOME/moveout" method="post" style="padding:0px;margin:0px;">
-						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
-								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Move Out"></div>
-							</div>
-						</form>
-					</div>
-					<div class="LeftButton" style="width: 25%;">
-						<form action="{{URL}}/community/houses/NOME/transfer" method="post" style="padding:0px;margin:0px;">
-						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
-								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Transfer"></div>
-							</div>
-						</form>
-					</div>
-					<div class="LeftButton" style="width: 25%;">
-						<a href="{{URL}}/community/houses" style="padding:0px;margin:0px;">
+						<a href="{{URL}}/community/houses?world={{ house.world.name }}&town={{ house.town_id }}&state=all&type=houses&order=name" style="padding:0px;margin:0px;">
 						<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
 								<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Back"></div>
 							</div>

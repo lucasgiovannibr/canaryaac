@@ -1,22 +1,20 @@
 <?php
 /**
- * Validator class
+ * Registration Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
-use App\Model\Entity\Player as EntityPlayer;
-use App\Model\Functions\Player;
-use App\Model\Entity\Badges as EntityBadges;
-use App\Model\Entity\Account as EntityAccount;
 use \App\Utils\View;
+use App\Controller\Pages\Base;
+use App\Model\Entity\Account as EntityAccount;
 use App\Session\Admin\Login as SessionAdminLogin;
 
-class AccountRegistration extends Base{
+class Registration extends Base{
 
     public static function generateKey()
     {

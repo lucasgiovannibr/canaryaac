@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Publications Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -9,12 +9,10 @@
 
 namespace App\Controller\Admin;
 
-use App\Model\Entity\Account;
 use App\Model\Entity\News as EntityNews;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Utils\View;
 use App\Model\Functions\News;
-use App\Model\Functions\Player;
 use App\Session\Admin\Login as SessionAdminLogin;
 
 class Publications extends Base
@@ -43,12 +41,11 @@ class Publications extends Base
 
         $filter_title = filter_var($postVars['news_title'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_category = filter_var($postVars['news_category'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $filter_body = filter_var($postVars['news_body'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_player = filter_var($postVars['news_player'], FILTER_SANITIZE_NUMBER_INT);
 
         EntityNews::insertNews([
             'title' => $filter_title,
-            'body' => $filter_body,
+            'body' => $postVars['news_body'],
             'category' => $filter_category,
             'type' => 1,
             'player_id' => $filter_player,
@@ -72,7 +69,7 @@ class Publications extends Base
             'status' => $status,
             'players' => $players,
         ]);
-        return parent::getPanel('Publications', $content, 'news_publications');
+        return parent::getPanel('Publications', $content, 'publications');
     }
 
     public static function insertNewsticker($request)
@@ -98,12 +95,11 @@ class Publications extends Base
 
         $filter_title = filter_var($postVars['newsticker_title'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_category = filter_var($postVars['newsticker_category'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $filter_body = filter_var($postVars['newsticker_body'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_player = filter_var($postVars['newsticker_author'], FILTER_SANITIZE_NUMBER_INT);
 
         EntityNews::insertNews([
             'title' => $filter_title,
-            'body' => $filter_body,
+            'body' => $postVars['newsticker_body'],
             'category' => $filter_category,
             'type' => 2,
             'player_id' => $filter_player,
@@ -127,7 +123,7 @@ class Publications extends Base
             'status' => $status,
             'players' => $players,
         ]);
-        return parent::getPanel('Publications', $content, 'newsticker_publications');
+        return parent::getPanel('Publications', $content, 'publications');
     }
 
     public static function insertFeaturedArticle($request)
@@ -153,12 +149,11 @@ class Publications extends Base
 
         $filter_title = filter_var($postVars['featuredarticle_title'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_category = filter_var($postVars['featuredarticle_category'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $filter_body = filter_var($postVars['featuredarticle_body'], FILTER_SANITIZE_SPECIAL_CHARS);
         $filter_player = filter_var($postVars['featuredarticle_author'], FILTER_SANITIZE_NUMBER_INT);
 
         EntityNews::insertNews([
             'title' => $filter_title,
-            'body' => $filter_body,
+            'body' => $postVars['featuredarticle_body'],
             'category' => $filter_category,
             'type' => 3,
             'player_id' => $filter_player,
@@ -182,7 +177,7 @@ class Publications extends Base
             'status' => $status,
             'players' => $players,
         ]);
-        return parent::getPanel('Publications', $content, 'featuredarticle_publications');
+        return parent::getPanel('Publications', $content, 'publications');
     }
     
     public static function viewPublications($request)

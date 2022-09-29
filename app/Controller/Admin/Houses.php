@@ -10,20 +10,29 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Model\Entity\Player as EntityPlayer;
-use App\Model\Entity\Guilds as EntityGuild;
 use App\Model\Entity\Houses as EntityHouse;
-use App\Model\Functions\Player;
-use App\Model\Functions\Server;
+use App\Model\Functions\Server as FunctionsServer;
 use App\Controller\Admin\Alert;
 
 class Houses extends Base{
 
     public static function getHousesXml($request)
     {
-        $postVars = $request->getPostVars();;
+        $postVars = $request->getPostVars();
+        if (empty($postVars['localxml'])) {
+            return self::getHouses($request);
+        }
+        if (empty($postVars['house_world'])) {
+            return self::getHouses($request);
+        }
         $localxml = filter_var($postVars['localxml'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $filter_world = filter_var($postVars['house_world'], FILTER_SANITIZE_NUMBER_INT);
         $array = simplexml_load_file($localxml);
+
+        $select_world = FunctionsServer::getWorldById($filter_world);
+        if (empty($select_world)) {
+            return self::getHouses($request);
+        }
 
         foreach($array as $house){
             if($house['guildhall'] == true){
@@ -33,6 +42,7 @@ class Houses extends Base{
             }
             $houses = [
                 'house_id' => $house['houseid'],
+                'world_id' => $select_world['id'],
                 'name' => $house['name'],
                 'rent' => $house['rent'],
                 'town_id' => $house['townid'],
@@ -63,12 +73,14 @@ class Houses extends Base{
             $allHouses[] = [
                 'id' => (int)$obAllHouses->id,
                 'house_id' => $obAllHouses->house_id,
+                'world_id' => $obAllHouses->world_id,
+                'world' => FunctionsServer::getWorldById($obAllHouses->world_id),
                 'owner' => $obAllHouses->owner,
                 'paid' => $obAllHouses->paid,
                 'warnings' => $obAllHouses->warnings,
                 'name' => $obAllHouses->name,
                 'rent' => number_format($obAllHouses->rent, 0, '.', '.'),
-                'town_id' => Server::convertTown($obAllHouses->town_id),
+                'town_id' => FunctionsServer::convertTown($obAllHouses->town_id),
                 'bid' => $obAllHouses->bid,
                 'bid_end' => $obAllHouses->bid_end,
                 'last_bid' => $obAllHouses->last_bid,
@@ -86,6 +98,7 @@ class Houses extends Base{
         $content = View::render('admin/modules/houses/index', [
             'status' => $errorMessage,
             'houses' => self::getAllHouses(),
+            'worlds' => FunctionsServer::getWorlds(),
             'total_houses' => (int)EntityHouse::getHouses(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
             'total_houses_rented' => (int)EntityHouse::getHouses('owner != 0', null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
         ]);

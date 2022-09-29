@@ -1,22 +1,23 @@
 <?php
 /**
- * Validator class
+ * CreateCharacter Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use \App\Utils\View;
+use App\Controller\Pages\Base;
+use App\Model\Functions\Player;
+use App\Model\Functions\Server;
+use App\Session\Admin\Login as SessionAdminLogin;
 use App\Model\Entity\CreateAccount as EntityCreateAccount;
 use App\Model\Entity\Worlds as EntityWorlds;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
-use App\Model\Functions\Player;
-use App\Model\Functions\Server;
-use \App\Utils\View;
-use App\Session\Admin\Login as SessionAdminLogin;
 
 class CreateCharacter extends Base{
 

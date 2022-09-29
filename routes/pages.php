@@ -131,8 +131,24 @@ $obRouter->get('/community/houses', [
         return new Response(200, Houses::getHouses($request));
     }
 ]);
-$obRouter->get('/community/houses/{name}/view', [
-    function($request, $name){
-        return new Response(200, Houses::viewHouse($request, $name));
+$obRouter->get('/community/houses/{house_id}/view', [
+    function($request, $house_id){
+        return new Response(200, Houses::viewHouse($request, $house_id));
+    }
+]);
+$obRouter->get('/community/houses/{house_id}/bid', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $house_id){
+        return new Response(200, Houses::viewBid($request, $house_id));
+    }
+]);
+$obRouter->post('/community/houses/{house_id}/bid', [
+    'middlewares' => [
+        'required-login'
+    ],
+    function($request, $house_id){
+        return new Response(200, Houses::insertBid($request, $house_id));
     }
 ]);

@@ -63,16 +63,25 @@
 																						<nobr>{{ house.name }}</nobr>
 																					</td>
 																					<td width="10%">
-																						<nobr>{{ house.size }}&nbsp;sqm</nobr>
+																						<nobr>{{ house.size }} sqm</nobr>
 																					</td>
 																					<td width="10%">
-																						<nobr>{{ house.rent }}&nbsp;gold</nobr>
+																						<nobr>{{ house.rent }} gold</nobr>
 																					</td>
 																					<td width="40%">
+																						{% if house.owner != 0 %}
 																						<nobr>rented</nobr>
+																						{% else %}
+																						{% if house.last_bid == 0 %}
+																						<nobr>auctioned (no bid yet)</nobr>
+																						{% endif %}
+																						{% if house.last_bid != 0 %}
+																						<nobr>auctioned ({{ house.last_bid }} gold; {{ house.bid_date }} days left)</nobr>
+																						{% endif %}
+																						{% endif %}
 																					</td>
 																					<td>
-																					<a href="{{URL}}/community/houses/{{ house.name }}/view">
+																					<a href="{{URL}}/community/houses/{{ house.house_id }}/view">
 																						{% set button_name = 'View' %}
 																						{% include "blue_button.html.twig" %}
 																					</a>
@@ -159,9 +168,24 @@
 																			</tr>
 																			<tr>
 																				<td valign="top">
-																					{% for town in towns %}
-																						<label><input type="radio" {% if houseslist.current.town_id == town.town_id %} checked="" {% endif %} name="town" value="{{ town.town_id }}">{{ town.name }}</label><br>
-																					{% endfor %}
+																					<label><input type="radio" {% if houseslist.current.town_id == 5 %} checked="" {% endif %} name="town" value="5">Ab'Dendriel</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 10 %} checked="" {% endif %} name="town" value="10">Ankrahmun</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 6 %} checked="" {% endif %} name="town" value="6">Carlin</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 13 %} checked="" {% endif %} name="town" value="13">Darashia</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 11 %} checked="" {% endif %} name="town" value="11">Edron</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 12 %} checked="" {% endif %} name="town" value="12">Farmine</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 18 %} checked="" {% endif %} name="town" value="18">Gray Beach</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 22 %} checked="" {% endif %} name="town" value="22">Issavi</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 7 %} checked="" {% endif %} name="town" value="7">Kazordoon</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 14 %} checked="" {% endif %} name="town" value="14">Liberty Bay</label><br>
+																					<!-- <label><input type="radio" {% if houseslist.current.town_id == 5 %} checked="" {% endif %} name="town" value="5">Moonfall</label><br> -->
+																					<label><input type="radio" {% if houseslist.current.town_id == 15 %} checked="" {% endif %} name="town" value="15">Port Hope</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 20 %} checked="" {% endif %} name="town" value="20">Rathleton</label><br>
+																					<!-- <label><input type="radio" {% if houseslist.current.town_id == 5 %} checked="" {% endif %} name="town" value="5">Silvertides</label><br> -->
+																					<label><input type="radio" {% if houseslist.current.town_id == 16 %} checked="" {% endif %} name="town" value="16">Svargrond</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 8 %} checked="" {% endif %} name="town" value="8">Thais</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 9 %} checked="" {% endif %} name="town" value="9">Venore</label><br>
+																					<label><input type="radio" {% if houseslist.current.town_id == 17 %} checked="" {% endif %} name="town" value="17">Yalahar</label><br>
 																				</td>
 																				<td valign="top">
 																					<label><input type="radio" name="state" value="all" {% if houseslist.current.state == 'all' %} checked="" {% endif %}>all states</label><br>

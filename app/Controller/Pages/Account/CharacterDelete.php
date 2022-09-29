@@ -1,19 +1,19 @@
 <?php
 /**
- * Validator class
+ * CharacterDelete Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use \App\Utils\View;
+use App\Controller\Pages\Base;
 use App\Model\Entity\Player as EntityPlayer;
-use App\Model\Entity\Worlds as EntityWorlds;
 use App\Model\Functions\Player;
 use App\Model\Functions\Server;
-use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
 
 class CharacterDelete extends Base{

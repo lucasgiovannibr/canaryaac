@@ -82,7 +82,7 @@
 														<td class="LabelV200">Status:</td>
 														<td>
 															<div class="ServerInformationIconContainer_Worlds" style="top: 40px;"><img class="ServerInformationIcon" src="{{ IMAGE_PATH }}{{ worlds.location_icon }}" alt="Server Location"></div>
-															<div class="ServerInformationIconContainer_Worlds" style="top: 100px;"><img class="ServerInformationIcon" src="{{ IMAGE_PATH }}{{ worlds.php_type_icon }}" alt="Server PVP Type"></div>
+															<div class="ServerInformationIconContainer_Worlds" style="top: 100px;"><img class="ServerInformationIcon" src="{{ IMAGE_PATH }}{{ worlds.pvp_type_icon }}" alt="Server PVP Type"></div>
 															{{ worlds.server_status }}</td>
 													</tr>
 													<tr>
@@ -331,9 +331,7 @@
 																			<td>{{ world.pvp_type }}</td>
 																			<td align="center" valign="middle">
 																				<span style="width: 18px; height: 18px;">
-																					<a href="" target="_blank">
-																						<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'BattlEye Protected Game World', '<p>On this game world, BattlEye blocks cheats from the game. The game world has been protected by BattlEye since its release.</p><p>You can only move to a game world initially protected by BattlEye if your character also comes from a game world which has been protected right from its release.</p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border: 0px;" src="{{IMAGE_PATH}}{{ world.battle_eye_icon }}"></span>
-																					</a>
+																					<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), '{{ world.battle_eye }}', '<p>On this game world, Staff blocks cheats from the game. The game world has been protected by Staff since its release.</p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border: 0px;" src="{{IMAGE_PATH}}{{ world.battle_eye_icon }}"></span>
 																				</span>
 																			</td>
 																			<td>{{ world.transfer_type }}</td>

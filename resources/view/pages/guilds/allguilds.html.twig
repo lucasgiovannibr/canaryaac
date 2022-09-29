@@ -38,7 +38,7 @@
 																	<select size="1" name="world" style="width:165px;">
 																		<option value="" selected="">(choose world)</option>
 																		{% for world in worlds %}
-																			<option value="{{ world.name }}">{{ world.name }}</option>
+																			<option value="{{ world.name }}" {% if current_world == world.name %}selected{% endif %}>{{ world.name }}</option>
 																		{% endfor %}
 																	</select>
 																</div>
@@ -60,6 +60,7 @@
 					</div>
 				</form>
 				<br><br>
+				{% if current_world is not empty %}
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer">
@@ -67,7 +68,7 @@
 							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
 							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
-							<div class="Text">Active Guilds on Canary</div>
+							<div class="Text">Active Guilds on {{ current_world }}</div>
 							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
 							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
 							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
@@ -100,7 +101,7 @@
 																			<b>&nbsp;</b>
 																		</td>
 																	</tr>
-                                                                    {% for guild in guilds %}
+                                                                    {% for guild in guildsworld %}
 																	<tr bgcolor="#F1E0C6">
 																		<td><img src="{{IMAGE_PATH}}/guildlogos/{{ guild.logo_name }}.gif" width="64" height="64"></td>
 																		<td>
@@ -128,6 +129,7 @@
 					</table>
 				</div>
 				<br>
+				{% endif %}
 				<table border="0" cellspacing="1" cellpadding="4" width="100%">
 					<tbody>
 						<tr>

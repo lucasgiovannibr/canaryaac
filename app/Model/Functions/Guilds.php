@@ -57,6 +57,28 @@ class Guilds{
 		return $arrayGuild;
 	}
 
+	public static function getGuildbyWorldId($world_id)
+	{
+		$select_guilds = EntityGuild::getGuilds('world_id = "'.$world_id.'"');
+		while ($guild = $select_guilds->fetchObject()) {
+			$arrayGuild[] = [
+				'id' => (int)$guild->id,
+				'level' => (int)$guild->level,
+				'name' => $guild->name,
+				'ownerid' => (int)$guild->ownerid,
+				'creationdata' => date('M d Y', $guild->creationdata),
+				'motd' => $guild->motd,
+				'residence' => $guild->residence,
+				'balance' => (int)$guild->balance,
+				'points' => (int)$guild->points,
+				'description' => $guild->description,
+				'logo_name' => $guild->logo_name,
+			];
+		}
+		
+		return $arrayGuild ?? '';
+	}
+
 	public static function convertRankGuild($rank_id)
 	{
 		$dbRank = EntityGuild::getRanks('id = "'.$rank_id.'"')->fetchObject();

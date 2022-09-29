@@ -1,14 +1,15 @@
 <?php
 /**
- * CreateAccount Class
+ * Create Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use App\Controller\Pages\Base;
 use App\Model\Entity\Worlds as EntityWorlds;
 use App\Model\Entity\CreateAccount as EntityCreateAccount;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
@@ -17,7 +18,7 @@ use App\Model\Functions\Server as FunctionServer;
 use \App\Utils\View;
 use App\Model\Functions\Player as FunctionsPlayer;
 
-class CreateAccount extends Base{
+class Create extends Base{
 
     public static function getActiveVocation()
     {
@@ -31,6 +32,7 @@ class CreateAccount extends Base{
         $content = View::render('pages/account/createaccount', [
             'status' => $status,
             'worlds' => FunctionServer::getWorlds(),
+            'preselect_world_pvptype' => 'open',
             'activevoc' => self::getActiveVocation(),
         ]);
         return parent::getBase('Create Account', $content, 'createaccount');
@@ -49,12 +51,12 @@ class CreateAccount extends Base{
         $account_agreeagreements = $postVars['agreeagreements'] ?? '';
 
         if(!filter_var($account_email, FILTER_VALIDATE_EMAIL)){
-            return self::getCreateAccount($request, 'Please enter your email address!');
+            return self::getCreateAccount($request, 'Please enter your email address! 1');
         }
         $filter_email = filter_var($account_email, FILTER_SANITIZE_SPECIAL_CHARS);
         $verifyAccountEmail = EntityPlayer::getAccount('email = "'.$filter_email.'"')->fetchObject();
         if(!empty($verifyAccountEmail)){
-            return self::getCreateAccount($request, 'Please enter your email address!');
+            return self::getCreateAccount($request, 'Please enter your email address! 2');
         }
 
         if($account_password1 != $account_password2){
@@ -79,7 +81,7 @@ class CreateAccount extends Base{
             return self::getCreateAccount($request, 'This character name is already being used.');
         }
 
-        $filter_sex = filter_var($character_sex, FILTER_SANITIZE_SPECIAL_CHARS);
+        $filter_sex = filter_var($character_sex, FILTER_SANITIZE_NUMBER_INT);
         if($filter_sex > 1){
             return self::getCreateAccount($request, 'Choose a gender for the character.');
         }
@@ -96,7 +98,8 @@ class CreateAccount extends Base{
         }
 
         $filter_world = filter_var($character_world, FILTER_SANITIZE_SPECIAL_CHARS);
-        $selectWorlds = EntityWorlds::getWorlds('id = "'.$filter_world.'"')->fetchObject();
+        $filter_world = str_replace('server_', '', $filter_world);
+        $selectWorlds = EntityWorlds::getWorlds('name = "'.$filter_world.'"')->fetchObject();
         if($selectWorlds == false){
             return self::getCreateAccount($request, 'Select a valid world.');
         }
@@ -116,7 +119,6 @@ class CreateAccount extends Base{
             'recruiter' => '0',
         ];
         $accountId = EntityCreateAccount::createAccount($account);
-
         $playerSample = EntityCreateAccount::getPlayerSamples('vocation = "'.$filter_vocation.'"')->fetchObject();
 
         $character = [
@@ -129,19 +131,19 @@ class CreateAccount extends Base{
             'health' => $playerSample->health,
             'healthmax' => $playerSample->healthmax,
             'experience' => $playerSample->experience,
-            'lookbody' => '',
-            'lookfeet' => '',
-            'lookhead' => '',
-            'looklegs' => '',
-            'looktype' => '',
-            'lookaddons' => '',
+            'lookbody' => $playerSample->lookbody,
+            'lookfeet' => $playerSample->lookfeet,
+            'lookhead' => $playerSample->lookhead,
+            'looklegs' => $playerSample->looklegs,
+            'looktype' => $playerSample->looktype,
+            'lookaddons' => $playerSample->lookaddons,
             'maglevel' => $playerSample->maglevel,
             'mana' => $playerSample->mana,
             'manamax' => $playerSample->manamax,
             'manaspent' => $playerSample->manaspent,
             'soul' => $playerSample->soul,
             'town_id' => $playerSample->town_id,
-            'world' => $filter_world,
+            'world' => $selectWorlds->id,
             'posx' => $playerSample->posx,
             'posy' => $playerSample->posy,
             'posz' => $playerSample->posz,
@@ -156,7 +158,7 @@ class CreateAccount extends Base{
             'name' => $filter_name,
             'vocation' => FunctionsPlayer::convertVocation($playerSample->vocation),
             'sex' => FunctionsPlayer::convertSex($filter_sex),
-            'world' => FunctionServer::getWorldById($filter_world),
+            'world' => FunctionServer::getWorldById($selectWorlds->id),
         ];
 
         $content = View::render('pages/account/createaccount_confirm', [

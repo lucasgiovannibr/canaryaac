@@ -15,10 +15,13 @@ ALTER TABLE `players` ADD `hidden` int(11) NOT NULL DEFAULT 0;
 
 -- --------------------------------------------------------
 
+ALTER TABLE `guilds` ADD `level` int(11) NOT NULL DEFAULT 1;
 ALTER TABLE `guilds` ADD `points` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guilds` ADD `description` text NOT NULL;
 ALTER TABLE `guilds` ADD `logo_name` varchar(100) NOT NULL;
 ALTER TABLE `guilds` ADD `world_id` int(11) NOT NULL DEFAULT 0;
+
+ALTER TABLE `guild_membership` ADD `date` int(11) NOT NULL;
 
 -- --------------------------------------------------------
 
@@ -26,6 +29,11 @@ ALTER TABLE `guild_wars` ADD `price1` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guild_wars` ADD `price2` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guild_wars` ADD `frags` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guild_wars` ADD `comment` text NOT NULL;
+
+-- --------------------------------------------------------
+
+ALTER TABLE `houses` ADD `house_id` INT NOT NULL AFTER `id`;
+ALTER TABLE `houses` ADD `world_id` INT NOT NULL AFTER `house_id`;
 
 -- --------------------------------------------------------
 
@@ -395,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `canary_worlds` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `canary_worlds` (`id`, `name`, `creation`, `location`, `pvp_type`, `premium_type`, `transfer_type`, `battle_eye`, `world_type`, `ip`, `port`) VALUES
-(null, 'Canary', 0, 5, 0, 0, 0, 0, 0, '127.0.0.1', 7172);
+(null, 'Canary', '2022-09-01 06:00:00', 7, 0, 0, 0, 0, 0, '127.0.0.1', 7172);
 
 -- --------------------------------------------------------
 

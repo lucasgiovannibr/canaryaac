@@ -20,19 +20,17 @@ class ThemeBox
     public static function getHighscoresTop5()
     {
         $ribbon = 0;
-        $select_players = Player::getPlayer('deletion = "0"', 'level DESC', 5);
+        $select_players = Player::getPlayer('deletion = "0" AND group_id <= "3"', 'level DESC', 5);
         while ($player = $select_players->fetchObject()) {
             $ribbon++;
-            if ($player->group_id < 3) {
-                $arrayPlayers[] = [
-                    'name' => $player->name,
-                    'level' => $player->level,
-                    'vocation' => FunctionsPlayer::convertVocation($player->vocation),
-                    'outfit' => FunctionsPlayer::getOutfit($player->id),
-                    'online' => FunctionsPlayer::isOnline($player->id),
-                    'ribbon' => URL . '/resources/images/global/themeboxes/highscores/rank_' . $ribbon . '.png'
-                ];
-            }
+            $arrayPlayers[] = [
+                'name' => $player->name,
+                'level' => $player->level,
+                'vocation' => FunctionsPlayer::convertVocation($player->vocation),
+                'outfit' => FunctionsPlayer::getOutfit($player->id),
+                'online' => FunctionsPlayer::isOnline($player->id),
+                'ribbon' => URL . '/resources/images/global/themeboxes/highscores/rank_' . $ribbon . '.png'
+            ];
         }
         return $arrayPlayers ?? '';
     }
@@ -70,12 +68,14 @@ class ThemeBox
         if (empty($countdown)) {
             return '';
         }
-        $arrayCountdown = [
-            'date_start' => date('M d Y H:i', $countdown->date_start),
-            'date_end' => $countdown->date_end,
-            'themebox' => $countdown->themebox
-        ];
-        return $arrayCountdown;
+        if ($countdown->date_end >= strtotime(date('Y-m-d H:i:s'))) {
+            $arrayCountdown = [
+                'date_start' => date('M d Y H:i', $countdown->date_start),
+                'date_end' => $countdown->date_end,
+                'themebox' => $countdown->themebox
+            ];
+        }
+        return $arrayCountdown ?? '';
     }
 
 }

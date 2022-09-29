@@ -417,12 +417,12 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
         {
             $select_storage = EntityPlayer::getStorage('player_id = "'.$player_id.'"')->fetchObject();
             if (empty($select_storage)) {
-                return false;
+                return 0;
             }
             if ($select_storage->key == $storage) {
-                return true;
+                return 1;
             } else {
-                return false;
+                return 0;
             }
         }
 

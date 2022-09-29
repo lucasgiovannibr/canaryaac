@@ -1,22 +1,22 @@
 <?php
 /**
- * Validator class
+ * Authentication Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use \App\Utils\View;
+use App\Controller\Pages\Base;
 use App\Model\Entity\Account;
 use App\Model\Entity\ServerConfig;
-use App\Model\Functions\Website;
-use \App\Utils\View;
 use PragmaRX\Google2FA\Google2FA;
 use App\Session\Admin\Login as SessionAdminLogin;
 
-class AccountAuthentication extends Base
+class Authentication extends Base
 {
 
     public static function getQRcode($secretKey)

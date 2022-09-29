@@ -1,23 +1,24 @@
 <?php
 /**
- * Validator class
+ * Index Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use \App\Utils\View;
+use App\Controller\Pages\Base;
 use App\Model\Entity\Account;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\Worlds as EntityWorlds;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Player;
-use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
 
-class AccountIndex extends Base{
+class Index extends Base{
 
     public static function getWorlds($world_id)
     {

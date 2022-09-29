@@ -77,11 +77,16 @@ Now enter the name of the new guild, select the world it should exist on, specif
                                                 <tr>
 													<td>Leader:</td>
                                                     <td>
+													{% if players is not empty %}
                                                     <select name="guild_leader">
                                                         {% for player in players %}
                                                         <option value="{{ player.name }}">{{ player.name }}</option>
                                                         {% endfor %}
                                                     </select>
+													{% endif %}
+													{% if players is empty %}
+														No characters available.
+													{% endif %}
                                                     </td>
 												</tr>
                                                 <tr>
@@ -97,10 +102,12 @@ Now enter the name of the new guild, select the world it should exist on, specif
 					</table>
 				</div>
 				<br>
+				{% if players is not empty %}
                 <div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
                     <div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div>
                         <input class="BigButtonText" type="submit" value="Submit"></div>
                 </div>
+				{% endif %}
                 </form>
 				<center>
 					<a href="{{URL}}/community/guilds" style="padding:0px;margin:0px;">

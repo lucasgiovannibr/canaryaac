@@ -12,6 +12,20 @@ namespace App\Model\Functions;
 use App\DatabaseManager\Database;
 
 class Server{
+    
+    public static function convertGold($gold)
+    {
+        $count = strlen($gold);
+        if ($count > 3) {
+            return substr($gold, 0, $count - 3) . 'k';
+        } elseif ($count > 6) {
+            return substr($gold, 0, $count - 6) . 'kk';
+        } elseif ($count > 9) {
+            return substr($gold, 0, $count - 9) . 'kkk';
+        } else {
+            return $gold;
+        }
+    }
 
     public static function convertLocation($location_id)
     {
@@ -24,6 +38,25 @@ class Server{
             '5' => 'Europe',
             '6' => 'North America',
             '7' => 'South America'
+        ];
+        foreach($location as $key => $value){
+            if($key == $location_id){
+                return $value ?? '';
+            }
+        }
+    }
+
+    public static function convertLocationInitials($location_id)
+    {
+        $location = [
+            '0' => 'All',
+            '1' => 'EUR',
+            '2' => 'USA',
+            '3' => 'EUR',
+            '4' => 'EUR',
+            '5' => 'EUR',
+            '6' => 'USA',
+            '7' => 'BRA'
         ];
         foreach($location as $key => $value){
             if($key == $location_id){
@@ -59,6 +92,22 @@ class Server{
             '2' => 'Hardcore PvP',
             '3' => 'Retro Open PvP',
             '4' => 'Retro Hardcore PvP'
+        ];
+        foreach($types as $key => $value){
+            if($key == $pvp_type){
+                return $value ?? '';
+            }
+        }
+    }
+
+    public static function convertPvpTypeToCreateAccount($pvp_type)
+    {
+        $types = [
+            '0' => 'open',
+            '1' => 'optional',
+            '2' => 'hardcore',
+            '3' => 'Retro Open',
+            '4' => 'Retro Hardcore'
         ];
         foreach($types as $key => $value){
             if($key == $pvp_type){
@@ -151,7 +200,7 @@ class Server{
     {
         $battle_eye = [
             '0' => '/global/content/icon_battleye.gif',
-            '1' => '/global/content/icon_battleye.gif',
+            '1' => '/global/content/icon_battleyeinitial.gif',
             '2' => '/global/content/icon_battleyeinitial.gif'
         ];
         foreach($battle_eye as $key => $value){
@@ -281,14 +330,18 @@ class Server{
                 'id' => $obWorlds->id,
                 'name' => $obWorlds->name,
                 'creation' => $obWorlds->creation,
+                'creation_int' => strtotime($obWorlds->creation),
                 'location' => self::convertLocation($obWorlds->location),
                 'location_icon' => self::getLocationIcon($obWorlds->location),
+                'location_initial' => self::convertLocationInitials($obWorlds->location),
                 'pvp_type' => self::convertPvpType($obWorlds->pvp_type),
-                'php_type_icon' => self::getPvpTypeIcon($obWorlds->pvp_type),
+                'pvp_type_icon' => self::getPvpTypeIcon($obWorlds->pvp_type),
+                'pvp_type_initial' => self::convertPvpTypeToCreateAccount($obWorlds->pvp_type),
                 'premium_type' => self::convertPremiumType($obWorlds->premium_type),
                 'transfer_type' => self::convertTransferType($obWorlds->transfer_type),
                 'world_quests' => self::getWorldQuests(),
                 'battle_eye' => self::convertBattleEye($obWorlds->battle_eye),
+                'battle_eye_int' => $obWorlds->battle_eye,
                 'battle_eye_icon' => self::convertBattleEyeIcon($obWorlds->battle_eye),
                 'world_type' => self::convertWorldType($obWorlds->world_type),
                 'players_record' => self::getRecordPlayers(),
@@ -313,7 +366,7 @@ class Server{
                 'location' => self::convertLocation($obWorlds->location),
                 'location_icon' => self::getLocationIcon($obWorlds->location),
                 'pvp_type' => self::convertPvpType($obWorlds->pvp_type),
-                'php_type_icon' => self::getPvpTypeIcon($obWorlds->pvp_type),
+                'pvp_type_icon' => self::getPvpTypeIcon($obWorlds->pvp_type),
                 'premium_type' => self::convertPremiumType($obWorlds->premium_type),
                 'transfer_type' => self::convertTransferType($obWorlds->transfer_type),
                 'world_quests' => self::getWorldQuests(),

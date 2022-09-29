@@ -1,26 +1,24 @@
 <?php
 /**
- * Guilds Class
+ * DeclareWar Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Guilds;
 
+use App\Controller\Pages\Base;
 use \App\Utils\View;
 use App\Model\Entity\Guilds as EntityGuilds;
 use App\Session\Admin\Login as SessionAdminLogin;
 use App\Model\Functions\Guilds as FunctionGuilds;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\Account as EntityAccount;
-use App\Model\Functions\Player as FunctionPlayer;
 use App\Model\Functions\Server as FunctionServer;
-use App\Model\Entity\ServerConfig as EntityServerConfig;
-use App\Model\Functions\Guilds\Found as FoundGuild;
 
-class GuildWar extends Base
+class DeclareWar extends Base
 {
 
     public static function convertGuildName($guild_name)

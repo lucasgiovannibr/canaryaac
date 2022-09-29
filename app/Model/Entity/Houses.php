@@ -25,6 +25,10 @@ class Houses{
         return (new Database('houses'))->delete($where);
     }
 
+    public static function updateHouse($where = null, $values = null){
+        return (new Database('houses'))->update($where, $values);
+    }
+
     public static function getHousesList($where = null, $order = null, $limit = null, $fields = '*'){
         return (new Database('house_lists'))->select($where, $order, $limit, $fields);
     }

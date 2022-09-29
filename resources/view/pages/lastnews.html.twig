@@ -42,6 +42,7 @@
 		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
 	</div>
 </div>
+{% if featuredarticle is not empty %}
 <div id="NewsTicker" class="Box">
 	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
 	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
@@ -50,10 +51,8 @@
 	<div class="Border_2">
 		<div class="Border_3">
 			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
-				{% set count = 1 %}
 				{% for news in featuredarticle %}
 					{% if news.type == 3 %}
-					{% set count = count + 1 %}
 						<b>{{ news.title }}</b><br>
 						<div>{{ news.body }}</div>
 					{% endif %}
@@ -69,6 +68,7 @@
 		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
 	</div>
 </div>
+{% endif %}
 <div id="News" class="Box">
 	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
 	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>

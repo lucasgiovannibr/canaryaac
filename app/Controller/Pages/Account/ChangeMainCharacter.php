@@ -1,17 +1,18 @@
 <?php
 /**
- * Validator class
+ * ChangeMainCharacter Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use \App\Utils\View;
+use App\Controller\Pages\Base;
 use App\Model\Entity\Player;
 use App\Model\Functions\Player as FunctionsPlayer;
-use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
 
 class ChangeMainCharacter extends Base

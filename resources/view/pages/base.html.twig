@@ -524,9 +524,15 @@ var FB_ForceReload = 0;
 .HighscoresText {
 	display: grid;
 	width: 100px;
+	font-family: Tahoma, sans-serif;
 }
-.HighscoresName {
+.HighscoresOnline {
 	margin: 0px;
+	color: green;
+}
+.HighscoresOffline {
+	margin: 0px;
+	color: red;
 }
 .HighscoresHr {
 	display: block;
@@ -573,7 +579,7 @@ var FB_ForceReload = 0;
 									<img class="HighscoresOutfit" src="{{ highscore.outfit.image_url }}">
 								</div>
 								<div class="HighscoresText">
-									<p class="HighscoresName">{{ highscore.name }}</p>
+									<p class="{% if highscore.online is not empty %}HighscoresOnline{% endif %}{% if highscore.online is empty %}HighscoresOffline{% endif %}">{{ highscore.name }}</p>
 									<small>Level: {{ highscore.level }}<br>{{ highscore.vocation }}</small>
 								</div>
 							</div>

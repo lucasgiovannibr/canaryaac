@@ -1,21 +1,20 @@
 <?php
 /**
- * Validator class
+ * CharacterEdit Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
  * @copyright 2022 CanaryAAC
  */
 
-namespace App\Controller\Pages;
+namespace App\Controller\Pages\Account;
 
+use App\Controller\Pages\Base;
+use \App\Utils\View;
 use App\Model\Entity\Achievements as EntityAchievements;
 use App\Model\Entity\Player as EntityPlayer;
-use App\Model\Entity\Worlds as EntityWorlds;
-use App\Model\Functions\Achievements;
 use App\Model\Functions\Player;
 use App\Model\Functions\Server;
-use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
 
 class CharacterEdit extends Base{
@@ -88,9 +87,7 @@ class CharacterEdit extends Base{
         $select_AllAchievements = EntityAchievements::getAchievements();
         while ($achievement = $select_AllAchievements->fetchObject()) {
 
-            $finalStorage = 30000 + $achievement->storage;
-            $achievementStatus = Player::getPlayerStorage($select_player->id, $finalStorage);
-            
+            $achievementStatus = Player::getPlayerStorage($select_player->id, $achievement->storage);
             $arrayAchievement[] = [
                 'id' => $achievement->id,
                 'name' => $achievement->name,
