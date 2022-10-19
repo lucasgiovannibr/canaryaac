@@ -9,7 +9,7 @@
 
     namespace App\Model\Functions;
 
-    use App\DatabaseManager\Database;
+use App\DatabaseManager\Database;
 use App\Model\Entity\Groups;
 use App\Model\Entity\Guilds;
 use App\Model\Entity\Houses;
@@ -61,7 +61,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
                     'group' => self::convertGroup($obAllPlayers->group_id),
                     'marriage' => self::convertMarried($obAllPlayers->id),
                     'deletion' => $obAllPlayers->deletion,
-                    'hidden' => $obAllPlayers->hidden,
+                    'display' => self::getDisplay($obAllPlayers->id),
                 ];
             }
             return $allPlayers;
@@ -113,7 +113,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
 
         public static function getOutfitImage($looktype = 0, $lookaddons = 0, $lookbody = 0, $lookfeet = 0, $lookhead = 0, $looklegs = 0, $mount = 0)
         {
-            $outfit = 'https://outfit-images-oracle.ots.me/12xx_latest/animoutfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
+            $outfit = URL . '/outfit?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
             return $outfit;
         }
 
@@ -189,6 +189,24 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
             }else{
                 return true;
             }
+        }
+
+        public static function getDisplay($player_id)
+        {
+            $select = EntityPlayer::getDisplay('player_id = "'.$player_id.'"')->fetchObject();
+            if (empty($select)) {
+                return [];
+            }
+            $arrayDisplay = [
+                'account' => $select->account,
+                'outfit' => $select->outfit,
+                'inventory' => $select->inventory,
+                'health_mana' => $select->health_mana,
+                'skills' => $select->skills,
+                'bonus' => $select->bonus,
+                'comment' => $select->comment,
+            ];
+            return $arrayDisplay ?? [];
         }
 
         public static function getHouse($playerId)

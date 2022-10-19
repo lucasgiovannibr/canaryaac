@@ -20,6 +20,7 @@ use App\Controller\Admin\Polls;
 use App\Controller\Admin\Publications;
 use App\Controller\Admin\Samples;
 use App\Controller\Admin\Settings;
+use App\Controller\Admin\Items;
 use App\Controller\Admin\Upload;
 use App\Controller\Admin\Worlds;
 
@@ -448,6 +449,26 @@ $obRouter->post('/admin/groups/delete', [
         return new Response(200, Groups::deleteGroups($request));
     }
 ]);
+
+$obRouter->get('/admin/items', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Items::viewItems($request));
+    }
+]);
+$obRouter->post('/admin/items/import', [
+    'middlewares' => [
+        'required-admin-login',
+        'role-permission'
+    ],
+    function($request){
+        return new Response(200, Items::importItems($request));
+    }
+]);
+
 $obRouter->get('/admin/houses', [
     'middlewares' => [
         'required-admin-login',

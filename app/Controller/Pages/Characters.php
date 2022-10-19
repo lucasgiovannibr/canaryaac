@@ -81,7 +81,6 @@ class Characters extends Base{
             'name' => $obPlayer->name,
             'group_id' => Player::convertGroup($obPlayer->group_id),
             'main' => $obPlayer->main,
-            'comment' => $obPlayer->comment,
             'online' => Player::isOnline($obPlayer->id),
             'creation' => date('M d Y, H:i:s', strtotime($dbAccount->creation)),
             'experience' => $obPlayer->experience,
@@ -98,7 +97,6 @@ class Characters extends Base{
             'lookfamiliarstype' => $obPlayer->lookfamiliarstype,
             'premdays' => Player::convertPremy($obPlayer->account_id),
             'deletion' => $obPlayer->deletion,
-            'hidden' => $obPlayer->hidden,
         ];
         $player['stats'] = [
             'balance' => $obPlayer->balance,
@@ -189,6 +187,7 @@ class Characters extends Base{
         $player['deaths'] = Player::getDeaths($obPlayer->id);
         $player['frags'] = Player::getFrags($obPlayer->id);
         $player['equipaments'] = Player::getEquipaments($obPlayer->id);
+        $player['display'] = Player::getDisplay($obPlayer->id);
         $player['outfitsmounts'] = $MountsAndOutfits;
 
         }else{

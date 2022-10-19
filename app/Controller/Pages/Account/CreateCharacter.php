@@ -70,7 +70,6 @@ class CreateCharacter extends Base{
         }
         
         $character_name = filter_var($postVars['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $character_sex = filter_var($postVars['sex'], FILTER_SANITIZE_NUMBER_INT);
         $character_vocation = filter_var($postVars['vocation'], FILTER_SANITIZE_NUMBER_INT);
         $character_world = filter_var($postVars['world'], FILTER_SANITIZE_NUMBER_INT);
         $character_tutorial = $postVars['tutorial'] ?? '';
@@ -87,12 +86,20 @@ class CreateCharacter extends Base{
             return self::viewCreateCharacter($request, 'This character name is already being used.');
         }
 
-        if($character_sex > 1){
+        $character_sex = filter_var($postVars['sex'], FILTER_SANITIZE_NUMBER_INT);
+        if($character_sex > 2){
             return self::viewCreateCharacter($request, 'Please select a valid gender.');
+        }
+        if ($character_sex == 2) {
+            $character_sex = 0;
         }
         
         $activeVocations = EntityServerConfig::getInfoWebsite()->fetchObject();
         if($activeVocations->player_voc == 1){
+            if (empty($character_vocation)) {
+                return self::viewCreateCharacter($request, 'Choose a vocation for the character.');
+            }
+
             $verifyVocation = EntityCreateAccount::getPlayerSamples('vocation = "'.$character_vocation.'"')->fetchObject();
             if($verifyVocation == false){
                 return self::viewCreateCharacter($request, 'Please select your character vocation!');
@@ -100,6 +107,7 @@ class CreateCharacter extends Base{
         }else{
             $character_vocation = 0;
         }
+
         $selectWorlds = EntityWorlds::getWorlds('id = "'.$character_world.'"')->fetchObject();
         if($selectWorlds == false){
             return self::viewCreateCharacter($request, 'Invalid world.');

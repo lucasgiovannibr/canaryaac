@@ -84,11 +84,18 @@ class Player{
         return (new Database('player_taskhunt'))->select($where, $order, $limit, $fields);
     }
 
-    
+    public static function getDisplay($where = null, $order = null, $limit = null, $fields = '*'){
+        return (new Database('player_display'))->select($where, $order, $limit, $fields);
+    }
 
+    public static function updateDisplay($where = null, $values = null){
+        return (new Database('player_display'))->update($where, $values);
+    }
 
+    public static function insertDisplay($values = null){
+        return (new Database('player_display'))->insert($values);
+    }
 
-    
     public static function getGuildOwner($where = null, $order = null, $limit = null, $fields = '*'){
         return (new Database('guilds'))->select($where, $order, $limit, $fields);
     }

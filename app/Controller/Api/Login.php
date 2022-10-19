@@ -12,6 +12,7 @@ namespace App\Controller\Api;
 use App\Model\Entity\Account as EntityAccount;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\ServerConfig;
+use App\Model\Functions\EventSchedule;
 use App\Model\Functions\Player as FunctionPlayer;
 use App\Model\Functions\Server as FunctionServer;
 use PragmaRX\Google2FA\Google2FA;
@@ -32,7 +33,11 @@ class Login extends Api{
     public static function selectAccount($request)
     {
         $postVars = $request->getPostVars();
-        $request_type = $postVars['type'];
+        $request_type = $postVars['type'] ?? '';
+
+        if (empty($request_type)) {
+            return 'You are trying to access an unauthorized page.';
+        }
 
         switch($request_type)
         {
@@ -57,21 +62,8 @@ class Login extends Api{
                 exit;
 
             case 'eventschedule':
-                $date = intval(date('m-d-Y'));
                 return [
-                    'eventlist' => [
-                        [
-                            "colordark" => "#64162b",
-                            "colorlight" => "#7a1b34",
-                            "description" => "Remember that June is the month of flowers. If you have collected any seeds, exchange them for a flower pot with the dryad Rosemarie. But beware, wild dryads are roaming the lands again.",
-                            "displaypriority" => 4,
-                            "enddate" => $date,
-                            "isseasonal" => true,
-                            "name" => "Flower Month",
-                            "startdate" => $date,
-                            'specialevent' => false,
-                        ],
-                    ],
+                    'eventlist' => EventSchedule::getServerEvents(),
                     'lastupdatetimestamp' => time(),
                 ];
                 exit;
@@ -539,10 +531,15 @@ class Login extends Api{
                     }else{
                         $isMain = false;
                     }
-                    if($character->hidden == 1){
-                        $hidden = true;
-                    }else{
+                    $display_character = EntityPlayer::getDisplay('player_id = "'.$character->id.'"')->fetchObject();
+                    if (empty($display_character)) {
                         $hidden = false;
+                    } else {
+                        if($display_character->account == 1){
+                            $hidden = true;
+                        }else{
+                            $hidden = false;
+                        }
                     }
                     $arrayPlayers[] = [
                         'worldid' => (int)$character->world,

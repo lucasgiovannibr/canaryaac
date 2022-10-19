@@ -210,6 +210,14 @@ class Base{
             'slug' => 'groups',
         ],
         [
+            'id' => 31,
+            'parent_id' => 16,
+            'name' => 'Items',
+            'url' => URL . '/admin/items',
+            'icon' => 'circle',
+            'slug' => 'items',
+        ],
+        [
             'id' => 23,
             'parent_id' => null,
             'name' => 'Market Offers',

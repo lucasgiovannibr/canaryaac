@@ -140,15 +140,40 @@
 																	<tbody>
 																		<tr>
 																			<td class="LabelV">Hide Account:</td>
-																			<td style="width:80%;"><input type="checkbox" name="accountvisible" value="1" {% if player.hidden == 1 %} checked="" {% endif %}>
-																				check to hide your account information</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_account" id="hide_account" value="1" {% if player.hidden.account == 1 %} checked="" {% endif %}>
+																				<label for="hide_account">check to hide your account information.</label></td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">Hide Outfit:</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_outfit" id="hide_outfit" value="1" {% if player.hidden.outfit == 1 %} checked="" {% endif %}>
+																				<label for="hide_outfit">show the type of clothing your character is wearing.</label></td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">Hide Inventory:</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_inventory" id="hide_inventory" value="1" {% if player.hidden.inventory == 1 %} checked="" {% endif %}>
+																				<label for="hide_inventory">check to hide inventory.</label></td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">Hide Health and Mana:</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_healthmana" id="hide_healthmana" value="1" {% if player.hidden.health_mana == 1 %} checked="" {% endif %}>
+																				<label for="hide_healthmana">check to hide life and mana information.</label></td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">Hide Skills:</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_skills" id="hide_skills" value="1" {% if player.hidden.skills == 1 %} checked="" {% endif %}>
+																				<label for="hide_skills">check to hide skill information.</label></td>
+																		</tr>
+																		<tr>
+																			<td class="LabelV">Hide Bonus:</td>
+																			<td style="width:80%;"><input type="checkbox" name="hide_bonus" id="hide_bonus" value="1" {% if player.hidden.bonus == 1 %} checked="" {% endif %}>
+																				<label for="hide_bonus">check to hide bonus information.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">
 																				<span>Comment:</span>
 																			</td>
 																			<td style="width:80%;">
-																				<textarea name="comment" rows="10" cols="50" wrap="virtual">{{ player.comment }}</textarea>
+																				<textarea name="comment" rows="10" cols="50" wrap="virtual">{{ player.hidden.comment }}</textarea>
 																			</td>
 																		</tr>
 																		<tr>
@@ -399,10 +424,12 @@
 														<table style="width:100%">
 															<tbody>
 																<tr align="center">
+																	<!--
 																	<td><div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">
 																			<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Submit"></div>
 																		</div>
 																	</td>
+																	-->
 																	<td>
 																		<a href="{{URL}}/account" style="padding:0px;margin:0px;">
 																		<div class="BigButton" style="background-image:url({{ IMAGE_PATH }}/global/buttons/button_blue.gif)">

@@ -71,7 +71,6 @@ class Index extends Base{
                         'deletion' => $char->deletion,
                         'skull' => Player::getSkull($char->id),
                         'isreward' => $char->isreward,
-                        'hidden' => $char->hidden,
                         'guild' => Player::getGuildMember($char->id),
                 ];
             }
@@ -98,7 +97,6 @@ class Index extends Base{
                     'online' => Player::isOnline($playerMain->id),
                     'deletion' => $playerMain->deletion,
                     'isreward' => $playerMain->isreward,
-                    'hidden' => $playerMain->hidden,
                     'guild' => Player::getGuildMember($playerMain->id),
                 ],
                 'players' => $players,

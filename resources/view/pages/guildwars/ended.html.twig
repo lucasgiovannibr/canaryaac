@@ -1,0 +1,139 @@
+<div id="guildswars" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-guildswars.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Guild Wars</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table5" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;">
+											<tbody>
+												<tr class="ProductCategoryTabRow">
+													<td>
+														<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Active Wars', 'Some information from the currently active wars.<br /><br />', 'ProductCategoryHelperDiv_19');" onmouseout="$('#HelperDivContainer').hide();">
+															<div class="InnerTableTab WideTab">
+																<div id="ProductCategoryHelperDiv_19" class="ProductCategoryHelperDiv"></div>
+																<a href="{{URL}}/guildwars/active"><img src="{{IMAGE_PATH}}/global/content/tab_wide_nonactive.png"><div class="InnerTableTabLabel">Active
+																	</div>
+																</a>
+															</div>
+														</span>
+														<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Pending Wars', 'Some information from the pending wars.', 'ProductCategoryHelperDiv_14');" onmouseout="$('#HelperDivContainer').hide();">
+															<div class="InnerTableTab WideTab">
+																<div id="ProductCategoryHelperDiv_14" class="ProductCategoryHelperDiv"></div>
+																<a href="{{URL}}/guildwars/pending"><img src="{{IMAGE_PATH}}/global/content/tab_wide_nonactive.png"><div class="InnerTableTabLabel">Pending</div>
+																</a>
+															</div>
+														</span>
+                                                        <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Surrender Wars', 'Some information from the surrender wars.<br /><br />', 'ProductCategoryHelperDiv_20');" onmouseout="$('#HelperDivContainer').hide();">
+															<div class="InnerTableTab WideTab">
+																<div id="ProductCategoryHelperDiv_20" class="ProductCategoryHelperDiv"></div>
+																<a href="{{URL}}/guildwars/surrender"><img src="{{IMAGE_PATH}}/global/content/tab_wide_nonactive.png"><div class="InnerTableTabLabel">Surrender
+																	</div>
+																</a>
+															</div>
+														</span>
+                                                        <span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Ended Wars', 'Some information from the ended wars.<br /><br />', 'ProductCategoryHelperDiv_21');" onmouseout="$('#HelperDivContainer').hide();">
+															<div class="InnerTableTab WideTab ActiveInnerTableTab">
+																<div id="ProductCategoryHelperDiv_21" class="ProductCategoryHelperDiv"></div>
+																<a href="{{URL}}/guildwars/ended"><img src="{{IMAGE_PATH}}/global/content/tab_wide_active.png"><div class="InnerTableTabLabel">Ended
+																	</div>
+																</a>
+															</div>
+														</span>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr>
+																		<td>
+																			<div class="InnerTableContainer" style="max-width: unset;">
+																				<table style="width:100%;">
+																					<tbody>
+																						<tr>
+																							<td>
+																								<div class="TableContentContainer">
+																									<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																										<tbody>
+																											<tr class="LabelV" align="center">
+																												<td>Aggressor</td>
+																												<td>At war</td>
+																												<td>Enemy</td>
+																											</tr>
+                                                                                                            {% for war_pending in wars_pending %}
+                                                                                                            <tr bgcolor="#F1E0C6" align="center">
+																												<td>
+                                                                                                                    <img src="{{IMAGE_PATH}}/guildlogos/{{ war_pending.logo1 }}.gif"><br>
+                                                                                                                    {{ war_pending.name1 }}
+                                                                                                                </td>
+																												<td>
+																													<p>{{ war_pending.guild1 }} x {{ war_pending.guild2}}</p>
+																													<p>Started {{ war_pending.stated }} until {{ war_pending.frags }} frags.</p>
+																												</td>
+																												<td>
+																													<img src="{{IMAGE_PATH}}/guildlogos/{{ war_pending.logo2 }}.gif"><br>
+                                                                                                                    {{ war_pending.name2 }}
+																												</td>
+																											</tr>
+                                                                                                            {% endfor %}
+                                                                                                            {% if wars_pending is empty %}
+																											<tr bgcolor="#F1E0C6" align="center">
+																												<td colspan="3">No wars carried out to date.</td>
+																											</tr>
+																											{% endif %}
+																										</tbody>
+																									</table>
+																								</div>
+																							</td>
+																						</tr>
+																					</tbody>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

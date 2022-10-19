@@ -1,0 +1,104 @@
+<div class="app-content content ">
+	<div class="content-overlay"></div>
+	<div class="header-navbar-shadow"></div>
+	<div class="content-wrapper">
+		<div class="content-header row">
+			<div class="content-header-left col-md-9 col-12 mb-1">
+				<div class="row breadcrumbs-top">
+					<div class="col-12">
+						<h2 class="content-header-title float-start mb-0">Items</h2>
+						<div class="breadcrumb-wrapper">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">
+									<a href="{{ URL }}/admin">Home</a>
+								</li>
+								<li class="breadcrumb-item active">Items</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-3 col-sm-6">
+				<div class="card mb-1">
+					<div class="card-body">
+						<div class="border-bottom mb-1">
+							<h4 class="card-title">Import Items</h4>
+						</div>
+							<div class="row">
+							<form action="{{URL}}/admin/items/import" method="post" class="form form-vertical">
+								<p class="badge badge-primary">{{ items_path }}</p>
+                                <label>Set server location in .env file</label>
+								<div class="col-12">
+									<button type="submit" class="btn btn-primary mt-1 waves-effect waves-float waves-light">Import</button>
+								</div>
+							</div>
+							</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-sm-6">
+				<div class="card">
+					<div class="card-body d-flex align-items-center justify-content-between">
+						<div>
+							<h3 class="fw-bolder mb-75">{{ total_items }}</h3>
+							<span data-i18n="Total Items">Total Items</span>
+						</div>
+						<div class="avatar bg-light-primary p-50">
+							<span class="avatar-content"><i data-feather="shield" class="feather feather-shield font-medium-4"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 col-lg-12 col-sm-12">
+				{{ status|raw }}
+			</div>
+		</div>
+		<div
+			class="content-body">
+			<!-- users list start -->
+			<section
+				class="app-user-list">
+				<!-- list and filter start -->
+				<div class="card">
+					<div class="card-body border-bottom">
+						<h4 class="card-title">Items</h4>
+						<div class="row">
+							<div class="col-md-4 user_role"></div>
+							<div class="col-md-4 user_plan"></div>
+							<div class="col-md-4 user_status"></div>
+						</div>
+					</div>
+					<div class="card-datatable table-responsive pt-0">
+						<table class="players-list-table table">
+							<thead class="table-light">
+								<tr>
+									<th>ID</th>
+									<th>Image</th>
+									<th>Name</th>
+									<th>Type</th>
+									<th>Atk / Def / Armor / Size</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in all_items %}
+									<tr class="odd">
+										<td>{{ item.item_id }}</td>
+										<td><img src="{{ IMAGE_PATH }}/charactertrade/objects/{{ item.item_id }}.gif">
+										{{ item.item_id }}</td>
+										<td>{{ item.name }}</td>
+										<td>{{ item.type }}</td>
+										<td>{{ item.level }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- list and filter end -->
+			</section>
+			<!-- users list ends -->
+		</div>
+	</div>
+</div>

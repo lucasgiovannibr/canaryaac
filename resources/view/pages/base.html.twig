@@ -402,6 +402,66 @@ var FB_ForceReload = 0;
 								{% endfor %}
 							</div>
 						</div>
+						<div id='wars' class='menuitem'>
+							<span onclick="MenuItemAction('wars')">
+								<div class='MenuButton' style='background-image:url({{IMAGE_PATH}}/global/menu/button-background.gif);'>
+									<div onmouseover='MouseOverMenuItem(this);' onmouseout='MouseOutMenuItem(this);'><div class='Button' style='background-image:url({{IMAGE_PATH}}/global/menu/button-background-over.gif);'></div>
+										<span id='wars_Lights' class='Lights'>
+											<div class='light_lu' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+											<div class='light_ld' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+											<div class='light_ru' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+										</span>
+										<div id='wars_Icon' class='Icon' style='background-image:url({{IMAGE_PATH}}/global/menu/icon-wars.gif);'></div>
+										<div id='wars_Label' class='Label' style='background-image:url({{IMAGE_PATH}}/global/menu/label-wars.png);'></div>
+										<div id='wars_Extend' class='Extend' style='background-image:url({{IMAGE_PATH}}/global/general/plus.gif);'></div>
+									</div>
+								</div>
+							</span>
+							<div id='wars_Submenu' class='Submenu'>
+								{% for menu in menu %}
+								{% if menu.category == 'wars' %}
+								<a href='{{URL}}/{{ menu.link }}'>
+									<div id='submenu_{{ menu.tag }}' class='Submenuitem' onmouseover='MouseOverSubmenuItem(this)' onmouseout='MouseOutSubmenuItem(this)'>
+										<div class='LeftChain' style='max-height: 20px; background-image:url({{IMAGE_PATH}}/global/general/chain.gif);'></div>
+										<div id='ActiveSubmenuItemIcon_{{ menu.tag }}' class='ActiveSubmenuItemIcon' style='background-image:url({{IMAGE_PATH}}/global/menu/icon-activesubmenu.gif);'></div>
+										<div id='ActiveSubmenuItemLabel_{{ menu.tag }}' class='SubmenuitemLabel' style="color: #{{ menu.color }}">{{ menu.name }}</div>
+										<div class='RightChain' style='max-height: 20px; background-image:url({{IMAGE_PATH}}/global/general/chain.gif);'></div>
+									</div>
+								</a>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+						<div id='support' class='menuitem'>
+							<span onclick="MenuItemAction('support')">
+								<div class='MenuButton' style='background-image:url({{IMAGE_PATH}}/global/menu/button-background.gif);'>
+									<div onmouseover='MouseOverMenuItem(this);' onmouseout='MouseOutMenuItem(this);'><div class='Button' style='background-image:url({{IMAGE_PATH}}/global/menu/button-background-over.gif);'></div>
+										<span id='support_Lights' class='Lights'>
+											<div class='light_lu' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+											<div class='light_ld' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+											<div class='light_ru' style='background-image:url({{IMAGE_PATH}}/global/menu/green-light.gif);'></div>
+										</span>
+										<div id='support_Icon' class='Icon' style='background-image:url({{IMAGE_PATH}}/global/menu/icon-support.gif);'></div>
+										<div id='support_Label' class='Label' style='background-image:url({{IMAGE_PATH}}/global/menu/label-support.png);'></div>
+										<div id='support_Extend' class='Extend' style='background-image:url({{IMAGE_PATH}}/global/general/plus.gif);'></div>
+									</div>
+								</div>
+							</span>
+							<div id='support_Submenu' class='Submenu'>
+								{% for menu in menu %}
+								{% if menu.category == 'support' %}
+								<a href='{{URL}}/{{ menu.link }}'>
+									<div id='submenu_{{ menu.tag }}' class='Submenuitem' onmouseover='MouseOverSubmenuItem(this)' onmouseout='MouseOutSubmenuItem(this)'>
+										<div class='LeftChain' style='max-height: 20px; background-image:url({{IMAGE_PATH}}/global/general/chain.gif);'></div>
+										<div id='ActiveSubmenuItemIcon_{{ menu.tag }}' class='ActiveSubmenuItemIcon' style='background-image:url({{IMAGE_PATH}}/global/menu/icon-activesubmenu.gif);'></div>
+										<div id='ActiveSubmenuItemLabel_{{ menu.tag }}' class='SubmenuitemLabel' style="color: #{{ menu.color }}">{{ menu.name }}</div>
+										<div class='RightChain' style='max-height: 20px; background-image:url({{IMAGE_PATH}}/global/general/chain.gif);'></div>
+									</div>
+								</a>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
 						{% if active_donates == 1 %}
 						<div id='shop' class='menuitem'>
 							<span onclick="MenuItemAction('shop')">

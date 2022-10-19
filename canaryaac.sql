@@ -6,12 +6,24 @@ ALTER TABLE `accounts` DROP INDEX `accounts_unique`;
 INSERT INTO `accounts` (`id`, `name`, `password`, `email`, `page_access`, `premdays`, `lastday`, `type`, `coins`, `creation`, `recruiter`) VALUES
 (null, '', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'admin@canaryaac.com', 3, 0, 0, 5, 2000, '2022-08-03 08:44:10', 0);
 
+DELETE FROM `accounts` WHERE `accounts`.`id` = 1;
+
 -- --------------------------------------------------------
 
 ALTER TABLE `players` ADD `main` int(11) NOT NULL DEFAULT 0;
-ALTER TABLE `players` ADD `comment` text NOT NULL;
 ALTER TABLE `players` ADD `world` int(11) NOT NULL DEFAULT 0;
-ALTER TABLE `players` ADD `hidden` int(11) NOT NULL DEFAULT 0;
+
+DELETE FROM `players` WHERE `players`.`id` = 1;
+DELETE FROM `players` WHERE `players`.`id` = 2;
+DELETE FROM `players` WHERE `players`.`id` = 3;
+DELETE FROM `players` WHERE `players`.`id` = 4;
+DELETE FROM `players` WHERE `players`.`id` = 5;
+
+UPDATE `players` SET `account_id` = '2' WHERE `players`.`id` = 6;
+UPDATE `players` SET `main` = '1' WHERE `players`.`id` = 6;
+UPDATE `players` SET `world` = '1' WHERE `players`.`id` = 6;
+
+ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL DEFAULT '', CHANGE `comment` `comment` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
 
 -- --------------------------------------------------------
 
@@ -95,11 +107,11 @@ CREATE TABLE IF NOT EXISTS `boosted_creature` (
     `date` varchar(250) NOT NULL DEFAULT '',
     `raceid` varchar(250) NOT NULL DEFAULT '',
     `looktype` int(11) NOT NULL DEFAULT "136",
-    `lookfeet` int(11) NOT NULL DEFAULT "0",
-    `looklegs` int(11) NOT NULL DEFAULT "0",
-    `lookhead` int(11) NOT NULL DEFAULT "0",
-    `lookbody` int(11) NOT NULL DEFAULT "0",
-    `lookaddons` int(11) NOT NULL DEFAULT "0",
+    `lookfeet` int(11) NOT NULL DEFAULT 0,
+    `looklegs` int(11) NOT NULL DEFAULT 0,
+    `lookhead` int(11) NOT NULL DEFAULT 0,
+    `lookbody` int(11) NOT NULL DEFAULT 0,
+    `lookaddons` int(11) NOT NULL DEFAULT 0,
     `lookmount` int(11) DEFAULT "0",
     PRIMARY KEY (`date`)
 ) AS SELECT 0 AS date, "default" AS boostname, 0 AS raceid;
@@ -118,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `canary_countdowns` (
 
 CREATE TABLE IF NOT EXISTS `canary_polls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `player_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL DEFAULT 0,
   `title` varchar(250) NOT NULL,
   `description` varchar(500) NOT NULL,
   `date_start` int(11) NOT NULL,
@@ -188,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `canary_compendium` (
   `category` int(11) NOT NULL,
   `headline` varchar(250) NOT NULL,
   `message` text NOT NULL,
-  `publishdate` int(11) NOT NULL,
+  `publishdate` int(11) NOT NULL DEFAULT 0,
   `type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -230,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `canary_news` (
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
   `category` tinyint(4) NOT NULL,
   `player_id` int(11) NOT NULL,
-  `last_modified_by` int(11) NOT NULL,
+  `last_modified_by` int(11) NOT NULL DEFAULT 0,
   `last_modified_date` datetime NOT NULL,
   `comments` varchar(50) CHARACTER SET utf8 NOT NULL,
   `article_text` varchar(300) CHARACTER SET utf8 NOT NULL,
@@ -346,6 +358,17 @@ INSERT INTO `canary_towns` (`id`, `town_id`, `name`) VALUES
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `canary_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `type` varchar(150) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `canary_uploads` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -425,6 +448,21 @@ CREATE TABLE IF NOT EXISTS `guild_events` (
   `description` text NOT NULL,
   `date` int(15) NOT NULL,
   `private` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `player_display` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` int(11) NOT NULL DEFAULT 0,
+  `account` int(11) NOT NULL DEFAULT 0,
+  `outfit` int(11) NOT NULL DEFAULT 0,
+  `inventory` int(11) NOT NULL DEFAULT 0,
+  `health_mana` int(11) NOT NULL DEFAULT 0,
+  `skills` int(11) NOT NULL DEFAULT 0,
+  `bonus` int(11) NOT NULL DEFAULT 0,
+  `comment` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

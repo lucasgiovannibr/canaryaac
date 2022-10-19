@@ -93,7 +93,7 @@ class Found extends Base{
 			'creationdata' => strtotime(date('Y-m-d H:i:s')),
 			'ownerid' => $dbPlayerId->id,
 			'motd' => '',
-			'residence' => '',
+			'residence' => 0,
 			'balance' => 0,
 			'points' => 0,
 			'description' => '',

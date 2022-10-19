@@ -3,6 +3,7 @@
 use App\Http\Response;
 
 use App\Controller\Pages\Payment;
+use App\Controller\Pages\PremiumFeatures;
 use App\Payment\MercadoPago\NotifyMercadoPago;
 use App\Payment\PagSeguro\NotifyPagSeguro;
 use App\Payment\PayPal\NotifyPayPal;
@@ -70,5 +71,11 @@ $obRouter->get('/payment/paypal/return', [
 $obRouter->post('/payment/paypal/return', [
     function($request){
         return new Response(200, NotifyPayPal::ReturnPayPal($request));
+    }
+]);
+
+$obRouter->get('/premiumfeatures', [
+    function($request){
+        return new Response(200, PremiumFeatures::viewPremiumFeatures($request));
     }
 ]);

@@ -51,12 +51,12 @@ class Create extends Base{
         $account_agreeagreements = $postVars['agreeagreements'] ?? '';
 
         if(!filter_var($account_email, FILTER_VALIDATE_EMAIL)){
-            return self::getCreateAccount($request, 'Please enter your email address! 1');
+            return self::getCreateAccount($request, 'This email address has an invalid format. Please enter a correct email address!');
         }
         $filter_email = filter_var($account_email, FILTER_SANITIZE_SPECIAL_CHARS);
         $verifyAccountEmail = EntityPlayer::getAccount('email = "'.$filter_email.'"')->fetchObject();
         if(!empty($verifyAccountEmail)){
-            return self::getCreateAccount($request, 'Please enter your email address! 2');
+            return self::getCreateAccount($request, 'This email address is already used. Please enter another email address!');
         }
 
         if($account_password1 != $account_password2){
@@ -82,13 +82,23 @@ class Create extends Base{
         }
 
         $filter_sex = filter_var($character_sex, FILTER_SANITIZE_NUMBER_INT);
-        if($filter_sex > 1){
+        if (empty($filter_sex)) {
+            return self::getCreateAccount($request, 'You need to set a gender for the character.');
+        }
+        if($filter_sex > 2){
             return self::getCreateAccount($request, 'Choose a gender for the character.');
+        }
+        if ($filter_sex == 2) {
+            $filter_sex = 0;
         }
 
         $activeVocations = EntityServerConfig::getInfoWebsite()->fetchObject();
         if($activeVocations->player_voc == 1){
             $filter_vocation = filter_var($character_vocation, FILTER_SANITIZE_SPECIAL_CHARS);
+            if (empty($filter_vocation)) {
+                return self::getCreateAccount($request, 'Choose a vocation for the character.');
+            }
+
             $verifyVocation = EntityCreateAccount::getPlayerSamples('vocation = "'.$filter_vocation.'"')->fetchObject();
             if($verifyVocation == false){
                 return self::getCreateAccount($request, 'Please select your character vocation!');

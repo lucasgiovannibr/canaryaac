@@ -130,11 +130,11 @@
 																		<td class="LabelV175">Last Login:</td>
 																		<td>{{ player.stats.lastlogout }}</td>
 																	</tr>
-																	{% if player.info.comment is not empty %}
+																	{% if player.display.comment is not empty %}
                                                                     {% set i = i + 1 %}
 																	<tr bgcolor="{{ getStyle(i) }}">
 																		<td class="LabelV175" valign="top">Comment:</td>
-																		<td>{{ player.info.comment|raw }}</td>
+																		<td>{{ player.display.comment|raw }}</td>
 																	</tr>
 																	{% endif %}
                                                                     {% set i = i + 1 %}
@@ -155,6 +155,7 @@
 						</tbody>
 					</table>
 				</div>
+				{% if player.display.account != 1 %}
 				<br>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
@@ -200,6 +201,7 @@
 						</tbody>
 					</table>
 				</div>
+				{% endif %}
 				<br>
 				<a name="Character+Details"></a>
 				<div class="TableContainer">
@@ -225,6 +227,7 @@
 										<div style="display: flex;">
 										<table>
 											<tbody>
+												{% if player.display.outfit != 1 %}
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -245,6 +248,8 @@
 														</div>
 													</td>
 												</tr>
+												{% endif %}
+												{% if player.display.inventory != 1 %}
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -324,10 +329,12 @@
 														</div>
 													</td>
 												</tr>
+												{% endif %}
 											</tbody>
 										</table>
 										<table style="width:100%;">
 											<tbody>
+												{% if player.display.health_mana != 1 %}
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -360,6 +367,8 @@
 														</div>
 													</td>
 												</tr>
+												{% endif %}
+												{% if player.display.skills != 1 %}
 												<tr>
 													<td>
 														<div class="TableContentContainer">
@@ -450,6 +459,7 @@
 														</div>
 													</td>
 												</tr>
+												{% endif %}
 											</tbody>
 										</table>
 										</div>
@@ -459,6 +469,7 @@
 						</tbody>
 					</table>
 				</div>
+				{% if player.display.bonus != 1 %}
 				<br>
 				<div class="TableContainer">
 					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterBonus');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Bonus.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
@@ -526,7 +537,9 @@
 						</tbody>
 					</table>
 				</div>
+				{% endif %}
 				<br>
+				{% if player.display.outfit != 1 %}
 				{% if player.outfitsmounts.outfits is not empty %}
 				<div class="TableContainer">
 					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterOutfits');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Outfits.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
@@ -575,8 +588,8 @@
 						</tbody>
 					</table>
 				</div>
-				<br>
 				{% endif %}
+				<br>
 				{% if player.outfitsmounts.mounts is not empty %}
 				<div class="TableContainer">
 					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterMounts');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Mounts.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
@@ -626,6 +639,7 @@
 					</table>
 				</div>
 				<br>
+				{% endif %}
 				{% endif %}
 				{% if player.frags is not empty %}
 				<div class="TableContainer">
@@ -771,10 +785,10 @@
 																		<td>Status</td>
 																		<td>&nbsp;</td>
 																	</tr>
-																	{% if player.info.hidden == 0 %}
+																	{% if player.display.account == 0 %}
 																	{% set count = 0 %}
 																	{% for player in player.allplayers %}
-																		{% if player.hidden == 0 %}
+																		{% if player.display.account == 0 %}
 																		{% set count = count + 1 %}
                                                                         {% set i = i + 1 %}
 																		<tr bgcolor="{{ getStyle(i) }}">

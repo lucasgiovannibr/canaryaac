@@ -1,8 +1,8 @@
 <?php
 
-use App\Controller\Pages\Achievements;
 use App\Http\Response;
 
+use App\Controller\Pages\Achievements;
 use App\Controller\Pages\Lastnews;
 use App\Controller\Pages\Downloads;
 use App\Controller\Pages\Creatures;
@@ -13,14 +13,18 @@ use App\Controller\Pages\Characters;
 use App\Controller\Pages\Worlds;
 use App\Controller\Pages\Houses;
 use App\Controller\Pages\EventCalendar;
+use App\Controller\Pages\GuildsWars;
 use App\Controller\Pages\Newsarchive;
 use App\Controller\Pages\Polls;
+use App\Controller\Pages\Support;
 
 include __DIR__.'/pages/account.php';
 
 include __DIR__.'/pages/payment.php';
 
 include __DIR__.'/pages/guilds.php';
+
+include __DIR__.'/pages/outfit.php';
 
 $obRouter->get('', [
     function(){
@@ -150,5 +154,36 @@ $obRouter->post('/community/houses/{house_id}/bid', [
     ],
     function($request, $house_id){
         return new Response(200, Houses::insertBid($request, $house_id));
+    }
+]);
+
+$obRouter->get('/guildwars/active', [
+    function($request){
+        return new Response(200, GuildsWars::viewActiveWars($request));
+    }
+]);
+$obRouter->get('/guildwars/pending', [
+    function($request){
+        return new Response(200, GuildsWars::viewPendingWars($request));
+    }
+]);
+$obRouter->get('/guildwars/surrender', [
+    function($request){
+        return new Response(200, GuildsWars::viewSurrenderWars($request));
+    }
+]);
+$obRouter->get('/guildwars/ended', [
+    function($request){
+        return new Response(200, GuildsWars::viewEndedWars($request));
+    }
+]);
+$obRouter->get('/support/rules', [
+    function($request){
+        return new Response(200, Support\Rules::viewRules($request));
+    }
+]);
+$obRouter->get('/support/team', [
+    function($request){
+        return new Response(200, Support\Team::viewTeam($request));
     }
 ]);
