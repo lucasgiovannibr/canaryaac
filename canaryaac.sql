@@ -23,7 +23,7 @@ UPDATE `players` SET `account_id` = '2' WHERE `players`.`id` = 6;
 UPDATE `players` SET `main` = '1' WHERE `players`.`id` = 6;
 UPDATE `players` SET `world` = '1' WHERE `players`.`id` = 6;
 
-ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL DEFAULT '', CHANGE `comment` `comment` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
+ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL DEFAULT '';
 
 -- --------------------------------------------------------
 
