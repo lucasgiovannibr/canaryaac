@@ -10,18 +10,19 @@
 namespace App\Controller\Admin;
 
 use App\Utils\View;
-use App\Model\Entity\Player as EntityPlayer;
-use App\Model\Entity\Guilds as EntityGuild;
 use App\Model\Entity\Bans as EntityBans;
-use App\Model\Functions\Player;
-use App\Model\Functions\Server;
+use App\DatabaseManager\Pagination;
 
 class Bans extends Base{
 
-    public static function getAllBans()
+    public static function getAllBans($request,&$obPagination)
     {
-        $select = EntityBans::getAccountBans();
-        while($obAllBans = $select->fetchObject()){
+        $queryParams = $request->getQueryParams();
+        $currentPage = $queryParams['page'] ?? 1;
+        $totalAmount = EntityBans::getAccountBans(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd;
+        $obPagination = new Pagination($totalAmount, $currentPage, 10);
+        $results = EntityBans::getAccountBans(null, null, $obPagination->getLimit());
+        while($obAllBans = $results->fetchObject(EntityBans::class)){
             $allBans[] = [
                 'account_id' => (int)$obAllBans->account_id,
                 'reason' => $obAllBans->reason,
@@ -36,18 +37,11 @@ class Bans extends Base{
     public static function getBans($request)
     {
         $content = View::render('admin/modules/bans/index', [
-            'guilds' => self::getAllBans(),
-            'total_guilds' => (int)EntityGuild::getGuilds(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_guildmembership' => (int)EntityGuild::getMembership(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_guildwarskills' => (int)EntityGuild::getWars(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_guildwars' => (int)EntityGuild::getWars(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_players' => (int)EntityPlayer::getPlayer(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_accounts' => (int)EntityPlayer::getAccount(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
-            'total_online' => (int)Server::getCountPlayersOnline(),
-            'record_online' => Server::getRecordPlayers()
+            'bans' => self::getAllBans($request, $obPagination),
+            'pagination' => self::getPagination($request, $obPagination)
         ]);
 
-        return parent::getPanel('Banimentos', $content, 'bans');
+        return parent::getPanel('Banishments', $content, 'bans');
     }
 
 }

@@ -186,7 +186,7 @@
 																					</div>
 																				</td>
 																				<td style="width:70%; text-align:left;">
-																					<a href="{{ URL }}/characters/{{ player.name }}">{{ player.name }}</a>
+																					<a href="{{ URL }}/community/characters/{{ player.name }}">{{ player.name }}</a>
 																				</td>
 																				<td style="width:10%;">{{ player.level }}</td>
 																				<td style="width:20%;">{{ player.vocation }}</td>
@@ -288,7 +288,7 @@
 																	<tbody>
 																		<tr>
 																			<td>
-																				<b>Overall Maximum:</b>&nbsp;&nbsp;&nbsp;{{ worlds.players_record.record|length }} (on {{ worlds.players_record.timestamp|date("F d Y, G:i:s") }})</td>
+																				<b>Overall Maximum:</b>&nbsp;&nbsp;&nbsp;{{ players_record.record }} (on {{ players_record.timestamp|date("F d Y, G:i:s") }})</td>
 																		</tr>
 																	</tbody>
 																</table>

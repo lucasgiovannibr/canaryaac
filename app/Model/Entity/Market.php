@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Market Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>

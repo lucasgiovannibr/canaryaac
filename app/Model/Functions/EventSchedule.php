@@ -20,7 +20,7 @@ class EventSchedule{
         }
     }
 
-    public static function convertInt($value)
+    public static function getBoolean($value)
     {
         if ($value == 1) {
             return 'true';
@@ -40,17 +40,19 @@ class EventSchedule{
         $loadxml_events->load($xml_events);
         $events = $loadxml_events->getElementsByTagName('event');
         foreach ($events as $event) {
-            $arrayEvents[] = [
-                "colorlight" => self::getEventDetails($event->getElementsByTagName('colors'), 'colorlight'),
-                "colordark" => self::getEventDetails($event->getElementsByTagName('colors'), 'colordark'),
-                "description" => self::getEventDetails($event->getElementsByTagName('description'), 'description'),
-                "displaypriority" => intval(self::getEventDetails($event->getElementsByTagName('details'), 'displaypriority')),
-                "enddate" => intval(date_create("{$event->getAttribute('enddate')}")->format('U')),
-                "isseasonal" => self::convertInt(intval(self::getEventDetails($event->getElementsByTagName('details'), 'isseasonal'))),
-                "name" => $event->getAttribute('name'),
-                "startdate" => intval(date_create("{$event->getAttribute('startdate')}")->format('U')),
-                "specialevent" => intval(self::getEventDetails($event->getElementsByTagName('details'), 'specialevent')),
-            ];
+            if ($event) {
+                $arrayEvents[] = [
+                    "colorlight" => self::getEventDetails($event->getElementsByTagName('colors'), 'colorlight'),
+                    "colordark" => self::getEventDetails($event->getElementsByTagName('colors'), 'colordark'),
+                    "description" => self::getEventDetails($event->getElementsByTagName('description'), 'description'),
+                    "displaypriority" => (int)self::getEventDetails($event->getElementsByTagName('details'), 'displaypriority'),
+                    "enddate" => (int)date_create("{$event->getAttribute('enddate')}")->format('U'),
+                    "isseasonal" => self::getBoolean((int)self::getEventDetails($event->getElementsByTagName('details'), 'isseasonal')),
+                    "name" => $event->getAttribute('name'),
+                    "startdate" => (int)date_create("{$event->getAttribute('startdate')}")->format('U'),
+                    "specialevent" => (int)self::getEventDetails($event->getElementsByTagName('details'), 'specialevent'),
+                ];
+            }
         }
         return $arrayEvents ?? [];
     }

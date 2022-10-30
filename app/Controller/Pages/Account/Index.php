@@ -17,6 +17,8 @@ use App\Model\Entity\Worlds as EntityWorlds;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Player;
 use App\Session\Admin\Login as SessionAdminLogin;
+use App\Model\Entity\Bans as EntityBans;
+use DateTime;
 
 class Index extends Base{
 
@@ -58,6 +60,19 @@ class Index extends Base{
 
             $datePrem = date('d F Y H:i:s', strtotime('+'.$account->premdays.' days'));
 
+            $select_account_banned = EntityBans::getAccountBans('account_id = "'.$admin.'"')->fetchObject();
+            if(empty($select_account_banned)){
+                $account_banned = false;
+            }else{
+                $account_banned = true;
+                $ban_days_to_end = ($select_account_banned->expires_at - $select_account_banned->banned_at) / (60 * 60 * 24);
+                $arrayBan = [
+                    'date' => $select_account_banned->banned_at,
+                    'reason' => $select_account_banned->reason,
+                    'days_end' => $ban_days_to_end
+                ];
+            }
+
             $players = [];
             while($char = $playerNoMain->fetchObject()){
                 $players[] = [
@@ -83,6 +98,7 @@ class Index extends Base{
                 'dateprem' => $datePrem,
                 'coins' => $account->coins,
                 'registered' => $registered,
+                'account_banned' => $account_banned,
                 'page_access' => $account->page_access,
                 'player' => [
                     'id' => $playerMain->id,
@@ -100,6 +116,7 @@ class Index extends Base{
                     'guild' => Player::getGuildMember($playerMain->id),
                 ],
                 'players' => $players,
+                'ban_info' => $arrayBan ?? [],
             ];
         }
         return $logged;
@@ -111,7 +128,7 @@ class Index extends Base{
 
         $content = View::render('pages/account/index', [
             'account' => self::getAccountLogged(),
-            'active_donates' => $websiteInfo->donates,
+            'active_donates' => $websiteInfo->donates
         ]);
         return parent::getBase('Account Management', $content, 'account');
     }

@@ -6,11 +6,11 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Banishments</h2>
+                            <h2 class="content-header-title float-start mb-0" data-i18n="Banishments">Banishments</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ URL }}/admin">Home</a></li>
-                                    <li class="breadcrumb-item active">Banishments</li>
+                                    <li class="breadcrumb-item"><a href="{{ URL }}/admin" data-i18n="Home">Home</a></li>
+                                    <li class="breadcrumb-item active" data-i18n="Banishments">Banishments</li>
                                 </ol>
                             </div>
                         </div>
@@ -18,71 +18,68 @@
                 </div>
             </div>
 		<div class="content-body">
-			<!-- users list start -->
-			<section class="app-user-list">
-				
-                <!-- list and filter start -->
-				<div class="card">
-					<div class="card-body border-bottom">
-						<h4 class="card-title">Banishments</h4>
-						<div class="row">
-							<div class="col-md-4 user_role"></div>
-							<div class="col-md-4 user_plan"></div>
-							<div class="col-md-4 user_status"></div>
+			<div class="row match-height">
+				<div class="col-xl-12 col-md-12 col-12">
+					<div class="card mb-1">
+						<div class="card-body border-bottom">
+							<h4 class="card-title mb-0" data-i18n="Banishments">Banishments</h4>
+							<div class="row">
+								<div class="col-md-4 user_role"></div>
+								<div class="col-md-4 user_plan"></div>
+								<div class="col-md-4 user_status"></div>
+							</div>
+						</div>
+						<div class="card-datatable table-responsive pt-0">
+							<table class="players-list-table table">
+								<thead class="table-light">
+									<tr>
+										<th data-i18n="Account">Account</th>
+										<th data-i18n="Reason">Reason</th>
+										<th data-i18n="Start">Start</th>
+										<th data-i18n="End">End</th>
+										<th data-i18n="By">By</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for ban in bans %}
+									<tr class="odd">
+										<td>
+											<a href="{{ URL }}/admin/accounts/{{ ban.account_id }}/view"><button class="btn btn-sm btn-primary waves-effect" data-i18n="View">View</button></a>
+										</td>
+										<td><button type="button" class="btn btn-sm btn-primary waves-effect" data-bs-toggle="modal" data-bs-target="#viewReason_{{ ban.account_id }}" data-i18n="View">View</button></td>
+										<td>{{ ban.banned_at|date("M d Y H:i:s") }}</td>
+										<td>{{ ban.expires_at|date("M d Y H:i:s") }}</td>
+										<td>
+											<a href="{{ URL }}/admin/players/{{ ban.banned_by }}/view"><button class="btn btn-sm btn-primary waves-effect" data-i18n="View">View</button></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="card-datatable table-responsive pt-0">
-						<table class="players-list-table table">
-							<thead class="table-light">
-								<tr>
-									<th>Name</th>
-									<th>Level</th>
-									<th>Owner</th>
-									<th>Creation</th>
-									<th>Balance</th>
-                                    <th>Points</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for guild in guilds %}
-								<tr class="odd">
-									<td>
-										<div class="d-flex justify-content-left align-items-center">
-											<div class="avatar-wrapper">
-												<div class="avatar me-1">
-													<img src="{{ guild.motd }}" alt="Avatar" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;">
-												</div>
-											</div>
-											<div class="d-flex flex-column">
-												<a href="{{ URL }}/admin/guilds/{{ guild.id }}" class="user_name text-truncate text-body">
-													<span class="fw-bolder">
-													{{ guild.name }}
-													</span>
-												</a>
-											</div>
-										</div>
-									</td>
-									<td>
-										<span class="text-truncate align-middle">{{ guild.level }}</span>
-									</td>
-                                    <td>{{ guild.ownerid }}</td>
-                                    <td>{{ guild.creationdate }}</td>
-									<td>{{ guild.balance }}</td>
-									<td>{{ guild.points }}</td>
-									<td>
-										<a href="{{ URL }}/admin/guilds/{{ guild.id }}"><button class="btn btn-primary"><i data-feather="edit"></i> Editar</button></a>
-									</td>
-								</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
 				</div>
-				<!-- list and filter end -->
-			</section>
-			<!-- users list ends -->
+				{{ pagination|raw }}
+			</div>
 		</div>
 	</div>
 </div>
 
-
+{% for ban in bans %}
+<div class="modal fade text-start" id="viewReason_{{ ban.account_id }}" tabindex="-1" aria-labelledby="viewReasonTitle" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel1" data-i18n="Reason">Reason</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>{{ ban.reason }}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="modal" data-i18n="Close">Close</button>
+			</div>
+        </div>
+    </div>
+</div>
+{% endfor %}

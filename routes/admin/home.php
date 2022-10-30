@@ -6,7 +6,6 @@ use App\Controller\Admin\Home;
 use App\Controller\Admin\Players;
 use App\Controller\Admin\Accounts;
 use App\Controller\Admin\Achievements;
-use App\Controller\Admin\Market;
 use App\Controller\Admin\Bans;
 use App\Controller\Admin\Client;
 use App\Controller\Admin\Compendium;
@@ -336,16 +335,6 @@ $obRouter->get('/admin/polls/{id}/delete', [
         return new Response(200, Polls::deletePoll($request, $id));
     }
 ]);
-$obRouter->get('/admin/market', [
-    'middlewares' => [
-        'required-admin-login',
-        'role-permission'
-    ],
-    function($request){
-        return new Response(200, Market::getMarketOffers($request));
-    }
-]);
-
 $obRouter->get('/admin/bans', [
     'middlewares' => [
         'required-admin-login',

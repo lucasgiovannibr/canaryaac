@@ -116,6 +116,13 @@ class Base{
                 'color' => 'd7d7d7',
                 'category' => 'community',
             ],
+            'lastdeaths' => [
+                'name' => 'Last Deaths',
+                'tag' => 'lastdeaths',
+                'link' => 'community/lastdeaths',
+                'color' => 'd7d7d7',
+                'category' => 'community',
+            ],
             'houses' => [
                 'name' => 'Houses',
                 'tag' => 'houses',
@@ -250,6 +257,7 @@ class Base{
             'menu' => self::getMenu($currentPage),
             'activemenu' => $currentPage,
             'loginStatus' => self::getLogged(),
+            'discord' => $websiteInfo->discord,
             'boostedcreature' => FunctionsServer::getBoostedCreature(),
             'boostedboss' => FunctionsServer::getBoostedBoss(),
             'playersonline' => FunctionsServer::getCountPlayersOnline(),

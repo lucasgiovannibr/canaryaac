@@ -9,11 +9,14 @@
 
 namespace App\Controller\Pages;
 
+use App\Controller\Admin\Players;
 use App\DatabaseManager\Pagination;
+use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Functions\Player;
 use App\Model\Entity\Worlds as EntityWorlds;
 use \App\Utils\View;
 use App\Model\Functions\Server;
+use App\Model\Functions\ServerStatus;
 
 class Worlds extends Base{
     
@@ -37,19 +40,17 @@ class Worlds extends Base{
         }
     }
 
-    public static function getPlayerOnline($request,&$obPagination)
+    public static function getPlayersOnline($request,&$obPagination)
     {
         $queryParams = $request->getQueryParams();
         $currentPage = $queryParams['page'] ?? 1;
-        $totalAmount = EntityWorlds::getWorlds(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd;
+        $totalAmount = EntityWorlds::getPlayersOnline(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd;
 
-        $obPagination = new Pagination($totalAmount, $currentPage, 10);
+        $obPagination = new Pagination($totalAmount, $currentPage, 50);
+        $select_PlayersOnline = EntityWorlds::getPlayersOnline(null, null, $obPagination->getLimit());
 
-        $results = EntityWorlds::getWorlds(null, null, $obPagination->getLimit());
-
-        $players = [];
-        while($obOnline = $results->fetchObject(EntityWorlds::class)){
-            $playersInfo = EntityWorlds::getPlayersOnline();
+        while($obOnline = $select_PlayersOnline->fetchObject(EntityWorlds::class)){
+            $playersInfo = EntityPlayer::getPlayer('id = "'.$obOnline->player_id.'"');
             while($obPlayers = $playersInfo->fetchObject()){
                 $players[] = [
                     'name' => $obPlayers->name,
@@ -59,7 +60,7 @@ class Worlds extends Base{
                 ];
             }
         }
-        return $players;
+        return $players ?? [];
     }
 
     public static function getWorlds($request)
@@ -67,7 +68,8 @@ class Worlds extends Base{
         $content = View::render('pages/worlds', [
             'current_world' => self::getWorld($request),
             'worlds' => Server::getWorlds(),
-            'online' => self::getPlayerOnline($request, $obPagination),
+            'players_record' => Server::getRecordPlayersWorlds(),
+            'online' => self::getPlayersOnline($request, $obPagination),
             'pagination' => self::getPagination($request, $obPagination),
             'boostedcreature' => Server::getBoostedCreature(),
         ]);

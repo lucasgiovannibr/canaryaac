@@ -18,14 +18,9 @@ class NotifyPagSeguro {
 
     public static function ReturnPagSeguro()
     {
-        $email = $_ENV['PAGSEGURO_EMAIL'];
-        $token = $_ENV['PAGSEGURO_TOKEN'];
-
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
             $filter_type = filter_input(INPUT_GET, $_POST['notificationType'], FILTER_SANITIZE_STRING);
             $filter_notifycode = filter_input(INPUT_GET, $_POST['notificationCode'], FILTER_SANITIZE_STRING);
-
             if($filter_type == 'transaction'){
                 $credentials = Configure::getAccountCredentials();
                 $transaction = Notification::check($credentials);
@@ -35,7 +30,6 @@ class NotifyPagSeguro {
                 $transaction_status = $transaction->getStatus()->getTypeFromValue();
                 
                 if ($transaction_status == 'PAID') {
-
                     $dbPayment = EntityPayments::getPayment('preference = "'.$reference.'"')->fetchObject();
                     $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
                     $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
@@ -46,7 +40,6 @@ class NotifyPagSeguro {
                     EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', [
                         'coins' => $finalcoins,
                     ]);
-
                 }
             }
         }

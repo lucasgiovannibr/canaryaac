@@ -14,9 +14,11 @@ use App\Controller\Pages\Worlds;
 use App\Controller\Pages\Houses;
 use App\Controller\Pages\EventCalendar;
 use App\Controller\Pages\GuildsWars;
+use App\Controller\Pages\LastDeaths;
 use App\Controller\Pages\Newsarchive;
 use App\Controller\Pages\Polls;
 use App\Controller\Pages\Support;
+use App\Model\Functions\Signature;
 
 include __DIR__.'/pages/account.php';
 
@@ -109,6 +111,11 @@ $obRouter->get('/community/highscores', [
         return new Response(200, Highscores::getHighscores($request));
     }
 ]);
+$obRouter->get('/community/lastdeaths', [
+    function($request){
+        return new Response(200, LastDeaths::viewLastDeaths($request));
+    }
+]);
 $obRouter->get('/community/polls', [
     function($request){
         return new Response(200, Polls::viewPolls($request));
@@ -185,5 +192,10 @@ $obRouter->get('/support/rules', [
 $obRouter->get('/support/team', [
     function($request){
         return new Response(200, Support\Team::viewTeam($request));
+    }
+]);
+$obRouter->get('/signature/{id}', [
+    function($request, $id){
+        return new Response(200, Signature::generate($request, $id));
     }
 ]);

@@ -202,6 +202,7 @@
 					</table>
 				</div>
 				{% endif %}
+				{% if player.display.health_mana != 1 and player.display.skills != 1 and player.display.outfit != 1 and player.display.inventory != 1 %}
 				<br>
 				<a name="Character+Details"></a>
 				<div class="TableContainer">
@@ -469,6 +470,7 @@
 						</tbody>
 					</table>
 				</div>
+				{% endif %}
 				{% if player.display.bonus != 1 %}
 				<br>
 				<div class="TableContainer">
@@ -589,8 +591,8 @@
 					</table>
 				</div>
 				{% endif %}
-				<br>
 				{% if player.outfitsmounts.mounts is not empty %}
+				<br>
 				<div class="TableContainer">
 					<div class="CaptionContainer" onclick="CollapseTable('TableCharacterMounts');" onmouseover="ActivateHelperDiv($(this), '', 'Click here to expand the list of Character Mounts.', '');" onmouseout="$('#HelperDivContainer').hide();" style="cursor: pointer;">
 						<div id="Indicator_TableCharacterMounts" class="CircleSymbolPlus" style="position: absolute; height: 18px; width: 18px; top: -8px; right: -8px; z-index: 99; cursor: pointer; background-image: url({{IMAGE_PATH}}/global/content/circle-symbol-plus.gif);"></div>

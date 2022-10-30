@@ -18,7 +18,7 @@ class RolePermission{
     {
         $select_account = Account::getAccount('id = "'.SessionAdminLogin::idLogged().'"', null, 1, 'page_access')->fetchObject();
         if($select_account->page_access == 0){
-            $request->getRouter()->redirect('/admin/login');
+            $request->getRouter()->redirect('/admin/logout');
         }
         return $next($request);
     }

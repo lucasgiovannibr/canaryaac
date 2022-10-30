@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Login Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -10,6 +10,7 @@
 namespace App\Controller\Api;
 
 use App\Model\Entity\Account as EntityAccount;
+use App\Model\Entity\Bans;
 use App\Model\Entity\Player as EntityPlayer;
 use App\Model\Entity\ServerConfig;
 use App\Model\Functions\EventSchedule;
@@ -43,7 +44,7 @@ class Login extends Api{
         {
             case 'cacheinfo':
                 return [
-                    'playersonline' => (int)FunctionServer::getPlayersOnline(),
+                    'playersonline' => (int)FunctionServer::getCountPlayersOnline(),
                     'twitchstreams' => 100,
                     'twitchviewer' => 100,
                     'gamingyoutubestreams' => 100,
@@ -477,8 +478,8 @@ class Login extends Api{
                 exit;
 
             case 'login':
-                $email = $postVars['email'];
-                $password = $postVars['password'];
+                $email = $postVars['email'] ?? '';
+                $password = $postVars['password'] ?? '';
                 $convertPass = sha1($password);
                 $account = EntityAccount::getAccount('email = "'.$email.'"')->fetchObject();
                 if(empty($account)){
@@ -502,6 +503,13 @@ class Login extends Api{
                             return self::sendError('Invalid two-factor token.', 3);
                         }
                     }
+                }
+
+                $account_banned = Bans::getAccountBans('account_id = "'.$account->id.'"')->fetchObject();
+                if (!empty($account_banned)) {
+                    $expires_at = date('M d Y', $account_banned->expires_at);
+                    $banned_by = EntityPlayer::getPlayer('id = "'.$account_banned->banned_by.'"')->fetchObject();
+                    return self::sendError('Your account has been banned until ' . $expires_at . ' by ' . $banned_by->name, 3);
                 }
                 
                 $worlds = ServerConfig::getWorlds();

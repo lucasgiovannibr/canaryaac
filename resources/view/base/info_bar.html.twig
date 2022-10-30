@@ -5,6 +5,13 @@
 		<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
 		<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/newsheadline_background.gif); height: 28px;">
 			<div class="InfoBar">
+				{% if discord is not empty %}
+				<a class="InfoBarBlock" href="{{ discord }}" target="new">
+					<img class="InfoBarBigLogo NotOnMobile" src="{{IMAGE_PATH}}/global/header/info/icon-discord.png">
+					<img class="InfoBarSmallLogo" src="{{IMAGE_PATH}}/global/header/info/icon-discord.png">
+					<span class="InfoBarNumbers"><span class="InfoBarSmallElement">Join Discord</span></span>
+				</a>
+				{% endif %}
 				<a class="InfoBarBlock" href="{{URL}}/downloads">
 					<img class="InfoBarBigLogo NotOnMobile" src="{{IMAGE_PATH}}/global/header/info/icon-download.png">
 					<img class="InfoBarSmallLogo" src="{{IMAGE_PATH}}/global/header/info/icon-download.png">
@@ -12,7 +19,7 @@
 				</a>
 				<a style="float:right;" href="{{URL}}/community/worlds">
 					<img class="InfoBarBigLogo" src="{{IMAGE_PATH}}/global/header/info/icon-players-online.png">
-					{% if playersonline == 0 %}
+					{% if server_status == 'Server Offline' %}
 						<span class="InfoBarNumbers"><span class="InfoBarSmallElement">Server Offline</span></span></span>
 					{% else %}
 						<span class="InfoBarNumbers"><span class="InfoBarSmallElement">{{ playersonline }}<span class="NotOnMobile"> Players Online</span></span></span>

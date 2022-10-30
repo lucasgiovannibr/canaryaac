@@ -1,0 +1,127 @@
+<div id="killstatistics" class="Box">
+	<div class="Corner-tl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tl.gif);"></div>
+	<div class="Corner-tr" style="background-image:url({{IMAGE_PATH}}/global/content/corner-tr.gif);"></div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="BorderTitleText" style="background-image:url({{IMAGE_PATH}}/global/content/title-background-green.gif);"></div><img id="ContentBoxHeadline" class="Title" src="{{IMAGE_PATH}}/global/strings/headline-killstatistics.gif" alt="Contentbox headline">
+	<div class="Border_2">
+		<div class="Border_3">
+			<div class="BoxContent" style="background-image:url({{IMAGE_PATH}}/global/content/scroll.gif);">
+				<form action="{{URL}}/community/lastdeaths" method="get">
+					<div class="TableContainer">
+						<div class="CaptionContainer">
+							<div class="CaptionInnerContainer">
+								<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<div class="Text">World Selection</div>
+								<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+								<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+								<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+								<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							</div>
+						</div>
+						<table class="Table1" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td>
+										<div class="InnerTableContainer" style="max-width: unset;">
+											<table style="width:100%;">
+												<tbody>
+													<tr>
+														<td>
+															<div class="ThreeColumnsForm">
+																<div class="LabelV120 ThreeColumnsFormCell">World Name:</div>
+																<div class="ThreeColumnsFormCell ThreeColumnsFormInputCell">
+																	<select size="1" name="world" style="width:165px;">
+                                                                        {% for world in worlds %}
+																		<option value="{{ world.name }}">{{ world.name }}</option>
+                                                                        {% endfor %}
+																	</select>
+																</div>
+																<div class="ThreeColumnsFormButton ThreeColumnsFormCell">
+																	<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)">
+																		<div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif);"></div><input class="BigButtonText" type="submit" value="Submit"></div>
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form><br><div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Last Deaths</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody>
+							<tr>
+								<td>
+									<div class="TableScrollbarWrapper" style="width: unset;">
+										<div class="TableScrollbarContainer"></div>
+									</div>
+									<div class="InnerTableContainer" style="max-width: unset;">
+										<table style="width:100%;" id="KillStatisticsTable">
+											<tbody>
+												<tr>
+													<td>
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody>
+																	<tr class="LabelH">
+																		<td>#</td>
+																		<td>Date</td>
+																		<td>Deaths</td>
+																	</tr>
+                                                                    {% set count = 0 %}
+                                                                    {% for death in deaths %}
+                                                                    {% set count = count + 1 %}
+																	<tr class="{{ getStyleCss(count) }}">
+																		<td>{{ count }}</td>
+																		<td>{{ death.date }}</td>
+																		<td>{{ death.description|raw }}</td>
+																	</tr>
+                                                                    {% endfor %}
+																</tbody>
+															</table>
+														</div>
+													</td>
+												</tr>
+                                                <tr>
+                                                    <td>{{ pagination|raw }}</td>
+                                                </tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Border_1" style="background-image:url({{IMAGE_PATH}}/global/content/border-1.gif);"></div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-bl" style="background-image:url({{IMAGE_PATH}}/global/content/corner-bl.gif);"></div>
+	</div>
+	<div class="CornerWrapper-b">
+		<div class="Corner-br" style="background-image:url({{IMAGE_PATH}}/global/content/corner-br.gif);"></div>
+	</div>
+</div>

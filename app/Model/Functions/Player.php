@@ -254,7 +254,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
             if((int)$lastlogin == 0){
                 $converted = 'Never logged.';
             }else{
-                $converted = date('M d Y, h:i:s', $lastlogin);
+                $converted = date('M d Y, h:i:s', (int)$lastlogin);
             }
             return $converted;
         }
@@ -346,8 +346,8 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
          */
         public static function getDeaths($player_id)
         {
-            $select = (new Database('player_deaths'))->select('player_id = "'.$player_id.'"');
-            while($obDeaths = $select->fetchObject()){
+            $select_deaths = EntityPlayer::getDeaths('player_id = "'.$player_id.'"', 'time DESC', 5);
+            while($obDeaths = $select_deaths->fetchObject()){
                 $countDeaths = (int)(new Database('player_deaths'))->select(null, null, null, 'COUNT(*) as qtd')->fetchObject()->qtd;
 
                 $lasthit = ($obDeaths->is_player) ? $obDeaths->killed_by : $obDeaths->killed_by;
@@ -375,13 +375,15 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
 
         public static function getFrags($player_id)
         {
-            $select = (new Database('player_kills'))->select('player_id = "'.$player_id.'"');
-            while($obKills = $select->fetchObject()){
-                $description = 'Fragged <a href="' . $obKills->name . '">' . $obKills->name . '</a> at level ' . $obKills->level;
+            $select_kills = EntityPlayer::getKills('player_id = "'.$player_id.'"', 'time DESC', 5);
+            while($obKills = $select_kills->fetchObject()){
+                $player_name_fragged = EntityPlayer::getPlayer('id = "'.$obKills->target.'"')->fetchObject();
+                $player_deaths = EntityPlayer::getDeaths('killed_by = "'.$obKills->player_id.'"')->fetchObject();
+                $description = 'Fragged <a href="' . URL . '/community/characters/' . $player_name_fragged->name . '">' . $player_name_fragged->name . '</a> at level ' . $player_deaths->level;
                 $frags = [
-                    'time' => $obKills->date,
+                    'time' => $obKills->time,
                     'description' => $description,
-                    'unjustified' => $obKills->unjustified != 0,
+                    'unjustified' => $obKills->unavenged != 0,
                 ];
             }
             return $frags ?? null;

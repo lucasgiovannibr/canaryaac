@@ -48,11 +48,11 @@ class ApiPagSeguro{
         $payment->setReference($products['reference']);
 
         // Set your customer information.
-        $payment->setSender()->setName('João Comprador');
+        $payment->setSender()->setName('CanaryAAC');
         $payment->setSender()->setEmail($email);
 
-        $payment->setRedirectUrl("http://www.lojamodelo.com.br");
-        $payment->setNotificationUrl("http://www.lojamodelo.com.br/nofitication");
+        $payment->setRedirectUrl(URL.'/payment');
+        $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
 
         $result = $payment->register(
             Configure::getAccountCredentials()
@@ -87,7 +87,7 @@ class ApiPagSeguro{
         $payment->setCurrency('BRL');
         $payment->setReference($products['reference']);
 
-        $payment->setSender()->setName('João Comprador');
+        $payment->setSender()->setName('CanaryAAC');
         $payment->setSender()->setEmail($email);
 
         $payment->setRedirectUrl(URL.'/payment');
@@ -102,8 +102,8 @@ class ApiPagSeguro{
     public static function notifyCheckPayment($order_code = null)
     {
         Library::initialize();
-        Library::cmsVersion()->setName("Nome")->setRelease("1.0.0");
-        Library::moduleVersion()->setName("Nome")->setRelease("1.0.0");
+        Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
+        Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
         
         if (Xhr::hasPost()) {
             $response = Notification::check(Configure::getApplicationCredentials());

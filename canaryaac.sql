@@ -384,6 +384,7 @@ CREATE TABLE IF NOT EXISTS `canary_website` (
   `timezone` varchar(150) NOT NULL,
   `title` varchar(70) CHARACTER SET utf8 NOT NULL,
   `downloads` varchar(250) NOT NULL,
+  `discord` varchar(250) NOT NULL,
   `player_voc` int(11) NOT NULL COMMENT '0 off and 1 on',
   `player_max` int(11) NOT NULL COMMENT 'players por conta',
   `player_guild` int(11) NOT NULL COMMENT 'level',

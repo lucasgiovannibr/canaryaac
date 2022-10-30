@@ -89,7 +89,7 @@ function LoadMenu(){
     document.getElementById("submenu_"+activeSubmenuItem).style.color="white";
     document.getElementById("ActiveSubmenuItemIcon_"+activeSubmenuItem).style.visibility="visible";
     if(self.name.lastIndexOf("&")==-1){
-        self.name="news=1&library=0&community=0&account=0&shop=0&";
+        self.name="news=1&library=0&community=0&account=0&wars=0&support=0&shop=0&";
     }
     FillMenuArray();
     if(window.matchMedia('(max-width: 768px)').matches){
@@ -334,24 +334,6 @@ function PreloadScreenshots(a_NumberOfScreenshots) {
         g_Screenshots[i] = new Image();
         g_Screenshots[i].src = JS_DIR_IMAGES + 'abouttibia/tibia_screenshot_' + i + '.png'
     }
-}
-
-var player = null;
-var l_ElementTag = document.createElement('script');
-l_ElementTag.src = "https://www.youtube.com/iframe_api";
-var l_FirstScriptTag = document.getElementsByTagName('script')[0];
-l_FirstScriptTag.parentNode.insertBefore(l_ElementTag, l_FirstScriptTag);
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('YouTubeVideo');
-    return;
-}
-
-function StopVideoIfExists() {
-    if (typeof player != null && player.stopVideo instanceof Function) {
-        player.stopVideo();
-    }
-    return;
 }
 
 function ImageInNewWindow(a_ImageSource) {

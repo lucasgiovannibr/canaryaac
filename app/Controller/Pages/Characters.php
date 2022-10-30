@@ -83,7 +83,7 @@ class Characters extends Base{
             'main' => $obPlayer->main,
             'online' => Player::isOnline($obPlayer->id),
             'creation' => date('M d Y, H:i:s', strtotime($dbAccount->creation)),
-            'experience' => $obPlayer->experience,
+            'experience' => number_format($obPlayer->experience, 0, '.', '.'),
             'level' => $obPlayer->level,
             'vocation' => Player::convertVocation($obPlayer->vocation),
             'town_id' => Player::convertTown($obPlayer->town_id),
@@ -100,10 +100,10 @@ class Characters extends Base{
         ];
         $player['stats'] = [
             'balance' => $obPlayer->balance,
-            'health' => $obPlayer->health,
-            'healthmax' => $obPlayer->healthmax,
-            'mana' => $obPlayer->mana,
-            'manamax' => $obPlayer->manamax,
+            'health' => number_format($obPlayer->health, 0, '.', '.'),
+            'healthmax' => number_format($obPlayer->healthmax, 0, '.', '.'),
+            'mana' => number_format($obPlayer->mana, 0, '.', '.'),
+            'manamax' => number_format($obPlayer->manamax, 0, '.', '.'),
             'manashield' => $obPlayer->manashield,
             'max_manashield' => $obPlayer->max_manashield,
             'soul' => $obPlayer->soul,

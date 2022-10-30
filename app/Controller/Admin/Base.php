@@ -16,6 +16,30 @@ use App\Session\Admin\Login as SessionAdminLogin;
 
 class Base{
 
+    public static function getPagination($request, $obPagination)
+    {
+        $pages = $obPagination->getPages();
+        if(count($pages) <= 1) return '';
+
+        $links = '';
+        $url = $request->getRouter()->getCurrentUrl();
+        $queryParams = $request->getQueryParams();
+
+        foreach($pages as $page){
+            $queryParams['page'] = $page['page'];
+            $link = $url.'?'.http_build_query($queryParams);
+            $links .= View::render('admin/modules/pagination/link', [
+                'page' => $page['page'],
+                'link' => $link,
+                'active' => $page['current'] ? 'CurrentPageLink' : '',
+            ]);
+        }
+        return View::render('admin/modules/pagination/box', [
+            'links' => $links,
+            'total' => count($pages)
+        ]);
+    }
+
     private static $databaseMenu = [
         [
             'id' => 1,
@@ -218,17 +242,9 @@ class Base{
             'slug' => 'items',
         ],
         [
-            'id' => 23,
-            'parent_id' => null,
-            'name' => 'Market Offers',
-            'url' => URL . '/admin/market',
-            'icon' => 'shopping-cart',
-            'slug' => 'market',
-        ],
-        [
             'id' => 24,
             'parent_id' => null,
-            'name' => 'Bans',
+            'name' => 'Banishments',
             'url' => URL . '/admin/bans',
             'icon' => 'slash',
             'slug' => 'bans',

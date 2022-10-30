@@ -235,6 +235,20 @@ class Server{
         return $playersRecord ?? '';
     }
 
+    public static function getRecordPlayersWorlds()
+    {
+        $players_record = 0;
+        $selectRecordPlayers = (new Database('server_config'))->select('config = "players_record"');
+        while($obRecordPlayers = $selectRecordPlayers->fetchObject()){
+            $players_record = $players_record + $obRecordPlayers->value;
+            $playersRecord = [
+                'record' => $players_record,
+                'timestamp' => $obRecordPlayers->timestamp
+            ];
+        }
+        return $playersRecord ?? '';
+    }
+
     public static function getPlayersOnline()
     {
         $select = (new Database('players_online'))->select();
@@ -244,7 +258,7 @@ class Server{
             $selectPlayers = (new Database('players'))->select('id = "'.$obPlayersOnline->player_id.'"');
 
             while($obPlayer = $selectPlayers->fetchObject()){
-                $playersOnline = [
+                $playersOnline[] = [
                     'name' => $obPlayer->name,
                     'vocation' => $obPlayer->vocation,
                     'level' => $obPlayer->level
@@ -344,7 +358,7 @@ class Server{
                 'battle_eye_int' => $obWorlds->battle_eye,
                 'battle_eye_icon' => self::convertBattleEyeIcon($obWorlds->battle_eye),
                 'world_type' => self::convertWorldType($obWorlds->world_type),
-                'players_record' => self::getRecordPlayers(),
+                'players_record' => self::getRecordPlayers($obWorlds->id),
                 'players_online' => self::getCountPlayersOnline(),
                 'server_status' => self::getServerStatus(),
                 'ipaddress' => $obWorlds->ip,
@@ -373,7 +387,7 @@ class Server{
                 'battle_eye' => self::convertBattleEye($obWorlds->battle_eye),
                 'battle_eye_icon' => self::convertBattleEyeIcon($obWorlds->battle_eye),
                 'world_type' => self::convertWorldType($obWorlds->world_type),
-                'players_record' => self::getRecordPlayers(),
+                'players_record' => self::getRecordPlayers($obWorlds->id),
                 'players_online' => self::getCountPlayersOnline(),
                 'server_status' => self::getServerStatus(),
                 'ipaddress' => $obWorlds->ip,

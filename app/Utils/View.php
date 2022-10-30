@@ -31,18 +31,20 @@ class View{
             __DIR__.'/../../resources/view/pagination/',
             __DIR__.'/../../resources/view/admin/',
             __DIR__.'/../../resources/view/admin/alert',
+            __DIR__.'/../../resources/view/themeboxes/',
         ]);
-        if(getenv('DEV_MODE') == true){
+        if($_ENV['DEV_MODE'] == true){
             $twig = new Environment($loader, [
                 'debug' => true,
                 'charset' => 'utf-8',
-                'cache' => __DIR__.'/../../resources/view/cache',
+                'cache' => false,
                 'autoescape' => 'html',
             ]);
         }else{
             $twig = new Environment($loader, [
                 'debug' => false,
-                'cache' => false,
+                'charset' => 'utf-8',
+                'cache' => __DIR__.'/../../resources/view/cache',
             ]);
         }
 

@@ -97,7 +97,7 @@
 						</tbody>
 					</table>
 				</div>
-				<br>
+                <br>
 				<div class="TableContainer">
 					<div class="CaptionContainer">
 						<div class="CaptionInnerContainer">
@@ -150,6 +150,52 @@
 					</table>
 				</div>
                 <br>
+				{% if account.account_banned == true %}
+				<div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message" style="padding: 0px; padding-left: 8px; padding-right: 0px;">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width: 100%;">
+											<b class="red">Your account has been banished.</b>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="TableContentContainer">
+												<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+													<tbody>
+														<tr>
+															<td class="LabelV">Date</td>
+															<td class="LabelV">Reason</td>
+															<td class="LabelV">Banishment</td>
+														</tr>
+														<tr>
+															<td>{{ account.ban_info.date|date("M d Y H:i:s") }}</td>
+															<td>{{ account.ban_info.reason }}</td>
+															<td>{{ account.ban_info.days_end }} days to end</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+				<br>
+				{% endif %}
 				{% if account.registered == false %}
 				<div class="SmallBox">
 					<div class="MessageContainer">
@@ -234,7 +280,7 @@
 																			<td style="width: 100px !important;">Status</td>
 																			<td style="width: 100px !important;">&nbsp;</td>
 																		</tr>
-                                                                        {% set count = 0 %}
+                                                                        {% set count = 1 %}
 																		<tr id="CharacterRow_{{ count }}" onmouseover="InRowWithOverEffect('CharacterRow_{{ count }}', '#ffedd1');" onmouseout="OutRowWithOverEffect('CharacterRow_{{ count }}', '{{ getStyle(i) }}');" onclick="FocusCharacter({{ count }}, '{{ account.player.name }}', 9);" class="CharacterList {{ getStyleCss(i) }}" style="font-weight: bold;">
 																			<td style="text-align: center; padding:2px; padding-top: 4px;">{{ count }}.</td>
 																			<td><img src="{{ account.player.outfit.image_url }}" alt="Outfit" title="Outfit" height="55" width="55" style="left: -10px; bottom: 10px; position: inherit; border-radius: 0;"></td>

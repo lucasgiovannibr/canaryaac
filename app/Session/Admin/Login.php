@@ -1,6 +1,6 @@
 <?php
 /**
- * Validator class
+ * Login Class
  *
  * @package   CanaryAAC
  * @author    Lucas Giovanni <lucasgiovannidesigner@gmail.com>
@@ -14,7 +14,9 @@ class Login{
     public static function init()
     {
         if(session_status() != PHP_SESSION_ACTIVE){
-            session_start();
+            session_start([
+                'name' => 'CanaryAAC'
+            ]);
         }
     }
 
@@ -26,13 +28,26 @@ class Login{
             'name' => $obAccount->name,
             'email' => $obAccount->email
         ];
+        $_SESSION['login_timeout'] = time();
         return true;
     }
 
     public static function isLogged()
     {
         self::init();
-        return isset($_SESSION['account']['user']['id']);
+        if (isset($_SESSION['login_timeout'])) {
+            if (time() - $_SESSION['login_timeout'] > 1800) {
+                unset($_SESSION['login_timeout']);
+                unset($_SESSION['account']['user']);
+                return false;
+            } else {
+                session_regenerate_id(true);
+                return isset($_SESSION['account']['user']['id']);
+            }
+        } else {
+            unset($_SESSION['account']['user']);
+            return false;
+        }
     }
 
     public static function idLogged()
@@ -45,6 +60,7 @@ class Login{
     {
         self::init();
         unset($_SESSION['account']['user']);
+        unset($_SESSION['login_timeout']);
         return true;
     }
 }

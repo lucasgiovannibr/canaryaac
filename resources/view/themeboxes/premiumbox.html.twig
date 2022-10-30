@@ -1,16 +1,19 @@
-<div id="PremiumBox" class="Themebox" style="background-image:url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/themebox.png);">
-    <div id="PremiumBoxDecor" style="background-image:url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/coin_animation.gif);"></div>
-    <div id="PremiumBoxBg" style="background-image:url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/coins_exp.png);"></div>
-    <div id="PremiumBoxOverlay" style="background-image:url(http://127.0.0.1/canary-aac/resources/images//global/themeboxes/premium/type_overlay.png);">
-        <p id="PremiumBoxOverlayText">Use XP Boosts!</p>
+{# PremiumBox START #}
+<div id="PremiumBox" class="Themebox" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/themebox.png);">
+    <div id="PremiumBoxDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/crown_animation.gif);"></div>
+    <div id="PremiumBoxBg" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/coins_premium.png);"></div>
+    <div id="PremiumBoxOverlay" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/type_overlay.png);">
+        <p id="PremiumBoxOverlayText">Donate here!</p>
     </div>
     <div id="PremiumBoxButton">
-        <div class="WebshopButton" style="background-image:url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/button.png)">
-            <div onmouseover="MouseOverWebshopButton(this);" onmouseout="MouseOutWebshopButton(this);">
-                <div class="WebshopButtonOver" style="background-image: url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/button_hover.png); visibility: hidden;"></div>
-                <input class="WebshopButtonText" type="image" name="Get Coins" alt="Get Coins" src="http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/get_tibia_coins.png">
+        <a href="{{URL}}/payment" style="padding:0px;margin:0px;">
+            <div class="WebshopButton" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/button.png)">
+                <div onmouseover="MouseOverWebshopButton(this);" onmouseout="MouseOutWebshopButton(this);"><div class="WebshopButtonOver" style="background-image: url({{IMAGE_PATH}}/global/themeboxes/premium/button_hover.png); visibility: hidden;"></div>
+                    <input class="WebshopButtonText" type="image" name="Get Coins" alt="Get Coins" src="{{IMAGE_PATH}}/global/themeboxes/premium/get_premium.png">
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <div id="PremiumBoxButtonDecor" style="background-image:url(http://127.0.0.1/canary-aac/resources/images/global/themeboxes/premium/button_tibia_coins.png);"></div>
+    <div id="PremiumBoxButtonDecor" style="background-image:url({{IMAGE_PATH}}/global/themeboxes/premium/button_premiumtime.png);"></div>
 </div>
+{# PremiumBox END #}
