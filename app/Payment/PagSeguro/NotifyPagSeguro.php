@@ -11,6 +11,7 @@ namespace App\Payment\PagSeguro;
 
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Services\Transactions\Notification;
+use App\Model\Entity\PaymentStatus;
 use App\Model\Entity\Payments as EntityPayments;
 use App\Model\Entity\Account as EntityAccount;
 
@@ -18,46 +19,52 @@ class NotifyPagSeguro {
 
     public static function ReturnPagSeguro($request)
     {   
-
+        ApiPagSeguro::initialize();
         if($_SERVER['REQUEST_METHOD'] != 'POST'){
             array('status_code' => 405, 'message' => "method not allowed");
         }
 
         $postVars = $request->getPostVars();
         if(!isset($postVars['notificationType'])){
-            return array(422, "empty notification type");
+            return array('status_code' => 422, 'message' => "empty notification type");
         }
 
         if($postVars['notificationType'] != 'transaction'){
             error_log("PagSeguro notification received a non transaction notification type");
-            return array(500, "non transaction notification type ".file_get_contents('php://input'));
+            return array('status_code' => 500, 'message' => "non transaction notification type ".file_get_contents('php://input'));
         }
         $credentials = Configure::getAccountCredentials();
         $transaction = Notification::check($credentials);
-            
-        $reference = '6376c53f30f59';
-        $transaction_status = $transaction->getStatus()->getTypeFromValue();
-        $dbPayment = EntityPayments::getPayment('preference = "'.$reference.'"')->fetchObject();
-        $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
-        $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
-        error_log('notification_status'.$transaction_status);
+        
+        $reference = $transaction->getReference();
+        $transaction_status = $transaction->getStatus();
+        self::updatePayment($transaction_status, $reference);
+
+        return array('status_code' => 200, 'message' => "ok");
+    }
+
+    static function updatePayment($transaction_status, $reference)
+    {   
         switch ($transaction_status) {
-            case 'PAID':
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => 4,]);
+            case '1': // Pending Payment
+                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Pending->value,]);
+                break;
+            case '2': // Under Analisys
+                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::UnderAnalisys->value,]);
+                break;
+            case '3': // Paid
+                $dbPayment = EntityPayments::getPayment('reference = "'.$reference.'"')->fetchObject();
+                $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
+                $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
+                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Approved->value,]);
                 EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
                 break;
-            case 'IN_ANALISYS':
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => 3,]);
-                break;
-            case 'DECLINED':
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => 1,]);
-                break;
-            case 'CANCELED':
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => 1,]);
+            case '7': // Canceled or Rejected
+                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Canceled->value,]);
                 break;
             default:
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => 0,]);
+                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Unknown->value,]);
+                break;
         }
-        return array(200, "OK");
     }
 }

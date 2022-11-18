@@ -9,7 +9,6 @@
 
 namespace App\Payment\PagSeguro;
 
-use Exception;
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Library;
 use PagSeguro\Domains\Requests\Payment;
@@ -19,28 +18,28 @@ use PagSeguro\Services\Transactions\Search\Reference;
 use PagSeguro\Services\Transactions\Search\Abandoned;
 use PagSeguro\Helpers\Xhr;
 
+
+
 class ApiPagSeguro{
+    public static function initialize() {
+        Library::initialize();
+        Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
+        Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
+    
+        $email = $_ENV['PAGSEGURO_EMAIL'];
+        $token = $_ENV['PAGSEGURO_TOKEN'];
+    
+        Configure::setEnvironment('sandbox');
+        Configure::setAccountCredentials($email, $token);
+    
+        Configure::setCharset('UTF-8');
+        Configure::setLog(false, '');
+    }
+
 
     public static function createPayment($products = [], $email = null)
     {
-        try {
-            Library::initialize();
-            Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
-            Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
-        }
-        catch (Exception $e) {
-            die($e);
-        }
-
-        $email = $_ENV['PAGSEGURO_EMAIL'];
-        $token = $_ENV['PAGSEGURO_TOKEN'];
-        
-        Configure::setEnvironment('sandbox');
-        Configure::setAccountCredentials($email, $token);
-
-        Configure::setCharset('UTF-8');
-        Configure::setLog(false, '');
-
+        self::initialize();
         $payment = new Payment();
 
         $payment->addItems()->withParameters(
@@ -54,7 +53,7 @@ class ApiPagSeguro{
         $payment->setReference($products['reference']);
 
         // Set your customer information.
-        $payment->setSender()->setName('CanaryAAC');
+        $payment->setSender()->setName('Canary AAC');
         $payment->setSender()->setEmail($email);
 
         $payment->setRedirectUrl($_ENV['URL'].'/payment');
@@ -64,24 +63,15 @@ class ApiPagSeguro{
             Configure::getAccountCredentials()
         );
 
-        return $result;
+        $onlyCheckoutCode = true;
+        $result = $payment->register(Configure::getAccountCredentials(), $onlyCheckoutCode);
+
+        return $result->getCode();
     }
 
     public static function createPaymentLightBox($products = [], $email = null)
     {
-        $email = $_ENV['PAGSEGURO_EMAIL'];
-        $token = $_ENV['PAGSEGURO_TOKEN'];
-
-        Library::initialize();
-        Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
-        Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
-
-        Configure::setEnvironment('sandbox');
-        Configure::setAccountCredentials($email, $token);
-
-        Configure::setCharset('UTF-8');
-        Configure::setLog(false, '');
-
+        self::initialize();
         $payment = new Payment();
 
         $payment->addItems()->withParameters(
@@ -93,11 +83,11 @@ class ApiPagSeguro{
         $payment->setCurrency('BRL');
         $payment->setReference($products['reference']);
 
-        $payment->setSender()->setName('Hondebra OT');
+        $payment->setSender()->setName('Canary AAC');
         $payment->setSender()->setEmail($email);
 
-        $payment->setRedirectUrl($_ENV['URL'].'/payment');
-        $payment->setNotificationUrl($_ENV['URL'].'/payment/pagseguro/return');
+        $payment->setRedirectUrl(URL.'/payment');
+        $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
 
         $onlyCheckoutCode = true;
         $result = $payment->register(Configure::getAccountCredentials(), $onlyCheckoutCode);

@@ -172,7 +172,7 @@ class Payment extends Base{
                         'quantity' => $filter_coins,
                     ],
                 ];
-                $code_payment = 'https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=' . ApiPagSeguro::createPaymentLightBox($checkout, $filter_email);
+                $code_payment = 'https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=' . ApiPagSeguro::createPayment($checkout, $filter_email);
                 break;
             case 'pix':
                 // Not implemented Yet

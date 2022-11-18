@@ -43,7 +43,7 @@ class NotifyMercadoPago {
         }
     }
 
-    public static function updatePayment($payment)
+    static function updatePayment($payment)
     {   
         switch ($payment->status) {
             case 'pending':
@@ -56,10 +56,10 @@ class NotifyMercadoPago {
                 EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Processing->value,]);
                 break;
             case 'approved':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Approved->value,]);
                 $dbPayment = EntityPayments::getPayment('reference = "'.$payment->external_reference.'"')->fetchObject();
                 $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
                 $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
+                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Approved->value,]);
                 EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
                 break;
             case 'rejected':
