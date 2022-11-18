@@ -43,25 +43,27 @@ $obRouter->post('/payment/summary', [
 
 $obRouter->get('/payment/mercadopago/return', [
     function($request){
-        return new Response(200, NotifyMercadoPago::ReturnMercadoPago($request));
+        $ret = NotifyMercadoPago::ReturnMercadoPago($request);
+        return new Response($ret['status_code'], $ret['message']);
     }
 ]);
 $obRouter->post('/payment/mercadopago/return', [
     function($request){
-        return new Response(200, NotifyMercadoPago::ReturnMercadoPago($request));
+        $ret = NotifyMercadoPago::ReturnMercadoPago($request);
+        return new Response($ret['status_code'], $ret['message']);
     }
 ]);
 
 $obRouter->get('/payment/pagseguro/return', [
     function($request){
         $ret = NotifyPagSeguro::ReturnPagSeguro($request);
-        return new Response($ret[0], $ret[1]);
+        return new Response($ret['status_code'], $ret['message']);
     }
 ]);
 $obRouter->post('/payment/pagseguro/return', [
     function($request){
         $ret = NotifyPagSeguro::ReturnPagSeguro($request);
-        return new Response($ret[0], $ret[1]);
+        return new Response($ret['status_code'], $ret['message']);
     }
 ]);
 

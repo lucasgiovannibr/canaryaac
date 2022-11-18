@@ -15,6 +15,7 @@ use App\Payment\MercadoPago\ApiMercadoPago;
 use App\Payment\PayPal\ApiPayPal;
 use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
+use App\Model\Entity\PaymentStatus as PaymentStatus;
 use App\Model\Entity\Payments as EntityPayments;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 
@@ -191,7 +192,7 @@ class Payment extends Base{
                         'quantity' => $filter_coins,
                     ],
                 ];
-                $code_payment = ApiMercadoPago::createPayment($reference, $checkout, $filter_email, 'production');
+                $code_payment = ApiMercadoPago::createPayment($reference, $checkout, $filter_email, $_ENV['MERCADOPAGO_PAYMENT']);
                 break;
             default:
                 $request->getRouter()->redirect('/payment');
@@ -204,7 +205,8 @@ class Payment extends Base{
             'reference' => $reference,
             'total_coins' => $filter_coins,
             'final_price' => $price,
-            'status' => 2,
+            // TODO: this should be PaymentStatus::Pending->value
+            'status' => 0,
             'date' => strtotime(date('Y-m-d h:i:s')),
         ];
         EntityPayments::insertPayment($order);

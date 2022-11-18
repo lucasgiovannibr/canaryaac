@@ -16,18 +16,19 @@ use App\Model\Entity\Account as EntityAccount;
 
 class NotifyPagSeguro {
 
-    public static function ReturnPagSeguro()
+    public static function ReturnPagSeguro($request)
     {   
 
         if($_SERVER['REQUEST_METHOD'] != 'POST'){
-            error_log("PagSeguro notification received a non POST method");
-            return array(500, "non POST method");
+            array('status_code' => 405, 'message' => "method not allowed");
         }
-        $rawPostData = file_get_contents('php://input');
-        $decodedPostData = json_decode($rawPostData, false);
-        return array(404, "file content ".$rawPostData);
 
-        if($rawPostData['notificationType'] != 'transaction'){
+        $postVars = $request->getPostVars();
+        if(!isset($postVars['notificationType'])){
+            return array(422, "empty notification type");
+        }
+
+        if($postVars['notificationType'] != 'transaction'){
             error_log("PagSeguro notification received a non transaction notification type");
             return array(500, "non transaction notification type ".file_get_contents('php://input'));
         }
@@ -35,7 +36,6 @@ class NotifyPagSeguro {
         $transaction = Notification::check($credentials);
             
         $reference = '6376c53f30f59';
-        // $transaction_code = $transaction->getCode();
         $transaction_status = $transaction->getStatus()->getTypeFromValue();
         $dbPayment = EntityPayments::getPayment('preference = "'.$reference.'"')->fetchObject();
         $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
