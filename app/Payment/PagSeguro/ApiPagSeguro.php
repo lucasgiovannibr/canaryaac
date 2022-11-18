@@ -9,6 +9,7 @@
 
 namespace App\Payment\PagSeguro;
 
+use Exception;
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Library;
 use PagSeguro\Domains\Requests\Payment;
@@ -22,12 +23,17 @@ class ApiPagSeguro{
 
     public static function createPayment($products = [], $email = null)
     {
+        try {
+            Library::initialize();
+            Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
+            Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
+        }
+        catch (Exception $e) {
+            die($e);
+        }
+
         $email = $_ENV['PAGSEGURO_EMAIL'];
         $token = $_ENV['PAGSEGURO_TOKEN'];
-
-        Library::initialize();
-        Library::cmsVersion()->setName("CanaryAAC")->setRelease("1.0.0");
-        Library::moduleVersion()->setName("CanaryAAC")->setRelease("1.0.0");
         
         Configure::setEnvironment('sandbox');
         Configure::setAccountCredentials($email, $token);
@@ -51,8 +57,8 @@ class ApiPagSeguro{
         $payment->setSender()->setName('CanaryAAC');
         $payment->setSender()->setEmail($email);
 
-        $payment->setRedirectUrl(URL.'/payment');
-        $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
+        $payment->setRedirectUrl($_ENV['URL'].'/payment');
+        $payment->setNotificationUrl($_ENV['URL'].'/payment/pagseguro/return');
 
         $result = $payment->register(
             Configure::getAccountCredentials()
@@ -87,11 +93,11 @@ class ApiPagSeguro{
         $payment->setCurrency('BRL');
         $payment->setReference($products['reference']);
 
-        $payment->setSender()->setName('CanaryAAC');
+        $payment->setSender()->setName('Hondebra OT');
         $payment->setSender()->setEmail($email);
 
-        $payment->setRedirectUrl(URL.'/payment');
-        $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
+        $payment->setRedirectUrl($_ENV['URL'].'/payment');
+        $payment->setNotificationUrl($_ENV['URL'].'/payment/pagseguro/return');
 
         $onlyCheckoutCode = true;
         $result = $payment->register(Configure::getAccountCredentials(), $onlyCheckoutCode);

@@ -54,12 +54,14 @@ $obRouter->post('/payment/mercadopago/return', [
 
 $obRouter->get('/payment/pagseguro/return', [
     function($request){
-        return new Response(200, NotifyPagSeguro::ReturnPagSeguro($request));
+        $ret = NotifyPagSeguro::ReturnPagSeguro($request);
+        return new Response($ret[0], $ret[1]);
     }
 ]);
 $obRouter->post('/payment/pagseguro/return', [
     function($request){
-        return new Response(200, NotifyPagSeguro::ReturnPagSeguro($request));
+        $ret = NotifyPagSeguro::ReturnPagSeguro($request);
+        return new Response($ret[0], $ret[1]);
     }
 ]);
 
