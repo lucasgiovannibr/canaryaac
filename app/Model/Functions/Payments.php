@@ -10,6 +10,7 @@
 namespace App\Model\Functions;
 
 use App\Model\Entity\Payments as EntityPayments;
+use App\Model\Entity\PaymentStatus;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 
 class Payments
@@ -34,6 +35,7 @@ class Payments
     {
         $select_payments = EntityPayments::getPayment(null, 'id DESC');
         while ($payment = $select_payments->fetchObject()) {
+            $status=PaymentStatus::from($payment->status);
             $arrayPayments[] = [
                 'id' => $payment->id,
                 'account_id' => $payment->account_id,
@@ -42,8 +44,8 @@ class Payments
                 'reference' => $payment->reference,
                 'total_coins' => $payment->total_coins,
                 'final_price' => $payment->final_price,
-                'status' => $payment->status,
-                'status_badge' => self::convertStatus($payment->status),
+                'status' => $status,
+                'status_badge' => self::convertStatus($status),
                 'date' => date('d/m/Y h:i:s', $payment->date),
             ];
         }
@@ -64,11 +66,11 @@ class Payments
 
         $select_payments = EntityPayments::getPayment('date BETWEEN "' . $date_start . '" AND "' . $date_end . '"');
         while ($payment = $select_payments->fetchObject()) {
-            if ($payment->status == 4) {
+            if ($payment->status == PaymentStatus::Approved) {
                 $payment_paid_coins += $payment->total_coins;
                 $payment_paid_price += $payment->final_price;
             }
-            if ($payment->status == 1) {
+            if ($payment->status == PaymentStatus::Canceled || $payment->status == PaymentStatus::Rejected) {
                 $payment_canceled_coins += $payment->total_coins;
                 $payment_canceled_price += $payment->final_price;
             }
@@ -89,7 +91,7 @@ class Payments
     {
         $total_coins_approved = 0;
         $final_price_approved = 0;
-        $select_payments_approved = EntityPayments::getPayment('status = 4');
+        $select_payments_approved = EntityPayments::getPayment('status = '.PaymentStatus::Approved->value);
         while ($payment_approved = $select_payments_approved->fetchObject()) {
             $total_coins_approved += $payment_approved->total_coins;
             $final_price_approved += $payment_approved->final_price;
@@ -97,7 +99,7 @@ class Payments
 
         $total_coins_cancelled = 0;
         $final_price_cancelled = 0;
-        $select_payments_cancelled = EntityPayments::getPayment('status = 1');
+        $select_payments_cancelled = EntityPayments::getPayment('status = '.PaymentStatus::Canceled->value);
         while ($payment_cancelled = $select_payments_cancelled->fetchObject()) {
             $total_coins_cancelled += $payment_cancelled->total_coins;
             $final_price_cancelled += $payment_cancelled->final_price;
@@ -115,21 +117,27 @@ class Payments
     public static function convertStatus($status)
     {
         switch ($status) {
-            case 1:
-                return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Canceled </span>';
-                exit;
-            case 2:
-                return '<span class="badge rounded-pill badge-light-info" text-capitalized=""> Open </span>';
-                exit;
-            case 3:
+            case PaymentStatus::Pending:
+                return '<span class="badge rounded-pill badge-light-warning" text-capitalized=""> Pending </span>';
+                break;
+            case PaymentStatus::UnderAnalisys:
                 return '<span class="badge rounded-pill badge-light-warning" text-capitalized=""> Under Analysis </span>';
-                exit;
-            case 4:
-                return '<span class="badge rounded-pill badge-light-success" text-capitalized=""> Paid </span>';
-                exit;
-            default:
+                break;
+            case PaymentStatus::Processing:
+                return '<span class="badge rounded-pill badge-light-info" text-capitalized=""> Processing </span>';
+                break;
+            case PaymentStatus::Approved:
+                return '<span class="badge rounded-pill badge-light-success" text-capitalized=""> Approved </span>';
+                break;
+            case PaymentStatus::Rejected:
+                return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Rejected </span>';
+                break;
+            case PaymentStatus::Canceled:
                 return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Canceled </span>';
-                exit;
+                break;
+            default:
+                return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Unkown </span>';
+                break;
         }
     }
 

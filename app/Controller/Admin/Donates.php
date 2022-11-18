@@ -11,6 +11,7 @@ namespace App\Controller\Admin;
 
 use App\Model\Entity\Account as EntityAccount;
 use App\Utils\View;
+use App\Model\Entity\PaymentStatus;
 use App\Model\Entity\Payments as EntityPayments;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 use App\Model\Functions\Payments as PaymentsFunctions;
@@ -35,7 +36,7 @@ class Donates extends Base{
             'reference' => $payment->reference,
             'total_coins' => $payment->total_coins,
             'final_price' => $payment->final_price,
-            'status' => $payment->status,
+            'status' => PaymentStatus::from($payment->status),
             'status_badge' => PaymentsFunctions::convertStatus($payment->status),
             'date' => date('d/m/Y h:i:s', $payment->date),
         ];
