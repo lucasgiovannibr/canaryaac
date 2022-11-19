@@ -35,7 +35,7 @@ class Donates extends Base{
             'method_img' => PaymentsFunctions::convertMethodImage($payment->method),
             'reference' => $payment->reference,
             'total_coins' => $payment->total_coins,
-            'final_price' => $payment->final_price,
+            'gross_payment' => $payment->gross_payment,
             'status' => PaymentStatus::from($payment->status),
             'status_badge' => PaymentsFunctions::convertStatus($payment->status),
             'date' => date('d/m/Y h:i:s', $payment->date),

@@ -21,11 +21,11 @@ class Payments
         $select_ServerConfig = EntityServerConfig::getInfoWebsite()->fetchObject();
         $select_products = EntityServerConfig::getProducts(null, 'id ASC');
         while ($product = $select_products->fetchObject()) {
-            $final_price = $select_ServerConfig->coin_price * $product->coins;
+            $gross_payment = $select_ServerConfig->coin_price * $product->coins;
             $arrayProducts[] = [
                 'id' => $product->id,
                 'coins' => $product->coins,
-                'final_price' => $final_price
+                'gross_payment' => $gross_payment
             ];
         }
         return $arrayProducts;
@@ -43,7 +43,7 @@ class Payments
                 'method_img' => self::convertMethodImage($payment->method),
                 'reference' => $payment->reference,
                 'total_coins' => $payment->total_coins,
-                'final_price' => $payment->final_price,
+                'gross_payment' => $payment->gross_payment,
                 'status' => $status,
                 'status_badge' => self::convertStatus($status),
                 'date' => date('d/m/Y h:i:s', $payment->date),
@@ -68,11 +68,11 @@ class Payments
         while ($payment = $select_payments->fetchObject()) {
             if ($payment->status == PaymentStatus::Approved) {
                 $payment_paid_coins += $payment->total_coins;
-                $payment_paid_price += $payment->final_price;
+                $payment_paid_price += $payment->gross_payment;
             }
             if ($payment->status == PaymentStatus::Canceled || $payment->status == PaymentStatus::Rejected) {
                 $payment_canceled_coins += $payment->total_coins;
-                $payment_canceled_price += $payment->final_price;
+                $payment_canceled_price += $payment->gross_payment;
             }
         }
         return [
@@ -90,26 +90,30 @@ class Payments
     public static function statisticsPaytments()
     {
         $total_coins_approved = 0;
-        $final_price_approved = 0;
+        $final_gross_payment_approved = 0;
+        $final_net_payment_approved = 0;
+
         $select_payments_approved = EntityPayments::getPayment('status = '.PaymentStatus::Approved->value);
         while ($payment_approved = $select_payments_approved->fetchObject()) {
             $total_coins_approved += $payment_approved->total_coins;
-            $final_price_approved += $payment_approved->final_price;
+            $final_gross_payment_approved += $payment_approved->gross_payment;
+            $final_net_payment_approved += $payment_approved->net_payment;
         }
 
         $total_coins_cancelled = 0;
         $final_price_cancelled = 0;
-        $select_payments_cancelled = EntityPayments::getPayment('status = '.PaymentStatus::Canceled->value);
+        $select_payments_cancelled = EntityPayments::getPayment('status in ('. PaymentStatus::Canceled->value . "," . PaymentStatus::Rejected->value . ")");
         while ($payment_cancelled = $select_payments_cancelled->fetchObject()) {
             $total_coins_cancelled += $payment_cancelled->total_coins;
-            $final_price_cancelled += $payment_cancelled->final_price;
+            $final_price_cancelled += $payment_cancelled->gross_payment;
         }
 
         $arrayStats = [
             'total_coins' => $total_coins_approved,
-            'final_price' => $final_price_approved,
-            'cancel_coins' => $total_coins_cancelled,
-            'cancel_price' => $final_price_cancelled,
+            'canceled_coins' => $total_coins_cancelled,
+            'gross_total_price' => $final_gross_payment_approved,
+            'net_total_price' => $final_net_payment_approved,
+            'canceled_total_price' => $final_price_cancelled,
         ];
         return $arrayStats;
     }

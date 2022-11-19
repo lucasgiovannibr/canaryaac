@@ -24,8 +24,9 @@ class NotifyMercadoPago {
         }
 
         $postVars = $request->getPostVars();
+        
         if(!isset($postVars['type'])){
-            return array(422, "empty notification type");
+            return array('status_code' => 422, 'message' => "empty notification type");
         }
         SDK::setAccessToken($_ENV['MERCADOPAGO_TOKEN']);
         switch ($postVars["type"]) {
@@ -59,7 +60,10 @@ class NotifyMercadoPago {
                 $dbPayment = EntityPayments::getPayment('reference = "'.$payment->external_reference.'"')->fetchObject();
                 $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
                 $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Approved->value,]);
+                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', [
+                    'status' => PaymentStatus::Approved->value,
+                    'net_payment' => $payment->transaction_details->net_received_amount,
+                ]);
                 EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
                 break;
             case 'rejected':

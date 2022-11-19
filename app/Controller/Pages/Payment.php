@@ -31,12 +31,12 @@ class Payment extends Base{
         $product_web_id = 192;
         while ($product = $select_products->fetchObject()) {
             $product_web_id++;
-            $final_price = $donateConfigs->coin_price * $product->coins;
+            $gross_payment = $donateConfigs->coin_price * $product->coins;
             $arrayProducts[] = [
                 'id' => $product->id,
                 'coins' => $product->coins,
                 'web_id' => $product_web_id,
-                'final_price' => $final_price
+                'gross_payment' => $gross_payment
             ];
         }
 
@@ -88,14 +88,14 @@ class Payment extends Base{
         }
 
         $filter_coins = filter_var($postVars['payment_coins'], FILTER_SANITIZE_NUMBER_INT);
-        $final_price = $filter_coins * $donateConfigs->coin_price;
+        $gross_payment = $filter_coins * $donateConfigs->coin_price;
         
         $content = View::render('pages/shop/paymentconfirm', [
             'method' => $postVars['payment_method'],
             'coins' => $filter_coins,
             'country' => $postVars['payment_country'],
             'email' => $postVars['payment_email'],
-            'price' => $final_price,
+            'price' => $gross_payment,
         ]);
         return parent::getBase('Webshop', $content, 'donate');
     }
@@ -132,11 +132,11 @@ class Payment extends Base{
             $request->getRouter()->redirect('/payment');
         }
         $filter_coins = filter_var($postVars['payment_coins'], FILTER_SANITIZE_NUMBER_INT);
-        $final_price = $donateConfigs->coin_price;
-        if($final_price == 0){
+        $gross_payment = $donateConfigs->coin_price;
+        if($gross_payment == 0){
             $request->getRouter()->redirect('/payment');
         }
-        $price = $final_price * $filter_coins;
+        $price = $gross_payment * $filter_coins;
         
         $payment_method = filter_var($postVars['payment_method'], FILTER_SANITIZE_SPECIAL_CHARS);
         $code_payment = null;
@@ -152,7 +152,7 @@ class Payment extends Base{
                     'item' => [
                         'id' => '0001',
                         'title' => $filter_coins.' Coins',
-                        'amount' => $final_price,
+                        'amount' => $gross_payment,
                         'quantity' => $filter_coins,
                     ],
                 ];
@@ -168,7 +168,7 @@ class Payment extends Base{
                     'item' => [
                         'id' => '0001',
                         'title' => $filter_coins.' Coins',
-                        'amount' => $final_price,
+                        'amount' => $gross_payment,
                         'quantity' => $filter_coins,
                     ],
                 ];
@@ -188,7 +188,7 @@ class Payment extends Base{
                     'item' => [
                         'id' => '0001',
                         'title' => $filter_coins.' Coins',
-                        'amount' => $final_price,
+                        'amount' => $gross_payment,
                         'quantity' => $filter_coins,
                     ],
                 ];
@@ -204,7 +204,7 @@ class Payment extends Base{
             'method' => $payment_method,
             'reference' => $reference,
             'total_coins' => $filter_coins,
-            'final_price' => $price,
+            'gross_payment' => $price,
             // TODO: this should be PaymentStatus::Pending->value
             'status' => 0,
             'date' => strtotime(date('Y-m-d h:i:s')),

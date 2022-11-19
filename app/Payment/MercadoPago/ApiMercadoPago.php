@@ -17,8 +17,6 @@ class ApiMercadoPago {
 
     public static function createPayment($reference_id, $products = [], $email = null, $type='sandbox')
     {
-        $final_price = $products['item']['amount'] * $products['item']['quantity'];
-
         if($type == 'sandbox'){
             SDK::setAccessToken($_ENV['MERCADOPAGO_TOKEN']);
             SDK::setPublicKey($_ENV['MERCADOPAGO_KEY']);

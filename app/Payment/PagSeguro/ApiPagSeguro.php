@@ -12,6 +12,8 @@ namespace App\Payment\PagSeguro;
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Library;
 use PagSeguro\Domains\Requests\Payment;
+use PagSeguro\Enum\PaymentMethod\Group;
+use PagSeguro\Enum\PaymentMethod\Config\Keys;
 use PagSeguro\Services\Application\Notification;
 use PagSeguro\Services\Transactions\Search\Code;
 use PagSeguro\Services\Transactions\Search\Reference;
@@ -56,8 +58,22 @@ class ApiPagSeguro{
         $payment->setSender()->setName('Canary AAC');
         $payment->setSender()->setEmail($email);
 
-        $payment->setRedirectUrl($_ENV['URL'].'/payment');
-        $payment->setNotificationUrl($_ENV['URL'].'/payment/pagseguro/return');
+        $payment->setRedirectUrl(URL.'/payment');
+        $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
+
+        // Limit max installments 
+        // TODO: support installments payments
+        $payment->addPaymentMethod()->withParameters(
+            Group::CREDIT_CARD,
+            Keys::MAX_INSTALLMENTS_LIMIT,
+            1 // (int) qty of installment
+        );
+
+        $payment->acceptPaymentMethod()->groups(
+            Group::CREDIT_CARD,
+            Group::BALANCE,
+            Group::BOLETO
+        );
 
         $result = $payment->register(
             Configure::getAccountCredentials()
@@ -88,6 +104,18 @@ class ApiPagSeguro{
 
         $payment->setRedirectUrl(URL.'/payment');
         $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
+
+        $payment->addPaymentMethod()->withParameters(
+            Group::CREDIT_CARD,
+            Keys::MAX_INSTALLMENTS_LIMIT,
+            1 // (int) qty of installment
+        );
+
+        $payment->acceptPaymentMethod()->groups(
+            Group::CREDIT_CARD,
+            Group::BALANCE,
+            Group::BOLETO,
+        );
 
         $onlyCheckoutCode = true;
         $result = $payment->register(Configure::getAccountCredentials(), $onlyCheckoutCode);
