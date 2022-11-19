@@ -9,6 +9,7 @@
 
 namespace App\Payment\MercadoPago;
 
+use App\Payment\Payments;
 use MercadoPago\Payment;
 use MercadoPago\SDK;
 use App\Model\Entity\PaymentStatus;
@@ -25,13 +26,14 @@ class NotifyMercadoPago {
 
         $postVars = $request->getPostVars();
         
-        if(!isset($postVars['topic']) and $postVars['topic'] == 'merchant_order'){
+        if(array_key_exists('topic', $postVars) and $postVars['topic'] == 'merchant_order'){
             return array('status_code' => 200, 'message' => "ok");
         }
 
         if(!isset($postVars['type'])){
             return array('status_code' => 422, 'message' => "empty notification type");
         }
+
         SDK::setAccessToken($_ENV['MERCADOPAGO_TOKEN']);
         switch ($postVars["type"]) {
             case "payment":
@@ -41,7 +43,7 @@ class NotifyMercadoPago {
                 }
                 self::updatePayment($payment);
                 return array('status_code' => 200, 'message' => "ok");
-            default:
+        default:
                 return array('status_code' => 418, 'message' => "unkown notification type");
         }
     }
@@ -50,32 +52,25 @@ class NotifyMercadoPago {
     {   
         switch ($payment->status) {
             case 'pending':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Pending->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Pending);
                 break;
             case 'in_process':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::UnderAnalisys->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::UnderAnalisys);
                 break;
             case 'authorized':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Processing->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Processing);
                 break;
             case 'approved':
-                $dbPayment = EntityPayments::getPayment('reference = "'.$payment->external_reference.'"')->fetchObject();
-                $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
-                $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', [
-                    'status' => PaymentStatus::Approved->value,
-                    'net_payment' => $payment->transaction_details->net_received_amount,
-                ]);
-                EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
+                Payments::ApprovePayment($payment->external_reference, $payment->transaction_details->net_received_amount);
                 break;
             case 'rejected':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Rejected->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Rejected);
                 break;
             case 'cancelled':
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Canceled->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Canceled);
                 break;
             default:
-                EntityPayments::updatePayment('reference = "'.$payment->external_reference.'"', ['status' => PaymentStatus::Unknown->value,]);
+                Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Unknown);
                 break;
         }
     }

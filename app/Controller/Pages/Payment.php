@@ -15,7 +15,6 @@ use App\Payment\MercadoPago\ApiMercadoPago;
 use App\Payment\PayPal\ApiPayPal;
 use \App\Utils\View;
 use App\Session\Admin\Login as SessionAdminLogin;
-use App\Model\Entity\PaymentStatus as PaymentStatus;
 use App\Model\Entity\Payments as EntityPayments;
 use App\Model\Entity\ServerConfig as EntityServerConfig;
 

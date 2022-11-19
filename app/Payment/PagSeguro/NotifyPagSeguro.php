@@ -9,11 +9,10 @@
 
 namespace App\Payment\PagSeguro;
 
+use App\Payment\Payments;
+use App\Model\Entity\PaymentStatus;
 use PagSeguro\Configuration\Configure;
 use PagSeguro\Services\Transactions\Notification;
-use App\Model\Entity\PaymentStatus;
-use App\Model\Entity\Payments as EntityPayments;
-use App\Model\Entity\Account as EntityAccount;
 
 class NotifyPagSeguro {
 
@@ -47,23 +46,20 @@ class NotifyPagSeguro {
     {   
         switch ($transaction_status) {
             case '1': // Pending Payment
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Pending->value,]);
+                Payments::setPaymentStatus($reference, PaymentStatus::Pending);
                 break;
             case '2': // Under Analisys
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::UnderAnalisys->value,]);
+                Payments::setPaymentStatus($reference, PaymentStatus::UnderAnalisys);
                 break;
             case '3': // Paid
-                $dbPayment = EntityPayments::getPayment('reference = "'.$reference.'"')->fetchObject();
-                $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
-                $finalcoins = $dbAccount->coins + $dbPayment->total_coins;
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Approved->value,]);
-                EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
+            Payments::ApprovePayment($reference, 0);
                 break;
             case '7': // Canceled or Rejected
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Canceled->value,]);
+                Payments::setPaymentStatus($reference, PaymentStatus::Canceled);
                 break;
             default:
-                EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => PaymentStatus::Unknown->value,]);
+            Payments::setPaymentStatus($reference, PaymentStatus::Unknown);
+
                 break;
         }
     }
