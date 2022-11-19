@@ -39,7 +39,7 @@ class ApiMercadoPago {
 
         $preference->items = array($item);
 
-        $preference->notification_url = $_ENV['URL'] . "/payment/mercadopago/return";
+        $preference->notification_url = URL. "/payment/mercadopago/return";
         $preference->external_reference = $reference_id;
 
         $preference->payment_methods = array(
@@ -48,7 +48,7 @@ class ApiMercadoPago {
             array("id" => "digital_currency"),
             array("id" => "digital_wallet"),
         ),
-        "installments" => 1
+        "installments" => intval($_ENV['DONATE_MAX_PARCELAS'])
         );
 
         $preference->save();

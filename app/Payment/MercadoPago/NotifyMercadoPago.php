@@ -25,6 +25,10 @@ class NotifyMercadoPago {
 
         $postVars = $request->getPostVars();
         
+        if(!isset($postVars['topic']) and $postVars['topic'] == 'merchant_order'){
+            return array('status_code' => 200, 'message' => "ok");
+        }
+
         if(!isset($postVars['type'])){
             return array('status_code' => 422, 'message' => "empty notification type");
         }
@@ -36,8 +40,6 @@ class NotifyMercadoPago {
                     return array('status_code' => 404, 'message' => "payment not found");
                 }
                 self::updatePayment($payment);
-                return array('status_code' => 200, 'message' => "ok");
-            case "merchant_order":
                 return array('status_code' => 200, 'message' => "ok");
             default:
                 return array('status_code' => 418, 'message' => "unkown notification type");
