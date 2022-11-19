@@ -38,7 +38,7 @@ class Donates extends Base{
             'gross_payment' => $payment->gross_payment,
             'status' => PaymentStatus::from($payment->status),
             'status_badge' => PaymentsFunctions::convertStatus($payment->status),
-            'date' => date('d/m/Y h:i:s', $payment->date),
+            'date' => date('d/m/Y H:i:s', $payment->date),
         ];
         $select_account = EntityAccount::getAccount('id = "'.$payment->account_id.'"')->fetchObject();
         $arrayAccount = [

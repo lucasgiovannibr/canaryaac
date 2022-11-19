@@ -61,7 +61,7 @@ class Applications extends Base{
 				'guild_id' => $guild_id,
 				'rank_id' => 3,
 				'nick' => '',
-				'date' => strtotime(date('m-d-Y h:i:s')),
+				'date' => strtotime(date('m-d-Y H:i:s')),
 			]);
 			$status = 'Updated successfully.';
 			return self::viewApplications($request,$name,$status);
@@ -110,7 +110,7 @@ class Applications extends Base{
 
 			$applications[] = [
 				'player' => $dbPlayer->id,
-				'date' => date('M d Y, h:i:s', $application->date),
+				'date' => date('M d Y, H:i:s', $application->date),
 				'character' => $dbPlayer->name,
 				'level' => $dbPlayer->level,
 				'vocation' => FunctionPlayer::convertVocation($dbPlayer->vocation),

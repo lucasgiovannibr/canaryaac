@@ -204,9 +204,9 @@ class Payment extends Base{
             'reference' => $reference,
             'total_coins' => $filter_coins,
             'gross_payment' => $price,
-            // TODO: this should be PaymentStatus::Pending->value
+            // TODO: Status should be set to \App\Model\Entity\PaymentStatus::Pending->Value, for some reason i don´t understand I get an error when I do this
             'status' => 0,
-            'date' => strtotime(date('Y-m-d h:i:s')),
+            'date' => strtotime(date('Y-m-d H:i:s')),
         ];
         EntityPayments::insertPayment($order);
 

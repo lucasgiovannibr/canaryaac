@@ -46,7 +46,7 @@ class Payments
                 'gross_payment' => $payment->gross_payment,
                 'status' => $status,
                 'status_badge' => self::convertStatus($status),
-                'date' => date('d/m/Y h:i:s', $payment->date),
+                'date' => date('d/m/Y H:i:s', $payment->date),
             ];
         }
         return $arrayPayments ?? '';

@@ -60,7 +60,6 @@ class ApiPagSeguro{
         $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
 
         // Limit max installments 
-        // TODO: support installments payments
         // WARN: Not working on legacy pagseguro-php-sdk
         // $payment->addPaymentMethod()->withParameters(
         //     Group::CREDIT_CARD,

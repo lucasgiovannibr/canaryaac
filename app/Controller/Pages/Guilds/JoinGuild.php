@@ -63,7 +63,7 @@ class JoinGuild extends Base{
 			'player_id' => $dbPlayer->id,
 			'guild_id' => $guild_id,
 			'rank_id' => 3, // MEMBER
-			'date' => strtotime(date('d-m-Y h:i:s')),
+			'date' => strtotime(date('d-m-Y H:i:s')),
 		]);
 		return self::viewJoinGuild($request,$name);
 	}
