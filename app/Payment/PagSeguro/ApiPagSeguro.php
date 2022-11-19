@@ -20,8 +20,6 @@ use PagSeguro\Services\Transactions\Search\Reference;
 use PagSeguro\Services\Transactions\Search\Abandoned;
 use PagSeguro\Helpers\Xhr;
 
-
-
 class ApiPagSeguro{
     public static function initialize() {
         Library::initialize();
@@ -63,11 +61,12 @@ class ApiPagSeguro{
 
         // Limit max installments 
         // TODO: support installments payments
-        $payment->addPaymentMethod()->withParameters(
-            Group::CREDIT_CARD,
-            Keys::MAX_INSTALLMENTS_LIMIT,
-            1 // (int) qty of installment
-        );
+        // WARN: Not working on legacy pagseguro-php-sdk
+        // $payment->addPaymentMethod()->withParameters(
+        //     Group::CREDIT_CARD,
+        //     Keys::MAX_INSTALLMENTS_LIMIT,
+        //     1 // (int) qty of installment
+        // );
 
         $payment->acceptPaymentMethod()->groups(
             Group::CREDIT_CARD,
