@@ -139,6 +139,9 @@ class Payments
             case PaymentStatus::Canceled:
                 return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Canceled </span>';
                 break;
+            case PaymentStatus::Refunded:
+                return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Refunded </span>';
+                break;
             default:
                 return '<span class="badge rounded-pill badge-light-danger" text-capitalized=""> Unkown </span>';
                 break;

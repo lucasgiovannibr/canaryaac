@@ -35,6 +35,30 @@ class Payments {
             'time' => $dbPayment->date
         ]);
     }
+
+    public static function RefundPayment($reference) {
+        $dbPayment = EntityPayments::getPayment('reference = "'.$reference.'"')->fetchObject();
+        $dbAccount = EntityAccount::getAccount('id = "'.$dbPayment->account_id.'"')->fetchObject();
+        
+        EntityPayments::updatePayment('reference = "'.$reference.'"', [
+            'status' => PaymentStatus::Refunded->value,
+            'net_payment' => 0,
+        ]);
+
+        if ($dbPayment->status != PaymentStatus::Approved->value)
+            return;
+
+        $finalcoins = $dbAccount->coins - $dbPayment->total_coins;
+        EntityAccount::updateAccount('id = "'.$dbPayment->account_id.'"', ['coins' => $finalcoins,]);
+        StoreHistory::insertHistoryEvent([
+            'account_id' => $dbAccount->id,
+            'mode' => StoreHistoryEventType::Transaction->value,
+            'description' => 'Refunded or Charged Back payment',
+            'coin_type' => StoreHistoryCoinType::TransferableTibiaCoin->value,
+            'coin_amount' => -$dbPayment->total_coins,
+            'time' => $dbPayment->date
+        ]);
+    }
     
     public static function SetPaymentStatus($reference, PaymentStatus $status) {
         EntityPayments::updatePayment('reference = "'.$reference.'"', ['status' => $status->value,]);

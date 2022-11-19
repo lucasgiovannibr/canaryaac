@@ -69,6 +69,12 @@ class NotifyMercadoPago {
             case 'cancelled':
                 Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Canceled);
                 break;
+            case 'refunded':
+                Payments::RefundPayment($payment->external_reference);
+                break;
+            case 'charged_back':
+                Payments::RefundPayment($payment->external_reference);
+                break;   
             default:
                 Payments::setPaymentStatus($payment->external_reference, PaymentStatus::Unknown);
                 break;

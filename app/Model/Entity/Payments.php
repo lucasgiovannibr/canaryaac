@@ -20,6 +20,7 @@ enum PaymentStatus: int
     case Approved = 3;
     case Rejected = 4;
     case Canceled = 5;
+    case Refunded = 6;
     case Unknown = 99;
 };
 
