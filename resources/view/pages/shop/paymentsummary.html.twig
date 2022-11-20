@@ -1,3 +1,4 @@
+{#
 {% if method == "pagseguro" %}
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
 
@@ -24,6 +25,7 @@ if (!isOpenLightbox){
 }
 </script>
 {% endif %}
+#}
 
 {% if method == "mercadopago" %}
 <script type="text/javascript" src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>

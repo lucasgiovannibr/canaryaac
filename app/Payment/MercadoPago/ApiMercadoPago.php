@@ -45,8 +45,6 @@ class ApiMercadoPago {
         $preference->payment_methods = array(
         "excluded_payment_types" => array (
             array("id" => "ticket"),
-            array("id" => "digital_currency"),
-            array("id" => "digital_wallet"),
         ),
         "installments" => intval($_ENV['DONATE_MAX_PARCELAS'])
         );

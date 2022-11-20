@@ -44,8 +44,8 @@ ALTER TABLE `guild_wars` ADD `comment` text NOT NULL;
 
 -- --------------------------------------------------------
 
-ALTER TABLE `houses` ADD `house_id` INT NOT NULL AFTER `id`;
-ALTER TABLE `houses` ADD `world_id` INT NOT NULL AFTER `house_id`;
+ALTER TABLE `houses` ADD `house_id` INT NOT NULL DEFAULT 0 AFTER `id` ;
+ALTER TABLE `houses` ADD `world_id` INT NOT NULL DEFAULT 0 AFTER `house_id` ;
 
 -- --------------------------------------------------------
 

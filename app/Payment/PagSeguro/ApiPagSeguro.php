@@ -103,12 +103,6 @@ class ApiPagSeguro{
         $payment->setRedirectUrl(URL.'/payment');
         $payment->setNotificationUrl(URL.'/payment/pagseguro/return');
 
-        $payment->addPaymentMethod()->withParameters(
-            Group::CREDIT_CARD,
-            Keys::MAX_INSTALLMENTS_LIMIT,
-            1 // (int) qty of installment
-        );
-
         $payment->acceptPaymentMethod()->groups(
             Group::CREDIT_CARD,
             Group::BALANCE,
