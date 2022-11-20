@@ -29,7 +29,6 @@ class NotifyPagSeguro {
         }
 
         if($postVars['notificationType'] != 'transaction'){
-            error_log("PagSeguro notification received a non transaction notification type");
             return array('status_code' => 500, 'message' => "non transaction notification type ".file_get_contents('php://input'));
         }
         $credentials = Configure::getAccountCredentials();
@@ -56,6 +55,12 @@ class NotifyPagSeguro {
                 break;
             case '7': // Canceled or Rejected
                 Payments::setPaymentStatus($reference, PaymentStatus::Canceled);
+                break;
+            case '6': // Refunded
+                Payments::RefundPayment($reference);
+                break;
+            case '8': // Charged Back (Debitado)
+                Payments::RefundPayment($reference);
                 break;
             default:
             Payments::setPaymentStatus($reference, PaymentStatus::Unknown);
