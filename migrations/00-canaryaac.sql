@@ -1,14 +1,15 @@
-
-ALTER TABLE `accounts` ADD `page_access` int(11) NOT NULL DEFAULT 0;
-ALTER TABLE `accounts` MODIFY COLUMN `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `accounts` DROP INDEX `accounts_unique`;
-
-INSERT INTO `accounts` (`id`, `name`, `password`, `email`, `page_access`, `premdays`, `lastday`, `type`, `coins`, `creation`, `recruiter`) VALUES
-(null, '', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'admin@canaryaac.com', 3, 0, 0, 5, 2000, '2022-08-03 08:44:10', 0);
+--  ACCOUNTS
 
 DELETE FROM `accounts` WHERE `accounts`.`id` = 1;
 
--- --------------------------------------------------------
+ALTER TABLE `accounts` ADD `page_access` int(11) NOT NULL DEFAULT 0;
+ALTER TABLE `accounts` MODIFY COLUMN `creation` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP();
+ALTER TABLE `accounts` DROP INDEX `accounts_unique`;
+
+INSERT INTO `accounts` (`id`, `name`, `password`, `email`, `page_access`, `premdays`, `lastday`, `type`, `coins`, `creation`, `recruiter`) VALUES
+(null, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin@canaryaac.com', 3, 0, 0, 5, 2000, CURRENT_TIMESTAMP(), 0);
+
+-- PLAYERS
 
 ALTER TABLE `players` ADD `main` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `players` ADD `world` int(11) NOT NULL DEFAULT 0;
@@ -23,12 +24,10 @@ UPDATE `players` SET `account_id` = '2' WHERE `players`.`id` = 6;
 UPDATE `players` SET `main` = '1' WHERE `players`.`id` = 6;
 UPDATE `players` SET `world` = '1' WHERE `players`.`id` = 6;
 
-ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL DEFAULT '';
+ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL;
 
--- --------------------------------------------------------
+-- GUILDS
 
-ALTER TABLE `guilds` ADD `level` int(11) NOT NULL DEFAULT 1;
-ALTER TABLE `guilds` ADD `points` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guilds` ADD `description` text NOT NULL;
 ALTER TABLE `guilds` ADD `logo_name` varchar(100) NOT NULL;
 ALTER TABLE `guilds` ADD `world_id` int(11) NOT NULL DEFAULT 0;
@@ -396,8 +395,8 @@ CREATE TABLE IF NOT EXISTS `canary_website` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `player_voc`, `player_max`, `player_guild`, `donates`, `coin_price`, `mercadopago`, `pagseguro`, `paypal`) VALUES
-(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', 1, 10, 100, 1, '0.10', 1, 1, 1);
+INSERT INTO `canary_website` (`id`, `timezone`, `title`, `downloads`, `discord`, `player_voc`, `player_max`, `player_guild`, `donates`, `coin_price`, `mercadopago`, `pagseguro`, `paypal`) VALUES
+(1, 'America/Sao_Paulo', 'CanaryAAC v1', 'http://www.google.com', '', 1, 10, 100, 1, '0.10', 1, 1, 1);
 
 -- --------------------------------------------------------
 
