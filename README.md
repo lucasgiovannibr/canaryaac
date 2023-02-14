@@ -25,9 +25,10 @@ CanaryAAC is a free and open-source Automatic Account Creator (AAC) written in M
 
 ### Configuration
 
-Before Running `canary-aac`:
+#### Pre reqs:
 
-- Run `canary-aac` migrations from `migrations` folder
+- Run db migration script from `migrations` folder
+  - An user with username `admin@canaryaac.com` and password `admin` will be created
 - Configure `.env` file
 
 ### Docker
