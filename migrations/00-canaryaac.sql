@@ -24,7 +24,7 @@ UPDATE `players` SET `account_id` = '2' WHERE `players`.`id` = 6;
 UPDATE `players` SET `main` = '1' WHERE `players`.`id` = 6;
 UPDATE `players` SET `world` = '1' WHERE `players`.`id` = 6;
 
-ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL;
+ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB;
 
 -- GUILDS
 
