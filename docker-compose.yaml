@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  canary-acc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - canary
+
+networks:
+  canary:
+    name: canary
+    external: true

@@ -3,28 +3,46 @@
 
 CanaryAAC is a free and open-source Automatic Account Creator (AAC) written in MVC-PHP. It supports only MySQL databases.
 
-
-## Infos
+## Overview
 
 - Fully Object Oriented
 - Model/View/Controller (MVC)
 - Middlewares
 - API
 - Composer
-    - Fast Route
-    - PhpDotEnv
-    - Twig
-    - Google2FA
-    - GuzzleHttp
-    - DiscordPHP
-    - PagSeguro
-    - PayPal
-    - MercadoPago
+  - Fast Route
+  - PhpDotEnv
+  - Twig
+  - Google2FA
+  - GuzzleHttp
+  - DiscordPHP
+  - PagSeguro
+  - PayPal
+  - MercadoPago
 - Using .env to configure
 
-## Instalação
+## Getting Started
 
-Install CanaryAAC on Debian / Ubuntu
+### Configuration
+
+#### Pre reqs:
+
+- Run db migration script from `migrations` folder
+  - An user with username `admin@canaryaac.com` and password `admin` will be created
+- Configure `.env` file
+
+### Docker
+
+1. Make sure you are running Canary Server DB
+
+```bash
+  docker compose up
+```
+
+> If you are not running Canary Server's `docker-compose.yaml` file, you will need to create the `canary` network manually
+>> `docker network create canary`
+
+### Debian / Ubuntu
 
 ```bash
   sudo apt install php-bcmath
@@ -37,14 +55,10 @@ Install CanaryAAC on Debian / Ubuntu
   sudo apt install php-xml
   sudo apt install php-json
 ```
-    
-## Configure
 
-- Import canaryaac.sql
--  Configure .env
-## Documentação da API
+## API Docs
 
-#### Search Characters
+### Search Characters
 
 ```http
   POST /api/v1/searchcharacter
@@ -67,4 +81,3 @@ Install CanaryAAC on Debian / Ubuntu
 ## Autor
 
 - [@lucasgiovannibr](https://www.github.com/lucasgiovannibr)
-
