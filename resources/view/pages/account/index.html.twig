@@ -11,7 +11,7 @@
 						<tbody>
 							<tr>
 								<td><img src="{{IMAGE_PATH}}/global/content/headline-bracer-left.gif"></td>
-								<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Welcome to your account {{ account.name }}!<br></td>
+								<td style="text-align:center;vertical-align:middle;horizontal-align:center;font-size:17px;font-weight:bold;">Welcome to your account {{ account.rlname }}!<br></td>
 								<td><img src="{{IMAGE_PATH}}/global/content/headline-bracer-right.gif"></td>
 							</tr>
 						</tbody>
@@ -43,21 +43,21 @@
 															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																<tbody>
 																	<tr>
-                                                                        {% if account.premdays == 0 %}
-																		<td><img class="AccountStatusImage" src="{{IMAGE_PATH}}/account/account-status_red.gif" alt="free account"></td>
+                                                                        {% if account.viptime == 0 %}
+																		<td><img class="AccountStatusImage" src="{{IMAGE_PATH}}/account/account-status_green.gif" alt="free account"></td>
 																		<td width="100%" valign="middle">
 																			<span class="red">
-																				<span class="BigBoldText">Free Account</span>
+																				<span class="BigBoldText">VIP Account</span>
 																			</span>
-																			<small><br>Your Premium Time expired.<br>(Balance of Premium Time: {{ account.premdays }} days)</small>
+																			<small><br>Your VIP Time expired.<br>Please consider recharging at Store.</small>
 																		</td>
                                                                         {% else %}
                                                                         <td><img class="AccountStatusImage" src="{{IMAGE_PATH}}/account/account-status_green.gif" alt="premium account"></td>
 																		<td width="100%" valign="middle">
 																			<span class="green">
-																				<span class="BigBoldText">Premium Account</span>
+																				<span class="BigBoldText">VIP Account</span>
 																			</span>
-																			<small><br>Your Premium Time expire in {{ account.dateprem }}.<br>(Balance of Premium Time: {{ account.premdays }} days)</small>
+																			<small><br>Your VIP Time expire in {{ account.datevip }}.<br>(Balance of VIP Time: {{ account.viptime }} days)</small>
 																		</td>
                                                                         {% endif %}
 																		<td>
@@ -97,6 +97,113 @@
 						</tbody>
 					</table>
 				</div>
+				<br>
+				<div class="TableContainer">
+					<div class="CaptionContainer">
+						<div class="CaptionInnerContainer">
+							<span class="CaptionEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionBorderTop" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<div class="Text">Support Section</div>
+							<span class="CaptionVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></span>
+							<span class="CaptionBorderBottom" style="background-image:url({{IMAGE_PATH}}/global/content/table-headline-border.gif);"></span>
+							<span class="CaptionEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+							<span class="CaptionEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></span>
+						</div>
+					</div>
+					<table class="Table3" cellpadding="0" cellspacing="0">
+						<tbody><tr>
+							<td>
+								<div class="InnerTableContainer">
+										<table style="width:100%;">
+											<tbody><tr>
+												<td>
+													<div class="TableShadowContainerRightTop">
+														<div class="TableShadowRightTop" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rt.gif);"></div>
+													</div>
+													<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+														<div class="TableContentContainer">
+															<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
+																<tbody><tr>
+																	<td>
+																		<div style="float: right; margin-top: 7px;">
+																			<a href="{{ URL }}/account/tickets" style="padding:0px;margin:0px;">
+																				<div class="BigButton" style="background-image:url({{IMAGE_PATH}}/global/buttons/button_blue.gif)"><div onmouseover="MouseOverBigButton(this);" onmouseout="MouseOutBigButton(this);"><div class="BigButtonOver" style="background-image: url({{IMAGE_PATH}}/global/buttons/button_blue_over.gif); visibility: hidden;"></div><input class="BigButtonText" type="button" value="Open Ticket"></div></div>
+																			</a>
+																		</div>
+																		<b>Open a support ticket</b>
+																			<span style="position: relative; margin-top: 1px;">
+																				<span style="position: absolute; top: 0px; margin-left: 5px;">
+																					<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', '<p><b>Recommended:</b><ul><li>Fill in all required fields.</li><li>Lack of respect for inappropriate use will have consequences.</li><li>If necessary post screenshots to facilitate our understanding of the problem.</li></ul></p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/info.gif"></span>
+																				</span>
+																			</span>
+																		</span></span><br>
+																		<br>
+																		<small>Support for the various questions you have.</small><br>
+																		<p>Use this tool with caution because only then can we work for the server progress, help us know what problems you have faced along his journey through in RealSoft - Baiak</p>
+																	</td>
+																</tr>
+															</tbody></table>
+														</div>
+													</div>
+													<div class="TableShadowContainer">
+														<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+															<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+															<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+														</div>
+													</div>
+												<p/>
+												<div class="TableContentAndRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-rm.gif);">
+													<div class="TableContentContainer">
+														<table class="TableContent" width="100%">
+															<tbody>
+															<tr style="background-color:#D4C0A1;">
+																	<td class="LabelV">Ticket</td>
+																	<td class="LabelV">Player</td>
+																	<td class="LabelV">Subject</td>
+																	<td class="LabelV">Status</td>
+																	<td class="LabelV">Last answer</td>
+																	<td class="LabelV">Category</td>
+															</tr>
+															<tr>
+																	<td><a href=''></a></td>
+																	<td><a href=''></td>
+																	<td></td>
+																	<td></td>
+																	<td></td>
+																	<td></td>
+															</tr>
+															<tr bgcolor="#D4C0A1">
+																<td align="left" colspan="5"><small>To see all your tickets click on <i>Show all</i></small></td>
+																<td><a href="?subtopic=accountmanagement&action=showtickets"><small>Show All</small></a></td>
+															</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<div class="TableShadowContainer">
+													<div class="TableBottomShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bm.gif);">
+														<div class="TableBottomLeftShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-bl.gif);"></div>
+														<div class="TableBottomRightShadow" style="background-image:url(' . $layout_name . '/images/global/content/table-shadow-br.gif);"></div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody></table>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+
+
+
+
+
+				</div>
+
+
                 <br>
 				<div class="TableContainer">
 					<div class="CaptionContainer">

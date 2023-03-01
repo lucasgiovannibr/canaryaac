@@ -94,12 +94,12 @@
 																	<tr style="background-color:#D4C0A1;">
 																		<td class="LabelV">Account Status:</td>
 																		<td>
-																			<span class="{{ account.colorprem }}">
-																				<b>{{ account.textprem }}</b>
+																			<span class="green">
+																				<b>Free Premium Account</b>
 																			</span><br>
 																			{% if account.premdays == 0 %}
-																				<small>(Premium Time expired, balance:
-																					{{ account.premdays }}
+																				<small>(Free Premium Time active, balance:
+																					{{ account.premdays + 999 }}
 																					days)</small>
 																			{% else %}
 																				<small>(Premium Time expire in
@@ -109,6 +109,26 @@
 																			{% endif %}
 																		</td>
 																	</tr>
+
+																	<tr style="background-color:#D4C0A1;">
+																		<td class="LabelV">VIP Status:</td>
+																		<td>
+																		<span class="{{ account.colorvip }}">
+																				<b>{{ account.textvip }}</b>
+																			</span><br>
+																		{% if account.viptime == 0 %}
+																				<small>(VIP Time expired, balance:
+																					{{ account.viptime }}
+																					days)</small>
+																			{% else %}
+																				<small>(VIP Time expire in
+																					{{ account.datevip }}, balance:
+																					{{ account.viptime }}
+																					days)</small>
+																			{% endif %}
+																		</td>
+																	</tr>
+
 																	<tr style="background-color:#F1E0C6;">
 																		<td class="LabelV">Tibia Coins:</td>
 																		<td>{{ account.coins }}<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tibia Coins<br /><small>(initially non-transferable)</small>', 'Tibia Coins are Tibia\'s currency to purchase exclusive products in the <b>Store</b>.<br /><br />Within the first 6 months after the purchase, initially non-transferable Tibia Coins can neither be gifted to other accounts nor traded via the Market nor used to purchase casks in the <b>Store</b>.<br /><br />However, they can be used right after the purchase to buy all other products offered for Tibia Coins in the <b>Store</b>, e.g. mounts, outfits, Premium Time, boosts or decoration items.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tibiacoin.png" class="VSCCoinImages"></span>
@@ -122,7 +142,8 @@
 																	</tr>
 																	<tr style="background-color:#D4C0A1;">
 																		<td class="LabelV">Tournament Coins:</td>
-																		<td>0<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', 'Participate in Tournaments to earn Tournament Coins! Use them to purchase nice stuff in the <b>Store</b>.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tournamentcoin.png" class="VSCCoinImages"></span>
+																		<td>{{ account.tournamentscoin }}
+																			<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', 'Participate in Tournaments to earn Tournament Coins! Use them to purchase nice stuff in the <b>Store</b>.<br /><br />', '');" onmouseout="$('#HelperDivContainer').hide();"><img src="{{IMAGE_PATH}}/account/icon-tournamentcoin.png" class="VSCCoinImages"></span>
 																			<span style="position: relative; margin-top: 1px;">
 																				<span style="position: absolute; top: 0px; margin-left: 5px;">
 																					<span class="HelperDivIndicator" onmouseover="ActivateHelperDiv($(this), 'Tournament Coins', '<p>Participate in Tournaments to earn Tournament Coins! Use them to purchase nice stuff in <b>the Store</b>.</p>', '');" onmouseout="$('#HelperDivContainer').hide();"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/info.gif"></span>

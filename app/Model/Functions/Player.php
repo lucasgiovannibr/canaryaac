@@ -113,7 +113,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
 
         public static function getOutfitImage($looktype = 0, $lookaddons = 0, $lookbody = 0, $lookfeet = 0, $lookhead = 0, $looklegs = 0, $mount = 0)
         {
-            $outfit = URL . '/outfit?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
+            $outfit = URL . $_ENV['OUTFITS_FOLDER'] . '/animoutfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
             return $outfit;
         }
 
@@ -283,12 +283,36 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
             return date('d m Y', strlen($select->premdays));
         }
 
+        public static function convertVip($account_id)
+        {
+            $select = (new Database('accounts'))->select('id = "'.$account_id.'"')->fetchObject();
+
+            if($select->vip_time > 0){
+                $converted = 'VIP Account';
+            }else{
+                $converted = 'NO Vip Account';
+            }
+            return $converted;
+        }
+		
+		public static function getVipDays($account_id)
+        {
+            $select = EntityPlayer::getAccount('id = "'.$account_id.'"')->fetchObject();
+            return date('d m Y', strlen($select->vip_time));
+        }
+
         public static function getCoins($account_id)
         {
             $select = EntityPlayer::getAccount('id = "'.$account_id.'"', null, null, 'coins')->fetchObject();
             return number_format($select->coins, 0, '.', '.');
         }
 
+        public static function getTournamentsCoin($account_id)
+        {
+            $select = EntityPlayer::getAccount('id = "'.$account_id.'"', null, null, 'coins_tournaments')->fetchObject();
+            return number_format($select->coins_tournaments, 0, '.', '.');
+        }
+        
         /**
          * Pega informações do player membro de guild
          *

@@ -85,6 +85,23 @@ class Manage extends Base{
             }else{
                 $colorPrem = 'red';
             }
+
+            $dateVipTime = floor(($account->vip_time - time()) / 86400);
+			
+			if ($dateVipTime < 0) {
+				$dateVipTime = 0;
+			}
+
+            $dateVip = date('d F Y H:i', strtotime('+'. $dateVipTime .' days'));
+
+            $textVip = Player::convertVip($account->id);
+			
+            if($dateVipTime > 0){
+                $colorVip = 'green';
+            }else{
+                $colorVip = 'red';
+            }
+
             $created = date('d F Y, H:i', strtotime($account->creation));
 
             $playersInAccount = EntityPlayer::getPlayer('account_id = "'.$account->id.'"');
@@ -107,10 +124,15 @@ class Manage extends Base{
                 'name' => $account->name,
                 'email' => $account->email,
                 'premdays' => $account->premdays,
+                'viptime' => $dateVipTime,
                 'textprem' => $textPrem,
+				'textvip' => $textVip,
                 'colorprem' => $colorPrem,
+                'colorvip' => $colorVip,
                 'dateprem' => $datePrem,
+                'datevip' => $dateVip,
                 'coins' => $account->coins,
+                'tournamentscoin' => $account->coins_tournaments,
                 'creation' => $created,
                 'badges' => self::getBadges($account->id),
                 'players' => $players,

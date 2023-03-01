@@ -60,6 +60,16 @@ class Index extends Base{
 
             $datePrem = date('d F Y H:i:s', strtotime('+'.$account->premdays.' days'));
 
+            $dateVipTime = floor(($account->vip_time - time()) / 86400);
+			
+			if ($dateVipTime < 0) {
+				$dateVipTime = 0;
+			}
+
+            $dateVip = date('d F Y H:i', strtotime('+'. $dateVipTime .' days'));
+
+            $textVip = Player::convertVip($account->id);
+            
             $select_account_banned = EntityBans::getAccountBans('account_id = "'.$admin.'"')->fetchObject();
             if(empty($select_account_banned)){
                 $account_banned = false;
@@ -93,10 +103,14 @@ class Index extends Base{
             $logged = [
                 'id' => $account->id,
                 'name' => $account->name,
+                'rlname' => $account->rlname,
                 'email' => $account->email,
                 'premdays' => $account->premdays,
+                'viptime' => $dateVipTime,
                 'dateprem' => $datePrem,
+                'datevip' => $dateVip,
                 'coins' => $account->coins,
+                'tournamentscoin' => $account->coins_tournaments,
                 'registered' => $registered,
                 'account_banned' => $account_banned,
                 'page_access' => $account->page_access,
