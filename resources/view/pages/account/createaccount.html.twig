@@ -208,6 +208,17 @@ ServerList.push(new Array('{{ world.name }}', '{{ world.location_initial }}', '{
 																<div class="TableContentContainer">
 																	<table class="TableContent" width="100%" style="border:1px solid #faf0d7;">
 																		<tbody>
+																		<tr>
+																				<td class="LabelV150">
+																					<span id="accname_label">Account Name:</span>
+																				</td>
+																				<td><input id="accname" name="accname" class="CreateAccountFormInput" maxlength="50"><div id="accname_indicator" class="InputIndicatorNotOK"></div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td><span id="accname_errormessage" class="FormFieldError" style="display: none;">Please enter your account name!</span></td>
+																			</tr>
 																			<tr>
 																				<td class="LabelV150">
 																					<span id="email_label">Email Address:</span>

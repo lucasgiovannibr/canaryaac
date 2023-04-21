@@ -41,6 +41,7 @@ class Create extends Base{
     public static function createAccount($request)
     {
         $postVars = $request->getPostVars();
+		$account_name = $postVars['accname'] ?? '';
         $account_email = $postVars['email'] ?? '';
         $account_password1 = $postVars['password1'] ?? '';
         $account_password2 = $postVars['password2'] ?? '';
@@ -50,6 +51,15 @@ class Create extends Base{
         $character_world = $postVars['world'] ?? '';
         $account_agreeagreements = $postVars['agreeagreements'] ?? '';
 
+        if(!filter_var($account_name, FILTER_SANITIZE_SPECIAL_CHARS)){
+            return self::getCreateAccount($request, 'This email address has an invalid format. Please enter a correct email address!');
+        }
+        $filter_acc_name = filter_var($account_name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $verifyAccAccount = EntityPlayer::getAccount('name = "'.$account_name.'"')->fetchObject();
+        if(!empty($verifyAccAccount)){
+            return self::getCreateAccount($request, 'This Account name is already in use!');
+        }
+		
         if(!filter_var($account_email, FILTER_VALIDATE_EMAIL)){
             return self::getCreateAccount($request, 'This email address has an invalid format. Please enter a correct email address!');
         }
@@ -119,7 +129,7 @@ class Create extends Base{
         }
 
         $account = [
-            'name' => '',
+            'name' => $filter_acc_name,
             'password' => $convertPassword,
             'email' => $filter_email,
             'page_access' => '0',
