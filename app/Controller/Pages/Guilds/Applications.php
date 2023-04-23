@@ -56,12 +56,15 @@ class Applications extends Base{
 			EntityGuilds::updateApplication('player_id = "'.$input_idplayer.'" AND guild_id = "'.$guild_id.'"', [
 				'status' => 2,
 			]);
+			
+			$dbRanks = EntityGuilds::getRanks('guild_id = "'.$guild_id.'" AND level = 1')->fetchObject();
+			
 			EntityGuilds::insertJoinMember([
 				'player_id' => $input_idplayer,
 				'guild_id' => $guild_id,
-				'rank_id' => 3,
+				'rank_id' => $dbRanks->id,
 				'nick' => '',
-				'date' => strtotime(date('m-d-Y h:i:s')),
+				'date' => strtotime(date('M d Y, h:i:s')),
 			]);
 			$status = 'Updated successfully.';
 			return self::viewApplications($request,$name,$status);
