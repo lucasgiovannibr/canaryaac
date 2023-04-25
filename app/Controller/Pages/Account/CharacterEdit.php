@@ -33,12 +33,33 @@ class CharacterEdit extends Base{
             }
 
             $filter_account = filter_var($postVars['hide_account'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_account)){
+                $filter_account = 0;
+            }
             $filter_outfit = filter_var($postVars['hide_outfit'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_outfit)){
+                $filter_outfit = 0;
+            }
             $filter_inventory = filter_var($postVars['hide_inventory'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_inventory)){
+                $filter_inventory = 0;
+            }
             $filter_health_mana = filter_var($postVars['hide_healthmana'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_health_mana)){
+                $filter_health_mana = 0;
+            }
             $filter_skills = filter_var($postVars['hide_skills'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_skills)){
+                $filter_skills = 0;
+            }
             $filter_bonus = filter_var($postVars['hide_bonus'], FILTER_SANITIZE_NUMBER_INT);
+            if(empty($filter_bonus)){
+                $filter_bonus = 0;
+            }
             $filter_comment = filter_var($postVars['comment'], FILTER_SANITIZE_SPECIAL_CHARS);
+            if(empty($filter_comment)){
+                $filter_comment = "";
+            }
 
             $filter_hidden = filter_var($postVars['accountvisible'], FILTER_SANITIZE_NUMBER_INT);
             if($filter_hidden > 1){
@@ -61,6 +82,7 @@ class CharacterEdit extends Base{
                 $check_exists_display = EntityPlayer::getDisplay('player_id = "'.$select_player->id.'"')->fetchObject();
                 if (empty($check_exists_display)) {
                     EntityPlayer::insertDisplay($arrayCharacterDisplay);
+                    return self::viewCharacterEdit($request, $name, 'Updated successfully.');
                 } else {
                     EntityPlayer::updateDisplay('player_id = "'.$select_player->id.'"', [
                         'account' => $filter_account,
@@ -71,6 +93,8 @@ class CharacterEdit extends Base{
                         'bonus' => $filter_bonus,
                         'comment' => $filter_comment,
                     ]);
+
+                    return self::viewCharacterEdit($request, $name, 'Updated successfully.');
                 }
                 $request->getRouter()->redirect('/account/character/'.$name.'/edit');
             }
@@ -143,12 +167,13 @@ class CharacterEdit extends Base{
         return $arrayAchievement ?? '';
     }
 
-    public static function viewCharacterEdit($request, $name)
+    public static function viewCharacterEdit($request, $name, $status = null)
     {
         $content = View::render('pages/account/characteredit', [
             'player' => self::getCharacterEdit($request, $name),
             'achievements' => self::getAchievementsPlayer($request, $name),
             'total_secretachievements' => (int)EntityAchievements::getAchievements('secret = "1"', null, null, 'COUNT(*) as qtd')->fetchObject()->qtd,
+            'status' => $status,
         ]);
         return parent::getBase('Account Management', $content, 'account');
     }
