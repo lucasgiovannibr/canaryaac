@@ -113,7 +113,7 @@ use App\Model\Functions\Guilds as FunctionsGuilds;
 
         public static function getOutfitImage($looktype = 0, $lookaddons = 0, $lookbody = 0, $lookfeet = 0, $lookhead = 0, $looklegs = 0, $mount = 0)
         {
-            $outfit = URL . '/outfit?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
+            $outfit = URL . $_ENV['OUTFITS_FOLDER'] . '/outfit.php?id='.$looktype.'&addons='.$lookaddons.'&head='.$lookhead.'&body='.$lookbody.'&legs='.$looklegs.'&feet='.$lookfeet.'&mount='.$mount.'';
             return $outfit;
         }
 
