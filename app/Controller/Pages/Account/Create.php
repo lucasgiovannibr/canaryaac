@@ -41,7 +41,7 @@ class Create extends Base{
     public static function createAccount($request)
     {
         $postVars = $request->getPostVars();
-		$account_name = $postVars['accname'] ?? '';
+        $account_name = $postVars['accname'] ?? '';
         $account_email = $postVars['email'] ?? '';
         $account_password1 = $postVars['password1'] ?? '';
         $account_password2 = $postVars['password2'] ?? '';
