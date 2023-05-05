@@ -38,7 +38,31 @@
 						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
 					</div>
 				</div><br><br>Here you can see and edit the information about your character.<br>If you do not want to specify a certain field, just leave it blank.<br><br><a name="Character+Data"></a>
-				<div class="TopButtonContainer">
+          {% if status is not empty %}
+                <div class="SmallBox">
+					<div class="MessageContainer">
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeLeftTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeRightTop" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="Message">
+							<div class="BoxFrameVerticalLeft" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<div class="BoxFrameVerticalRight" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-vertical.gif);"></div>
+							<table style="width:100%;">
+								<tbody>
+									<tr>
+										<td style="width:100%;text-align:left;"><b>{{ status|raw }}</b></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="BoxFrameHorizontal" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-horizontal.gif);"></div>
+						<div class="BoxFrameEdgeRightBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+						<div class="BoxFrameEdgeLeftBottom" style="background-image:url({{IMAGE_PATH}}/global/content/box-frame-edge.gif);"></div>
+					</div>
+				</div>
+				<br>
+                {% endif %}
+            <div class="TopButtonContainer">
 					<div class="TopButton">
 						<a href="#top"><img style="border:0px;" src="{{IMAGE_PATH}}/global/content/back-to-top.gif"></a>
 					</div>
@@ -140,32 +164,38 @@
 																	<tbody>
 																		<tr>
 																			<td class="LabelV">Hide Account:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_account" id="hide_account" value="1" {% if player.hidden.account == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_account" id="hide_account" value="1" {% if player.hidden.account == 1 %} checked="" {% endif %}>
 																				<label for="hide_account">check to hide your account information.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">Hide Outfit:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_outfit" id="hide_outfit" value="1" {% if player.hidden.outfit == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_outfit" id="hide_outfit" value="1" {% if player.hidden.outfit == 1 %} checked="" {% endif %}>
 																				<label for="hide_outfit">show the type of clothing your character is wearing.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">Hide Inventory:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_inventory" id="hide_inventory" value="1" {% if player.hidden.inventory == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_inventory" id="hide_inventory" value="1" {% if player.hidden.inventory == 1 %} checked="" {% endif %}>
 																				<label for="hide_inventory">check to hide inventory.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">Hide Health and Mana:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_healthmana" id="hide_healthmana" value="1" {% if player.hidden.health_mana == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_healthmana" id="hide_healthmana" value="1" {% if player.hidden.health_mana == 1 %} checked="" {% endif %}>
 																				<label for="hide_healthmana">check to hide life and mana information.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">Hide Skills:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_skills" id="hide_skills" value="1" {% if player.hidden.skills == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_skills" id="hide_skills" value="1" {% if player.hidden.skills == 1 %} checked="" {% endif %}>
 																				<label for="hide_skills">check to hide skill information.</label></td>
 																		</tr>
 																		<tr>
 																			<td class="LabelV">Hide Bonus:</td>
-																			<td style="width:80%;"><input type="checkbox" name="hide_bonus" id="hide_bonus" value="1" {% if player.hidden.bonus == 1 %} checked="" {% endif %}>
+																			<td style="width:80%;">
+																			<input type="checkbox" name="hide_bonus" id="hide_bonus"  value="1" {% if player.hidden.bonus == 1 %} checked="" {% endif %}>
 																				<label for="hide_bonus">check to hide bonus information.</label></td>
 																		</tr>
 																		<tr>

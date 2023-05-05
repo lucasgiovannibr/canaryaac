@@ -32,7 +32,7 @@ class EventSchedule{
     public static function getServerEvents()
     {
         $server_path = $_ENV['SERVER_PATH'];
-        $xml_events = $server_path . '/data/xml/events.xml';
+        $xml_events = $server_path . 'data/XML/events.xml';
         if (!file_exists($xml_events)) {
             return [];
         }
