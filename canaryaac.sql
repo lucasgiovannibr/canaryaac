@@ -27,12 +27,9 @@ ALTER TABLE `players` CHANGE `conditions` `conditions` BLOB NOT NULL DEFAULT '';
 
 -- --------------------------------------------------------
 
-ALTER TABLE `guilds` ADD `level` int(11) NOT NULL DEFAULT 1;
-ALTER TABLE `guilds` ADD `points` int(11) NOT NULL DEFAULT 0;
 ALTER TABLE `guilds` ADD `description` text NOT NULL;
 ALTER TABLE `guilds` ADD `logo_name` varchar(100) NOT NULL;
 ALTER TABLE `guilds` ADD `world_id` int(11) NOT NULL DEFAULT 0;
-
 ALTER TABLE `guild_membership` ADD `date` int(11) NOT NULL;
 
 -- --------------------------------------------------------
@@ -79,26 +76,6 @@ CREATE TABLE IF NOT EXISTS `account_registration` (
   `mobile` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `boosted_boss` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `looktype` int(11) NOT NULL DEFAULT 136,
-  `lookfeet` int(11) NOT NULL DEFAULT 0,
-  `looklegs` int(11) NOT NULL DEFAULT 0,
-  `lookhead` int(11) NOT NULL DEFAULT 0,
-  `lookbody` int(11) NOT NULL DEFAULT 0,
-  `lookaddons` int(11) NOT NULL DEFAULT 0,
-  `lookmount` int(11) NOT NULL DEFAULT 0,
-  `date` varchar(250) NOT NULL DEFAULT '',
-  `boostname` text DEFAULT NULL,
-  `raceid` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO `boosted_boss` (`id`, `looktype`, `lookfeet`, `looklegs`, `lookhead`, `lookbody`, `lookaddons`, `lookmount`, `date`, `boostname`, `raceid`) VALUES
-(null, 136, 0, 0, 0, 0, 0, 0, '', 'Goshnar\'s Greed', '1804');
 
 -- --------------------------------------------------------
 
